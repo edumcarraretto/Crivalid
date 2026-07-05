@@ -31,21 +31,27 @@ export function Hero() {
   return (
     <section
       aria-labelledby="hero-heading"
-      className="relative min-h-screen bg-white overflow-hidden flex items-center"
+      className="relative min-h-[92vh] bg-white overflow-hidden flex items-center"
     >
-      {/* Subtle grid background */}
+      {/* Grid background — more visible */}
       <div
         aria-hidden="true"
-        className="absolute inset-0 bg-[linear-gradient(to_right,#f0f0f0_1px,transparent_1px),linear-gradient(to_bottom,#f0f0f0_1px,transparent_1px)] bg-[size:64px_64px]"
+        className="absolute inset-0 bg-[linear-gradient(to_right,#e8e8e8_1px,transparent_1px),linear-gradient(to_bottom,#e8e8e8_1px,transparent_1px)] bg-[size:56px_56px]"
       />
 
-      {/* Radial glow - top center, very subtle */}
+      {/* Large radial glow — top center */}
       <div
         aria-hidden="true"
-        className="absolute top-0 left-1/2 -translate-x-1/2 w-[800px] h-[400px] bg-[radial-gradient(ellipse_at_top,rgba(124,58,237,0.06),transparent_70%)]"
+        className="absolute top-0 left-1/2 -translate-x-1/2 w-[1000px] h-[520px] bg-[radial-gradient(ellipse_at_top,rgba(124,58,237,0.10),transparent_65%)]"
       />
 
-      <div className="relative z-10 w-full max-w-7xl mx-auto px-6 lg:px-8 py-24 lg:py-0">
+      {/* Bottom fade — blends grid into white */}
+      <div
+        aria-hidden="true"
+        className="absolute bottom-0 inset-x-0 h-40 bg-gradient-to-t from-white to-transparent"
+      />
+
+      <div className="relative z-10 w-full max-w-7xl mx-auto px-6 lg:px-8 py-14 lg:py-0">
         <div className="grid lg:grid-cols-2 gap-16 lg:gap-12 items-center">
 
           {/* Left column — copy */}
@@ -119,17 +125,24 @@ export function Hero() {
 
           {/* Right column — glassmorphism product mockup */}
           <div className="relative flex items-center justify-center lg:justify-end">
-            {/* Glow behind the card */}
+            {/* Large diffused glow behind the card */}
             <div
               aria-hidden="true"
-              className="absolute w-80 h-80 bg-[radial-gradient(ellipse,rgba(124,58,237,0.12),transparent_70%)] blur-2xl"
+              className="absolute w-[26rem] h-[26rem] bg-[radial-gradient(ellipse,rgba(124,58,237,0.18),transparent_65%)] blur-3xl"
+            />
+
+            {/* Tight ring glow that traces the card border */}
+            <div
+              aria-hidden="true"
+              className="absolute w-full max-w-md rounded-2xl ring-1 ring-[#7C3AED]/20 shadow-[0_0_48px_rgba(124,58,237,0.18)]"
+              style={{ inset: '-1px' }}
             />
 
             {/* Glass card */}
             <div
               role="img"
               aria-label="Prévia do painel de validação do Crivalid"
-              className="relative w-full max-w-md rounded-2xl border border-white/60 bg-white/70 backdrop-blur-xl shadow-[0_8px_64px_rgba(0,0,0,0.08),0_1px_2px_rgba(0,0,0,0.06)] p-6 flex flex-col gap-5"
+              className="relative w-full max-w-md rounded-2xl border border-white/80 bg-white/60 backdrop-blur-2xl shadow-[0_12px_80px_rgba(0,0,0,0.10),0_1px_2px_rgba(0,0,0,0.06)] p-6 flex flex-col gap-5"
             >
               {/* Card header */}
               <div className="flex items-center justify-between">
