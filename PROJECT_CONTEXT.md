@@ -56,3 +56,38 @@ Este projeto deve ser tratado com o mesmo padrão de qualidade de uma grande emp
 Se em algum momento uma IA identificar que está prestes a entregar uma solução abaixo desse padrão (seja design, código, segurança ou organização), ela deve refazer antes de apresentar o resultado.
 
 Este é um documento vivo, que será atualizado conforme mais decisões de design e arquitetura forem tomadas.
+
+## Dados Estruturados (Schema Markup) — Obrigatório
+
+- Implementar Schema.org via JSON-LD (formato recomendado pelo Google, nunca Microdata ou RDFa) em todas as páginas relevantes
+- Schema.org "Organization" na Home, com nome, logo, e redes sociais da empresa (propriedade "sameAs")
+- Schema.org "SoftwareApplication" ou "Product" nas páginas descrevendo o Crivalid como produto/SaaS
+- Schema.org "FAQPage" na seção de perguntas frequentes, estruturando pergunta e resposta corretamente
+- Schema.org "BreadcrumbList" se houver navegação hierárquica entre páginas
+- Todo schema deve corresponder exatamente ao conteúdo visível na página — nunca marcar dados que não aparecem visualmente (isso é penalizado)
+- Validar todo schema implementado usando o Google Rich Results Test antes de finalizar qualquer página
+
+## Otimização para Buscadores de IA (AEO/GEO) — Obrigatório
+
+O site deve ser otimizado não apenas para o Google tradicional, mas para ser corretamente entendido e citado por sistemas de IA (ChatGPT, Perplexity, Gemini, Google AI Overviews). Isso é hoje tão importante quanto o SEO tradicional.
+
+- Conteúdo deve responder perguntas de forma direta e clara logo no início dos parágrafos (IAs extraem respostas mais facilmente de texto direto do que de texto "enrolado")
+- Usar linguagem factual, específica e consistente — nunca ambígua
+- Toda afirmação sobre o produto deve ser consistente entre o texto visível e o schema markup (inconsistência reduz confiança da IA na fonte)
+- Estruturar conteúdo em blocos claros e "citáveis" (parágrafos curtos, respostas objetivas, definições claras quando aplicável)
+- Priorizar clareza de entidade: deixar claro em todo o site quem é a empresa (Crivalid), o que ela faz, e para quem, de forma consistente em todas as páginas
+
+## Segurança como Fator de SEO — Obrigatório
+
+- Todo o site deve operar exclusivamente sob HTTPS quando publicado
+- Implementar headers de segurança HTTP: Content-Security-Policy (CSP), X-Content-Type-Options, X-Frame-Options, Strict-Transport-Security (HSTS)
+- Nunca expor conteúdo misto (recursos HTTP dentro de página HTTPS)
+- Formulários (login, cadastro) devem ter proteção contra XSS e injeção de dados desde a implementação inicial
+
+## Auditoria Contínua — Recomendado
+
+- Validar periodicamente com Google Rich Results Test (schema) e Google Search Console (indexação, Core Web Vitals) assim que o site estiver publicado
+- Revisar meta tags, títulos e schema a cada nova página ou seção adicionada, garantindo que nada fique duplicado ou desatualizado
+- Sempre que o conteúdo de uma página mudar de forma relevante, revisar se o schema markup correspondente também precisa ser atualizado
+
+Este documento reflete práticas de SEO e AEO/GEO atualizadas para 2026, incluindo os requisitos técnicos para visibilidade tanto em buscadores tradicionais quanto em sistemas de resposta por IA.
