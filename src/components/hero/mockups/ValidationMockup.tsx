@@ -2,7 +2,7 @@ import { BarChart2, TrendingUp, Lightbulb, CheckCircle2 } from 'lucide-react'
 
 export function ValidationMockup() {
   return (
-    <div className="w-full max-w-md mx-auto rounded-xl border border-neutral-200 bg-white shadow-[0_32px_64px_-12px_rgba(124,58,237,0.15)] overflow-hidden">
+    <div className="w-full mx-auto rounded-2xl border border-neutral-200 bg-white shadow-lg overflow-hidden">
       {/* Window header (macOS style) */}
       <div className="flex items-center px-4 py-3 border-b border-neutral-100 bg-neutral-50/80 backdrop-blur-sm relative">
         <div className="flex gap-1.5 absolute left-4">
