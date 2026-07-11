@@ -1,0 +1,32 @@
+import { motion } from 'motion/react'
+import { InteractiveGlobe } from './InteractiveGlobe'
+import { globeArcs, globeMarkers } from './globeData'
+
+export function GlobeSection() {
+  return (
+    <section className="w-full overflow-hidden bg-white px-4 py-20 sm:px-6 sm:py-24 md:py-28">
+      <div className="mx-auto flex w-full max-w-7xl flex-col items-center">
+        <motion.div
+          initial={{ opacity: 0, y: 24 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: '-60px' }}
+          transition={{ duration: 0.55 }}
+          className="mb-8 w-full max-w-2xl text-center sm:mb-10"
+        >
+          <h2 className="text-3xl font-bold leading-[1.15] tracking-tight text-gray-900 sm:text-4xl md:text-[2.75rem] lg:text-5xl">
+            Conecte suas ideias ao mundo
+          </h2>
+          <p className="mx-auto mt-4 max-w-lg text-sm leading-relaxed text-gray-500 sm:text-base">
+            Visualize conexões, projetos e atividades distribuídas globalmente.
+          </p>
+        </motion.div>
+
+        <InteractiveGlobe
+          markers={globeMarkers}
+          arcs={globeArcs}
+          className="max-w-[min(680px,calc(100vw-2rem))] sm:max-w-[520px] lg:max-w-[640px] xl:max-w-[680px]"
+        />
+      </div>
+    </section>
+  )
+}

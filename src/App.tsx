@@ -1,6 +1,8 @@
 import { Hero } from '@/components/hero/Hero'
 import { LogoCloud } from '@/components/logos/LogoCloud'
 import { ProblemSection } from '@/components/problem/ProblemSection'
+import { ToolsSection } from '@/components/tools/ToolsSection'
+import { GlobeSection } from '@/components/globe/GlobeSection'
 
 function App() {
   return (
@@ -8,6 +10,8 @@ function App() {
       <Hero />
       <LogoCloud />
       <ProblemSection />
+      <ToolsSection />
+      <GlobeSection />
     </main>
   )
 }
