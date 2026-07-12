@@ -1,10 +1,8 @@
 import { useState, useEffect } from 'react'
-import { motion, AnimatePresence } from 'motion/react'
+import { motion, AnimatePresence, useReducedMotion } from 'motion/react'
 import { Sparkles, Send, User } from 'lucide-react'
 
 // ─── Constants ────────────────────────────────────────────────────────────────
-
-const REDUCED_MOTION_MQ = '(prefers-reduced-motion: reduce)'
 
 const PROMPTS = [
   "Crie uma landing page com um Hero principal e um botão de CTA",
@@ -18,6 +16,7 @@ const PROMPTS = [
 
 export function NoCodeBuilderPreview() {
   const [promptIndex, setPromptIndex] = useState(0)
+  const prefersReducedMotion = useReducedMotion()
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -62,11 +61,11 @@ export function NoCodeBuilderPreview() {
               <motion.div
                 initial={{ opacity: 0.4 }}
                 animate={{ opacity: 1 }}
-                transition={{ duration: 1, repeat: Infinity, repeatType: 'reverse' }}
-                style={{
-                  // @ts-expect-error
-                  [`@media ${REDUCED_MOTION_MQ}`]: { opacity: 1 },
-                }}
+                transition={
+                  prefersReducedMotion
+                    ? { duration: 0 }
+                    : { duration: 1, repeat: Infinity, repeatType: 'reverse' }
+                }
               >
                 Gerando interface...
               </motion.div>
@@ -100,23 +99,25 @@ export function NoCodeBuilderPreview() {
         </div>
 
         {/* Generated Canvas Blocks */}
-        <motion.div 
+        <motion.div
           className="w-full h-10 border border-indigo-500/30 bg-indigo-500/10 rounded-md flex items-center justify-center relative overflow-hidden"
           initial={{ opacity: 0.5, scale: 0.98 }}
           animate={{ opacity: 1, scale: 1 }}
-          transition={{ duration: 1, repeat: Infinity, repeatType: 'reverse', ease: 'easeInOut' }}
-          style={{
-            // @ts-expect-error
-            [`@media ${REDUCED_MOTION_MQ}`]: { display: 'none' },
-          }}
+          transition={
+            prefersReducedMotion
+              ? { duration: 0 }
+              : { duration: 1, repeat: Infinity, repeatType: 'reverse', ease: 'easeInOut' }
+          }
         >
            <span className="text-[6px] text-indigo-400/80 font-semibold tracking-widest uppercase">Hero Section</span>
            {/* Scanning line effect */}
-           <motion.div 
-             className="absolute top-0 bottom-0 w-[1px] bg-indigo-400/60 shadow-[0_0_12px_2px_rgba(99,102,241,0.6)]"
-             animate={{ left: ['-10%', '110%'] }}
-             transition={{ duration: 1.5, ease: 'linear', repeat: Infinity }}
-           />
+           {!prefersReducedMotion && (
+             <motion.div
+               className="absolute top-0 bottom-0 w-[1px] bg-indigo-400/60 shadow-[0_0_12px_2px_rgba(99,102,241,0.6)]"
+               animate={{ left: ['-10%', '110%'] }}
+               transition={{ duration: 1.5, ease: 'linear', repeat: Infinity }}
+             />
+           )}
         </motion.div>
 
         <div className="w-4/5 h-4 border border-white/[0.06] bg-white/[0.02] rounded-md flex items-center px-2">
@@ -129,33 +130,31 @@ export function NoCodeBuilderPreview() {
         </div>
         
         {/* Animated pointer to simulate user/AI interacting */}
-        <motion.div
-          className="absolute w-3 h-3 pointer-events-none z-10"
-          initial={{ x: 20, y: 30, opacity: 0 }}
-          animate={{
-            x: [20, 60, 40, 20],
-            y: [30, 40, 70, 30],
-            opacity: [0, 1, 1, 0],
-          }}
-          transition={{
-            duration: 5,
-            repeat: Infinity,
-            ease: 'easeInOut',
-          }}
-          style={{
-            // @ts-expect-error
-            [`@media ${REDUCED_MOTION_MQ}`]: { display: 'none' },
-          }}
-        >
-          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" className="drop-shadow-lg">
-            <path
-              d="M5 3L19 12L12 13L9 20L5 3Z"
-              fill="white"
-              stroke="rgba(99,102,241,0.6)"
-              strokeWidth="1.5"
-            />
-          </svg>
-        </motion.div>
+        {!prefersReducedMotion && (
+          <motion.div
+            className="absolute w-3 h-3 pointer-events-none z-10"
+            initial={{ x: 20, y: 30, opacity: 0 }}
+            animate={{
+              x: [20, 60, 40, 20],
+              y: [30, 40, 70, 30],
+              opacity: [0, 1, 1, 0],
+            }}
+            transition={{
+              duration: 5,
+              repeat: Infinity,
+              ease: 'easeInOut',
+            }}
+          >
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" className="drop-shadow-lg">
+              <path
+                d="M5 3L19 12L12 13L9 20L5 3Z"
+                fill="white"
+                stroke="rgba(99,102,241,0.6)"
+                strokeWidth="1.5"
+              />
+            </svg>
+          </motion.div>
+        )}
       </div>
     </div>
   )

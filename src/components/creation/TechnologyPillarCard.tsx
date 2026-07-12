@@ -48,10 +48,13 @@ export function TechnologyPillarCard({
           {pillar.eyebrow}
         </span>
 
-
+        {/* Title */}
+        <h3 className="text-lg md:text-xl font-semibold text-white leading-snug mb-3">
+          {pillar.title}
+        </h3>
 
         {/* Description */}
-        <p className="text-[13px] md:text-sm text-neutral-400 leading-relaxed mb-6">
+        <p className="text-[13px] md:text-sm text-[#B4B4B4] leading-relaxed mb-6">
           {pillar.description}
         </p>
 

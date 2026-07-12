@@ -3,6 +3,7 @@ import { LogoCloud } from '@/components/logos/LogoCloud'
 import { ProblemSection } from '@/components/problem/ProblemSection'
 import { ToolsSection } from '@/components/tools/ToolsSection'
 import { CreationTechnologySection } from '@/components/creation/CreationTechnologySection'
+import { MemoryAITableSection } from '@/components/brain/MemoryAITableSection'
 import { GlobeSection } from '@/components/globe/GlobeSection'
 
 function App() {
@@ -13,6 +14,7 @@ function App() {
       <ProblemSection />
       <ToolsSection />
       <CreationTechnologySection />
+      <MemoryAITableSection />
       <GlobeSection />
     </main>
   )

@@ -24,7 +24,7 @@ export const creationPillars: CreationPillar[] = [
   {
     id: 'no-code',
     eyebrow: 'CRIAÇÃO NO-CODE',
-    eyebrowColor: 'text-blue-400',
+    eyebrowColor: 'text-[#EEEEEE]',
     title: 'Crie páginas, sites, cursos e experiências digitais sem precisar programar.',
     description:
       'Use componentes visuais, blocos reutilizáveis e edição por arrastar e soltar para transformar uma ideia em um produto funcional.',
@@ -32,7 +32,7 @@ export const creationPillars: CreationPillar[] = [
   {
     id: 'ai',
     eyebrow: 'INTELIGÊNCIA',
-    eyebrowColor: 'text-pink-400',
+    eyebrowColor: 'text-[#EEEEEE]',
     title: 'As principais IAs trabalhando juntas dentro da mesma criação.',
     description:
       'A plataforma pode usar o modelo mais adequado para escrever, planejar, pesquisar, analisar, programar ou revisar cada etapa do projeto.',
@@ -40,7 +40,7 @@ export const creationPillars: CreationPillar[] = [
   {
     id: 'code',
     eyebrow: 'CONTROLE TOTAL',
-    eyebrowColor: 'text-emerald-400',
+    eyebrowColor: 'text-[#EEEEEE]',
     title: 'Visualize e edite o código da sua criação sem sair da plataforma.',
     description:
       'Comece no modo visual e, quando precisar de controle avançado, abra o editor integrado para inspecionar, alterar e acompanhar o resultado.',

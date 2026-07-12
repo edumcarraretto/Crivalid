@@ -1,4 +1,5 @@
 import { motion } from 'motion/react'
+import { FaApple, FaWindows, FaGooglePlay } from 'react-icons/fa'
 import { creationPillars } from './creationData'
 import { TechnologyPillarCard } from './TechnologyPillarCard'
 import { NoCodeBuilderPreview } from './NoCodeBuilderPreview'
@@ -34,56 +35,6 @@ function CrivalidBolt({ className }: { className?: string }) {
   )
 }
 
-// ─── Noise texture (inline SVG filter) ────────────────────────────────────────
-
-function NoiseOverlay() {
-  return (
-    <div className="pointer-events-none absolute inset-0 z-10 opacity-[0.03]">
-      <svg width="100%" height="100%">
-        <filter id="creation-noise">
-          <feTurbulence
-            type="fractalNoise"
-            baseFrequency="0.85"
-            numOctaves="4"
-            stitchTiles="stitch"
-          />
-          <feColorMatrix type="saturate" values="0" />
-        </filter>
-        <rect width="100%" height="100%" filter="url(#creation-noise)" />
-      </svg>
-    </div>
-  )
-}
-
-// ─── Aurora glow ──────────────────────────────────────────────────────────────
-
-function AuroraGlow() {
-  return (
-    <div className="pointer-events-none absolute inset-x-0 top-0 h-[600px] overflow-hidden z-0">
-      {/* Blue */}
-      <div
-        className="absolute top-20 left-1/2 -translate-x-1/2 w-[700px] h-[300px] rounded-full blur-[120px] opacity-20"
-        style={{ background: 'radial-gradient(ellipse, #3b82f6 0%, transparent 70%)' }}
-      />
-      {/* Violet */}
-      <div
-        className="absolute top-10 left-[35%] w-[500px] h-[250px] rounded-full blur-[100px] opacity-15"
-        style={{ background: 'radial-gradient(ellipse, #8b5cf6 0%, transparent 70%)' }}
-      />
-      {/* Pink */}
-      <div
-        className="absolute top-28 left-[60%] w-[400px] h-[200px] rounded-full blur-[100px] opacity-12"
-        style={{ background: 'radial-gradient(ellipse, #ec4899 0%, transparent 70%)' }}
-      />
-      {/* Warm red accent */}
-      <div
-        className="absolute top-16 left-[55%] w-[250px] h-[150px] rounded-full blur-[80px] opacity-8"
-        style={{ background: 'radial-gradient(ellipse, #ef4444 0%, transparent 70%)' }}
-      />
-    </div>
-  )
-}
-
 // ─── Section ──────────────────────────────────────────────────────────────────
 
 export function CreationTechnologySection() {
@@ -93,13 +44,8 @@ export function CreationTechnologySection() {
       aria-labelledby="creation-heading"
       className="relative w-full overflow-hidden"
     >
-      {/* Top transition: white → dark */}
-      <div className="h-24 sm:h-32 bg-gradient-to-b from-white to-[#050508]" />
-
       {/* Main dark area */}
-      <div className="relative bg-[#050508] pb-8 sm:pb-12">
-        <AuroraGlow />
-        <NoiseOverlay />
+      <div className="relative bg-black pb-8 sm:pb-12">
 
         {/* ── Header ──────────────────────────────── */}
         <div className="relative z-20 mx-auto max-w-4xl px-6 pt-12 pb-14 sm:pt-16 sm:pb-20 text-center">
@@ -153,23 +99,24 @@ export function CreationTechnologySection() {
             whileInView={{ opacity: 1 }}
             viewport={{ once: true, margin: '-40px' }}
             transition={{ duration: 0.5, delay: 0.35 }}
-            className="mt-6 flex items-center justify-center gap-3 sm:gap-5"
-            aria-label="Tecnologias principais"
+            className="mt-6 flex flex-wrap items-center justify-center gap-4 sm:gap-6"
+            aria-label="Plataformas disponíveis"
           >
-            {['NO-CODE', 'IA MULTIMODELO', 'EDITOR INTEGRADO'].map(
-              (label, i) => (
-                <span key={label} className="flex items-center gap-3 sm:gap-5">
-                  <span className="text-[10px] sm:text-xs font-mono font-medium text-neutral-500 uppercase tracking-[0.18em]">
-                    {label}
-                  </span>
-                  {i < 2 && (
-                    <span className="text-neutral-600 text-[10px]" aria-hidden="true">
-                      •
-                    </span>
-                  )}
-                </span>
-              ),
-            )}
+            <span className="text-[10px] sm:text-xs font-mono font-medium text-neutral-500 uppercase tracking-[0.18em] mr-2">
+              DISPONÍVEL EM TODOS OS LUGARES
+            </span>
+            <span className="flex items-center gap-2 text-[10px] sm:text-xs font-mono font-medium text-neutral-500 uppercase tracking-[0.18em]">
+              <FaApple className="text-sm" /> MACOS
+            </span>
+            <span className="flex items-center gap-2 text-[10px] sm:text-xs font-mono font-medium text-neutral-500 uppercase tracking-[0.18em]">
+              <FaApple className="text-sm" /> IOS
+            </span>
+            <span className="flex items-center gap-2 text-[10px] sm:text-xs font-mono font-medium text-neutral-500 uppercase tracking-[0.18em]">
+              <FaWindows className="text-sm" /> WINDOWS
+            </span>
+            <span className="flex items-center gap-2 text-[10px] sm:text-xs font-mono font-medium text-neutral-500 uppercase tracking-[0.18em]">
+              <FaGooglePlay className="text-sm" /> ANDROID
+            </span>
           </motion.div>
         </div>
 
@@ -191,9 +138,6 @@ export function CreationTechnologySection() {
           </div>
         </div>
       </div>
-
-      {/* Bottom transition: dark → white */}
-      <div className="h-24 sm:h-32 bg-gradient-to-b from-[#050508] to-white" />
     </section>
   )
 }
