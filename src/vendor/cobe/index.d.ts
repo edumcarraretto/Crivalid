@@ -24,6 +24,7 @@ export interface COBEOptions {
   mapBrightness: number
   mapBaseBrightness?: number
   baseColor: [number, number, number]
+  mapColor?: [number, number, number]
   markerColor: [number, number, number]
   glowColor: [number, number, number]
   markers?: Marker[]

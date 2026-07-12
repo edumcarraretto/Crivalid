@@ -1,6 +1,5 @@
 import { useEffect, useRef } from 'react'
-// Vendored fork, not the npm package — see src/vendor/cobe/index.js for why.
-import createGlobe, { type Globe, type Marker as CobeMarker } from '@/vendor/cobe'
+import createGlobe, { type Globe } from '@/vendor/cobe'
 
 type Color = [number, number, number]
 type Vec3 = [number, number, number]
@@ -16,6 +15,7 @@ export interface Arc {
   from: [number, number]
   to: [number, number]
   label?: string
+  color?: Color
 }
 
 export interface InteractiveGlobeProps {
@@ -23,6 +23,7 @@ export interface InteractiveGlobeProps {
   arcs: Arc[]
   markerColor?: Color
   baseColor?: Color
+  mapColor?: Color
   arcColor?: Color
   glowColor?: Color
   dark?: number
@@ -42,18 +43,13 @@ const MAX_THETA = 0.4
 const MIN_THETA = -0.4
 const ID_PATTERN = /^[a-z0-9]+(?:-[a-z0-9]+)*$/
 
-// Must match the `scale` passed to createGlobe below — the label projection
-// math needs the exact same value cobe uses internally to stay in sync with
-// the WebGL render.
 const GLOBE_SCALE = 0.94
-// cobe's internal sphere radius constant (referenced as "ee" in its source).
 const GLOBE_SPHERE_RADIUS = 0.8
 const LABEL_GAP_PX = 6
 const DEFAULT_LABEL_BOX = { width: 90, height: 24 }
-const HOVER_RADIUS_PX = 18
-const PULSE_DURATION_SECONDS = 3.2
-const PULSE_STAGGER_SECONDS = 0.5
-const PULSE_EDGE_FADE_FRACTION = 0.1
+
+const MAX_ACTIVE_ROUTES = 6
+const LINE_SAMPLE_COUNT = 48
 
 function clamp(value: number, minimum: number, maximum: number) {
   return Math.min(maximum, Math.max(minimum, value))
@@ -63,13 +59,6 @@ function toCssColor(color: Color, alpha: number) {
   const channels = color.map((channel) => Math.round(channel * 255)).join(' ')
   return `rgb(${channels} / ${alpha})`
 }
-
-// ─── Screen projection (mirrors cobe's internal projection math) ──────────────
-// cobe positions marker/arc labels via a CSS-anchor-positioning hack tied to
-// hidden DOM nodes it creates itself, which gives us no way to detect or
-// resolve overlaps between labels. Projecting points ourselves, using the same
-// math cobe uses to place those hidden anchors, lets us compute real pixel
-// coordinates up front and suppress labels that would collide.
 
 function latLngToUnitVector([lat, lng]: [number, number]): Vec3 {
   const latRad = (lat * Math.PI) / 180
@@ -101,10 +90,6 @@ function projectMarker(location: [number, number], phi: number, theta: number, a
   return projectToScreen([unit[0] * radius, unit[1] * radius, unit[2] * radius], phi, theta, aspect)
 }
 
-// Same quadratic-bezier curve cobe's own arc mesh follows (endpoints at
-// sphere radius, control point bulging outward by arcHeight) — sampling it
-// at an arbitrary t lets us both find the label midpoint (t=0.5) and animate
-// a pulse traveling the full path (t: 0..1).
 function evaluateArcPoint(
   from: [number, number],
   to: [number, number],
@@ -146,7 +131,8 @@ function projectArcPoint(
   arcHeight: number,
   markerElevation: number,
 ) {
-  return projectToScreen(evaluateArcPoint(from, to, t, arcHeight, markerElevation), phi, theta, aspect)
+  const point = evaluateArcPoint(from, to, t, arcHeight, markerElevation)
+  return projectToScreen(point, phi, theta, aspect)
 }
 
 function projectArcMidpoint(
@@ -161,11 +147,37 @@ function projectArcMidpoint(
   return projectArcPoint(from, to, 0.5, phi, theta, aspect, arcHeight, markerElevation)
 }
 
-// ─── Label collision resolution ────────────────────────────────────────────
-// Runs every frame: projects every label to its pixel position, then walks
-// them in priority order (cities before routes) and hides any label whose box
-// would overlap one already placed. Cheap for the handful of labels here —
-// no need to throttle below 60fps.
+function buildArcPathD(
+  from: [number, number],
+  to: [number, number],
+  progress: number,
+  phi: number,
+  theta: number,
+  aspect: number,
+  arcHeight: number,
+  markerElevation: number,
+  width: number,
+  height: number,
+) {
+  if (progress <= 0) return ''
+  let d = ''
+  let drawing = false
+  const maxI = Math.ceil(progress * LINE_SAMPLE_COUNT)
+  
+  for (let i = 0; i <= maxI; i++) {
+    const t = Math.min(i / LINE_SAMPLE_COUNT, progress)
+    const proj = projectArcPoint(from, to, t, phi, theta, aspect, arcHeight, markerElevation)
+    if (!proj.visible) {
+      drawing = false
+      continue
+    }
+    const x = (proj.x * width).toFixed(1)
+    const y = (proj.y * height).toFixed(1)
+    d += drawing ? ` L${x},${y}` : `M${x},${y}`
+    drawing = true
+  }
+  return d
+}
 
 interface LabelTarget {
   key: string
@@ -217,11 +229,24 @@ function resolveLabelCollisions(
   }
 }
 
+type RouteStatus = 'entering' | 'drawing' | 'holding' | 'exiting' | 'finished'
+
+interface ActiveRouteState {
+  arc: Arc
+  status: RouteStatus
+  progress: number
+  startTime: number
+  duration: number
+  holdDuration: number
+  exitDuration: number
+}
+
 export function InteractiveGlobe({
   markers,
   arcs,
   markerColor = [0.36, 0.23, 1],
   baseColor = [0.95, 0.97, 1],
+  mapColor,
   arcColor = [0.24, 0.48, 1],
   glowColor = [1, 0.985, 0.96],
   dark = 0,
@@ -238,10 +263,12 @@ export function InteractiveGlobe({
 }: InteractiveGlobeProps) {
   const containerRef = useRef<HTMLDivElement>(null)
   const canvasRef = useRef<HTMLCanvasElement>(null)
+  const svgRef = useRef<SVGSVGElement>(null)
   const globeRef = useRef<Globe | null>(null)
   const animationFrameRef = useRef<number | null>(null)
   const resizeObserverRef = useRef<ResizeObserver | null>(null)
   const releaseTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null)
+  
   const phiRef = useRef(0)
   const thetaRef = useRef(clamp(theta, MIN_THETA, MAX_THETA))
   const velocityPhiRef = useRef(0)
@@ -251,25 +278,28 @@ export function InteractiveGlobe({
   const pointerIdRef = useRef<number | null>(null)
   const lastPointerRef = useRef({ x: 0, y: 0, time: 0 })
   const speedRef = useRef(speed)
-  const reducedMotionRef = useRef(false)
   const containerSizeRef = useRef({ width: 0, height: 0 })
+
   const labelElsRef = useRef<Map<string, HTMLDivElement>>(new Map())
   const labelSizesRef = useRef<Map<string, { width: number; height: number }>>(new Map())
   const pulseElsRef = useRef<Map<string, HTMLDivElement>>(new Map())
-  const pulseClockRef = useRef(0)
-  const pointerContainerPosRef = useRef<{ x: number; y: number } | null>(null)
-  const hoverRingElRef = useRef<HTMLDivElement>(null)
-  // Read by the render loop's label projection so it always reflects the
-  // latest props, even though that loop lives inside a mount-only effect.
+  const lineElsRef = useRef<Map<string, SVGPathElement>>(new Map())
+
+  // Queue state
+  const activeRoutesRef = useRef<Map<string, ActiveRouteState>>(new Map())
+  const pendingRoutesRef = useRef<Arc[]>([])
+  const nextSpawnTimeRef = useRef<number>(0)
+
   const markersRef = useRef(markers)
   const arcsRef = useRef(arcs)
   const markerElevationRef = useRef(markerElevation)
   const arcHeightRef = useRef(arcHeight)
   const initialConfigurationRef = useRef({
-    markers,
-    arcs,
+    markers: markers.map((m) => ({ location: m.location, size: markerSize })),
+    arcs: [], // WebGL draws no arcs; we use SVG overlay to draw progressive lines
     markerColor,
     baseColor,
+    mapColor: mapColor || baseColor,
     arcColor,
     glowColor,
     dark,
@@ -295,141 +325,196 @@ export function InteractiveGlobe({
     arcsRef.current = arcs
     markerElevationRef.current = markerElevation
     arcHeightRef.current = arcHeight
+    
+    // Refresh pending routes with new arcs that aren't active
+    const activeIds = new Set(activeRoutesRef.current.keys())
+    const newPending = arcs.filter(a => !activeIds.has(a.id))
+    
+    // Shuffle the pending routes for organic spawning
+    pendingRoutesRef.current = newPending.sort(() => 0.5 - Math.random())
   }, [markers, arcs, markerElevation, arcHeight])
 
   useEffect(() => {
     const invalidId = [...markers, ...arcs].find(({ id }) => !ID_PATTERN.test(id))
     if (invalidId) {
-      throw new Error(`Invalid globe ID: ${invalidId.id}`)
+      console.warn(`[InteractiveGlobe] Invalid ID: "${invalidId.id}". Must match ${ID_PATTERN}`)
     }
-  }, [arcs, markers])
+  }, [markers, arcs])
 
   useEffect(() => {
-    globeRef.current?.update({
-      markers: markers.map<CobeMarker>((marker) => ({
-        id: marker.id,
-        location: marker.location,
-        size: markerSize,
-      })),
-      arcs: [],
-      markerColor,
-      baseColor,
-      arcColor,
-      glowColor,
-      dark,
-      mapBrightness,
-      markerElevation,
-      arcWidth,
-      arcHeight,
-      diffuse,
-      mapSamples,
-    })
-  }, [arcColor, arcHeight, arcWidth, arcs, baseColor, dark, diffuse, glowColor, mapBrightness, mapSamples, markerColor, markerElevation, markerSize, markers])
+    if (!containerRef.current || !canvasRef.current) return
 
-  useEffect(() => {
-    const canvas = canvasRef.current
-    const container = containerRef.current
-    if (!canvas || !container) return
-    const initialConfiguration = initialConfigurationRef.current
+    let currentWidth = 0
+    let currentHeight = 0
 
-    const mediaQuery = window.matchMedia('(prefers-reduced-motion: reduce)')
-    const updateMotionPreference = () => {
-      reducedMotionRef.current = mediaQuery.matches
-    }
-    updateMotionPreference()
-    mediaQuery.addEventListener('change', updateMotionPreference)
-
-    const cobeMarkers = initialConfiguration.markers.map<CobeMarker>((marker) => ({
-      id: marker.id,
-      location: marker.location,
-      size: initialConfiguration.markerSize,
-    }))
-    const initialRect = container.getBoundingClientRect()
-    const initialSize = Math.max(1, Math.round(initialRect.width))
-    const initialDpr = Math.min(window.devicePixelRatio || 1, 2)
-    containerSizeRef.current = { width: initialRect.width, height: initialRect.height }
-
-    // Measure every label's real rendered box once up front so the very
-    // first collision pass uses accurate sizes instead of a rough guess.
-    for (const [key, el] of labelElsRef.current) {
-      labelSizesRef.current.set(key, { width: el.offsetWidth, height: el.offsetHeight })
-    }
-
-    globeRef.current = createGlobe(canvas, {
-      width: Math.round(initialSize * initialDpr),
-      height: Math.round(initialSize * initialDpr),
-      devicePixelRatio: initialDpr,
-      phi: phiRef.current,
-      theta: thetaRef.current,
-      dark: initialConfiguration.dark,
-      diffuse: initialConfiguration.diffuse,
-      mapSamples: initialConfiguration.mapSamples,
-      mapBrightness: initialConfiguration.mapBrightness,
-      baseColor: initialConfiguration.baseColor,
-      markerColor: initialConfiguration.markerColor,
-      glowColor: initialConfiguration.glowColor,
-      markers: cobeMarkers,
-      // No arcs handed to cobe: we draw only our own traveling pulse dots
-      // (below), not the static connecting line cobe would otherwise render.
-      arcs: [],
-      arcColor: initialConfiguration.arcColor,
-      arcWidth: initialConfiguration.arcWidth,
-      arcHeight: initialConfiguration.arcHeight,
-      markerElevation: initialConfiguration.markerElevation,
-      scale: GLOBE_SCALE,
-    })
-
-    let lastRenderedSize = initialSize
-    let lastRenderedDpr = initialDpr
-    resizeObserverRef.current = new ResizeObserver(([entry]) => {
-      const size = Math.max(1, Math.round(entry.contentRect.width))
-      const dpr = Math.min(window.devicePixelRatio || 1, 2)
-      containerSizeRef.current = { width: entry.contentRect.width, height: entry.contentRect.height }
-      if (size === lastRenderedSize && dpr === lastRenderedDpr) return
-
-      lastRenderedSize = size
-      lastRenderedDpr = dpr
-      globeRef.current?.update({
-        width: Math.round(size * dpr),
-        height: Math.round(size * dpr),
-        devicePixelRatio: dpr,
-      })
-    })
-    resizeObserverRef.current.observe(container)
-
-    let previousFrameTime = performance.now()
-    const render = (time: number) => {
-      const frameRatio = Math.min((time - previousFrameTime) / (1000 / 60), 2)
-      previousFrameTime = time
-
-      if (!autoRotationPausedRef.current) {
-        const motionMultiplier = reducedMotionRef.current ? 0 : 1
-        phiRef.current += speedRef.current * frameRatio * motionMultiplier
+    const initGlobe = (width: number, height: number) => {
+      if (globeRef.current) {
+        globeRef.current.destroy()
+        globeRef.current = null
       }
 
-      if (!draggingRef.current) {
-        phiRef.current += velocityPhiRef.current * frameRatio
-        thetaRef.current = clamp(
-          thetaRef.current + velocityThetaRef.current * frameRatio,
-          MIN_THETA,
-          MAX_THETA,
-        )
-        velocityPhiRef.current *= Math.pow(0.93, frameRatio)
-        velocityThetaRef.current *= Math.pow(0.88, frameRatio)
-        if (thetaRef.current === MIN_THETA || thetaRef.current === MAX_THETA) {
-          velocityThetaRef.current = 0
+      currentWidth = width
+      currentHeight = height
+      containerSizeRef.current = { width, height }
+      
+      const initialDpr = window.devicePixelRatio || 1
+      canvasRef.current!.width = Math.round(width * initialDpr)
+      canvasRef.current!.height = Math.round(height * initialDpr)
+
+      if (svgRef.current) {
+        svgRef.current.setAttribute('viewBox', `0 0 ${width} ${height}`)
+      }
+
+      globeRef.current = createGlobe(canvasRef.current!, {
+        ...initialConfigurationRef.current,
+        width: Math.round(width * initialDpr),
+        height: Math.round(height * initialDpr),
+        devicePixelRatio: initialDpr,
+        phi: phiRef.current,
+        theta: thetaRef.current,
+      })
+    }
+
+    const ro = new ResizeObserver((entries) => {
+      for (const entry of entries) {
+        const { width, height } = entry.contentRect
+        if (width === 0 || height === 0) continue
+        
+        // Cobe doesn't handle resize natively, we recreate
+        if (Math.abs(width - currentWidth) > 1 || Math.abs(height - currentHeight) > 1) {
+          initGlobe(width, height)
+        }
+      }
+    })
+
+    ro.observe(containerRef.current)
+    resizeObserverRef.current = ro
+    
+    const rect = containerRef.current.getBoundingClientRect()
+    if (rect.width > 0 && rect.height > 0) {
+      initGlobe(rect.width, rect.height)
+    }
+
+    return () => {
+      ro.disconnect()
+      if (globeRef.current) {
+        globeRef.current.destroy()
+      }
+    }
+  }, [])
+
+  useEffect(() => {
+    const render = (now: number) => {
+      // Interaction physics
+      if (!draggingRef.current && !autoRotationPausedRef.current) {
+        phiRef.current += speedRef.current
+      } else if (!draggingRef.current) {
+        velocityPhiRef.current *= 0.92
+        velocityThetaRef.current *= 0.92
+        if (Math.abs(velocityPhiRef.current) > 0.0001) phiRef.current += velocityPhiRef.current
+        if (Math.abs(velocityThetaRef.current) > 0.0001) thetaRef.current += velocityThetaRef.current
+      }
+      thetaRef.current = clamp(thetaRef.current, MIN_THETA, MAX_THETA)
+
+      const width = containerSizeRef.current.width
+      const height = containerSizeRef.current.height
+      const aspect = width / height
+      const currentArcHeight = arcHeightRef.current
+      const currentMarkerElevation = markerElevationRef.current
+
+      // Lifecycle update
+      if (now > nextSpawnTimeRef.current && activeRoutesRef.current.size < MAX_ACTIVE_ROUTES && pendingRoutesRef.current.length > 0) {
+        const nextArc = pendingRoutesRef.current.shift()!
+        activeRoutesRef.current.set(nextArc.id, {
+          arc: nextArc,
+          status: 'entering',
+          progress: 0,
+          startTime: now,
+          duration: 1800 + Math.random() * 1200, // 1800ms - 3000ms
+          holdDuration: 1000 + Math.random() * 1000, // 1000ms - 2000ms
+          exitDuration: 400 + Math.random() * 400, // 400ms - 800ms
+        })
+        // Wait between 300ms and 900ms before spawning the next one
+        nextSpawnTimeRef.current = now + 300 + Math.random() * 600
+      }
+
+      // Update active routes
+      for (const [id, state] of activeRoutesRef.current.entries()) {
+        const lineEl = lineElsRef.current.get(`line:${id}`)
+        const pulseEl = pulseElsRef.current.get(`pulse:${id}`)
+        const labelEl = labelElsRef.current.get(`arc:${id}`)
+        
+        let opacity = 0
+        let progress = state.progress
+
+        const enteringDuration = 300
+        const elapsed = now - state.startTime
+
+        if (state.status === 'entering') {
+          opacity = Math.min(elapsed / enteringDuration, 1)
+          if (elapsed >= enteringDuration) {
+            state.status = 'drawing'
+            state.startTime = now
+          }
+        } else if (state.status === 'drawing') {
+          opacity = 1
+          progress = Math.min(elapsed / state.duration, 1)
+          state.progress = progress
+          if (elapsed >= state.duration) {
+            state.status = 'holding'
+            state.startTime = now
+          }
+        } else if (state.status === 'holding') {
+          opacity = 1
+          progress = 1
+          if (elapsed >= state.holdDuration) {
+            state.status = 'exiting'
+            state.startTime = now
+          }
+        } else if (state.status === 'exiting') {
+          opacity = Math.max(1 - (elapsed / state.exitDuration), 0)
+          progress = 1
+          if (elapsed >= state.exitDuration) {
+            state.status = 'finished'
+          }
+        }
+
+        if (state.status === 'finished') {
+          activeRoutesRef.current.delete(id)
+          pendingRoutesRef.current.push(state.arc)
+          if (lineEl) lineEl.style.opacity = '0'
+          if (pulseEl) pulseEl.style.opacity = '0'
+          if (labelEl) labelEl.style.opacity = '0'
+          continue
+        }
+
+        // Draw Line up to progress
+        if (lineEl && width > 0 && height > 0) {
+          const d = buildArcPathD(state.arc.from, state.arc.to, progress, phiRef.current, thetaRef.current, aspect, currentArcHeight, currentMarkerElevation, width, height)
+          lineEl.setAttribute('d', d)
+          lineEl.style.opacity = String(opacity)
+        }
+
+        // Move Pulse to the end of the line
+        if (pulseEl && width > 0 && height > 0) {
+          if (progress > 0) {
+            const proj = projectArcPoint(state.arc.from, state.arc.to, progress, phiRef.current, thetaRef.current, aspect, currentArcHeight, currentMarkerElevation)
+            if (proj.visible) {
+              pulseEl.style.transform = `translate(${proj.x * width}px, ${proj.y * height}px) translate(-50%, -50%)`
+              pulseEl.style.opacity = String(opacity)
+            } else {
+              pulseEl.style.opacity = '0'
+            }
+          } else {
+            pulseEl.style.opacity = '0'
+          }
         }
       }
 
-      globeRef.current?.update({ phi: phiRef.current, theta: thetaRef.current })
-      pulseClockRef.current += frameRatio / 60
+      if (globeRef.current && width > 0 && height > 0) {
+        globeRef.current.update({ phi: phiRef.current, theta: thetaRef.current })
 
-      const { width, height } = containerSizeRef.current
-      if (width > 0 && height > 0) {
-        const aspect = width / height
-        const currentMarkerElevation = markerElevationRef.current
-        const currentArcHeight = arcHeightRef.current
-
+        // Labels
         const markerTargets: LabelTarget[] = []
         for (const marker of markersRef.current) {
           const key = `marker:${marker.id}`
@@ -437,60 +522,55 @@ export function InteractiveGlobe({
           markerTargets.push({ key, el: labelElsRef.current.get(key) ?? null, x: proj.x * width, y: proj.y * height, visible: proj.visible })
         }
 
-        // Hover: find the nearest camera-facing marker under the pointer so
-        // its label and a highlight ring can be forced to the front.
-        const pointer = pointerContainerPosRef.current
-        let hoveredTarget: LabelTarget | null = null
-        if (pointer && !draggingRef.current) {
-          let nearestDist = HOVER_RADIUS_PX
-          for (const target of markerTargets) {
-            if (!target.visible) continue
-            const dist = Math.hypot(target.x - pointer.x, target.y - pointer.y)
-            if (dist <= nearestDist) {
-              nearestDist = dist
-              hoveredTarget = target
-            }
-          }
-        }
-        canvas.style.cursor = hoveredTarget ? 'pointer' : draggingRef.current ? 'grabbing' : 'grab'
-
-        const hoverRingEl = hoverRingElRef.current
-        if (hoverRingEl) {
-          if (hoveredTarget) {
-            hoverRingEl.style.transform = `translate(${hoveredTarget.x}px, ${hoveredTarget.y}px) translate(-50%, -50%)`
-            hoverRingEl.style.opacity = '1'
-          } else {
-            hoverRingEl.style.opacity = '0'
-          }
-        }
-
-        const targets: LabelTarget[] = hoveredTarget
-          ? [hoveredTarget, ...markerTargets.filter((target) => target.key !== hoveredTarget.key)]
-          : markerTargets
+        const targets: LabelTarget[] = [...markerTargets]
 
         for (const arc of arcsRef.current) {
           if (!arc.label) continue
           const key = `arc:${arc.id}`
+          const state = activeRoutesRef.current.get(arc.id)
+          const el = labelElsRef.current.get(key) ?? null
+          
+          if (!state) {
+            if (el) {
+              el.style.opacity = '0'
+              el.style.pointerEvents = 'none'
+            }
+            continue
+          }
+          
           const proj = projectArcMidpoint(arc.from, arc.to, phiRef.current, thetaRef.current, aspect, currentArcHeight, currentMarkerElevation)
-          targets.push({ key, el: labelElsRef.current.get(key) ?? null, x: proj.x * width, y: proj.y * height, visible: proj.visible })
+          
+          let opacity = 0
+          if (state.status === 'entering') opacity = (now - state.startTime) / 300
+          else if (state.status === 'exiting') opacity = 1 - (now - state.startTime) / state.exitDuration
+          else opacity = 1
+
+          targets.push({ key, el, x: proj.x * width, y: proj.y * height, visible: proj.visible })
+          if (el) {
+            el.style.pointerEvents = opacity > 0.5 ? 'auto' : 'none'
+            el.dataset.targetOpacity = String(Math.max(0, Math.min(1, opacity)))
+          }
         }
 
         resolveLabelCollisions(targets, labelSizesRef.current)
-
-        // Data pulse traveling along each arc, staggered per route so they
-        // don't all animate in lockstep.
-        let arcIndex = 0
-        for (const arc of arcsRef.current) {
-          const pulseEl = pulseElsRef.current.get(`pulse:${arc.id}`)
-          if (pulseEl) {
-            const cycleSeconds = pulseClockRef.current + arcIndex * PULSE_STAGGER_SECONDS
-            const t = (cycleSeconds % PULSE_DURATION_SECONDS) / PULSE_DURATION_SECONDS
-            const proj = projectArcPoint(arc.from, arc.to, t, phiRef.current, thetaRef.current, aspect, currentArcHeight, currentMarkerElevation)
-            const edgeFade = Math.max(0, Math.min(t / PULSE_EDGE_FADE_FRACTION, (1 - t) / PULSE_EDGE_FADE_FRACTION, 1))
-            pulseEl.style.transform = `translate(${proj.x * width}px, ${proj.y * height}px) translate(-50%, -50%)`
-            pulseEl.style.opacity = proj.visible ? String(edgeFade) : '0'
+        
+        // Apply opacity properly to labels based on route state
+        for (const target of targets) {
+          if (target.el && target.el.dataset.targetOpacity) {
+            if (target.el.style.opacity !== '0' || target.el.dataset.targetOpacity !== '0') {
+              target.el.style.opacity = target.el.dataset.targetOpacity
+            }
           }
-          arcIndex++
+        }
+        
+        // Hide unused pulse/lines that are in the DOM but not active
+        for (const arc of arcsRef.current) {
+          if (!activeRoutesRef.current.has(arc.id)) {
+            const line = lineElsRef.current.get(`line:${arc.id}`)
+            if (line && line.style.opacity !== '0') line.style.opacity = '0'
+            const pulse = pulseElsRef.current.get(`pulse:${arc.id}`)
+            if (pulse && pulse.style.opacity !== '0') pulse.style.opacity = '0'
+          }
         }
       }
 
@@ -498,107 +578,100 @@ export function InteractiveGlobe({
     }
     animationFrameRef.current = requestAnimationFrame(render)
 
-    const handlePointerDown = (event: PointerEvent) => {
-      if (pointerIdRef.current !== null) return
-      pointerIdRef.current = event.pointerId
-      draggingRef.current = true
-      autoRotationPausedRef.current = true
-      velocityPhiRef.current = 0
-      velocityThetaRef.current = 0
-      lastPointerRef.current = { x: event.clientX, y: event.clientY, time: performance.now() }
-      canvas.setPointerCapture(event.pointerId)
-    }
-
-    const handlePointerMove = (event: PointerEvent) => {
-      const containerRect = container.getBoundingClientRect()
-      pointerContainerPosRef.current = {
-        x: event.clientX - containerRect.left,
-        y: event.clientY - containerRect.top,
-      }
-
-      if (!draggingRef.current || pointerIdRef.current !== event.pointerId) return
-
-      const now = performance.now()
-      const elapsed = Math.max(8, now - lastPointerRef.current.time)
-      const deltaX = event.clientX - lastPointerRef.current.x
-      const deltaY = event.clientY - lastPointerRef.current.y
-      const phiDelta = -deltaX * 0.005
-      const thetaDelta = deltaY * 0.003
-
-      phiRef.current += phiDelta
-      thetaRef.current = clamp(thetaRef.current + thetaDelta, MIN_THETA, MAX_THETA)
-      velocityPhiRef.current = (phiDelta / elapsed) * (1000 / 60)
-      velocityThetaRef.current = (thetaDelta / elapsed) * (1000 / 60)
-      lastPointerRef.current = { x: event.clientX, y: event.clientY, time: now }
-    }
-
-    const finishPointerInteraction = (event: PointerEvent) => {
-      if (pointerIdRef.current !== event.pointerId) return
-      if (canvas.hasPointerCapture(event.pointerId)) canvas.releasePointerCapture(event.pointerId)
-
-      pointerIdRef.current = null
-      draggingRef.current = false
-      if (releaseTimerRef.current) clearTimeout(releaseTimerRef.current)
-      releaseTimerRef.current = setTimeout(() => {
-        autoRotationPausedRef.current = false
-        releaseTimerRef.current = null
-      }, 180)
-    }
-
-    const handlePointerLeave = () => {
-      pointerContainerPosRef.current = null
-    }
-
-    canvas.addEventListener('pointerdown', handlePointerDown)
-    canvas.addEventListener('pointermove', handlePointerMove)
-    canvas.addEventListener('pointerup', finishPointerInteraction)
-    canvas.addEventListener('pointercancel', finishPointerInteraction)
-    canvas.addEventListener('pointerleave', handlePointerLeave)
-
     return () => {
-      canvas.removeEventListener('pointerdown', handlePointerDown)
-      canvas.removeEventListener('pointermove', handlePointerMove)
-      canvas.removeEventListener('pointerup', finishPointerInteraction)
-      canvas.removeEventListener('pointercancel', finishPointerInteraction)
-      canvas.removeEventListener('pointerleave', handlePointerLeave)
-      mediaQuery.removeEventListener('change', updateMotionPreference)
-      if (animationFrameRef.current !== null) cancelAnimationFrame(animationFrameRef.current)
-      if (releaseTimerRef.current) clearTimeout(releaseTimerRef.current)
-      resizeObserverRef.current?.disconnect()
-      globeRef.current?.destroy()
-      globeRef.current = null
+      if (animationFrameRef.current) cancelAnimationFrame(animationFrameRef.current)
     }
   }, [])
 
+  const handlePointerDown = (e: React.PointerEvent) => {
+    if (pointerIdRef.current !== null) return
+    pointerIdRef.current = e.pointerId
+    draggingRef.current = true
+    autoRotationPausedRef.current = true
+    lastPointerRef.current = { x: e.clientX, y: e.clientY, time: performance.now() }
+    
+    if (containerRef.current) {
+      containerRef.current.setPointerCapture(e.pointerId)
+      containerRef.current.style.cursor = 'grabbing'
+    }
+    if (releaseTimerRef.current) clearTimeout(releaseTimerRef.current)
+  }
+
+  const handlePointerMove = (e: React.PointerEvent) => {
+    if (pointerIdRef.current !== e.pointerId || !draggingRef.current) return
+    
+    const now = performance.now()
+    const dt = now - lastPointerRef.current.time
+    const dx = e.clientX - lastPointerRef.current.x
+    const dy = e.clientY - lastPointerRef.current.y
+    
+    phiRef.current += dx * 0.005
+    thetaRef.current -= dy * 0.005
+    thetaRef.current = clamp(thetaRef.current, MIN_THETA, MAX_THETA)
+    
+    if (dt > 0) {
+      velocityPhiRef.current = (dx * 0.005) / (dt / 16.66)
+      velocityThetaRef.current = (-dy * 0.005) / (dt / 16.66)
+    }
+    
+    lastPointerRef.current = { x: e.clientX, y: e.clientY, time: now }
+  }
+
+  const handlePointerUp = (e: React.PointerEvent) => {
+    if (pointerIdRef.current !== e.pointerId) return
+    
+    pointerIdRef.current = null
+    draggingRef.current = false
+    
+    if (containerRef.current) {
+      containerRef.current.releasePointerCapture(e.pointerId)
+      containerRef.current.style.cursor = 'grab'
+    }
+    
+    releaseTimerRef.current = setTimeout(() => {
+      autoRotationPausedRef.current = false
+    }, 2500)
+  }
+
   return (
-    <div
-      ref={containerRef}
-      className={`relative aspect-square w-full max-w-[680px] ${className}`}
-      aria-label="Globo interativo com conexões entre cidades ao redor do mundo"
-      role="img"
+    <div 
+      ref={containerRef} 
+      className={`relative w-full aspect-square ${className}`}
+      onPointerDown={handlePointerDown}
+      onPointerMove={handlePointerMove}
+      onPointerUp={handlePointerUp}
+      onPointerCancel={handlePointerUp}
+      style={{ cursor: 'grab' }}
     >
-      {/* SVG filter: maps black dots → purple/violet, white → white */}
-      <svg className="absolute h-0 w-0" aria-hidden="true">
-        <defs>
-          <filter id="globe-dot-colorize" colorInterpolationFilters="sRGB">
-            <feColorMatrix
-              type="matrix"
-              values="
-                0.45 0    0    0 0.55
-                0    0.75 0    0 0.25
-                0    0    0.12 0 0.88
-                0    0    0    1 0
-              "
-            />
-          </filter>
-        </defs>
-      </svg>
       <canvas
         ref={canvasRef}
-        className="relative z-10 h-full w-full cursor-grab touch-none select-none active:cursor-grabbing"
-        style={{ filter: 'url(#globe-dot-colorize)' }}
+        className="relative z-10 h-full w-full touch-none select-none"
         aria-hidden="true"
       />
+
+      <svg
+        ref={svgRef}
+        className="pointer-events-none absolute inset-0 z-[15] h-full w-full overflow-visible"
+        aria-hidden="true"
+      >
+        {arcs.map((arc) => (
+          <path
+            key={arc.id}
+            ref={(el) => {
+              const key = `line:${arc.id}`
+              if (el) lineElsRef.current.set(key, el)
+              else lineElsRef.current.delete(key)
+            }}
+            fill="none"
+            stroke={arc.color ? toCssColor(arc.color, 1) : toCssColor(arcColor, 1)}
+            strokeOpacity={0.65}
+            strokeWidth={1.4}
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            style={{ opacity: 0, transition: 'none' }}
+          />
+        ))}
+      </svg>
 
       {arcs.map((arc) => (
         <div
@@ -608,53 +681,69 @@ export function InteractiveGlobe({
             if (el) pulseElsRef.current.set(key, el)
             else pulseElsRef.current.delete(key)
           }}
-          className="pointer-events-none absolute left-0 top-0 z-20 h-[7px] w-[7px] rounded-full opacity-0"
+          className="pointer-events-none absolute left-0 top-0 z-20 h-2 w-2 rounded-full"
           style={{
-            background: toCssColor(arcColor, 1),
-            boxShadow: `0 0 8px 1px ${toCssColor(arcColor, 0.7)}`,
-            willChange: 'transform',
+            backgroundColor: arc.color ? toCssColor(arc.color, 1) : toCssColor(glowColor, 1),
+            boxShadow: `0 0 8px 2px ${arc.color ? toCssColor(arc.color, 0.8) : toCssColor(arcColor, 0.8)}`,
+            opacity: 0,
+            transition: 'none',
           }}
+          aria-hidden="true"
         />
       ))}
-
-      <div
-        ref={hoverRingElRef}
-        className="pointer-events-none absolute left-0 top-0 z-20 h-6 w-6 rounded-full border-2 opacity-0 transition-opacity duration-150"
-        style={{
-          borderColor: toCssColor(markerColor, 0.9),
-          boxShadow: `0 0 12px 2px ${toCssColor(markerColor, 0.45)}`,
-          willChange: 'transform',
-        }}
-      />
 
       {markers.map((marker) => (
         <div
           key={marker.id}
           ref={(el) => {
             const key = `marker:${marker.id}`
-            if (el) labelElsRef.current.set(key, el)
-            else labelElsRef.current.delete(key)
+            if (el) {
+              labelElsRef.current.set(key, el)
+              if (!labelSizesRef.current.has(key)) {
+                const rect = el.getBoundingClientRect()
+                labelSizesRef.current.set(key, { width: rect.width || DEFAULT_LABEL_BOX.width, height: rect.height || DEFAULT_LABEL_BOX.height })
+              }
+            } else {
+              labelElsRef.current.delete(key)
+            }
           }}
-          className="pointer-events-none absolute left-0 top-0 z-20 whitespace-nowrap rounded-md bg-slate-950 px-2 py-1 text-[9px] font-semibold uppercase tracking-[0.12em] text-white opacity-0 shadow-sm transition-[opacity,filter] duration-300"
-          style={{ willChange: 'transform' }}
+          className="pointer-events-none absolute left-0 top-0 z-30 flex flex-col items-center gap-1 transition-opacity duration-200"
+          style={{ opacity: 0 }}
         >
-          {marker.label}
-          <span className="absolute left-1/2 top-full -translate-x-1/2 border-x-[4px] border-t-[5px] border-x-transparent border-t-slate-950" />
+          <div className="text-[10px] font-bold tracking-wider text-slate-800 backdrop-blur-sm bg-white/40 px-1.5 py-0.5 rounded-sm ring-1 ring-white/30 shadow-sm uppercase whitespace-nowrap">
+            {marker.label}
+          </div>
+          <div 
+            className="h-1.5 w-1.5 rounded-full ring-2 ring-white shadow-sm"
+            style={{ backgroundColor: toCssColor(markerColor, 1) }}
+          />
         </div>
       ))}
 
-      {arcs.filter((arc) => arc.label).map((arc) => (
+      {arcs.map((arc) => arc.label && (
         <div
           key={arc.id}
           ref={(el) => {
             const key = `arc:${arc.id}`
-            if (el) labelElsRef.current.set(key, el)
-            else labelElsRef.current.delete(key)
+            if (el) {
+              labelElsRef.current.set(key, el)
+              if (!labelSizesRef.current.has(key)) {
+                const rect = el.getBoundingClientRect()
+                labelSizesRef.current.set(key, { width: rect.width || DEFAULT_LABEL_BOX.width, height: rect.height || DEFAULT_LABEL_BOX.height })
+              }
+            } else {
+              labelElsRef.current.delete(key)
+            }
           }}
-          className="pointer-events-none absolute left-0 top-0 z-20 whitespace-nowrap rounded-full border border-slate-200/80 bg-white/95 px-2 py-1 text-[8px] font-semibold uppercase tracking-[0.1em] text-slate-700 opacity-0 shadow-sm transition-[opacity,filter] duration-300"
-          style={{ willChange: 'transform' }}
+          className="pointer-events-none absolute left-0 top-0 z-40 transition-all duration-200"
+          style={{ opacity: 0 }}
         >
-          {arc.label}
+          <div className="relative group pointer-events-auto cursor-pointer flex items-center justify-center">
+            <div className="absolute inset-0 bg-white/70 backdrop-blur-md rounded-full shadow-sm ring-1 ring-slate-200/50 scale-100 group-hover:scale-110 transition-transform duration-200" />
+            <div className="relative text-[10px] font-bold tracking-wider text-slate-700 px-2.5 py-1 uppercase whitespace-nowrap">
+              {arc.label}
+            </div>
+          </div>
         </div>
       ))}
     </div>

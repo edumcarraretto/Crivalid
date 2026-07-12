@@ -24,9 +24,14 @@ export function GlobeSection() {
         <InteractiveGlobe
           markers={globeMarkers}
           arcs={globeArcs}
+          speed={0.0015} 
+          baseColor={[0.85, 0.92, 1]} // Fundo azul claro para o globo
+          glowColor={[0.85, 0.92, 1]} // Brilho azul claro para suavizar as bordas
+          mapColor={[0.1, 0.75, 0.4]} // Verde esmeralda brilhante
           className="max-w-[min(680px,calc(100vw-2rem))] sm:max-w-[520px] lg:max-w-[640px] xl:max-w-[680px]"
         />
       </div>
     </section>
   )
 }
+
