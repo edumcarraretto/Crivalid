@@ -5,6 +5,7 @@ import { ToolsSection } from '@/components/tools/ToolsSection'
 import { CreationTechnologySection } from '@/components/creation/CreationTechnologySection'
 import { MemoryAITableSection } from '@/components/brain/MemoryAITableSection'
 import { GlobeSection } from '@/components/globe/GlobeSection'
+import { WorkflowHeroSection } from '@/components/workflow/WorkflowHeroSection'
 
 function App() {
   return (
@@ -16,6 +17,7 @@ function App() {
       <CreationTechnologySection />
       <MemoryAITableSection />
       <GlobeSection />
+      <WorkflowHeroSection />
     </main>
   )
 }
