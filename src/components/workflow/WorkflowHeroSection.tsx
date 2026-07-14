@@ -1,7 +1,6 @@
 import { motion } from 'motion/react'
 import { ArrowRight } from 'lucide-react'
 import { InlineAvatarGroup } from './InlineAvatarGroup'
-import { AutomationFlowDiagram } from './AutomationFlowDiagram'
 
 // ─── Section ─────────────────────────────────────────────────────────────────
 
@@ -87,8 +86,20 @@ export function WorkflowHeroSection() {
           </a>
         </motion.div>
 
-        {/* ── Automation flow diagram ── */}
-        <AutomationFlowDiagram />
+        {/* ── Automation flow image ── */}
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: '-40px' }}
+          transition={{ duration: 0.7, delay: 0.3 }}
+          className="flex justify-center"
+        >
+          <img 
+            src="/images/automation-flow.png" 
+            alt="Fluxo de automação entre pessoas e agentes" 
+            className="w-full max-w-[620px] h-auto"
+          />
+        </motion.div>
 
       </div>
     </section>
