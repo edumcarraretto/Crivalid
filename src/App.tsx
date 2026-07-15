@@ -7,6 +7,7 @@ import { MarqueeStripes } from '@/components/marquee/MarqueeStripes'
 import { MemoryAITableSection } from '@/components/brain/MemoryAITableSection'
 import { GlobeSection } from '@/components/globe/GlobeSection'
 import { WorkflowHeroSection } from '@/components/workflow/WorkflowHeroSection'
+import { PlatformMetricsSection } from '@/components/metrics/PlatformMetricsSection'
 
 function App() {
   return (
@@ -19,6 +20,7 @@ function App() {
       <MemoryAITableSection />
       <GlobeSection />
       <WorkflowHeroSection />
+      <PlatformMetricsSection />
       <MarqueeStripes />
     </main>
   )
