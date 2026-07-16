@@ -9,6 +9,7 @@ import { GlobeSection } from '@/components/globe/GlobeSection'
 import { WorkflowHeroSection } from '@/components/workflow/WorkflowHeroSection'
 import { PlatformMetricsSection } from '@/components/metrics/PlatformMetricsSection'
 import { MissionMessageSection } from '@/components/mission/MissionMessageSection'
+import { SiteFooter } from '@/components/footer/SiteFooter'
 
 function App() {
   return (
@@ -24,6 +25,7 @@ function App() {
       <PlatformMetricsSection />
       <MissionMessageSection />
       <MarqueeStripes />
+      <SiteFooter />
     </main>
   )
 }
