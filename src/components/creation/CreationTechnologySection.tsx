@@ -122,7 +122,7 @@ export function CreationTechnologySection() {
 
         {/* ── Cards grid ──────────────────────────── */}
         <div className="relative z-20 mx-auto max-w-6xl px-4 sm:px-6">
-          <div className="rounded-xl border border-white/[0.10] overflow-hidden bg-[#0a0a0c]/80 backdrop-blur-sm">
+          <div className="rounded-xl border border-white/[0.10] overflow-hidden bg-black">
             <div className="grid grid-cols-1 md:grid-cols-3">
               {creationPillars.map((pillar, i) => (
                 <TechnologyPillarCard
