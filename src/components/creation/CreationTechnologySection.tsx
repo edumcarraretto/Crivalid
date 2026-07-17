@@ -47,8 +47,21 @@ export function CreationTechnologySection() {
       {/* Main dark area */}
       <div className="relative bg-black pb-8 sm:pb-12">
 
+        {/* ── Concave notch transition ── */}
+        <div
+          aria-hidden="true"
+          className="
+            pointer-events-none absolute top-0 left-1/2 -translate-x-1/2
+            h-[28px] w-[86%]
+            sm:h-[34px] sm:w-[74%]
+            md:h-[40px] md:w-[64%]
+            rounded-b-[20px] sm:rounded-b-[22px]
+            bg-white
+          "
+        />
+
         {/* ── Header ──────────────────────────────── */}
-        <div className="relative z-20 mx-auto max-w-4xl px-6 pt-12 pb-14 sm:pt-16 sm:pb-20 text-center">
+        <div className="relative z-20 mx-auto max-w-4xl px-6 pt-[52px] pb-14 sm:pt-[62px] sm:pb-20 text-center">
           {/* Logo */}
           <motion.div
             initial={{ opacity: 0, scale: 0.9 }}

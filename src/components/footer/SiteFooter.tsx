@@ -18,10 +18,23 @@ export function SiteFooter() {
     <footer
       id="site-footer"
       aria-label="Rodapé do site"
-      className="relative w-full bg-black overflow-hidden"
+      className="relative w-full bg-black"
     >
+      {/* ── Concave notch transition ── */}
+      <div
+        aria-hidden="true"
+        className="
+          pointer-events-none absolute top-0 left-1/2 -translate-x-1/2
+          h-[28px] w-[86%]
+          sm:h-[34px] sm:w-[74%]
+          md:h-[40px] md:w-[64%]
+          rounded-b-[20px] sm:rounded-b-[22px]
+          bg-white
+        "
+      />
+
       {/* ── Top section (rule + nav) ── */}
-      <div className="mx-auto max-w-6xl px-6 sm:px-8">
+      <div className="mx-auto max-w-6xl px-6 sm:px-8 pt-[36px] sm:pt-[42px] md:pt-[48px]">
         <div className="mx-auto w-full max-w-md h-px bg-white/[0.12]" />
 
         <motion.nav
@@ -55,7 +68,7 @@ export function SiteFooter() {
         whileInView={{ opacity: 1 }}
         viewport={{ once: true, margin: '-60px' }}
         transition={{ duration: 1.2, delay: 0.15 }}
-        className="relative flex items-center justify-center py-6 sm:py-8 md:py-10"
+        className="relative w-full flex items-center justify-center text-center py-6 sm:py-8 md:py-10"
       >
         <span
           aria-hidden="true"
@@ -80,16 +93,19 @@ export function SiteFooter() {
           viewport={{ once: true, margin: '-20px' }}
           transition={{ duration: 0.5, delay: 0.1 }}
           className="
-            flex flex-col items-center gap-3
-            sm:flex-row sm:justify-between
+            flex flex-col items-center gap-3 text-center
+            sm:flex-row sm:items-center sm:justify-between sm:text-left
             py-6 sm:py-8
           "
         >
           <span className="text-xs text-white/30 tracking-wide">
-            ©2026 Crivalid. All rights reserved.
+            ©2026 Crivalid.
           </span>
           <span className="text-xs text-white/30 tracking-wide">
-            Crafted by Crivalid
+            Todos os direitos reservados.
+          </span>
+          <span className="text-xs text-white/30 tracking-wide">
+            Criado por Crivalid
           </span>
         </motion.div>
       </div>

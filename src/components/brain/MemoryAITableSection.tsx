@@ -4,7 +4,7 @@ import { MultiplayerAIPreview } from './MultiplayerAIPreview'
 
 export function MemoryAITableSection() {
   return (
-    <section className="bg-black py-24 sm:py-32 relative overflow-hidden">
+    <section className="bg-black pt-24 pb-20 sm:pt-32 sm:pb-24 md:pb-28 relative overflow-hidden">
       {/* Container principal para o grid */}
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
         
@@ -71,6 +71,19 @@ export function MemoryAITableSection() {
 
         </div>
       </div>
+
+      {/* ── Inverted concave notch transition (bottom) ── */}
+      <div
+        aria-hidden="true"
+        className="
+          pointer-events-none absolute bottom-0 left-1/2 -translate-x-1/2
+          h-[28px] w-[86%]
+          sm:h-[34px] sm:w-[74%]
+          md:h-[40px] md:w-[64%]
+          rounded-t-[20px] sm:rounded-t-[22px]
+          bg-white
+        "
+      />
     </section>
   )
 }
