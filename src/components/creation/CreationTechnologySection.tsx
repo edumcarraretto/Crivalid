@@ -42,26 +42,13 @@ export function CreationTechnologySection() {
     <section
       id="tecnologias"
       aria-labelledby="creation-heading"
-      className="relative w-full overflow-hidden"
+      className="relative w-full bg-white"
     >
-      {/* Main dark area */}
-      <div className="relative bg-black pb-8 sm:pb-12">
-
-        {/* ── Concave notch transition ── */}
-        <div
-          aria-hidden="true"
-          className="
-            pointer-events-none absolute top-0 left-1/2 -translate-x-1/2
-            h-[28px] w-[86%]
-            sm:h-[34px] sm:w-[74%]
-            md:h-[40px] md:w-[64%]
-            rounded-b-[20px] sm:rounded-b-[22px]
-            bg-white
-          "
-        />
+      {/* Main dark area — inset card (top half, connects with Brain below) */}
+      <div className="mx-4 sm:mx-6 md:mx-10 lg:mx-16 relative bg-black rounded-t-[24px] sm:rounded-t-[32px] pb-8 sm:pb-12 overflow-hidden">
 
         {/* ── Header ──────────────────────────────── */}
-        <div className="relative z-20 mx-auto max-w-4xl px-6 pt-[52px] pb-14 sm:pt-[62px] sm:pb-20 text-center">
+        <div className="relative z-20 mx-auto max-w-4xl px-6 pt-14 pb-14 sm:pt-20 sm:pb-20 text-center">
           {/* Logo */}
           <motion.div
             initial={{ opacity: 0, scale: 0.9 }}
