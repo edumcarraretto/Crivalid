@@ -5,6 +5,7 @@ import { TechnologyPillarCard } from './TechnologyPillarCard'
 import { NoCodeBuilderPreview } from './NoCodeBuilderPreview'
 import { AIModelsPreview } from './AIModelsPreview'
 import { IntegratedCodeEditorPreview } from './IntegratedCodeEditorPreview'
+import { CreationShowcase } from '../showcase/CreationShowcase'
 
 // ─── Preview registry ─────────────────────────────────────────────────────────
 
@@ -45,7 +46,7 @@ export function CreationTechnologySection() {
       className="relative w-full bg-white"
     >
       {/* Main dark area — inset card (top half, connects with Brain below) */}
-      <div className="mx-4 sm:mx-6 md:mx-10 lg:mx-16 relative bg-black rounded-t-[24px] sm:rounded-t-[32px] pb-8 sm:pb-12 overflow-hidden">
+      <div className="mx-4 sm:mx-6 md:mx-10 lg:mx-16 relative bg-black rounded-t-[24px] sm:rounded-t-[32px] overflow-hidden">
 
         {/* ── Header ──────────────────────────────── */}
         <div className="relative z-20 mx-auto max-w-4xl px-6 pt-14 pb-14 sm:pt-20 sm:pb-20 text-center">
@@ -137,6 +138,9 @@ export function CreationTechnologySection() {
             </div>
           </div>
         </div>
+
+        {/* ── Creation Showcase (design gallery) ── */}
+        <CreationShowcase />
       </div>
     </section>
   )
