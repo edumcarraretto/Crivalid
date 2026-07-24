@@ -1,3 +1,4 @@
+import { Navbar } from '@/components/navbar/Navbar'
 import { Hero } from '@/components/hero/Hero'
 import { LogoCloud } from '@/components/logos/LogoCloud'
 import { ProblemSection } from '@/components/problem/ProblemSection'
@@ -13,7 +14,8 @@ import { SiteFooter } from '@/components/footer/SiteFooter'
 
 function App() {
   return (
-    <main>
+    <main className="min-h-screen bg-white">
+      <Navbar />
       <Hero />
       <LogoCloud />
       <ProblemSection />

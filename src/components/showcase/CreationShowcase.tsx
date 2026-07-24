@@ -34,13 +34,14 @@ export function CreationShowcase() {
 
         /* Item hover effects */
         .showcase-item {
-          transition: transform 250ms ease-out, box-shadow 250ms ease-out;
+          filter: drop-shadow(0 4px 20px rgba(0, 0, 0, 0.3));
+          transition: transform 250ms ease-out, filter 250ms ease-out;
         }
 
         @media (hover: hover) {
           .showcase-item:hover {
             transform: scale(1.03) translateY(-6px);
-            box-shadow: 0 12px 40px rgba(0, 0, 0, 0.4);
+            filter: drop-shadow(0 12px 36px rgba(0, 0, 0, 0.5));
             z-index: 20;
           }
 
@@ -48,18 +49,6 @@ export function CreationShowcase() {
           .showcase-marquee-track:has(.showcase-item:hover) .showcase-item:not(:hover) {
             opacity: 0.55;
             transition: opacity 300ms ease-out, transform 250ms ease-out;
-          }
-
-          /* Pill glow on hover */
-          .showcase-item:hover .showcase-pill {
-            background-color: rgba(0, 0, 0, 0.65);
-            border-color: rgba(255, 255, 255, 0.22);
-          }
-
-          /* Reveal subcategory on hover */
-          .showcase-item:hover .showcase-subcategory {
-            max-width: 160px;
-            opacity: 1;
           }
         }
       `}</style>

@@ -142,7 +142,7 @@ export function Hero({ theme = 'light' }: HeroProps) {
       className={`relative flex flex-col items-center justify-center min-h-svh px-6 py-20 transition-colors duration-500 ${isDark ? 'bg-black' : 'bg-white'}`}
     >
       {/* Top Background Gradient (subtle) */}
-      <div className={`absolute top-0 left-0 right-0 h-64 pointer-events-none transition-colors duration-500 ${isDark ? 'bg-gradient-to-b from-violet-900/20 to-transparent' : 'bg-gradient-to-b from-violet-100/60 to-transparent'}`} />
+      <div className={`absolute top-0 left-0 right-0 h-64 pointer-events-none transition-colors duration-500 ${isDark ? 'bg-gradient-to-b from-violet-900/20 to-transparent' : 'hidden'}`} />
 
       <div className="relative z-10 mx-auto w-full max-w-4xl text-center flex flex-col items-center">
 

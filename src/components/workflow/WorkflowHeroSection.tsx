@@ -1,10 +1,23 @@
-import { motion } from 'motion/react'
+import { useRef, useEffect } from 'react'
+import { motion, useInView, useAnimationControls } from 'motion/react'
 import { ArrowRight } from 'lucide-react'
 import { InlineAvatarGroup } from './InlineAvatarGroup'
 
 // ─── Section ─────────────────────────────────────────────────────────────────
 
 export function WorkflowHeroSection() {
+  const imageRef = useRef<HTMLDivElement>(null)
+  // margin: '-100px 0px' means the element must be at least 100px
+  // inside the viewport before it counts as "in view"
+  const isInView = useInView(imageRef, { once: true, margin: '-100px 0px -100px 0px' })
+  const controls = useAnimationControls()
+
+  useEffect(() => {
+    if (isInView) {
+      controls.start('visible')
+    }
+  }, [isInView, controls])
+
   return (
     <section
       id="workflow"
@@ -86,20 +99,30 @@ export function WorkflowHeroSection() {
           </a>
         </motion.div>
 
-        {/* ── Automation flow image ── */}
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: '-40px' }}
-          transition={{ duration: 0.7, delay: 0.3 }}
-          className="flex justify-center"
-        >
-          <img 
-            src="/images/automation-flow.png" 
-            alt="Fluxo de automação entre pessoas e agentes" 
-            className="w-full max-w-[620px] h-auto"
-          />
-        </motion.div>
+        {/* ── Animated Automation Flow Image (reveal on scroll) ── */}
+        <div ref={imageRef} className="w-full flex justify-center">
+          <div className="relative inline-block overflow-hidden rounded-2xl">
+            <motion.div
+              initial="hidden"
+              animate={controls}
+              variants={{
+                hidden: { clipPath: 'inset(0% 0% 100% 0%)', opacity: 0 },
+                visible: { clipPath: 'inset(0% 0% 0% 0%)', opacity: 1 },
+              }}
+              transition={{
+                duration: 7,
+                ease: [0.22, 1, 0.36, 1],
+              }}
+              className="relative overflow-hidden"
+            >
+              <img
+                src="/images/automation-flow.png"
+                alt="Fluxo de automação entre pessoas e agentes"
+                className="w-full max-w-[620px] h-auto block mx-auto"
+              />
+            </motion.div>
+          </div>
+        </div>
 
       </div>
     </section>
