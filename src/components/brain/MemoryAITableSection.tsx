@@ -1,6 +1,9 @@
 import { JourneyPreviewCard } from './JourneyPreviewCard'
 import { AIModelsPreview } from './AIModelsPreview'
 import { MultiplayerAIPreview } from './MultiplayerAIPreview'
+import { ConnectedTechPreview } from './ConnectedTechPreview'
+import { AmbientIntelligencePreview } from './AmbientIntelligencePreview'
+import { DeepSearchPreview } from './DeepSearchPreview'
 
 export function MemoryAITableSection() {
   return (
@@ -20,14 +23,14 @@ export function MemoryAITableSection() {
           </p>
         </div>
 
-        {/* Bloco/Tabela principal */}
-        <div className="bg-[#050505] border border-white/10 rounded-none sm:rounded-2xl overflow-hidden flex flex-col md:grid md:grid-cols-3">
-          
-          {/* Coluna 1: Jornada */}
-          <div className="flex flex-col p-8 sm:p-10 border-b md:border-b-0 md:border-r border-white/10 relative h-full">
-            <div className="mb-10 relative z-20">
+        {/* Grid de cards quadrados — 3×2 */}
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-3 sm:gap-4">
+
+          {/* ═══ Card 1: Jornada ═══ */}
+          <div className="flex flex-col p-7 sm:p-8 md:aspect-square bg-[#050505] border border-white/10 rounded-2xl relative overflow-hidden">
+            <div className="mb-6 relative z-20">
               <h3 className="text-neutral-400 font-mono text-[11px] sm:text-[12px] tracking-[0.2em] uppercase mb-4 font-medium">
-                Com você em toda a jornada
+                Com Você em Toda a Jornada
               </h3>
               <p className="text-neutral-400 text-sm leading-relaxed">
                 Não é apenas sobre criar. É sobre <strong className="text-white font-medium">caminhar ao seu lado</strong>. Da primeira faísca da ideia até o crescimento contínuo do seu projeto, a plataforma evolui com você.
@@ -39,9 +42,9 @@ export function MemoryAITableSection() {
             </div>
           </div>
 
-          {/* Coluna 2: Modelos */}
-          <div className="flex flex-col p-8 sm:p-10 border-b md:border-b-0 md:border-r border-white/10 relative h-full">
-            <div className="mb-10 relative z-20">
+          {/* ═══ Card 2: Modelos ═══ */}
+          <div className="flex flex-col p-7 sm:p-8 md:aspect-square bg-[#050505] border border-white/10 rounded-2xl relative overflow-hidden">
+            <div className="mb-6 relative z-20">
               <h3 className="text-white font-mono text-[11px] sm:text-[12px] tracking-widest uppercase mb-4 font-semibold">
                 Toda IA, Ilimitada
               </h3>
@@ -55,11 +58,11 @@ export function MemoryAITableSection() {
             </div>
           </div>
 
-          {/* Coluna 3: Criação */}
-          <div className="flex flex-col p-8 sm:p-10 relative h-full">
-            <div className="mb-10 relative z-20">
+          {/* ═══ Card 3: Criação ═══ */}
+          <div className="flex flex-col p-7 sm:p-8 md:aspect-square bg-[#050505] border border-white/10 rounded-2xl relative overflow-hidden">
+            <div className="mb-6 relative z-20">
               <h3 className="text-white font-mono text-[11px] sm:text-[12px] tracking-widest uppercase mb-4 font-semibold">
-                Feito para qualquer tipo de criação
+                Feito para Qualquer Tipo de Criação
               </h3>
               <p className="text-neutral-400 text-sm leading-relaxed">
                 Da ideia ao lançamento, a plataforma se adapta ao tipo de criação que você quiser construir.
@@ -68,6 +71,54 @@ export function MemoryAITableSection() {
 
             <div className="mt-auto flex-1 flex flex-col justify-end">
               <MultiplayerAIPreview />
+            </div>
+          </div>
+
+          {/* ═══ Card 4: Tecnologia Conectada ═══ */}
+          <div className="flex flex-col p-7 sm:p-8 md:aspect-square bg-[#050505] border border-white/10 rounded-2xl relative overflow-hidden">
+            <div className="mb-6 relative z-20">
+              <h3 className="text-white font-mono text-[11px] sm:text-[12px] tracking-widest uppercase mb-4 font-semibold">
+                Tecnologia Conectada e Sem Limites
+              </h3>
+              <p className="text-neutral-400 text-sm leading-relaxed">
+                Utilizamos <strong className="text-white font-medium">tecnologia de ponta</strong>, <strong className="text-white font-medium">conectada</strong> a ferramentas, serviços e recursos modernos para oferecer o <strong className="text-white font-medium">melhor resultado possível</strong> com mais inteligência e velocidade.
+              </p>
+            </div>
+
+            <div className="mt-auto flex-1 flex flex-col justify-end">
+              <ConnectedTechPreview />
+            </div>
+          </div>
+
+          {/* ═══ Card 5: Inteligência Contextual ═══ */}
+          <div className="flex flex-col p-7 sm:p-8 md:aspect-square bg-[#050505] border border-white/10 rounded-2xl relative overflow-hidden">
+            <div className="mb-6 relative z-20">
+              <h3 className="text-white font-mono text-[11px] sm:text-[12px] tracking-widest uppercase mb-4 font-semibold">
+                Inteligência Contextual
+              </h3>
+              <p className="text-neutral-400 text-sm leading-relaxed">
+                A plataforma acompanha cada etapa da sua criação, <strong className="text-white font-medium">entende o contexto do projeto</strong> e <strong className="text-white font-medium">sugere melhorias</strong> <strong className="text-white font-medium">antes mesmo de você pedir</strong>.
+              </p>
+            </div>
+
+            <div className="mt-auto flex-1 flex flex-col justify-end">
+              <AmbientIntelligencePreview />
+            </div>
+          </div>
+
+          {/* ═══ Card 6: Busca Profunda ═══ */}
+          <div className="flex flex-col p-7 sm:p-8 md:aspect-square bg-[#050505] border border-white/10 rounded-2xl relative">
+            <div className="mb-auto relative z-20">
+              <h3 className="text-white font-mono text-[11px] sm:text-[12px] tracking-widest uppercase mb-4 font-semibold">
+                Busca Profunda
+              </h3>
+              <p className="text-neutral-400 text-sm leading-relaxed">
+                Antes de criar, a plataforma <strong className="text-white font-medium">analisa o contexto</strong>, referências e ideias para encontrar a <strong className="text-white font-medium">melhor direção possível</strong>.
+              </p>
+            </div>
+
+            <div className="mt-auto flex-1 flex flex-col justify-end">
+              <DeepSearchPreview />
             </div>
           </div>
 

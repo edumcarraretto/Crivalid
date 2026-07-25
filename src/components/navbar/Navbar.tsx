@@ -1,30 +1,56 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useState, useCallback } from 'react'
 import { Menu, X } from 'lucide-react'
 
 interface NavItem {
   id: string
   label: string
+  href: string
 }
 
 const navItems: NavItem[] = [
-  { id: 'caracteristicas', label: 'Características' },
-  { id: 'seguranca', label: 'Segurança' },
-  { id: 'comecando', label: 'Começando' },
-  { id: 'faq', label: 'Perguntas frequentes' },
+  { id: 'ferramentas', label: 'Ferramentas', href: '#ferramentas' },
+  { id: 'tecnologias', label: 'Tecnologia', href: '#tecnologias' },
+  { id: 'workflow', label: 'Automações', href: '#workflow' },
+  { id: 'platform-metrics', label: 'Métricas', href: '#platform-metrics' },
 ]
 
 export function Navbar() {
-  const [activeItem, setActiveItem] = useState('caracteristicas')
+  const [activeItem, setActiveItem] = useState('')
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
   const [isScrolled, setIsScrolled] = useState(false)
 
+  // ── Smooth scroll to section ──
+  const scrollToSection = useCallback((href: string) => {
+    const id = href.replace('#', '')
+    const el = document.getElementById(id)
+    if (el) {
+      const navbarHeight = 100 // offset for sticky navbar
+      const top = el.getBoundingClientRect().top + window.scrollY - navbarHeight
+      window.scrollTo({ top, behavior: 'smooth' })
+    }
+  }, [])
+
+  // ── Scroll-spy: highlight active section + shrink navbar ──
   useEffect(() => {
     const handleScroll = () => {
-      if (window.scrollY > 30) {
-        setIsScrolled(true)
-      } else {
-        setIsScrolled(false)
+      // Navbar shrink
+      setIsScrolled(window.scrollY > 30)
+
+      // Scroll-spy: find which section is currently in view
+      const navbarOffset = 120
+      let currentActive = ''
+
+      for (const item of navItems) {
+        const el = document.getElementById(item.id)
+        if (el) {
+          const rect = el.getBoundingClientRect()
+          if (rect.top <= navbarOffset && rect.bottom > navbarOffset) {
+            currentActive = item.id
+          }
+        }
       }
+
+      setActiveItem(currentActive)
     }
 
     window.addEventListener('scroll', handleScroll, { passive: true })
@@ -61,7 +87,15 @@ export function Navbar() {
         >
           {/* ── 1. LADO ESQUERDO: Logo "OWO" ── */}
           <div className="flex items-center gap-2 select-none">
-            <a href="#" className="flex items-center gap-2 group" aria-label="OWO Home">
+            <a
+              href="#"
+              className="flex items-center gap-2 group"
+              aria-label="OWO Home"
+              onClick={(e) => {
+                e.preventDefault()
+                window.scrollTo({ top: 0, behavior: 'smooth' })
+              }}
+            >
               {/* Icon symbol: Pink circle with plus/cross */}
               <svg
                 viewBox="0 0 24 24"
@@ -105,11 +139,15 @@ export function Navbar() {
 
               return (
                 <div key={item.id} className="flex items-center gap-1 sm:gap-1.5">
-                  <button
-                    onClick={() => setActiveItem(item.id)}
+                  <a
+                    href={item.href}
+                    onClick={(e) => {
+                      e.preventDefault()
+                      scrollToSection(item.href)
+                    }}
                     className={`
                       font-bold tracking-tight rounded-xl sm:rounded-2xl
-                      transition-all duration-300 ease-out
+                      transition-all duration-300 ease-out cursor-pointer
                       ${
                         isScrolled
                           ? 'px-4 py-2 text-xs sm:text-sm'
@@ -123,7 +161,7 @@ export function Navbar() {
                     `}
                   >
                     {item.label}
-                  </button>
+                  </a>
 
                   {/* Pequena barra vertical de divisão entre os tópicos */}
                   {index < navItems.length - 1 && (
@@ -181,14 +219,16 @@ export function Navbar() {
               {navItems.map((item) => {
                 const isActive = activeItem === item.id
                 return (
-                  <button
+                  <a
                     key={item.id}
-                    onClick={() => {
-                      setActiveItem(item.id)
+                    href={item.href}
+                    onClick={(e) => {
+                      e.preventDefault()
+                      scrollToSection(item.href)
                       setMobileMenuOpen(false)
                     }}
                     className={`
-                      w-full text-left px-4 py-2.5 text-sm font-semibold rounded-xl transition-colors
+                      w-full text-left px-4 py-2.5 text-sm font-semibold rounded-xl transition-colors block
                       ${
                         isActive
                           ? 'bg-[#FFD6EB] text-[#1A1A1A]'
@@ -197,7 +237,7 @@ export function Navbar() {
                     `}
                   >
                     {item.label}
-                  </button>
+                  </a>
                 )
               })}
             </div>
