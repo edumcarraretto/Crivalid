@@ -88,7 +88,7 @@ export function DeepSearchStatusPanel() {
   const pct = Math.min(100, Math.max(0, progressWidth));
 
   return (
-    <div className="relative z-20 mt-auto w-full flex justify-center pb-2">
+    <div className="relative z-20 mt-auto w-full flex justify-end translate-x-[20%] sm:translate-x-[25%] pb-2">
       <style>{`
         @property --pill-angle {
           syntax: '<angle>';
@@ -106,7 +106,7 @@ export function DeepSearchStatusPanel() {
           padding: 14px 27px 14px 14px;
           border-radius: 9999px;
           border: none;
-          background: rgba(20, 20, 24, 0.92);
+          background: #050505;
           box-shadow: 0 18px 40px -12px rgba(0, 0, 0, 0.75);
           backdrop-filter: blur(16px);
           font-family: ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
@@ -141,40 +141,6 @@ export function DeepSearchStatusPanel() {
           pointer-events: none;
         }
 
-        /* halo difuso vazando para fora */
-        .pp-root::after {
-          content: "";
-          position: absolute;
-          inset: -6px;
-          z-index: -1;
-          border-radius: inherit;
-          padding: 14px;
-          background: conic-gradient(
-            from var(--pill-angle),
-            transparent 0deg,
-            transparent 15deg,
-            rgba(255, 77, 141, 0.50) 38deg,
-            rgba(255, 140, 200, 0.70) 55deg,
-            rgba(255, 220, 240, 0.85) 68deg,
-            rgba(200, 130, 255, 0.70) 82deg,
-            rgba(140, 80, 255, 0.50) 100deg,
-            rgba(100, 120, 255, 0.25) 120deg,
-            transparent 145deg,
-            transparent 360deg
-          );
-          -webkit-mask:
-            linear-gradient(#000 0 0) content-box,
-            linear-gradient(#000 0 0);
-          -webkit-mask-composite: xor;
-          mask:
-            linear-gradient(#000 0 0) content-box,
-            linear-gradient(#000 0 0);
-          mask-composite: exclude;
-          filter: blur(18px);
-          opacity: 1;
-          animation: pill-border 6s linear infinite;
-          pointer-events: none;
-        }
 
         /* --- ícone: totalmente contido no pill --- */
         .pp-icon {
@@ -187,19 +153,7 @@ export function DeepSearchStatusPanel() {
           isolation: isolate;
         }
 
-        .pp-glow {
-          position: absolute;
-          inset: 4px;
-          border-radius: 9999px;
-          background: conic-gradient(
-            from 0deg,
-            #FF4D8D, #FF7A3D, #FFC94A, #38BDF8, #6366F1, #B65CFF, #FF4D8D
-          );
-          filter: blur(9px);
-          opacity: 0.5;
-          z-index: 0;
-          animation: pp-spin 5s linear infinite;
-        }
+
 
         .pp-ring {
           position: absolute;
@@ -207,45 +161,19 @@ export function DeepSearchStatusPanel() {
           border-radius: 9999px;
           background: conic-gradient(
             from 0deg,
-            #FFFFFF 0deg,
-            #FFD9E8 6deg,
-            #FF4D8D 18deg,
-            #FF7A3D 70deg,
-            #FFC94A 130deg,
-            #38BDF8 195deg,
-            #6366F1 255deg,
-            #B65CFF 310deg,
+            #FF4D8D 0deg,
+            #FF7A3D 60deg,
+            #FFC94A 120deg,
+            #38BDF8 180deg,
+            #6366F1 240deg,
+            #B65CFF 300deg,
             #FF4D8D 360deg
           );
           z-index: 1;
           animation: pp-spin 4s linear infinite;
         }
 
-        /* faísca no começo da borda — acompanha o gradiente */
-        .pp-spark {
-          position: absolute;
-          inset: 0;
-          border-radius: 9999px;
-          z-index: 3;
-          pointer-events: none;
-          animation: pp-spin 4s linear infinite;
-        }
 
-        .pp-spark::before {
-          content: "";
-          position: absolute;
-          top: -1px;
-          left: 50%;
-          width: 8px;
-          height: 8px;
-          margin-left: -4px;
-          border-radius: 9999px;
-          background: #FFFFFF;
-          box-shadow:
-            0 0 5px 1.5px rgba(255, 190, 220, 0.95),
-            0 0 12px 4px rgba(255, 77, 141, 0.65),
-            0 0 22px 8px rgba(255, 77, 141, 0.3);
-        }
 
         .pp-core {
           position: absolute;
@@ -329,8 +257,8 @@ export function DeepSearchStatusPanel() {
         }
 
         @media (prefers-reduced-motion: reduce) {
-          .pp-glow, .pp-ring, .pp-spark, .pp-flower,
-          .pp-fill::after, .pp-root::before, .pp-root::after {
+          .pp-ring, .pp-flower,
+          .pp-fill::after, .pp-root::before {
             animation: none;
           }
         }
@@ -340,7 +268,6 @@ export function DeepSearchStatusPanel() {
           .pp-icon { width: 48px; height: 48px; }
           .pp-flower { width: 36px; height: 36px; }
           .pp-label { font-size: 13px; }
-          .pp-spark::before { width: 6px; height: 6px; margin-left: -3px; }
         }
       `}</style>
 
@@ -353,12 +280,10 @@ export function DeepSearchStatusPanel() {
         aria-label={label}
       >
         <div className="pp-icon">
-          <div className="pp-glow" />
           <div className="pp-ring" />
           <div className="pp-core">
             <FlowerIcon />
           </div>
-          <div className="pp-spark" />
         </div>
 
         <div className="pp-content">

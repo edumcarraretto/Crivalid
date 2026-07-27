@@ -28,7 +28,7 @@ export function AIModelsPreview() {
   }, [])
 
   return (
-    <div className="relative w-full max-w-[200px] mx-auto mt-16 pb-8 flex flex-col items-center justify-center h-[200px]">
+    <div className="relative w-full max-w-[200px] mx-auto mt-4 pb-8 flex flex-col items-center justify-center h-[200px]">
       
       {/* Seta Esquerda Fixa (Apontando para a direita ▶) */}
       <motion.div
@@ -50,39 +50,45 @@ export function AIModelsPreview() {
           let y = 0
           let opacity = 1
           let zIndex = 0
+          let scale = 1
           let isActive = false
 
-          // Adjusted positions to accommodate 4 perfectly legible items
+          // Adjusted positions and scales for 3D depth effect
           if (index === 0) {
             y = -48
             opacity = 0.5
             zIndex = 10
+            scale = 0.85
           } else if (index === 1) {
             y = 0
             opacity = 1
             zIndex = 30
+            scale = 1
             isActive = true
           } else if (index === 2) {
             y = 48
             opacity = 0.5
             zIndex = 20
+            scale = 0.85
           } else if (index === 3) {
-            y = 96
+            y = 90
             opacity = 0.15
             zIndex = 10
+            scale = 0.7
           } else {
-            y = 130
+            y = 120
             opacity = 0
             zIndex = 0
+            scale = 0.6
           }
 
           return (
             <motion.div
               key={item.uniqueId}
               layout
-              initial={{ opacity: 0, y: 130 }}
-              animate={{ opacity, y, zIndex }}
-              exit={{ opacity: 0, y: -90 }}
+              initial={{ opacity: 0, y: 120, scale: 0.6 }}
+              animate={{ opacity, y, zIndex, scale }}
+              exit={{ opacity: 0, y: -90, scale: 0.7 }}
               transition={{ type: 'tween', duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
               className="absolute w-full flex justify-center items-center"
             >
@@ -91,10 +97,10 @@ export function AIModelsPreview() {
                 <motion.div
                   layout
                   transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
-                  className={`relative p-[1px] rounded-[999px] transition-all duration-700 ${
+                  className={`relative p-[1px] rounded-[999px] transition-all duration-700 w-[90%] sm:w-[85%] ${
                     isActive
-                      ? 'w-[85%] bg-gradient-to-r from-blue-500 via-indigo-500 to-pink-500 shadow-[0_0_20px_rgba(236,72,153,0.15)]'
-                      : 'w-[75%] bg-gradient-to-r from-blue-500/40 via-indigo-500/40 to-pink-500/40'
+                      ? 'bg-gradient-to-r from-blue-500 via-indigo-500 to-pink-500 shadow-[0_0_20px_rgba(236,72,153,0.15)]'
+                      : 'bg-gradient-to-r from-blue-500/40 via-indigo-500/40 to-pink-500/40'
                   }`}
                 >
                   <div
