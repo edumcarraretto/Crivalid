@@ -12,6 +12,7 @@ import {
   Globe,
   Home,
 } from 'lucide-react'
+import { IdeaAnalysisView } from './IdeaAnalysisView'
 
 // ─── Types ────────────────────────────────────────────────────────────────────
 
@@ -210,10 +211,10 @@ export function GlassDashboard() {
 
       {/* Glass Panel — single large panel with its own blue tint */}
       <div
-        className="relative flex flex-col w-full overflow-hidden"
+        className="relative flex flex-col w-full overflow-hidden transition-all duration-700 ease-in-out"
         style={{
           maxWidth: '1400px',
-          minHeight: '800px',
+          minHeight: selectedCardId ? '800px' : 'auto',
           borderRadius: 'clamp(28px, 3.5vw, 40px)',
           backdropFilter: 'blur(48px) saturate(150%)',
           WebkitBackdropFilter: 'blur(48px) saturate(150%)',
@@ -456,8 +457,15 @@ export function GlassDashboard() {
           </div>
         </div>
 
-        {/* ── Filler Area to maintain layout structure ── */}
-        <div className="w-full flex-1 pointer-events-none" />
+        {/* ── Content Area — directly inside the glass panel ── */}
+        {!selectedCardId && (
+          <div className="relative w-full flex-1 flex flex-col z-10 px-6 sm:px-10 lg:px-16 pt-8 pb-10">
+            <IdeaAnalysisView />
+          </div>
+        )}
+
+        {/* Spacer when a card IS selected (content area already filled by background) */}
+        {selectedCardId && <div className="w-full flex-1" />}
       </div>
     </div>
   )
