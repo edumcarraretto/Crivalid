@@ -83,39 +83,52 @@ function Mascot({ isDark }: { isDark: boolean }) {
         </motion.div>
       </div>
 
-      {/* Decorative Sparkle (Background) */}
-      <div className={`absolute top-1/2 -translate-y-1/2 -right-16 sm:-right-24 pointer-events-none z-0 ${isDark ? 'text-neutral-800' : 'text-neutral-200'}`}>
-        <svg width="100" height="100" viewBox="0 0 24 24" fill="currentColor">
-          <path d="M12 0C12 6.627 17.373 12 24 12C17.373 12 12 17.373 12 24C12 17.373 6.627 12 0 12C6.627 12 12 6.627 12 0Z" />
-        </svg>
-      </div>
 
-      {/* Blob */}
-      <div
-        className={`relative flex items-center justify-center w-56 h-56 sm:w-72 sm:h-72 rounded-full bg-gradient-to-br from-violet-500 via-indigo-500 to-blue-600 p-[3px] z-10 ${isDark ? 'shadow-[0_0_60px_-15px_rgba(139,92,246,0.6)]' : 'shadow-[0_0_50px_-15px_rgba(139,92,246,0.3)]'}`}
-        style={{ borderRadius: '45% 55% 65% 35% / 40% 60% 40% 60%' }}
-      >
-        <div
-          className="w-full h-full bg-[#050508] flex items-center justify-center relative overflow-hidden"
-          style={{ borderRadius: 'inherit' }}
+
+      {/* Premium Logo Showcase */}
+      <div className="relative z-10 flex items-center justify-center w-64 h-64 sm:w-[22rem] sm:h-[22rem]">
+        
+        {/* Pulsing Dynamic Aura */}
+        <motion.div 
+          className="absolute inset-0 rounded-full blur-[60px] sm:blur-[80px]"
+          animate={{ 
+            background: isDark 
+              ? [
+                  'radial-gradient(circle, rgba(139,92,246,0.4) 0%, rgba(0,0,0,0) 70%)',
+                  'radial-gradient(circle, rgba(59,130,246,0.4) 0%, rgba(0,0,0,0) 70%)',
+                  'radial-gradient(circle, rgba(139,92,246,0.4) 0%, rgba(0,0,0,0) 70%)'
+                ]
+              : [
+                  'radial-gradient(circle, rgba(139,92,246,0.15) 0%, rgba(255,255,255,0) 70%)',
+                  'radial-gradient(circle, rgba(59,130,246,0.15) 0%, rgba(255,255,255,0) 70%)',
+                  'radial-gradient(circle, rgba(139,92,246,0.15) 0%, rgba(255,255,255,0) 70%)'
+                ],
+            scale: [0.8, 1.1, 0.8],
+            opacity: [0.5, 1, 0.5]
+          }}
+          transition={{ duration: 8, repeat: Infinity, ease: "easeInOut" }}
+        />
+        
+        {/* Floating Animation Wrapper */}
+        <motion.div
+          animate={{ y: [-10, 10, -10] }}
+          transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }}
+          className="w-full h-full flex items-center justify-center relative z-10"
         >
-          {/* Subtle inner glow */}
-          <div className="absolute inset-0 bg-violet-500/10 rounded-full blur-xl" />
-
-          {/* Left Eye */}
-          <div className="absolute top-[30%] left-[22%] w-[4.5rem] h-[5rem] sm:w-[5.5rem] sm:h-[6rem] bg-white rounded-[50%] -rotate-[12deg] shadow-[inset_-4px_-4px_12px_rgba(0,0,0,0.3)] flex items-center justify-center z-10">
-            <div className="w-[2.5rem] h-[2.8rem] sm:w-[3rem] sm:h-[3.5rem] bg-[#0A0A0A] rounded-[50%] absolute top-3 right-2">
-              <div className="w-3.5 h-3.5 bg-white rounded-full absolute top-1.5 right-1.5" />
-            </div>
-          </div>
-
-          {/* Right Eye */}
-          <div className="absolute top-[33%] right-[20%] w-[5rem] h-[5.5rem] sm:w-[6.5rem] sm:h-[7rem] bg-white rounded-[50%] rotate-[8deg] shadow-[inset_-4px_-4px_12px_rgba(0,0,0,0.3)] flex items-center justify-center z-10">
-            <div className="w-[2.8rem] h-[3.2rem] sm:w-[3.5rem] sm:h-[4rem] bg-[#0A0A0A] rounded-[50%] absolute top-4 left-3">
-              <div className="w-4 h-4 bg-white rounded-full absolute top-2 right-2" />
-            </div>
-          </div>
-        </div>
+          {/* The Spinning Logo with Complex Drop Shadows */}
+          <motion.img 
+            src="/logo-oficial.png" 
+            alt="Crivalid Logo Oficial" 
+            className="w-full h-full object-contain" 
+            style={{ 
+              filter: isDark 
+                ? 'drop-shadow(0 30px 40px rgba(0,0,0,0.6)) drop-shadow(0 0 50px rgba(139,92,246,0.4))' 
+                : 'drop-shadow(0 25px 35px rgba(0,0,0,0.15)) drop-shadow(0 0 30px rgba(139,92,246,0.2))' 
+            }}
+            animate={{ rotate: -360 }}
+            transition={{ repeat: Infinity, ease: 'linear', duration: 35 }}
+          />
+        </motion.div>
       </div>
     </div>
   )
