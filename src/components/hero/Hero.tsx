@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react'
 import { AnimatePresence, motion } from 'motion/react'
 import { ArrowDown, Globe, Star } from 'lucide-react'
-import { GlassDashboard } from './GlassDashboard'
+import { FeaturesGrid } from './FeaturesGrid'
 
 // ─── Types ────────────────────────────────────────────────────────────────────
 
@@ -126,7 +126,7 @@ function Mascot({ isDark }: { isDark: boolean }) {
 function InteractivePreview() {
   return (
     <div className="mt-20 sm:mt-28 z-20 w-full relative">
-      <GlassDashboard />
+      <FeaturesGrid />
     </div>
   )
 }

@@ -12,9 +12,11 @@ import { PlatformMetricsSection } from '@/components/metrics/PlatformMetricsSect
 import { MissionMessageSection } from '@/components/mission/MissionMessageSection'
 import { SiteFooter } from '@/components/footer/SiteFooter'
 
+import { AIIdeaSection } from '@/components/cta/AIIdeaSection'
+
 function App() {
   return (
-    <main className="min-h-screen bg-white">
+    <main className="min-h-screen bg-white overflow-x-hidden">
       <Navbar />
       <Hero />
       <LogoCloud />
@@ -26,6 +28,7 @@ function App() {
       <WorkflowHeroSection />
       <PlatformMetricsSection />
       <MissionMessageSection />
+      <AIIdeaSection />
       <MarqueeStripes />
       <SiteFooter />
     </main>

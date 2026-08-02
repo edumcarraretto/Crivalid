@@ -1,66 +1,79 @@
 import { motion } from 'motion/react'
-import { CreationShowcaseTrack } from './CreationShowcaseTrack'
+import { allProjects } from './showcaseData'
+import { ShowcaseCard } from './ShowcaseCard'
 
 // ─── Component ────────────────────────────────────────────────────────────────
 
 export function CreationShowcase() {
+  // A sequência contínua (H, V, H, V, H, V) é definida pela iteração simples.
+  // O MarqueeSet contém a sequência inteira. O pr-* final (padding-right) 
+  // garante que o espaço até o início do loop repetido seja perfeitamente 
+  // igual ao gap entre os cards internos, zerando as quebras de padrão.
+  const MarqueeSet = () => (
+    <div className="flex h-full shrink-0 gap-4 sm:gap-5 md:gap-6 pr-4 sm:pr-5 md:pr-6">
+      {allProjects.map((project, index) => (
+        <ShowcaseCard 
+          key={project.id} 
+          project={project} 
+          layout={index % 2 === 0 ? 'horizontal' : 'vertical'} 
+        />
+      ))}
+    </div>
+  )
+
   return (
-    <section className="relative py-12 sm:py-16" aria-labelledby="showcase-heading">
+    <section
+      className="relative py-14 sm:py-20"
+      aria-labelledby="showcase-heading"
+    >
       <h2 id="showcase-heading" className="sr-only">
         Exemplos de interfaces criadas com a plataforma
       </h2>
-      
-      {/* Scoped styles */}
+
+      {/* Scoped styles & Animations */}
       <style>{`
-        @keyframes showcase-marquee {
-          from { transform: translate3d(0, 0, 0); }
-          to   { transform: translate3d(calc(-1 * var(--showcase-distance)), 0, 0); }
+        .showcase-card {
+          transition: transform 350ms cubic-bezier(0.25, 0.46, 0.45, 0.94),
+                      box-shadow 350ms cubic-bezier(0.25, 0.46, 0.45, 0.94);
+          box-shadow: 0 4px 20px rgba(0, 0, 0, 0.25);
         }
-
-        @media (prefers-reduced-motion: reduce) {
-          .showcase-marquee-track {
-            animation: none !important;
-          }
-        }
-
         @media (hover: hover) {
-          .showcase-marquee-track {
-            transition: animation-play-state 0.4s ease;
-          }
-          .showcase-marquee-track:hover {
-            animation-play-state: paused;
-          }
-        }
-
-        /* Item hover effects */
-        .showcase-item {
-          filter: drop-shadow(0 4px 20px rgba(0, 0, 0, 0.3));
-          transition: transform 250ms ease-out, filter 250ms ease-out;
-        }
-
-        @media (hover: hover) {
-          .showcase-item:hover {
-            transform: scale(1.03) translateY(-6px);
-            filter: drop-shadow(0 12px 36px rgba(0, 0, 0, 0.5));
+          .showcase-card:hover {
+            transform: scale(1.02);
+            box-shadow: 0 16px 48px rgba(0, 0, 0, 0.45);
             z-index: 20;
           }
-
-          /* Dim siblings on hover */
-          .showcase-marquee-track:has(.showcase-item:hover) .showcase-item:not(:hover) {
-            opacity: 0.55;
-            transition: opacity 300ms ease-out, transform 250ms ease-out;
-          }
+        }
+        @keyframes showcase-marquee {
+          0% { transform: translateX(0); }
+          100% { transform: translateX(-50%); }
+        }
+        .animate-showcase-marquee {
+          animation: showcase-marquee 40s linear infinite;
         }
       `}</style>
 
-      {/* ── Marquee track ──────────────────────── */}
+      {/* ── Gallery container ──────────────────── */}
       <motion.div
-        initial={{ opacity: 0 }}
-        whileInView={{ opacity: 1 }}
-        viewport={{ once: true, margin: '-40px' }}
-        transition={{ duration: 0.8, delay: 0.15 }}
+        initial={{ opacity: 0, y: 24 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, margin: '-60px' }}
+        transition={{ duration: 0.7, ease: [0.25, 0.46, 0.45, 0.94] }}
+        className="mx-4 sm:mx-6 md:mx-10 lg:mx-16"
       >
-        <CreationShowcaseTrack />
+        <div
+          className="relative w-full overflow-hidden"
+          style={{
+            height: 'clamp(380px, 46vw, 580px)',
+            borderRadius: '20px',
+          }}
+        >
+          {/* Track infinito puro (sem Javascript), com 2 sets duplicados para loop contínuo */}
+          <div className="flex h-full w-max animate-showcase-marquee">
+            <MarqueeSet />
+            <MarqueeSet />
+          </div>
+        </div>
       </motion.div>
     </section>
   )

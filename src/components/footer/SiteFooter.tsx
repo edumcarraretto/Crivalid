@@ -15,26 +15,28 @@ const NAV_LINKS = [
 
 export function SiteFooter() {
   return (
-    <footer
-      id="site-footer"
-      aria-label="Rodapé do site"
-      className="relative w-full bg-black"
-    >
-      {/* ── Concave notch transition ── */}
+    <footer className="bg-white pt-0 pb-14 sm:pb-20 font-sans">
+      <div className="mx-4 sm:mx-6 md:mx-10 lg:mx-16">
+        <div
+          id="site-footer"
+          aria-label="Rodapé do site"
+          className="relative bg-black rounded-b-[32px] sm:rounded-b-[40px] rounded-t-none overflow-hidden"
+        >
+          {/* ── Concave notch transition ── */}
       <div
         aria-hidden="true"
         className="
-          pointer-events-none absolute top-0 left-1/2 -translate-x-1/2
-          h-[28px] w-[86%]
-          sm:h-[34px] sm:w-[74%]
-          md:h-[40px] md:w-[64%]
+          relative z-10 pointer-events-none absolute top-0 left-1/2 -translate-x-1/2
+          h-[28px] w-[86vw]
+          sm:h-[34px] sm:w-[74vw]
+          md:h-[40px] md:w-[64vw]
           rounded-b-[20px] sm:rounded-b-[22px]
           bg-white
         "
       />
 
       {/* ── Top section (rule + nav) ── */}
-      <div className="mx-auto max-w-6xl px-6 sm:px-8 pt-[36px] sm:pt-[42px] md:pt-[48px]">
+      <div className="relative z-10 mx-auto max-w-6xl px-6 sm:px-8 pt-[36px] sm:pt-[42px] md:pt-[48px]">
         <div className="mx-auto w-full max-w-md h-px bg-white/[0.12]" />
 
         <motion.nav
@@ -68,7 +70,7 @@ export function SiteFooter() {
         whileInView={{ opacity: 1 }}
         viewport={{ once: true, margin: '-60px' }}
         transition={{ duration: 1.2, delay: 0.15 }}
-        className="relative w-full flex items-center justify-center text-center py-6 sm:py-8 md:py-10"
+        className="relative z-10 w-full flex items-center justify-center text-center py-6 sm:py-8 md:py-10"
       >
         <span
           aria-hidden="true"
@@ -84,7 +86,7 @@ export function SiteFooter() {
       </motion.div>
 
       {/* ── Bottom section (rule + legal) ── */}
-      <div className="mx-auto max-w-6xl px-6 sm:px-8">
+      <div className="relative z-10 mx-auto max-w-6xl px-6 sm:px-8">
         <div className="w-full h-px bg-white/[0.08]" />
 
         <motion.div
@@ -108,6 +110,8 @@ export function SiteFooter() {
             Criado por Crivalid
           </span>
         </motion.div>
+      </div>
+        </div>
       </div>
     </footer>
   )
