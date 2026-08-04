@@ -72,7 +72,7 @@ function Mascot({ isDark }: { isDark: boolean }) {
         >
           {[...Array(2)].map((_, i) => (
             <div key={i} className="flex items-center">
-              {['VALIDE', 'CRIVALID', 'CRIE', 'REALIZE'].map((word, j) => (
+              {['VALIDE', 'MAKEPLOY', 'CRIE', 'REALIZE'].map((word, j) => (
                 <div key={j} className="flex items-center">
                   <span>{word}</span>
                   <span className="mx-8 sm:mx-16 mb-6 sm:mb-10 text-[6rem] sm:text-[10rem] text-black">•</span>
@@ -117,8 +117,8 @@ function Mascot({ isDark }: { isDark: boolean }) {
         >
           {/* The Spinning Logo with Complex Drop Shadows */}
           <motion.img 
-            src="/logo-oficial.png" 
-            alt="Crivalid Logo Oficial" 
+            src="/logo-nova.png" 
+            alt="Logo oficial da MAKEPLOY"
             className="w-full h-full object-contain" 
             style={{ 
               filter: isDark 

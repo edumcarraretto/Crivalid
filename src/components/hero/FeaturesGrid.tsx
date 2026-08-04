@@ -114,10 +114,9 @@ export function FeaturesGrid() {
         if (prog) prog.style.strokeDashoffset = '0'
       } else {
         const orbits = Array.from(bk.querySelectorAll('.orbit')) as HTMLElement[]
-        let state = 'idle', t0 = 0, last = 0
+        let state = 'idle', t0 = 0
 
         const frame = (now: number) => {
-          last = now
 
           if (state === 'loading' && prog) {
             const t = Math.min(1, (now - t0) / LOAD)

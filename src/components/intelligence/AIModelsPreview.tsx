@@ -1,13 +1,13 @@
 import { useState, useEffect } from 'react'
 import { motion, AnimatePresence } from 'motion/react'
-import { ChatGPTLogo, GeminiLogo, BrainLogo, ClaudeLogo } from './AILogos'
+import { ChatGPTLogo, GeminiLogo, MakeployLogo, ClaudeLogo } from './AILogos'
 
 // Adjusted order to match the reference image exactly
 const ALL_MODELS = [
   { name: 'Claude', icon: ClaudeLogo, color: 'text-[#e5d9c5]' },
   { name: 'ChatGPT', icon: ChatGPTLogo, color: 'text-white' },
   { name: 'Gêmeos', icon: GeminiLogo, color: 'text-blue-400' },
-  { name: 'Brain²', icon: BrainLogo, color: 'text-neutral-400' },
+  { name: 'MAKEPLOY', icon: MakeployLogo, color: 'text-neutral-400' },
 ]
 
 export function AIModelsPreview() {

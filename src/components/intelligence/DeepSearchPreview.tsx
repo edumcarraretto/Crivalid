@@ -17,34 +17,10 @@ const BG_CONTENT = [
   'A navegação lateral reduz a fricção cognitiva, sendo recomendada para interfaces com mais de 4 níveis de profundidade.',
 ]
 
-/* ── Status phrases that cycle in the bottom bar ── */
-const STATUS_PHRASES = [
-  'Analisando contexto e referências...',
-  'Buscando referências relevantes...',
-  'Mapeando ideias e direções...',
-  'Conectando contexto e intenção...',
-  'Investigando a melhor abordagem...',
-]
+
 
 export function DeepSearchPreview() {
-  const [statusIndex, setStatusIndex] = useState(0)
-  const [progressWidth, setProgressWidth] = useState(0)
   const [activeLine, setActiveLine] = useState(0)
-
-  /* Cycle status text */
-  useEffect(() => {
-    const timer = setInterval(() => {
-      setStatusIndex((prev) => (prev + 1) % STATUS_PHRASES.length)
-      setProgressWidth(0)
-    }, 3800)
-    return () => clearInterval(timer)
-  }, [])
-
-  /* Animate progress bar */
-  useEffect(() => {
-    const t = setTimeout(() => setProgressWidth(85 + Math.random() * 12), 200)
-    return () => clearTimeout(t)
-  }, [statusIndex])
 
   /* Cycle background lines */
   useEffect(() => {

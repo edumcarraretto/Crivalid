@@ -1,4 +1,4 @@
-# PROJECT_CONTEXT.md — Crivalid
+# PROJECT_CONTEXT.md — MAKEPLOY
 
 ## Diretriz central (obrigatória para qualquer IA que trabalhar neste projeto)
 
@@ -61,7 +61,7 @@ Este é um documento vivo, que será atualizado conforme mais decisões de desig
 
 - Implementar Schema.org via JSON-LD (formato recomendado pelo Google, nunca Microdata ou RDFa) em todas as páginas relevantes
 - Schema.org "Organization" na Home, com nome, logo, e redes sociais da empresa (propriedade "sameAs")
-- Schema.org "SoftwareApplication" ou "Product" nas páginas descrevendo o Crivalid como produto/SaaS
+- Schema.org "SoftwareApplication" ou "Product" nas páginas descrevendo a MAKEPLOY como produto/SaaS
 - Schema.org "FAQPage" na seção de perguntas frequentes, estruturando pergunta e resposta corretamente
 - Schema.org "BreadcrumbList" se houver navegação hierárquica entre páginas
 - Todo schema deve corresponder exatamente ao conteúdo visível na página — nunca marcar dados que não aparecem visualmente (isso é penalizado)
@@ -75,7 +75,7 @@ O site deve ser otimizado não apenas para o Google tradicional, mas para ser co
 - Usar linguagem factual, específica e consistente — nunca ambígua
 - Toda afirmação sobre o produto deve ser consistente entre o texto visível e o schema markup (inconsistência reduz confiança da IA na fonte)
 - Estruturar conteúdo em blocos claros e "citáveis" (parágrafos curtos, respostas objetivas, definições claras quando aplicável)
-- Priorizar clareza de entidade: deixar claro em todo o site quem é a empresa (Crivalid), o que ela faz, e para quem, de forma consistente em todas as páginas
+- Priorizar clareza de entidade: deixar claro em todo o site quem é a empresa (MAKEPLOY), o que ela faz, e para quem, de forma consistente em todas as páginas
 
 ## Segurança como Fator de SEO — Obrigatório
 

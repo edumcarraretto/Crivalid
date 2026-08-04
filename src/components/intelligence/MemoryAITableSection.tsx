@@ -16,10 +16,10 @@ export function MemoryAITableSection() {
         {/* Título e Descrição */}
         <div className="text-center mb-16 relative z-10">
           <h2 className="text-white text-3xl sm:text-4xl md:text-5xl font-bold tracking-tight mb-4">
-            Nada se compara ao Brain<sup className="text-xl sm:text-2xl md:text-3xl relative -top-2 sm:-top-3">2.</sup>
+            Nada se compara ao MAKEPLOY.
           </h2>
           <p className="text-neutral-400 text-base sm:text-lg max-w-2xl mx-auto">
-            Reconstruímos o Brain do zero.
+            Reconstruímos tudo do zero.
           </p>
         </div>
 

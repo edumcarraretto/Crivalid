@@ -85,12 +85,12 @@ export function Navbar() {
           `}
           aria-label="Navegação principal"
         >
-          {/* ── 1. LADO ESQUERDO: Logo "OWO" ── */}
+          {/* ── 1. LADO ESQUERDO: Logo "MAKEPLOY" ── */}
           <div className="flex items-center gap-2 select-none">
             <a
               href="#"
               className="flex items-center gap-2 group"
-              aria-label="OWO Home"
+              aria-label="MAKEPLOY Home"
               onClick={(e) => {
                 e.preventDefault()
                 window.scrollTo({ top: 0, behavior: 'smooth' })
@@ -122,7 +122,7 @@ export function Navbar() {
                   ${isScrolled ? 'text-2.5xl sm:text-3xl' : 'text-3xl sm:text-4xl'}
                 `}
               >
-                OWO
+                MAKEPLOY
               </span>
             </a>
           </div>

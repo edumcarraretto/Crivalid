@@ -14,7 +14,7 @@ export const ClaudeLogo = ({ className }: { className?: string }) => (
   <SiAnthropic className={className} />
 )
 
-export const BrainLogo = ({ className }: { className?: string }) => (
+export const MakeployLogo = ({ className }: { className?: string }) => (
   <svg viewBox="0 0 24 24" className={className}>
     <circle cx="12" cy="8" r="3.5" fill="#3b82f6" style={{ mixBlendMode: 'screen' }} />
     <circle cx="15.5" cy="10" r="3.5" fill="#ec4899" style={{ mixBlendMode: 'screen' }} />

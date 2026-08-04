@@ -1,9 +1,9 @@
 import { useState, useEffect } from 'react'
 import { motion } from 'motion/react'
-import { Brain, Zap, Database } from 'lucide-react'
+import { User, Zap, Database } from 'lucide-react'
 
 const memories = [
-  { label: 'Preferências do usuário', value: 'Tom direto, sem jargões', icon: Brain },
+  { label: 'Preferências do usuário', value: 'Tom direto, sem jargões', icon: User },
   { label: 'Histórico de projeto', value: '14 projetos anteriores', icon: Database },
   { label: 'Contexto ativo', value: 'Campanha Q3 2025', icon: Zap },
 ]

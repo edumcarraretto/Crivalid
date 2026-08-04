@@ -72,16 +72,16 @@ export function SiteFooter() {
         transition={{ duration: 1.2, delay: 0.15 }}
         className="relative z-10 w-full flex items-center justify-center text-center py-6 sm:py-8 md:py-10"
       >
-        <span
-          aria-hidden="true"
-          className="
-            relative select-none pointer-events-none whitespace-nowrap
-            text-[7rem] sm:text-[11rem] md:text-[16rem] lg:text-[20rem] xl:text-[24rem]
-            font-black tracking-[-0.05em] leading-[0.80]
-            text-[#0e0e0e]
-          "
-        >
-          Crivalid
+          <span
+            aria-hidden="true"
+            className="
+              relative select-none pointer-events-none whitespace-nowrap
+              text-[5rem] sm:text-[8rem] md:text-[11rem] lg:text-[14rem] xl:text-[17rem]
+              font-black tracking-[-0.05em] leading-[0.80]
+              text-[#0e0e0e]
+            "
+          >
+          MAKEPLOY
         </span>
       </motion.div>
 
@@ -101,13 +101,13 @@ export function SiteFooter() {
           "
         >
           <span className="text-xs text-white/30 tracking-wide">
-            ©2026 Crivalid.
+            ©2026 MAKEPLOY.
           </span>
           <span className="text-xs text-white/30 tracking-wide">
             Todos os direitos reservados.
           </span>
           <span className="text-xs text-white/30 tracking-wide">
-            Criado por Crivalid
+            Criado por MAKEPLOY
           </span>
         </motion.div>
       </div>

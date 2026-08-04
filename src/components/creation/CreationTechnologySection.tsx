@@ -15,9 +15,9 @@ const PILLAR_PREVIEWS: Record<string, React.ReactNode> = {
   code: <IntegratedCodeEditorPreview />,
 }
 
-// ─── Crivalid Logo (bolt) ─────────────────────────────────────────────────────
+// ─── MAKEPLOY Logo (bolt) ─────────────────────────────────────────────────────
 
-function CrivalidBolt({ className }: { className?: string }) {
+function MakeployBolt({ className }: { className?: string }) {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
@@ -45,7 +45,7 @@ export function CreationTechnologySection() {
       aria-labelledby="creation-heading"
       className="relative w-full bg-white"
     >
-      {/* Main dark area — inset card (top half, connects with Brain below) */}
+      {/* Main dark area — inset card (top half, connects with MAKEPLOY section below) */}
       <div className="mx-4 sm:mx-6 md:mx-10 lg:mx-16 relative bg-black rounded-t-[24px] sm:rounded-t-[32px] overflow-hidden">
 
         {/* ── Header ──────────────────────────────── */}
@@ -58,9 +58,9 @@ export function CreationTechnologySection() {
             transition={{ duration: 0.5 }}
             className="flex items-center justify-center gap-2.5 mb-8"
           >
-            <CrivalidBolt />
+            <MakeployBolt />
             <span className="text-lg font-bold text-white tracking-tight">
-              Crivalid
+              MAKEPLOY
             </span>
           </motion.div>
 

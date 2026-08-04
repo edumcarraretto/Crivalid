@@ -4,7 +4,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Project
 
-Crivalid — a marketing/landing site (React 19 + Vite + TypeScript + Tailwind v4) built as a single-page scroll experience (`src/App.tsx` composes ordered `<section>` components: Hero, LogoCloud, ProblemSection, ToolsSection, GlobeSection). Content is currently Portuguese (pt-BR).
+MAKEPLOY — a marketing/landing site (React 19 + Vite + TypeScript + Tailwind v4) built as a single-page scroll experience (`src/App.tsx` composes ordered `<section>` components: Hero, LogoCloud, ProblemSection, ToolsSection, GlobeSection). Content is currently Portuguese (pt-BR).
 
 ## Commands
 

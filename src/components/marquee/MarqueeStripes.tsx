@@ -114,7 +114,7 @@ function MarqueeTrack({ stripe }: MarqueeTrackProps) {
       const w = copy.scrollWidth
       if (w === 0) return
       track.style.setProperty('--marquee-distance', `${w}px`)
-      track.style.animation = `crivalid-marquee-${stripe.direction} ${stripe.duration}s linear infinite`
+      track.style.animation = `makeploy-marquee-${stripe.direction} ${stripe.duration}s linear infinite`
       track.style.visibility = 'visible'
     }
 
@@ -166,7 +166,7 @@ function MarqueeTrack({ stripe }: MarqueeTrackProps) {
     >
       <div
         ref={trackRef}
-        className="crivalid-marquee-track flex h-full w-max items-stretch will-change-transform"
+        className="makeploy-marquee-track flex h-full w-max items-stretch will-change-transform"
         style={{
           visibility: 'hidden',
           backfaceVisibility: 'hidden',
@@ -184,33 +184,33 @@ function MarqueeTrack({ stripe }: MarqueeTrackProps) {
 export function MarqueeStripes() {
   return (
     <section
-      aria-label="Crivalid em movimento"
+      aria-label="MAKEPLOY em movimento"
       className="w-full overflow-hidden bg-black"
     >
       {/* Scoped keyframes — uses measured --marquee-distance so the loop
           is pixel-perfect even with overlapping negative margins.
           translate3d forces GPU compositing for maximum smoothness. */}
       <style>{`
-        @keyframes crivalid-marquee-left {
+        @keyframes makeploy-marquee-left {
           from { transform: translate3d(0, 0, 0); }
           to   { transform: translate3d(calc(-1 * var(--marquee-distance)), 0, 0); }
         }
-        @keyframes crivalid-marquee-right {
+        @keyframes makeploy-marquee-right {
           from { transform: translate3d(calc(-1 * var(--marquee-distance)), 0, 0); }
           to   { transform: translate3d(0, 0, 0); }
         }
 
         @media (prefers-reduced-motion: reduce) {
-          .crivalid-marquee-track {
+          .makeploy-marquee-track {
             animation: none !important;
           }
         }
 
         @media (hover: hover) {
-          .crivalid-marquee-track {
+          .makeploy-marquee-track {
             transition: animation-play-state 0.3s;
           }
-          .crivalid-marquee-track:hover {
+          .makeploy-marquee-track:hover {
             animation-play-state: paused;
           }
         }
