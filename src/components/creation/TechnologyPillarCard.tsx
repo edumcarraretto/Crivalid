@@ -43,7 +43,7 @@ export function TechnologyPillarCard({
       <div className="relative flex flex-col h-full px-5 py-6 md:px-6 md:py-8">
         {/* Eyebrow */}
         <span
-          className={`text-[10px] font-mono font-semibold uppercase tracking-[0.15em] ${pillar.eyebrowColor} mb-4`}
+          className={`text-[10px] font-bold uppercase tracking-[0.15em] ${pillar.eyebrowColor} mb-4`}
         >
           {pillar.eyebrow}
         </span>

@@ -51,7 +51,7 @@ export function MarketAnalysis() {
             {market.opportunities.map((opp, i) => (
               <span
                 key={i}
-                className="inline-flex rounded-md bg-white/50 border border-slate-200 px-2.5 py-1 text-[11px] font-semibold text-slate-600"
+                className="inline-flex rounded-md bg-white/50 border border-slate-200 px-2.5 py-1 text-[11px] font-bold text-slate-600"
               >
                 {opp}
               </span>

@@ -1,0 +1,96 @@
+/*
+ * MAKEPLOY — sistema tipográfico da marca
+ *
+ * Os arquivos são servidos localmente a partir de public/fonts.
+ * Mantenha esta folha, docs/TYPOGRAPHY.md e PROJECT_CONTEXT.md sincronizados.
+ */
+
+@font-face {
+  font-family: "Makeploy Rounded";
+  src: url("/fonts/mplus-rounded-500.ttf") format("truetype");
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Makeploy Rounded";
+  src: url("/fonts/mplus-rounded-700.ttf") format("truetype");
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Makeploy Rounded";
+  src: url("/fonts/mplus-rounded-800.ttf") format("truetype");
+  font-style: normal;
+  font-weight: 800;
+  font-display: swap;
+}
+
+:root {
+  --font-family-brand: "Makeploy Rounded", "Arial Rounded MT Bold", sans-serif;
+  --font-weight-body: 500;
+  --font-weight-interface: 700;
+  --font-weight-display: 800;
+}
+
+@theme inline {
+  --font-sans: var(--font-family-brand);
+  --font-serif: var(--font-family-brand);
+  --font-mono: var(--font-family-brand);
+}
+
+html {
+  font-family: var(--font-family-brand);
+  font-weight: var(--font-weight-body);
+  font-synthesis: none;
+}
+
+body,
+button,
+input,
+select,
+textarea,
+option,
+optgroup,
+table,
+dialog {
+  font-family: inherit;
+}
+
+button,
+select,
+option,
+optgroup {
+  font-weight: var(--font-weight-interface);
+}
+
+input,
+textarea {
+  font-weight: var(--font-weight-body);
+}
+
+input::placeholder,
+textarea::placeholder {
+  font-family: inherit;
+  font-weight: var(--font-weight-body);
+}
+
+.makeploy-type {
+  font-family: var(--font-family-brand);
+  font-synthesis: none;
+}
+
+.makeploy-type-body {
+  font-weight: var(--font-weight-body);
+}
+
+.makeploy-type-interface {
+  font-weight: var(--font-weight-interface);
+}
+
+.makeploy-type-display {
+  font-weight: var(--font-weight-display);
+}

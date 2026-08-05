@@ -13,7 +13,7 @@ export default defineConfig({
   },
   server: {
     watch: {
-      ignored: ['**/public/video/**', '**/*.mp4'],
+      ignored: ['**/public/video/**', '**/*.mp4', '**/public/comply-logo.png'],
     },
   },
 })

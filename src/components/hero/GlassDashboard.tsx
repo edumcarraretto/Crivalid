@@ -151,7 +151,7 @@ function BrandCard({ title }: { title: string }) {
           <span className="bg-green-500" />
           <span className="bg-blue-500" />
         </div>
-        <h3 className="font-serif text-lg font-semibold text-black leading-none">
+        <h3 className="text-lg font-bold text-black leading-none">
           {title}
         </h3>
         <p className="text-[8px] text-black/40 mt-0.5">macfolio.com</p>
@@ -194,7 +194,7 @@ function RealTimeClock() {
     hour12: false
   }).format(time)
 
-  return <span className="text-sm font-semibold">{formattedTime}</span>
+  return <span className="text-sm font-bold">{formattedTime}</span>
 }
 
 // ─── Main Component ───────────────────────────────────────────────────────────
@@ -273,7 +273,7 @@ export function GlassDashboard() {
                           </div>
                         </div>
                         <div className="text-center">
-                          <h2 className="font-serif text-6xl font-bold tracking-tight text-black drop-shadow-sm">{card.title}</h2>
+                          <h2 className="text-6xl font-bold tracking-tight text-black drop-shadow-sm">{card.title}</h2>
                           <p className="text-black/50 mt-4 text-xl">macfolio.com</p>
                         </div>
                       </div>
@@ -285,7 +285,7 @@ export function GlassDashboard() {
                         style={{ backgroundColor: card.color }}
                       >
                         <div className="flex items-center gap-6 w-full max-w-2xl bg-black/20 p-4 rounded-3xl backdrop-blur-xl border border-white/10 shadow-2xl">
-                          <code className="flex-1 px-6 py-4 text-white font-mono text-4xl sm:text-5xl text-center tracking-widest">
+                          <code className="flex-1 px-6 py-4 text-white text-4xl sm:text-5xl text-center tracking-widest">
                             {card.color}
                           </code>
                           <button className="px-10 py-5 rounded-2xl bg-white text-black font-bold hover:bg-white/90 transition shadow-lg whitespace-nowrap text-xl">

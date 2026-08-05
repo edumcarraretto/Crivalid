@@ -96,7 +96,7 @@ export function JourneyPreviewCard() {
           <div
             key={badge.id}
             className={cn(
-              "absolute cursor-pointer select-none rounded-full font-semibold transition-all duration-500 ease-out",
+              "absolute cursor-pointer select-none rounded-full font-bold transition-all duration-500 ease-out",
               "bg-gradient-to-b shadow-lg",
               badge.color,
               sizeClasses[badge.size],

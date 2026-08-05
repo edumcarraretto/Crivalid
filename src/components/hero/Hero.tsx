@@ -20,18 +20,18 @@ const AVATARS = [
   { id: '4', from: '#4ade80', to: '#16a34a', initials: 'RS' },
 ]
 
-const getSubtitleContent = (isDark: boolean) => [
-  <span key="1">Crie. Valide. <span className={`italic font-medium ${isDark ? 'text-violet-400' : 'text-violet-600'}`}>Realize.</span> ✦</span>,
-  <span key="2">Do insight ao <span className={`italic font-medium ${isDark ? 'text-violet-400' : 'text-violet-600'}`}>lançamento</span> 💡</span>,
-  <span key="3">Menos achismo, mais <span className={`italic font-medium ${isDark ? 'text-violet-400' : 'text-violet-600'}`}>dados</span> 📊</span>,
-  <span key="4">Sua ideia, validada de <span className={`italic font-medium ${isDark ? 'text-violet-400' : 'text-violet-600'}`}>verdade</span> ✓</span>,
+const getSubtitleContent = () => [
+  <span key="1">Crie. Valide. <span className={`italic font-medium`} style={{ color: '#168cff' }}>Realize.</span> ✦</span>,
+  <span key="2">Do insight ao <span className={`italic font-medium`} style={{ color: '#168cff' }}>lançamento</span> 💡</span>,
+  <span key="3">Menos achismo, mais <span className={`italic font-medium`} style={{ color: '#168cff' }}>dados</span> 📊</span>,
+  <span key="4">Sua ideia, validada de <span className={`italic font-medium`} style={{ color: '#168cff' }}>verdade</span> ✓</span>,
 ]
 
 // ─── Rotating Subtitle ────────────────────────────────────────────────────────
 
 function RotatingSubtitle({ isDark }: { isDark: boolean }) {
   const [index, setIndex] = useState(0)
-  const subtitles = getSubtitleContent(isDark)
+  const subtitles = getSubtitleContent()
 
   useEffect(() => {
     const timer = setInterval(() => {
@@ -49,7 +49,8 @@ function RotatingSubtitle({ isDark }: { isDark: boolean }) {
           animate={{ opacity: 1, y: 0 }}
           exit={{ opacity: 0, y: -15 }}
           transition={{ duration: 0.4, ease: 'easeOut' }}
-          className={`absolute text-sm sm:text-base font-serif whitespace-nowrap ${isDark ? 'text-neutral-400' : 'text-neutral-500'}`}
+          className={`absolute text-sm sm:text-base whitespace-nowrap`}
+          style={{ color: isDark ? '#a3a3a3' : '#666666' }}
         >
           {subtitles[index]}
         </motion.div>
@@ -62,20 +63,26 @@ function RotatingSubtitle({ isDark }: { isDark: boolean }) {
 
 function Mascot({ isDark }: { isDark: boolean }) {
   return (
-    <div className="relative w-64 h-64 sm:w-80 sm:h-80 mx-auto mt-16 mb-8 flex items-center justify-center">
+    <div className="relative w-[13.8rem] h-[13.8rem] sm:w-[21rem] sm:h-[21rem] md:w-[25.5rem] md:h-[25.5rem] mx-auto mt-16 mb-8 flex items-center justify-center">
       {/* Huge background marquee */}
-      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[150vw] sm:w-[120vw] flex pointer-events-none -z-10 select-none overflow-hidden">
+      <div 
+        className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[150vw] sm:w-[120vw] flex pointer-events-none -z-10 select-none overflow-hidden"
+        style={{
+          maskImage: 'radial-gradient(circle at center, transparent 100px, black 320px)',
+          WebkitMaskImage: 'radial-gradient(circle at center, transparent 100px, black 320px)'
+        }}
+      >
         <motion.div
           animate={{ x: [0, '-50%'] }}
           transition={{ repeat: Infinity, ease: 'linear', duration: 45 }}
-          className={`flex w-max items-center whitespace-nowrap text-[12rem] sm:text-[18rem] md:text-[22rem] font-black tracking-tighter text-black ${isDark ? '' : 'opacity-[0.04]'}`}
+          className={`flex w-max items-center whitespace-nowrap text-[12rem] sm:text-[18rem] md:text-[22rem] font-extrabold tracking-tighter text-black ${isDark ? '' : 'opacity-[0.04]'}`}
         >
           {[...Array(2)].map((_, i) => (
             <div key={i} className="flex items-center">
               {['VALIDE', 'MAKEPLOY', 'CRIE', 'REALIZE'].map((word, j) => (
                 <div key={j} className="flex items-center">
                   <span>{word}</span>
-                  <span className="mx-8 sm:mx-16 mb-6 sm:mb-10 text-[6rem] sm:text-[10rem] text-black">•</span>
+                  <span className="mx-8 sm:mx-16 text-[6rem] sm:text-[10rem] text-black">•</span>
                 </div>
               ))}
             </div>
@@ -86,7 +93,17 @@ function Mascot({ isDark }: { isDark: boolean }) {
 
 
       {/* Premium Logo Showcase */}
-      <div className="relative z-10 flex items-center justify-center w-64 h-64 sm:w-[22rem] sm:h-[22rem]">
+      <div className="relative z-10 flex items-center justify-center w-[13.8rem] h-[13.8rem] sm:w-[21rem] sm:h-[21rem] md:w-[25.5rem] md:h-[25.5rem] translate-y-2.5 sm:translate-y-4 md:translate-y-5">
+        
+        {/* Solid Theme-Matched Backing to Prevent Text Bleed */}
+        <div 
+          className={`absolute inset-6 rounded-3xl pointer-events-none ${isDark ? 'bg-black' : 'bg-white'}`}
+          style={{
+            boxShadow: isDark 
+              ? '0 0 50px 25px rgba(0,0,0,1)' 
+              : '0 0 50px 25px rgba(255,255,255,1)'
+          }}
+        />
         
         {/* Pulsing Dynamic Aura */}
         <motion.div 
@@ -99,9 +116,9 @@ function Mascot({ isDark }: { isDark: boolean }) {
                   'radial-gradient(circle, rgba(139,92,246,0.4) 0%, rgba(0,0,0,0) 70%)'
                 ]
               : [
-                  'radial-gradient(circle, rgba(139,92,246,0.15) 0%, rgba(255,255,255,0) 70%)',
-                  'radial-gradient(circle, rgba(59,130,246,0.15) 0%, rgba(255,255,255,0) 70%)',
-                  'radial-gradient(circle, rgba(139,92,246,0.15) 0%, rgba(255,255,255,0) 70%)'
+                  'radial-gradient(circle, rgba(22,140,255,0.12) 0%, rgba(255,255,255,0) 70%)',
+                  'radial-gradient(circle, rgba(34,197,94,0.12) 0%, rgba(255,255,255,0) 70%)',
+                  'radial-gradient(circle, rgba(22,140,255,0.12) 0%, rgba(255,255,255,0) 70%)'
                 ],
             scale: [0.8, 1.1, 0.8],
             opacity: [0.5, 1, 0.5]
@@ -111,22 +128,18 @@ function Mascot({ isDark }: { isDark: boolean }) {
         
         {/* Floating Animation Wrapper */}
         <motion.div
-          animate={{ y: [-10, 10, -10] }}
-          transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }}
           className="w-full h-full flex items-center justify-center relative z-10"
         >
-          {/* The Spinning Logo with Complex Drop Shadows */}
+          {/* The Logo with Complex Drop Shadows */}
           <motion.img 
-            src="/logo-nova.png" 
+            src="/nova-logo-1914.png" 
             alt="Logo oficial da MAKEPLOY"
             className="w-full h-full object-contain" 
             style={{ 
               filter: isDark 
-                ? 'drop-shadow(0 30px 40px rgba(0,0,0,0.6)) drop-shadow(0 0 50px rgba(139,92,246,0.4))' 
-                : 'drop-shadow(0 25px 35px rgba(0,0,0,0.15)) drop-shadow(0 0 30px rgba(139,92,246,0.2))' 
+                ? 'drop-shadow(0 30px 40px rgba(0,0,0,0.6)) drop-shadow(0 0 50px rgba(22,140,255,0.3))' 
+                : 'drop-shadow(0 18px 30px rgba(0,0,0,0.08)) drop-shadow(0 10px 28px rgba(22,140,255,0.08))' 
             }}
-            animate={{ rotate: -360 }}
-            transition={{ repeat: Infinity, ease: 'linear', duration: 35 }}
           />
         </motion.div>
       </div>
@@ -162,10 +175,20 @@ export function Hero({ theme = 'light' }: HeroProps) {
         {/* 1 & 2 — Headline */}
         <h1
           id="hero-heading"
-          className={`text-4xl sm:text-5xl md:text-6xl lg:text-[4rem] font-serif tracking-tight leading-tight transition-colors duration-500 ${isDark ? 'text-white' : 'text-neutral-900'}`}
+          className={`text-4xl sm:text-5xl md:text-6xl lg:text-[4rem] tracking-tight leading-tight transition-colors duration-500`}
+          style={{ color: isDark ? '#ffffff' : '#171717' }}
         >
           Valide suas ideias{' '}
-          <span className="italic bg-gradient-to-r from-violet-400 to-indigo-400 bg-clip-text text-transparent">
+          <span
+            className="italic bg-clip-text"
+            style={{
+              background: 'linear-gradient(90deg, #ff2d55 0%, #ff7a00 28%, #facc15 48%, #22c55e 68%, #168cff 100%)',
+              WebkitBackgroundClip: 'text',
+              WebkitTextFillColor: 'transparent',
+              backgroundClip: 'text',
+              color: 'transparent',
+            }}
+          >
             antes de investir.
           </span>
         </h1>

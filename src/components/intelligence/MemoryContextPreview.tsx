@@ -54,7 +54,7 @@ export function MemoryContextPreview() {
               </div>
 
               <div className="flex flex-col min-w-0">
-                <span className={`text-[10px] font-mono uppercase tracking-widest transition-colors duration-500 ${isActive ? 'text-cyan-300/70' : 'text-neutral-500'}`}>
+                <span className={`text-[10px] uppercase tracking-widest transition-colors duration-500 ${isActive ? 'text-cyan-300/70' : 'text-neutral-500'}`}>
                   {mem.label}
                 </span>
                 <span className={`text-[13px] font-medium truncate transition-colors duration-500 ${isActive ? 'text-white' : 'text-neutral-400'}`}>

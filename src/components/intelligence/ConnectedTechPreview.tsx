@@ -209,7 +209,7 @@ export function ConnectedTechPreview() {
     <div className="mcp__stage flex-1 flex w-full justify-center items-end pb-0 sm:pb-2">
       <style>{`
         .mcp__stage {
-          font-family: ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+          font-family: var(--font-family-brand);
         }
 
         .mcp {
@@ -320,7 +320,7 @@ export function ConnectedTechPreview() {
         }
 
         .mcp__badge span {
-          font-family: ui-monospace, SFMono-Regular, "SF Mono", Menlo, monospace;
+          font-family: var(--font-family-brand);
           font-size: 12.5px;
           font-weight: 500;
           letter-spacing: 0.12em;

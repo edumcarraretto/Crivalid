@@ -30,10 +30,10 @@ export function MemoryPreviewCard() {
         </div>
 
         <div className="relative z-10">
-          <div className="text-[10px] text-neutral-400 font-mono tracking-widest uppercase mb-1">
+          <div className="text-[10px] text-neutral-400 tracking-widest uppercase mb-1">
             Preferência do Usuário:
           </div>
-          <div className="text-white text-2xl font-semibold tracking-tight">
+          <div className="text-white text-2xl font-bold tracking-tight">
             Prefers visuals
           </div>
         </div>

@@ -25,7 +25,7 @@ export function AIIdeaSection() {
   }
 
   return (
-    <section className="bg-white pt-14 sm:pt-20 pb-0 font-sans">
+    <section className="bg-white pt-14 sm:pt-20 pb-0">
       <div className="mx-4 sm:mx-6 md:mx-10 lg:mx-16">
         <div className="relative bg-black rounded-t-[32px] sm:rounded-t-[40px] rounded-b-none py-20 sm:py-28 overflow-hidden flex flex-col items-center px-4 sm:px-6 shadow-2xl">
           

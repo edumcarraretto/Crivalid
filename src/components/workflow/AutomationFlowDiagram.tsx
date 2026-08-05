@@ -109,7 +109,7 @@ function BranchLabel({ text, delay = 0 }: { text: string; delay?: number }) {
         border: `1px solid #d1d5db`,
         backgroundColor: '#ffffff',
         fontSize: '12px',
-        fontWeight: 600,
+        fontWeight: 700,
         color: '#374151',
         letterSpacing: '0.01em',
         lineHeight: '18px',

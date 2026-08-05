@@ -113,7 +113,7 @@ export function AIModelsPreview() {
                     <Icon className={`w-4 h-4 transition-all duration-700 ${item.color} ${isActive ? 'opacity-100' : 'opacity-60'}`} />
                     <span
                       className={`transition-colors duration-700 ${
-                        isActive ? 'text-white text-[14px] font-semibold' : 'text-white/60 text-[14px] font-medium'
+                        isActive ? 'text-white text-[14px] font-bold' : 'text-white/60 text-[14px] font-medium'
                       } tracking-wide`}
                     >
                       {item.name}

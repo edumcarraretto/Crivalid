@@ -15,7 +15,7 @@ const NAV_LINKS = [
 
 export function SiteFooter() {
   return (
-    <footer className="bg-white pt-0 pb-14 sm:pb-20 font-sans">
+    <footer className="bg-white pt-0 pb-14 sm:pb-20">
       <div className="mx-4 sm:mx-6 md:mx-10 lg:mx-16">
         <div
           id="site-footer"
@@ -77,7 +77,7 @@ export function SiteFooter() {
             className="
               relative select-none pointer-events-none whitespace-nowrap
               text-[5rem] sm:text-[8rem] md:text-[11rem] lg:text-[14rem] xl:text-[17rem]
-              font-black tracking-[-0.05em] leading-[0.80]
+              font-extrabold tracking-[-0.05em] leading-[0.80]
               text-[#0e0e0e]
             "
           >

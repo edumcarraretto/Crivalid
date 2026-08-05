@@ -109,7 +109,7 @@ export function NoCodeBuilderPreview() {
               : { duration: 1, repeat: Infinity, repeatType: 'reverse', ease: 'easeInOut' }
           }
         >
-           <span className="text-[6px] text-indigo-400/80 font-semibold tracking-widest uppercase">Hero Section</span>
+           <span className="text-[6px] text-indigo-400/80 font-bold tracking-widest uppercase">Hero Section</span>
            {/* Scanning line effect */}
            {!prefersReducedMotion && (
              <motion.div

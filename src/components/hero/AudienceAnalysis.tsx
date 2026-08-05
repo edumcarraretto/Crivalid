@@ -53,7 +53,7 @@ export function AudienceAnalysis() {
         <ul className="flex flex-col gap-2">
           {audience.channels.map((ch, i) => (
             <li key={i} className="flex flex-col">
-              <span className="text-[13px] text-slate-800 font-semibold">{ch.name}</span>
+              <span className="text-[13px] text-slate-800 font-bold">{ch.name}</span>
               <span className="text-[11px] text-slate-500 font-medium">{ch.relevance}</span>
             </li>
           ))}

@@ -11,7 +11,7 @@ export function ProblemSection() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-100px" }}
           transition={{ duration: 0.5 }}
-          className="text-3xl md:text-4xl lg:text-5xl font-bold font-serif text-center mb-12 sm:mb-16 text-neutral-900 dark:text-white tracking-tight"
+          className="text-3xl md:text-4xl lg:text-5xl font-bold text-center mb-12 sm:mb-16 text-neutral-900 dark:text-white tracking-tight"
         >
           Por que a maioria das ideias{' '}
           <span className="italic bg-gradient-to-r from-violet-500 to-indigo-500 bg-clip-text text-transparent">

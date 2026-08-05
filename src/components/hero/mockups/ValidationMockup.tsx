@@ -75,7 +75,7 @@ export function ValidationMockup() {
             <div className="flex-1 min-w-0">
               <p className="text-xs font-medium text-violet-700 uppercase tracking-wide">Viabilidade</p>
               <div className="flex items-baseline gap-1.5 mt-0.5">
-                <span className="text-base font-bold text-violet-900">8,7<span className="text-sm text-violet-600 font-semibold">/10</span></span>
+                <span className="text-base font-bold text-violet-900">8,7<span className="text-sm text-violet-600 font-bold">/10</span></span>
                 <span className="text-[11px] text-violet-600/80 truncate">score de validação</span>
               </div>
             </div>

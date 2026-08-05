@@ -96,34 +96,25 @@ export function Navbar() {
                 window.scrollTo({ top: 0, behavior: 'smooth' })
               }}
             >
-              {/* Icon symbol: Pink circle with plus/cross */}
-              <svg
-                viewBox="0 0 24 24"
-                fill="none"
-                xmlns="http://www.w3.org/2000/svg"
+              {/* New logo symbol */}
+              <img
+                src="/nova-logo-1914.png"
+                alt="Logo"
                 className={`
-                  text-[#FF0080] shrink-0 transform group-hover:scale-105 transition-all duration-300
-                  ${isScrolled ? 'w-6.5 h-6.5 sm:w-7 sm:h-7' : 'w-7 h-7 sm:w-8 sm:h-8'}
+                  object-contain shrink-0 transform group-hover:scale-[2.1] transition-all duration-300 ml-1 sm:ml-2 mr-1.5 sm:mr-2
+                  ${isScrolled ? 'w-7.5 h-7.5 sm:w-8.5 sm:h-8.5 scale-[1.5]' : 'w-8.5 h-8.5 sm:w-10 sm:h-10 scale-[1.95]'}
                 `}
-              >
-                <circle cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="3" />
-                <path
-                  d="M12 7V17M7 12H17"
-                  stroke="currentColor"
-                  strokeWidth="3"
-                  strokeLinecap="round"
-                />
-              </svg>
+              />
 
-              {/* Bold pink text logo */}
-              <span
+              {/* Text logo image */}
+              <img
+                src="/text-logo-1931.png"
+                alt="MAKEPLOY"
                 className={`
-                  font-black tracking-tighter text-[#FF0080] leading-none transition-all duration-300
-                  ${isScrolled ? 'text-2.5xl sm:text-3xl' : 'text-3xl sm:text-4xl'}
+                  object-contain shrink-0 transform origin-left group-hover:scale-[3.3] transition-all duration-300 mr-8 sm:mr-12
+                  ${isScrolled ? 'h-7 sm:h-8 scale-[2.4]' : 'h-8 sm:h-9.5 scale-[3.2]'}
                 `}
-              >
-                MAKEPLOY
-              </span>
+              />
             </a>
           </div>
 
@@ -228,7 +219,7 @@ export function Navbar() {
                       setMobileMenuOpen(false)
                     }}
                     className={`
-                      w-full text-left px-4 py-2.5 text-sm font-semibold rounded-xl transition-colors block
+                      w-full text-left px-4 py-2.5 text-sm font-bold rounded-xl transition-colors block
                       ${
                         isActive
                           ? 'bg-[#FFD6EB] text-[#1A1A1A]'

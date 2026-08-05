@@ -52,7 +52,7 @@ function AnimatedRow({
 
 export function AmbientIntelligencePreview() {
   return (
-    <div className="relative w-full max-w-[310px] mx-auto mt-4 pb-2 flex flex-col font-sans select-none">
+    <div className="relative w-full max-w-[310px] mx-auto mt-4 pb-2 flex flex-col select-none">
       
       {/* ── 1. MAIN PILL (EXACT STADIUM/CAPSULE MATCH TO REFERENCE) ── */}
       <div className="relative w-full h-[52px] rounded-full bg-[#111114] border border-white/[0.08] shadow-[0_12px_32px_rgba(0,0,0,0.8)] overflow-hidden mb-5 flex items-center justify-between px-5">

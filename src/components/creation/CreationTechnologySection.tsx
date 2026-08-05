@@ -71,7 +71,7 @@ export function CreationTechnologySection() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: '-60px' }}
             transition={{ duration: 0.6, delay: 0.1 }}
-            className="text-3xl sm:text-4xl md:text-5xl lg:text-[3.25rem] font-bold font-serif text-white leading-[1.12] tracking-tight"
+            className="text-3xl sm:text-4xl md:text-5xl lg:text-[3.25rem] font-bold text-white leading-[1.12] tracking-tight"
           >
             Da ideia ao{' '}
             <em className="italic bg-gradient-to-r from-violet-400 to-indigo-400 bg-clip-text text-transparent not-italic font-bold">
@@ -103,19 +103,19 @@ export function CreationTechnologySection() {
             className="mt-6 flex flex-wrap items-center justify-center gap-4 sm:gap-6"
             aria-label="Plataformas disponíveis"
           >
-            <span className="text-[10px] sm:text-xs font-mono font-medium text-neutral-500 uppercase tracking-[0.18em] mr-2">
+            <span className="text-[10px] sm:text-xs font-medium text-neutral-500 uppercase tracking-[0.18em] mr-2">
               DISPONÍVEL EM TODOS OS LUGARES
             </span>
-            <span className="flex items-center gap-2 text-[10px] sm:text-xs font-mono font-medium text-neutral-500 uppercase tracking-[0.18em]">
+            <span className="flex items-center gap-2 text-[10px] sm:text-xs font-medium text-neutral-500 uppercase tracking-[0.18em]">
               <FaApple className="text-sm" /> MACOS
             </span>
-            <span className="flex items-center gap-2 text-[10px] sm:text-xs font-mono font-medium text-neutral-500 uppercase tracking-[0.18em]">
+            <span className="flex items-center gap-2 text-[10px] sm:text-xs font-medium text-neutral-500 uppercase tracking-[0.18em]">
               <FaApple className="text-sm" /> IOS
             </span>
-            <span className="flex items-center gap-2 text-[10px] sm:text-xs font-mono font-medium text-neutral-500 uppercase tracking-[0.18em]">
+            <span className="flex items-center gap-2 text-[10px] sm:text-xs font-medium text-neutral-500 uppercase tracking-[0.18em]">
               <FaWindows className="text-sm" /> WINDOWS
             </span>
-            <span className="flex items-center gap-2 text-[10px] sm:text-xs font-mono font-medium text-neutral-500 uppercase tracking-[0.18em]">
+            <span className="flex items-center gap-2 text-[10px] sm:text-xs font-medium text-neutral-500 uppercase tracking-[0.18em]">
               <FaGooglePlay className="text-sm" /> ANDROID
             </span>
           </motion.div>

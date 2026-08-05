@@ -208,7 +208,7 @@ function FeaturedToolCard({ tool, col, row, isSelected, onSelect }: FeaturedTool
             className={`w-4 h-4 ${tool.accentColor ?? 'text-gray-500'}`}
             strokeWidth={2}
           />
-          <span className="text-xs md:text-sm font-semibold text-gray-800 tracking-tight">
+          <span className="text-xs md:text-sm font-bold text-gray-800 tracking-tight">
             {tool.title}
           </span>
         </div>
@@ -256,7 +256,7 @@ function MobileToolsGrid({ selectedToolId, onSelect }: { selectedToolId: string 
               {/* Label */}
               <div className="flex items-center gap-1.5 px-2.5 py-2">
                 <Icon className={`w-3.5 h-3.5 ${tool.accentColor ?? 'text-gray-500'}`} strokeWidth={2} />
-                <span className="text-xs font-semibold text-gray-800">{tool.title}</span>
+                <span className="text-xs font-bold text-gray-800">{tool.title}</span>
               </div>
             </motion.div>
           )

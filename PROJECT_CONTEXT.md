@@ -91,3 +91,19 @@ O site deve ser otimizado não apenas para o Google tradicional, mas para ser co
 - Sempre que o conteúdo de uma página mudar de forma relevante, revisar se o schema markup correspondente também precisa ser atualizado
 
 Este documento reflete práticas de SEO e AEO/GEO atualizadas para 2026, incluindo os requisitos técnicos para visibilidade tanto em buscadores tradicionais quanto em sistemas de resposta por IA.
+
+## Tipografia da marca
+
+- A família tipográfica de marca é `Makeploy Rounded`, baseada na M PLUS Rounded 1c.
+- Usar peso 500 em textos longos, descrições e conteúdo auxiliar.
+- Usar peso 700 em títulos, botões, destaques, navegação e demais elementos de interface que precisam de ênfase.
+- Reservar o peso 800 para títulos de alto impacto e elementos de marca.
+- A M PLUS Rounded 1c não oferece peso 600 nativo. Não declarar nem simular esse peso; usar 700 para preservar consistência entre design e arquivo real.
+- Não usar peso 400 na identidade visual da MAKEPLOY.
+- Manter `font-synthesis: none` para impedir que o navegador fabrique pesos inexistentes.
+- Os arquivos oficiais da família ficam em `public/fonts/`, e suas declarações `@font-face`, tokens e classes utilitárias ficam em `src/styles/typography.css`, importado por `src/index.css`.
+- `Makeploy Rounded` é a tipografia global de toda a interface. A configuração em `src/styles/typography.css` também redefine as famílias `sans`, `serif` e `mono` do Tailwind para impedir o retorno acidental de fontes antigas.
+- A classe utilitária `.makeploy-type` permanece disponível para contextos isolados, previews incorporados ou conteúdo que precise reafirmar explicitamente a identidade tipográfica.
+- Sempre que família, pesos, tokens ou regras de uso mudarem, atualizar em conjunto `src/styles/typography.css`, os arquivos em `public/fonts/` e esta documentação.
+- Antes de adicionar ou substituir um arquivo de fonte, conferir nome interno, peso real, licença e impacto no tamanho transferido. Não manter arquivos ou licenças que pertençam a outra família.
+- A documentação operacional completa fica em `docs/TYPOGRAPHY.md` e deve permanecer sincronizada com esta seção.

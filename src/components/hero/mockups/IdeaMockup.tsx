@@ -73,7 +73,7 @@ export function IdeaMockup() {
 
         {/* Suggestions */}
         <div>
-          <p className="text-[11px] font-semibold text-neutral-400 uppercase tracking-wider mb-3">
+          <p className="text-[11px] font-bold text-neutral-400 uppercase tracking-wider mb-3">
             Ou comece com um exemplo
           </p>
           <div className="flex flex-wrap gap-2">

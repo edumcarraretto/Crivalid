@@ -15,7 +15,7 @@ export function MetricItem({ metric, showDivider }: MetricItemProps) {
   return (
     <div className="relative flex flex-col py-5 px-4 sm:px-5 md:py-6 md:px-5">
       {/* Eyebrow label */}
-      <span className="mb-3 text-[10px] sm:text-[11px] font-semibold uppercase tracking-[0.08em] text-violet-600">
+      <span className="mb-3 text-[10px] sm:text-[11px] font-bold uppercase tracking-[0.08em] text-violet-600">
         {metric.label}
       </span>
 

@@ -49,7 +49,7 @@ export function DeepSearchPreview() {
               className="absolute inset-0 flex flex-col gap-0.5"
             >
               {/* Label */}
-              <span className={`text-[9px] font-mono font-semibold tracking-wider uppercase ${currentLine.accent} transition-colors duration-500`}>
+              <span className={`text-[9px] font-bold tracking-wider uppercase ${currentLine.accent} transition-colors duration-500`}>
                 {currentLine.label}
               </span>
               {/* Content text */}

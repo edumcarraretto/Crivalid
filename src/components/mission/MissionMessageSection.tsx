@@ -261,7 +261,7 @@ export function MissionMessageSection() {
             transition={{ duration: 0.55, delay: 0.1 }}
             className="
               text-2xl sm:text-3xl md:text-4xl lg:text-[2.75rem]
-              font-serif italic font-semibold leading-tight tracking-tight
+              italic font-bold leading-tight tracking-tight
               text-white
             "
           >

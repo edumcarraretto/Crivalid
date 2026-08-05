@@ -89,7 +89,7 @@ export function PlatformMetricsSection({
             className="
               group inline-flex items-center gap-2
               rounded-full bg-neutral-900 px-8 py-3.5
-              text-[15px] font-semibold text-white
+              text-[15px] font-bold text-white
               transition-all duration-200
               hover:bg-neutral-800 active:scale-[0.97]
               focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-neutral-900

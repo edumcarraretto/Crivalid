@@ -109,7 +109,7 @@ export function DeepSearchStatusPanel() {
           background: #050505;
           box-shadow: 0 18px 40px -12px rgba(0, 0, 0, 0.75);
           backdrop-filter: blur(16px);
-          font-family: ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+          font-family: var(--font-family-brand);
         }
 
         /* linha nítida (rastro de 1px) */

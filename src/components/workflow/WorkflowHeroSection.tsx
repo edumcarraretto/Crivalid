@@ -82,7 +82,7 @@ export function WorkflowHeroSection() {
             className="
               group inline-flex items-center gap-2
               px-7 py-3 sm:px-8 sm:py-3.5
-              bg-black text-white text-sm sm:text-[15px] font-semibold
+              bg-black text-white text-sm sm:text-[15px] font-bold
               rounded-full
               hover:bg-neutral-800
               active:scale-[0.97]

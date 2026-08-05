@@ -181,7 +181,7 @@ export function MultiplayerAIPreview() {
     <div className="tf__stage w-full relative flex items-center justify-center min-h-[160px] pb-4">
       <style>{`
         .tf__stage {
-          font-family: ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+          font-family: var(--font-family-brand);
         }
 
         .tf {
@@ -305,7 +305,7 @@ export function MultiplayerAIPreview() {
         .tf__label {
           max-width: 100%;
           font-size: 11.5px;
-          font-weight: 600;
+          font-weight: 700;
           line-height: 1.15;
           letter-spacing: -0.012em;
           text-align: center;

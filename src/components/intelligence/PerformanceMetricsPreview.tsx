@@ -40,7 +40,7 @@ export function PerformanceMetricsPreview() {
               transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
               className="flex flex-col items-center"
             >
-              <span className="text-[11px] font-mono uppercase tracking-[0.2em] text-neutral-500 mb-1">
+              <span className="text-[11px] uppercase tracking-[0.2em] text-neutral-500 mb-1">
                 {active.label}
               </span>
               <span

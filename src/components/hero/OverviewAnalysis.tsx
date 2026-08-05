@@ -43,7 +43,7 @@ export function OverviewAnalysis() {
         <div className="flex flex-col gap-4">
           {overview.indicators.map((ind) => (
             <div key={ind.label} className="flex items-center justify-between">
-              <span className="text-[12px] font-semibold text-slate-600">{ind.label}</span>
+              <span className="text-[12px] font-bold text-slate-600">{ind.label}</span>
               <div className="flex items-center gap-2">
                 <span className="text-[11px] font-bold text-slate-900">{ind.value}</span>
                 <div className={`w-2 h-2 rounded-full ${ind.color}`} />

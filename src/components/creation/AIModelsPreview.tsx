@@ -93,7 +93,7 @@ export function AIModelsPreview() {
 
               {/* Name */}
               <div className="flex-1 min-w-0">
-                <div className="text-[11px] font-semibold text-white leading-none transition-colors duration-300">
+                <div className="text-[11px] font-bold text-white leading-none transition-colors duration-300">
                   {model.name}
                 </div>
               </div>

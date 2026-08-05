@@ -9,7 +9,7 @@ export function IdeaAnalysisHeader() {
         <span className="inline-flex items-center rounded-full bg-violet-100 px-2.5 py-1 text-[10px] font-bold tracking-wider text-violet-700 uppercase">
           Ideia Analisada
         </span>
-        <span className="inline-flex items-center gap-1.5 text-[11px] font-semibold text-emerald-600">
+        <span className="inline-flex items-center gap-1.5 text-[11px] font-bold text-emerald-600">
           <CheckCircle2 size={12} className="text-emerald-500" />
           Análise concluída
         </span>

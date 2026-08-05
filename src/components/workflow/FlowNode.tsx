@@ -75,7 +75,7 @@ export function FlowNode({ icon, label, variant = 'default', delay = 0, avatarSr
               <span className="flex-shrink-0 flex items-center justify-center w-8 h-8 rounded-lg bg-neutral-50 border border-neutral-100">
                 {icon}
               </span>
-              <span className="text-[13px] sm:text-sm font-semibold text-neutral-800 truncate">
+              <span className="text-[13px] sm:text-sm font-bold text-neutral-800 truncate">
                 {label}
               </span>
             </div>
@@ -122,7 +122,7 @@ export function FlowNode({ icon, label, variant = 'default', delay = 0, avatarSr
         ) : (
           <span className="flex-shrink-0 flex items-center justify-center w-6 h-6">{icon}</span>
         )}
-        <span className="truncate font-semibold text-neutral-800">{label}</span>
+        <span className="truncate font-bold text-neutral-800">{label}</span>
       </div>
     </motion.div>
   )

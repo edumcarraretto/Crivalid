@@ -29,7 +29,7 @@ export function MemoryAITableSection() {
           {/* ═══ Card 1: Jornada ═══ */}
           <div className="flex flex-col p-7 sm:p-8 md:aspect-square bg-[#050505] relative overflow-hidden">
             <div className="mb-6 relative z-20">
-              <h3 className="text-white font-mono text-[11px] sm:text-[12px] tracking-widest uppercase mb-4 font-semibold">
+              <h3 className="text-white text-[11px] sm:text-[12px] tracking-widest uppercase mb-4 font-bold">
                 Com Você em Toda a Jornada
               </h3>
               <p className="text-neutral-400 text-sm leading-relaxed">
@@ -45,7 +45,7 @@ export function MemoryAITableSection() {
           {/* ═══ Card 2: Modelos ═══ */}
           <div className="flex flex-col p-7 sm:p-8 md:aspect-square bg-[#050505] relative overflow-hidden">
             <div className="mb-6 relative z-20">
-              <h3 className="text-white font-mono text-[11px] sm:text-[12px] tracking-widest uppercase mb-4 font-semibold">
+              <h3 className="text-white text-[11px] sm:text-[12px] tracking-widest uppercase mb-4 font-bold">
                 Toda IA, Ilimitada
               </h3>
               <p className="text-neutral-400 text-sm leading-relaxed">
@@ -61,7 +61,7 @@ export function MemoryAITableSection() {
           {/* ═══ Card 3: Criação ═══ */}
           <div className="flex flex-col p-7 sm:p-8 md:aspect-square bg-[#050505] relative overflow-hidden">
             <div className="mb-6 relative z-20">
-              <h3 className="text-white font-mono text-[11px] sm:text-[12px] tracking-widest uppercase mb-4 font-semibold">
+              <h3 className="text-white text-[11px] sm:text-[12px] tracking-widest uppercase mb-4 font-bold">
                 Feito para Qualquer Tipo de Criação
               </h3>
               <p className="text-neutral-400 text-sm leading-relaxed">
@@ -77,7 +77,7 @@ export function MemoryAITableSection() {
           {/* ═══ Card 4: Tecnologia Conectada ═══ */}
           <div className="flex flex-col p-7 sm:p-8 md:aspect-square bg-[#050505] relative overflow-hidden">
             <div className="mb-6 relative z-20">
-              <h3 className="text-white font-mono text-[11px] sm:text-[12px] tracking-widest uppercase mb-4 font-semibold">
+              <h3 className="text-white text-[11px] sm:text-[12px] tracking-widest uppercase mb-4 font-bold">
                 Tecnologia Conectada e Sem Limites
               </h3>
               <p className="text-neutral-400 text-sm leading-relaxed">
@@ -93,7 +93,7 @@ export function MemoryAITableSection() {
           {/* ═══ Card 5: Inteligência Contextual ═══ */}
           <div className="flex flex-col p-7 sm:p-8 md:aspect-square bg-[#050505] relative overflow-hidden">
             <div className="mb-6 relative z-20">
-              <h3 className="text-white font-mono text-[11px] sm:text-[12px] tracking-widest uppercase mb-4 font-semibold">
+              <h3 className="text-white text-[11px] sm:text-[12px] tracking-widest uppercase mb-4 font-bold">
                 Inteligência Contextual
               </h3>
               <p className="text-neutral-400 text-sm leading-relaxed">
@@ -109,7 +109,7 @@ export function MemoryAITableSection() {
           {/* ═══ Card 6: Busca Profunda ═══ */}
           <div className="flex flex-col p-7 sm:p-8 md:aspect-square bg-[#050505] relative overflow-hidden">
             <div className="mb-auto relative z-20">
-              <h3 className="text-white font-mono text-[11px] sm:text-[12px] tracking-widest uppercase mb-4 font-semibold">
+              <h3 className="text-white text-[11px] sm:text-[12px] tracking-widest uppercase mb-4 font-bold">
                 Busca Profunda
               </h3>
               <p className="text-neutral-400 text-sm leading-relaxed">

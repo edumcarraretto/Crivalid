@@ -104,7 +104,7 @@ const FILE_CONTENTS: Record<string, FileContent> = {
       { num: 7, tokens: [{ text: '}', color: 'text-white' }] },
       { num: 8, tokens: [] },
       { num: 9, tokens: [{ text: 'body', color: 'text-amber-300' }, { text: ' {', color: 'text-white' }] },
-      { num: 10, tokens: [{ text: '  font-family', color: 'text-white' }, { text: ': ', color: 'text-neutral-400' }, { text: "'Inter', sans-serif", color: 'text-emerald-400' }, { text: ';', color: 'text-neutral-400' }] },
+      { num: 10, tokens: [{ text: '  font-family', color: 'text-white' }, { text: ': ', color: 'text-neutral-400' }, { text: "'Makeploy Rounded', sans-serif", color: 'text-emerald-400' }, { text: ';', color: 'text-neutral-400' }] },
       { num: 11, tokens: [{ text: '  background', color: 'text-white' }, { text: ': ', color: 'text-neutral-400' }, { text: 'var(--bg)', color: 'text-blue-400' }, { text: ';', color: 'text-neutral-400' }] },
       { num: 12, tokens: [{ text: '}', color: 'text-white' }] },
     ],
@@ -267,7 +267,7 @@ export function IntegratedCodeEditorPreview() {
                 ].join(' ')}
               >
                 {/* Line number */}
-                <span className="w-6 shrink-0 text-right pr-2 text-[7px] text-neutral-600 select-none font-mono">
+                <span className="w-6 shrink-0 text-right pr-2 text-[7px] text-neutral-600 select-none">
                   {line.num}
                 </span>
 
@@ -277,7 +277,7 @@ export function IntegratedCodeEditorPreview() {
                 )}
 
                 {/* Tokens */}
-                <div className="flex items-center gap-0 text-[7px] font-mono whitespace-nowrap overflow-hidden">
+                <div className="flex items-center gap-0 text-[7px] whitespace-nowrap overflow-hidden">
                   {line.tokens.map((token, j) => (
                     <span key={j} className={token.color}>
                       {token.text}
