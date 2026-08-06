@@ -106,4 +106,13 @@ Este documento reflete práticas de SEO e AEO/GEO atualizadas para 2026, incluin
 - A classe utilitária `.makeploy-type` permanece disponível para contextos isolados, previews incorporados ou conteúdo que precise reafirmar explicitamente a identidade tipográfica.
 - Sempre que família, pesos, tokens ou regras de uso mudarem, atualizar em conjunto `src/styles/typography.css`, os arquivos em `public/fonts/` e esta documentação.
 - Antes de adicionar ou substituir um arquivo de fonte, conferir nome interno, peso real, licença e impacto no tamanho transferido. Não manter arquivos ou licenças que pertençam a outra família.
+
+## Paleta de cores — fase experimental
+
+- A paleta em avaliação fica centralizada em `src/styles/palette.css`; componentes não devem criar uma identidade paralela com novos valores fixos.
+- Textos claros usam grafite `#171717`, carvão `#3F3F46`, mineral `#52525B` e ardósia `#71717A`, conforme a hierarquia de importância.
+- Ações e links usam azul profundo `#0067D9`, hover `#0057B8` e active `#004A9E`. O azul luminoso `#168CFF` é reservado principalmente à expressão visual da marca.
+- O espectro oficial usa coral `#FF2D55`, laranja `#FF7A00`, amarelo `#FACC15`, verde `#22C55E`, azul `#168CFF` e magenta `#D92DBB`.
+- Cores oficiais de empresas integradas podem permanecer nos respectivos logotipos, mas não devem orientar a interface da MAKEPLOY.
+- Esta paleta ainda está em avaliação visual e deve continuar facilmente reversível por meio dos tokens globais.
 - A documentação operacional completa fica em `docs/TYPOGRAPHY.md` e deve permanecer sincronizada com esta seção.

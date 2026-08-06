@@ -17,8 +17,8 @@ const PETALS = [
   { rotate: 60, color: "#FF7A3D" },
   { rotate: 120, color: "#FFC94A" },
   { rotate: 180, color: "#38BDF8" },
-  { rotate: 240, color: "#6366F1" },
-  { rotate: 300, color: "#B65CFF" },
+  { rotate: 240, color: "var(--color-brand-blue)" },
+  { rotate: 300, color: "var(--color-brand-magenta)" },
 ];
 
 function FlowerIcon() {
@@ -106,7 +106,7 @@ export function DeepSearchStatusPanel() {
           padding: 14px 27px 14px 14px;
           border-radius: 9999px;
           border: none;
-          background: #050505;
+          background: var(--color-surface-inverse);
           box-shadow: 0 18px 40px -12px rgba(0, 0, 0, 0.75);
           backdrop-filter: blur(16px);
           font-family: var(--font-family-brand);
@@ -125,7 +125,7 @@ export function DeepSearchStatusPanel() {
             rgba(255, 255, 255, 0.06) 20deg,
             rgba(255, 77, 141, 0.45) 48deg,
             rgba(255, 235, 245, 0.90) 68deg,
-            rgba(182, 92, 255, 0.45) 92deg,
+            rgb(217 45 187 / 0.45) 92deg,
             rgba(255, 255, 255, 0.06) 130deg,
             rgba(255, 255, 255, 0.06) 360deg
           );
@@ -165,8 +165,8 @@ export function DeepSearchStatusPanel() {
             #FF7A3D 60deg,
             #FFC94A 120deg,
             #38BDF8 180deg,
-            #6366F1 240deg,
-            #B65CFF 300deg,
+            var(--color-brand-blue) 240deg,
+            var(--color-brand-magenta) 300deg,
             #FF4D8D 360deg
           );
           z-index: 1;

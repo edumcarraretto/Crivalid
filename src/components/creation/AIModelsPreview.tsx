@@ -58,7 +58,7 @@ export function AIModelsPreview() {
 
   return (
     <div 
-      className="w-full h-full flex flex-col overflow-hidden rounded-[20px] border border-white/[0.08] bg-[#0c0c0e]/90"
+      className="w-full h-full flex flex-col overflow-hidden rounded-[20px] border border-white/[0.08] bg-neutral-950/90"
       style={{
         maskImage: 'linear-gradient(to bottom, black 30%, transparent 100%)',
         WebkitMaskImage: 'linear-gradient(to bottom, black 30%, transparent 100%)'

@@ -13,8 +13,7 @@ interface FlowNodeProps {
 
 // ─── Rainbow gradient for agent cards ────────────────────────────────────────
 
-const RAINBOW_GRADIENT =
-  'linear-gradient(135deg, #f9a8d4 0%, #fde68a 18%, #86efac 36%, #67e8f9 54%, #93c5fd 72%, #c4b5fd 90%, #f9a8d4 100%)'
+const RAINBOW_GRADIENT = 'var(--gradient-brand)'
 
 // ─── Decision: back card with rainbow gradient border ────────────────────────
 
@@ -29,7 +28,7 @@ function DecisionBackCard() {
         style={{
           padding: '1.5px',
           background:
-            'linear-gradient(90deg, rgba(103,232,249,0.5) 0%, rgba(134,239,172,0.45) 25%, rgba(253,224,71,0.5) 50%, rgba(251,146,180,0.55) 75%, rgba(196,181,253,0.5) 100%)',
+            'var(--gradient-brand-soft)',
         }}
       >
         <div className="w-full h-full rounded-[14.5px] bg-white" />
@@ -67,7 +66,7 @@ export function FlowNode({ icon, label, variant = 'default', delay = 0, avatarSr
             style={{
               padding: '1.5px',
               background:
-                'linear-gradient(90deg, rgba(103,232,249,0.5) 0%, rgba(134,239,172,0.45) 25%, rgba(253,224,71,0.5) 50%, rgba(251,146,180,0.55) 75%, rgba(196,181,253,0.5) 100%)',
+                'var(--gradient-brand-soft)',
             }}
           >
             <div className="flex items-center gap-3 pl-2.5 pr-4 py-2.5 rounded-[14.5px] bg-white">

@@ -60,7 +60,7 @@ export function DeepSearchPreview() {
           </AnimatePresence>
         </div>
         {/* Gradient fade bottom */}
-        <div className="absolute bottom-0 left-0 right-0 h-28 bg-gradient-to-t from-[#050505] via-[#050505]/90 to-transparent z-10" />
+        <div className="absolute bottom-0 left-0 right-0 h-28 bg-gradient-to-t from-black via-black/90 to-transparent z-10" />
       </div>
 
       {/* ── FOREGROUND: SVG Status Panel ── */}
@@ -69,5 +69,4 @@ export function DeepSearchPreview() {
     </div>
   )
 }
-
 

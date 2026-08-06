@@ -13,7 +13,7 @@ import { FlowNode } from './FlowNode'
 
 // ─── Connector style constants ───────────────────────────────────────────────
 
-const CONNECTOR_COLOR = '#3a3a3c'
+const CONNECTOR_COLOR = 'var(--color-text-secondary)'
 const CONNECTOR_WIDTH = 1.5
 
 // ─── Vertical connector (solid) ──────────────────────────────────────────────
@@ -106,11 +106,11 @@ function BranchLabel({ text, delay = 0 }: { text: string; delay?: number }) {
         justifyContent: 'center',
         padding: '2px 12px',
         borderRadius: '6px',
-        border: `1px solid #d1d5db`,
-        backgroundColor: '#ffffff',
+        border: '1px solid var(--color-border-strong)',
+        backgroundColor: 'var(--color-surface)',
         fontSize: '12px',
         fontWeight: 700,
-        color: '#374151',
+        color: 'var(--color-text-secondary)',
         letterSpacing: '0.01em',
         lineHeight: '18px',
         boxShadow: '0 1px 3px rgba(0,0,0,0.04)',
@@ -173,7 +173,7 @@ function DecisionIcon({ delay = 0 }: { delay?: number }) {
       transition={{ duration: 0.4, delay, ease: [0.22, 1, 0.36, 1] }}
       className="flex justify-center"
     >
-      <div className="w-7 h-7 rounded-[5px] bg-gradient-to-br from-indigo-500 to-blue-600 flex items-center justify-center shadow-[0_2px_10px_rgba(79,70,229,0.3)]">
+      <div className="w-7 h-7 rounded-[5px] bg-gradient-to-br from-blue-500 to-blue-600 flex items-center justify-center shadow-[0_2px_10px_rgb(0_103_217/0.3)]">
         <Sparkles size={12} className="text-white -rotate-45" />
       </div>
     </motion.div>

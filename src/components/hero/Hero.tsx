@@ -14,17 +14,17 @@ interface HeroProps {
 // ─── Constants ────────────────────────────────────────────────────────────────
 
 const AVATARS = [
-  { id: '1', from: '#c084fc', to: '#7c3aed', initials: 'JP' },
-  { id: '2', from: '#60a5fa', to: '#2563eb', initials: 'MC' },
-  { id: '3', from: '#f472b6', to: '#db2777', initials: 'AL' },
-  { id: '4', from: '#4ade80', to: '#16a34a', initials: 'RS' },
+  { id: '1', from: 'var(--color-brand-coral)', to: 'var(--color-brand-orange)', initials: 'JP' },
+  { id: '2', from: 'var(--color-brand-blue)', to: 'var(--color-action)', initials: 'MC' },
+  { id: '3', from: 'var(--color-brand-magenta)', to: 'var(--color-brand-coral)', initials: 'AL' },
+  { id: '4', from: 'var(--color-brand-green)', to: 'var(--color-success)', initials: 'RS' },
 ]
 
 const getSubtitleContent = () => [
-  <span key="1">Crie. Valide. <span className={`italic font-medium`} style={{ color: '#168cff' }}>Realize.</span> ✦</span>,
-  <span key="2">Do insight ao <span className={`italic font-medium`} style={{ color: '#168cff' }}>lançamento</span> 💡</span>,
-  <span key="3">Menos achismo, mais <span className={`italic font-medium`} style={{ color: '#168cff' }}>dados</span> 📊</span>,
-  <span key="4">Sua ideia, validada de <span className={`italic font-medium`} style={{ color: '#168cff' }}>verdade</span> ✓</span>,
+  <span key="1">Crie. Valide. <span className="italic font-medium text-blue-500">Realize.</span> ✦</span>,
+  <span key="2">Do insight ao <span className="italic font-medium text-blue-500">lançamento</span> 💡</span>,
+  <span key="3">Menos achismo, mais <span className="italic font-medium text-blue-500">dados</span> 📊</span>,
+  <span key="4">Sua ideia, validada de <span className="italic font-medium text-blue-500">verdade</span> ✓</span>,
 ]
 
 // ─── Rotating Subtitle ────────────────────────────────────────────────────────
@@ -50,7 +50,7 @@ function RotatingSubtitle({ isDark }: { isDark: boolean }) {
           exit={{ opacity: 0, y: -15 }}
           transition={{ duration: 0.4, ease: 'easeOut' }}
           className={`absolute text-sm sm:text-base whitespace-nowrap`}
-          style={{ color: isDark ? '#a3a3a3' : '#666666' }}
+          style={{ color: isDark ? 'var(--color-text-inverse-muted)' : 'var(--color-text-body)' }}
         >
           {subtitles[index]}
         </motion.div>
@@ -111,9 +111,9 @@ function Mascot({ isDark }: { isDark: boolean }) {
           animate={{ 
             background: isDark 
               ? [
-                  'radial-gradient(circle, rgba(139,92,246,0.4) 0%, rgba(0,0,0,0) 70%)',
+                  'radial-gradient(circle, rgb(22 140 255 / 0.4) 0%, rgb(0 0 0 / 0) 70%)',
                   'radial-gradient(circle, rgba(59,130,246,0.4) 0%, rgba(0,0,0,0) 70%)',
-                  'radial-gradient(circle, rgba(139,92,246,0.4) 0%, rgba(0,0,0,0) 70%)'
+                  'radial-gradient(circle, rgb(22 140 255 / 0.4) 0%, rgb(0 0 0 / 0) 70%)'
                 ]
               : [
                   'radial-gradient(circle, rgba(22,140,255,0.12) 0%, rgba(255,255,255,0) 70%)',
@@ -178,18 +178,18 @@ export function Hero({ theme = 'light' }: HeroProps) {
           className={`text-4xl sm:text-5xl md:text-6xl lg:text-[4rem] tracking-tight leading-tight transition-colors duration-500`}
           style={{ color: isDark ? '#ffffff' : '#171717' }}
         >
-          Valide suas ideias{' '}
+          Valide suas ideias antes de{' '}
           <span
             className="italic bg-clip-text"
             style={{
-              background: 'linear-gradient(90deg, #ff2d55 0%, #ff7a00 28%, #facc15 48%, #22c55e 68%, #168cff 100%)',
+          background: 'var(--gradient-brand)',
               WebkitBackgroundClip: 'text',
               WebkitTextFillColor: 'transparent',
               backgroundClip: 'text',
               color: 'transparent',
             }}
           >
-            antes de investir.
+            investir.
           </span>
         </h1>
 
@@ -232,7 +232,7 @@ export function Hero({ theme = 'light' }: HeroProps) {
         <div className="mt-8 flex flex-col items-center justify-center gap-4">
           <a
             href="#testar"
-            className="flex items-center gap-2 bg-violet-600 hover:bg-violet-500 text-white px-7 py-3.5 rounded-full font-medium text-sm transition-all shadow-[0_0_20px_rgba(124,58,237,0.3)] hover:shadow-[0_0_25px_rgba(124,58,237,0.5)]"
+            className="flex items-center gap-2 bg-blue-500 hover:bg-blue-600 active:bg-blue-700 text-white px-7 py-3.5 rounded-full font-medium text-sm transition-all shadow-[0_0_20px_rgb(0_103_217/0.24)] hover:shadow-[0_0_25px_rgb(0_87_184/0.32)] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-500"
           >
             <Globe size={18} />
             Testar Agora

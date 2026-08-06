@@ -128,7 +128,7 @@ export function AmbientIntelligencePreview() {
           ]}
           intervalDelay={3500}
           targetOpacity={1}
-          markerColor="bg-[#8b5cf6]"
+          markerColor="bg-blue-500"
           bgClass="bg-white/[0.04]"
           blurClass=""
           textColor="text-white/90"
@@ -159,7 +159,7 @@ export function AmbientIntelligencePreview() {
           ]}
           intervalDelay={5200}
           targetOpacity={0.4}
-          markerColor="bg-[#6d28d9]"
+          markerColor="bg-blue-700"
           bgClass="bg-white/[0.02]"
           blurClass="blur-[1.5px]"
           textColor="text-white/70"

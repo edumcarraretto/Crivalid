@@ -32,7 +32,7 @@ function LeftIllustration() {
         rx="18"
         ry="9"
         transform="rotate(-35 55 155)"
-        fill="rgba(196,181,253,0.25)"
+        fill="rgb(22 140 255 / 0.25)"
       />
 
       {/* Lower-right leaf */}
@@ -42,7 +42,7 @@ function LeftIllustration() {
         rx="15"
         ry="7"
         transform="rotate(30 92 140)"
-        fill="rgba(167,139,250,0.2)"
+        fill="rgb(0 103 217 / 0.2)"
       />
 
       {/* Mid branch left */}
@@ -53,8 +53,8 @@ function LeftIllustration() {
         strokeLinecap="round"
         fill="none"
       />
-      <circle cx="30" cy="78" r="6" fill="rgba(196,181,253,0.3)" />
-      <circle cx="30" cy="78" r="3" fill="rgba(139,92,246,0.35)" />
+      <circle cx="30" cy="78" r="6" fill="rgb(22 140 255 / 0.3)" />
+      <circle cx="30" cy="78" r="3" fill="rgb(0 103 217 / 0.35)" />
 
       {/* Top petal cluster */}
       <ellipse
@@ -63,7 +63,7 @@ function LeftIllustration() {
         rx="12"
         ry="16"
         transform="rotate(-15 80 50)"
-        fill="rgba(196,181,253,0.3)"
+        fill="rgb(22 140 255 / 0.3)"
       />
       <ellipse
         cx="72"
@@ -71,7 +71,7 @@ function LeftIllustration() {
         rx="10"
         ry="14"
         transform="rotate(-40 72 44)"
-        fill="rgba(167,139,250,0.22)"
+        fill="rgb(0 103 217 / 0.22)"
       />
       <ellipse
         cx="90"
@@ -79,14 +79,14 @@ function LeftIllustration() {
         rx="10"
         ry="13"
         transform="rotate(20 90 46)"
-        fill="rgba(221,214,254,0.25)"
+        fill="rgb(207 231 255 / 0.4)"
       />
-      <circle cx="80" cy="48" r="5" fill="rgba(139,92,246,0.35)" />
+      <circle cx="80" cy="48" r="5" fill="rgb(0 103 217 / 0.35)" />
       <circle cx="80" cy="48" r="2.5" fill="rgba(255,255,255,0.4)" />
 
       {/* Small floating dots */}
-      <circle cx="45" cy="90" r="2.5" fill="rgba(221,214,254,0.35)" />
-      <circle cx="105" cy="100" r="2" fill="rgba(196,181,253,0.3)" />
+      <circle cx="45" cy="90" r="2.5" fill="rgb(207 231 255 / 0.5)" />
+      <circle cx="105" cy="100" r="2" fill="rgb(22 140 255 / 0.3)" />
       <circle cx="60" cy="70" r="1.5" fill="rgba(255,255,255,0.25)" />
     </svg>
   )
@@ -122,7 +122,7 @@ function RightIllustration() {
         rx="18"
         ry="9"
         transform="rotate(35 105 155)"
-        fill="rgba(196,181,253,0.25)"
+        fill="rgb(22 140 255 / 0.25)"
       />
 
       {/* Lower-left leaf */}
@@ -132,7 +132,7 @@ function RightIllustration() {
         rx="14"
         ry="7"
         transform="rotate(-30 68 142)"
-        fill="rgba(167,139,250,0.2)"
+        fill="rgb(0 103 217 / 0.2)"
       />
 
       {/* Mid branch right */}
@@ -143,8 +143,8 @@ function RightIllustration() {
         strokeLinecap="round"
         fill="none"
       />
-      <circle cx="130" cy="76" r="5" fill="rgba(196,181,253,0.28)" />
-      <circle cx="130" cy="76" r="2.5" fill="rgba(139,92,246,0.3)" />
+      <circle cx="130" cy="76" r="5" fill="rgb(22 140 255 / 0.28)" />
+      <circle cx="130" cy="76" r="2.5" fill="rgb(0 103 217 / 0.3)" />
 
       {/* Top flower */}
       <ellipse
@@ -153,7 +153,7 @@ function RightIllustration() {
         rx="13"
         ry="17"
         transform="rotate(10 80 46)"
-        fill="rgba(196,181,253,0.3)"
+        fill="rgb(22 140 255 / 0.3)"
       />
       <ellipse
         cx="88"
@@ -161,7 +161,7 @@ function RightIllustration() {
         rx="11"
         ry="14"
         transform="rotate(35 88 40)"
-        fill="rgba(167,139,250,0.22)"
+        fill="rgb(0 103 217 / 0.22)"
       />
       <ellipse
         cx="70"
@@ -169,9 +169,9 @@ function RightIllustration() {
         rx="10"
         ry="13"
         transform="rotate(-25 70 42)"
-        fill="rgba(221,214,254,0.25)"
+        fill="rgb(207 231 255 / 0.4)"
       />
-      <circle cx="80" cy="44" r="6" fill="rgba(139,92,246,0.35)" />
+      <circle cx="80" cy="44" r="6" fill="rgb(0 103 217 / 0.35)" />
       <circle cx="80" cy="44" r="3" fill="rgba(255,255,255,0.4)" />
 
       {/* Mid-left bud */}
@@ -188,13 +188,13 @@ function RightIllustration() {
         rx="6"
         ry="9"
         transform="rotate(-20 46 62)"
-        fill="rgba(196,181,253,0.22)"
+        fill="rgb(22 140 255 / 0.22)"
       />
-      <circle cx="46" cy="62" r="2.5" fill="rgba(139,92,246,0.3)" />
+      <circle cx="46" cy="62" r="2.5" fill="rgb(0 103 217 / 0.3)" />
 
       {/* Small floating dots */}
-      <circle cx="115" cy="95" r="2.5" fill="rgba(221,214,254,0.35)" />
-      <circle cx="55" cy="105" r="2" fill="rgba(196,181,253,0.3)" />
+      <circle cx="115" cy="95" r="2.5" fill="rgb(207 231 255 / 0.5)" />
+      <circle cx="55" cy="105" r="2" fill="rgb(22 140 255 / 0.3)" />
       <circle cx="100" cy="68" r="1.5" fill="rgba(255,255,255,0.25)" />
     </svg>
   )

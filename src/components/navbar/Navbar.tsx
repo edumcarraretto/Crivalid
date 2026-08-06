@@ -146,8 +146,8 @@ export function Navbar() {
                       }
                       ${
                         isActive
-                          ? 'bg-[#FFD6EB] text-[#121212] shadow-xs'
-                          : 'text-[#2C2C2C] hover:text-black hover:bg-black/[0.04]'
+                          ? 'bg-blue-50 text-neutral-900 shadow-xs'
+                          : 'text-neutral-700 hover:text-neutral-900 hover:bg-blue-50/60'
                       }
                     `}
                   >
@@ -179,7 +179,7 @@ export function Navbar() {
             {/* Botão Principal: Experimente */}
             <button
               className={`
-                bg-[#120B05] hover:bg-[#26170F] text-white font-bold
+                bg-blue-500 hover:bg-blue-600 active:bg-blue-700 text-white font-bold
                 shadow-sm hover:shadow-md active:scale-98
                 transition-all duration-300
                 ${
@@ -222,8 +222,8 @@ export function Navbar() {
                       w-full text-left px-4 py-2.5 text-sm font-bold rounded-xl transition-colors block
                       ${
                         isActive
-                          ? 'bg-[#FFD6EB] text-[#1A1A1A]'
-                          : 'text-[#2B2B2B] hover:bg-neutral-100'
+                          ? 'bg-blue-50 text-neutral-900'
+                          : 'text-neutral-700 hover:bg-neutral-100'
                       }
                     `}
                   >
@@ -234,7 +234,7 @@ export function Navbar() {
             </div>
 
             <div className="pt-2 border-t border-neutral-100">
-              <button className="w-full bg-[#120B05] hover:bg-[#26170F] text-white text-sm font-bold py-2.5 rounded-xl text-center">
+              <button className="w-full bg-blue-500 hover:bg-blue-600 active:bg-blue-700 text-white text-sm font-bold py-2.5 rounded-xl text-center">
                 Experimente
               </button>
             </div>

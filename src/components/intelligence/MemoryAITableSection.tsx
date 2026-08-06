@@ -27,7 +27,7 @@ export function MemoryAITableSection() {
         <div className="grid grid-cols-1 md:grid-cols-3 gap-[1px] bg-white/10 border border-white/10 rounded-2xl sm:rounded-[32px] overflow-hidden">
 
           {/* ═══ Card 1: Jornada ═══ */}
-          <div className="flex flex-col p-7 sm:p-8 md:aspect-square bg-[#050505] relative overflow-hidden">
+          <div className="flex flex-col p-7 sm:p-8 md:aspect-square bg-black relative overflow-hidden">
             <div className="mb-6 relative z-20">
               <h3 className="text-white text-[11px] sm:text-[12px] tracking-widest uppercase mb-4 font-bold">
                 Com Você em Toda a Jornada
@@ -43,7 +43,7 @@ export function MemoryAITableSection() {
           </div>
 
           {/* ═══ Card 2: Modelos ═══ */}
-          <div className="flex flex-col p-7 sm:p-8 md:aspect-square bg-[#050505] relative overflow-hidden">
+          <div className="flex flex-col p-7 sm:p-8 md:aspect-square bg-black relative overflow-hidden">
             <div className="mb-6 relative z-20">
               <h3 className="text-white text-[11px] sm:text-[12px] tracking-widest uppercase mb-4 font-bold">
                 Toda IA, Ilimitada
@@ -59,7 +59,7 @@ export function MemoryAITableSection() {
           </div>
 
           {/* ═══ Card 3: Criação ═══ */}
-          <div className="flex flex-col p-7 sm:p-8 md:aspect-square bg-[#050505] relative overflow-hidden">
+          <div className="flex flex-col p-7 sm:p-8 md:aspect-square bg-black relative overflow-hidden">
             <div className="mb-6 relative z-20">
               <h3 className="text-white text-[11px] sm:text-[12px] tracking-widest uppercase mb-4 font-bold">
                 Feito para Qualquer Tipo de Criação
@@ -75,7 +75,7 @@ export function MemoryAITableSection() {
           </div>
 
           {/* ═══ Card 4: Tecnologia Conectada ═══ */}
-          <div className="flex flex-col p-7 sm:p-8 md:aspect-square bg-[#050505] relative overflow-hidden">
+          <div className="flex flex-col p-7 sm:p-8 md:aspect-square bg-black relative overflow-hidden">
             <div className="mb-6 relative z-20">
               <h3 className="text-white text-[11px] sm:text-[12px] tracking-widest uppercase mb-4 font-bold">
                 Tecnologia Conectada e Sem Limites
@@ -91,7 +91,7 @@ export function MemoryAITableSection() {
           </div>
 
           {/* ═══ Card 5: Inteligência Contextual ═══ */}
-          <div className="flex flex-col p-7 sm:p-8 md:aspect-square bg-[#050505] relative overflow-hidden">
+          <div className="flex flex-col p-7 sm:p-8 md:aspect-square bg-black relative overflow-hidden">
             <div className="mb-6 relative z-20">
               <h3 className="text-white text-[11px] sm:text-[12px] tracking-widest uppercase mb-4 font-bold">
                 Inteligência Contextual
@@ -107,7 +107,7 @@ export function MemoryAITableSection() {
           </div>
 
           {/* ═══ Card 6: Busca Profunda ═══ */}
-          <div className="flex flex-col p-7 sm:p-8 md:aspect-square bg-[#050505] relative overflow-hidden">
+          <div className="flex flex-col p-7 sm:p-8 md:aspect-square bg-black relative overflow-hidden">
             <div className="mb-auto relative z-20">
               <h3 className="text-white text-[11px] sm:text-[12px] tracking-widest uppercase mb-4 font-bold">
                 Busca Profunda
@@ -126,7 +126,7 @@ export function MemoryAITableSection() {
               className="absolute top-0 right-0 bottom-0 z-30 pointer-events-none"
               style={{
                 width: '45%',
-                background: 'linear-gradient(to right, transparent 0%, transparent 10%, rgba(5,5,5,0.1) 30%, rgba(5,5,5,0.4) 55%, rgba(5,5,5,0.8) 80%, #050505 100%)',
+                background: 'linear-gradient(to right, transparent 0%, transparent 10%, rgb(10 10 10 / 0.1) 30%, rgb(10 10 10 / 0.4) 55%, rgb(10 10 10 / 0.8) 80%, var(--color-surface-inverse) 100%)',
               }}
             />
           </div>

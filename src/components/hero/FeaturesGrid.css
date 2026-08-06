@@ -309,12 +309,12 @@
 .features-wrapper .ava[data-pos="right"]  { transform: translateX(105px) scale(0.78); opacity: 0.4; }
 .features-wrapper .ava[data-pos="exit"]   { transform: translateX(-180px) scale(0.5); opacity: 0; }
 .features-wrapper .ava[data-pos="enter"]  { transform: translateX(180px) scale(0.5); opacity: 0; }
-.features-wrapper .ava.c1 { background: #6366F1; }
+.features-wrapper .ava.c1 { background: var(--color-brand-blue); }
 .features-wrapper .ava.c2 { background: #0EA5E9; }
 .features-wrapper .ava.c3 { background: #F97316; }
 .features-wrapper .ava.c4 { background: #EC4899; }
 .features-wrapper .ava.c5 { background: #10B981; }
-.features-wrapper .ava.c6 { background: #8B5CF6; }
+.features-wrapper .ava.c6 { background: var(--color-brand-magenta); }
 .features-wrapper .ava.c7 { background: #EF4444; }
 .features-wrapper .ava.c8 { background: #F59E0B; }
 

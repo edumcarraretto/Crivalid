@@ -52,7 +52,7 @@ export function AIIdeaSection() {
             viewport={{ once: true }}
             transition={{ duration: 0.7, delay: 0.1 }}
             className={`
-              relative z-20 w-full max-w-4xl bg-[#131313] border rounded-[24px] p-2 sm:p-3
+              relative z-20 w-full max-w-4xl bg-neutral-900 border rounded-[24px] p-2 sm:p-3
               transition-all duration-300 shadow-2xl
               ${isFocused ? 'border-neutral-700 ring-4 ring-white/5' : 'border-neutral-800/80'}
             `}
@@ -105,7 +105,7 @@ export function AIIdeaSection() {
                 key={suggestion}
                 type="button"
                 onClick={() => handleSuggestionClick(suggestion)}
-                className="px-4 py-2 sm:px-5 sm:py-2.5 rounded-full border border-neutral-800 bg-[#131313] text-[13px] sm:text-sm text-neutral-400 hover:text-neutral-200 hover:bg-neutral-800 hover:border-neutral-700 transition-all duration-200"
+                className="px-4 py-2 sm:px-5 sm:py-2.5 rounded-full border border-neutral-800 bg-neutral-900 text-[13px] sm:text-sm text-neutral-400 hover:text-neutral-200 hover:bg-neutral-800 hover:border-blue-500 transition-all duration-200 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-400"
               >
                 {suggestion}
               </button>

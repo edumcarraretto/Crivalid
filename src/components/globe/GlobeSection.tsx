@@ -1,6 +1,7 @@
 import { motion } from 'motion/react'
 import { InteractiveGlobe } from './InteractiveGlobe'
 import { globeArcs, globeMarkers } from './globeData'
+import { HighlightText } from '../text/HighlightText'
 
 export function GlobeSection() {
   return (
@@ -14,7 +15,7 @@ export function GlobeSection() {
           className="mb-8 w-full max-w-2xl text-center sm:mb-10"
         >
           <h2 className="text-3xl font-bold leading-[1.15] tracking-tight text-gray-900 sm:text-4xl md:text-[2.75rem] lg:text-5xl">
-            Conecte suas ideias ao mundo
+            Conecte suas ideias <HighlightText variant="blue">ao mundo</HighlightText>
           </h2>
           <p className="mx-auto mt-4 max-w-lg text-sm leading-relaxed text-gray-500 sm:text-base">
             Visualize conexões, projetos e atividades distribuídas globalmente.
@@ -34,4 +35,3 @@ export function GlobeSection() {
     </section>
   )
 }
-

@@ -4,7 +4,7 @@ import { motion, AnimatePresence } from 'motion/react'
 const metrics = [
   { label: 'Velocidade', value: '3.2x', sub: 'mais rápido', color: '#FF6B6B' },
   { label: 'Precisão', value: '99.7%', sub: 'de acurácia', color: '#4ECDC4' },
-  { label: 'Economia', value: '68%', sub: 'redução de custo', color: '#A78BFA' },
+  { label: 'Economia', value: '68%', sub: 'redução de custo', color: 'var(--color-brand-blue)' },
 ]
 
 export function PerformanceMetricsPreview() {

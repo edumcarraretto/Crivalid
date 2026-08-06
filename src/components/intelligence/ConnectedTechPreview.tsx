@@ -4,12 +4,12 @@
    ========================================================= */
 
 const PETALS = [
-  { rotate: 0, color: "#FF4D8D" },
-  { rotate: 60, color: "#FF7A3D" },
-  { rotate: 120, color: "#FFC94A" },
-  { rotate: 180, color: "#38BDF8" },
-  { rotate: 240, color: "#6366F1" },
-  { rotate: 300, color: "#B65CFF" },
+  { rotate: 0, color: "var(--color-brand-coral)" },
+  { rotate: 60, color: "var(--color-brand-orange)" },
+  { rotate: 120, color: "var(--color-brand-yellow)" },
+  { rotate: 180, color: "var(--color-brand-green)" },
+  { rotate: 240, color: "var(--color-brand-blue)" },
+  { rotate: 300, color: "var(--color-brand-magenta)" },
 ];
 
 /* Coordenadas em viewBox 400x250.
@@ -42,8 +42,8 @@ const TRACES_RIGHT = [
 
 function Traces() {
   const sides = [
-    { paths: TRACES_LEFT, id: "mcp-pulse-blue", x: CORE_LEFT, dot: "#3B82F6" },
-    { paths: TRACES_RIGHT, id: "mcp-pulse-purple", x: CORE_RIGHT, dot: "#A855F7" },
+    { paths: TRACES_LEFT, id: "mcp-pulse-blue", x: CORE_LEFT, dot: "var(--color-brand-blue)" },
+    { paths: TRACES_RIGHT, id: "mcp-pulse-purple", x: CORE_RIGHT, dot: "var(--color-brand-magenta)" },
   ];
 
   return (
@@ -56,15 +56,15 @@ function Traces() {
     >
       <defs>
         <linearGradient id="mcp-pulse-blue" x1="0" y1="0" x2="1" y2="0">
-          <stop offset="0%" stopColor="#3B82F6" stopOpacity="0" />
-          <stop offset="50%" stopColor="#93C5FD" stopOpacity="0.9" />
-          <stop offset="100%" stopColor="#3B82F6" stopOpacity="0" />
+          <stop offset="0%" stopColor="var(--color-brand-blue)" stopOpacity="0" />
+          <stop offset="50%" stopColor="var(--color-brand-blue)" stopOpacity="0.9" />
+          <stop offset="100%" stopColor="var(--color-brand-blue)" stopOpacity="0" />
         </linearGradient>
 
         <linearGradient id="mcp-pulse-purple" x1="0" y1="0" x2="1" y2="0">
-          <stop offset="0%" stopColor="#A855F7" stopOpacity="0" />
-          <stop offset="50%" stopColor="#D8B4FE" stopOpacity="0.9" />
-          <stop offset="100%" stopColor="#A855F7" stopOpacity="0" />
+          <stop offset="0%" stopColor="var(--color-brand-magenta)" stopOpacity="0" />
+          <stop offset="50%" stopColor="var(--color-brand-magenta)" stopOpacity="0.9" />
+          <stop offset="100%" stopColor="var(--color-brand-magenta)" stopOpacity="0" />
         </linearGradient>
       </defs>
 
@@ -109,14 +109,14 @@ function Traces() {
       <g transform="translate(142, 38)">
         <path
           d="M26 4 H16 A12 12 0 0 0 4 16 V100 A12 12 0 0 0 16 112 H26"
-          stroke="#3B82F6"
+          stroke="var(--color-brand-blue)"
           strokeWidth="1.8"
           strokeLinecap="round"
           strokeLinejoin="round"
         />
         <path
           d="M90 4 H100 A12 12 0 0 1 112 16 V100 A12 12 0 0 1 100 112 H90"
-          stroke="#A855F7"
+          stroke="var(--color-brand-magenta)"
           strokeWidth="1.8"
           strokeLinecap="round"
           strokeLinejoin="round"
@@ -288,7 +288,7 @@ export function ConnectedTechPreview() {
           border-radius: 9999px;
           background: conic-gradient(
             from 0deg,
-            #FF4D8D, #FF7A3D, #FFC94A, #38BDF8, #6366F1, #B65CFF, #FF4D8D
+            var(--color-brand-coral), var(--color-brand-orange), var(--color-brand-yellow), var(--color-brand-green), var(--color-brand-blue), var(--color-brand-magenta), var(--color-brand-coral)
           );
           filter: blur(16px);
           opacity: 0.38;

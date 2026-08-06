@@ -1,8 +1,9 @@
 import { motion } from 'motion/react'
+import { HighlightText } from '../text/HighlightText'
 
 export function ProblemSection() {
   return (
-    <section className="py-24 px-6 bg-white dark:bg-[#050508] w-full flex flex-col items-center overflow-hidden transition-colors duration-500">
+    <section className="py-24 px-6 bg-white dark:bg-neutral-950 w-full flex flex-col items-center overflow-hidden transition-colors duration-500">
       <div className="max-w-7xl w-full mx-auto flex flex-col items-center">
         
         {/* Section Title */}
@@ -14,9 +15,7 @@ export function ProblemSection() {
           className="text-3xl md:text-4xl lg:text-5xl font-bold text-center mb-12 sm:mb-16 text-neutral-900 dark:text-white tracking-tight"
         >
           Por que a maioria das ideias{' '}
-          <span className="italic bg-gradient-to-r from-violet-500 to-indigo-500 bg-clip-text text-transparent">
-            não sai do papel
-          </span>
+          <HighlightText variant="coral">não sai do papel</HighlightText>
         </motion.h2>
 
         {/* Image Container */}

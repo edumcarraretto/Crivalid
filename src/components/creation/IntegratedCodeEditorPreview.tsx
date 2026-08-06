@@ -98,7 +98,7 @@ const FILE_CONTENTS: Record<string, FileContent> = {
       { num: 1, tokens: [{ text: '@import', color: 'text-pink-400' }, { text: ' "tailwindcss"', color: 'text-emerald-400' }, { text: ';', color: 'text-neutral-400' }] },
       { num: 2, tokens: [] },
       { num: 3, tokens: [{ text: ':root', color: 'text-amber-300' }, { text: ' {', color: 'text-white' }] },
-      { num: 4, tokens: [{ text: '  --primary', color: 'text-white' }, { text: ': ', color: 'text-neutral-400' }, { text: '#863bff', color: 'text-violet-400' }, { text: ';', color: 'text-neutral-400' }], highlighted: true },
+      { num: 4, tokens: [{ text: '  --primary', color: 'text-white' }, { text: ': ', color: 'text-neutral-400' }, { text: '#0067d9', color: 'text-blue-400' }, { text: ';', color: 'text-neutral-400' }], highlighted: true },
       { num: 5, tokens: [{ text: '  --bg', color: 'text-white' }, { text: ': ', color: 'text-neutral-400' }, { text: '#ffffff', color: 'text-violet-400' }, { text: ';', color: 'text-neutral-400' }] },
       { num: 6, tokens: [{ text: '  --text', color: 'text-white' }, { text: ': ', color: 'text-neutral-400' }, { text: '#171717', color: 'text-violet-400' }, { text: ';', color: 'text-neutral-400' }] },
       { num: 7, tokens: [{ text: '}', color: 'text-white' }] },
@@ -173,7 +173,7 @@ export function IntegratedCodeEditorPreview() {
 
   return (
     <div 
-      className="w-full h-full flex overflow-hidden rounded-[20px] border border-white/[0.08] bg-[#0c0c0e]/90"
+      className="w-full h-full flex overflow-hidden rounded-[20px] border border-white/[0.08] bg-neutral-950/90"
       style={{
         maskImage: 'linear-gradient(to bottom, black 40%, transparent 100%)',
         WebkitMaskImage: 'linear-gradient(to bottom, black 40%, transparent 100%)'
@@ -234,7 +234,7 @@ export function IntegratedCodeEditorPreview() {
               className={[
                 'group/tab flex items-center gap-1 px-2.5 py-1.5 text-[7px] border-r border-white/[0.06] cursor-pointer shrink-0 transition-colors duration-150',
                 tab === activeFile
-                  ? 'text-white bg-[#0c0c0e] border-b-2 border-b-violet-500'
+                  ? 'text-white bg-neutral-950 border-b-2 border-b-blue-500'
                   : 'text-neutral-500 bg-[#080809] hover:text-neutral-300',
               ].join(' ')}
               onClick={() => setActiveFile(tab)}

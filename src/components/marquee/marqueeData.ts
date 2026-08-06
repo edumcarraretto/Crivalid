@@ -23,10 +23,10 @@ export const stripes: Stripe[] = [
     direction: 'left',
     duration: 35,
     chevrons: [
-      { color: '#8B7BFF', text: 'Crie sem medo de errar' },
-      { color: '#FFB13B', text: 'Valide com inteligência' },
-      { color: '#FF5733', text: 'Realize com clareza' },
-      { color: '#C7F056', text: 'Pare de construir no escuro' },
+      { color: 'var(--color-brand-blue)', text: 'Crie sem medo de errar' },
+      { color: 'var(--color-brand-yellow)', text: 'Valide com inteligência' },
+      { color: 'var(--color-brand-coral)', text: 'Realize com clareza' },
+      { color: 'var(--color-brand-green)', text: 'Pare de construir no escuro' },
     ],
   },
   {
@@ -34,10 +34,10 @@ export const stripes: Stripe[] = [
     direction: 'right',
     duration: 45,
     chevrons: [
-      { color: '#C7F056', text: 'Mentor ao seu lado' },
-      { color: '#FF5733', text: 'Da ideia à execução' },
-      { color: '#8B7BFF', text: 'Decida com dados' },
-      { color: '#FFB13B', text: 'Comece grátis hoje' },
+      { color: 'var(--color-brand-green)', text: 'Mentor ao seu lado' },
+      { color: 'var(--color-brand-coral)', text: 'Da ideia à execução' },
+      { color: 'var(--color-brand-blue)', text: 'Decida com dados' },
+      { color: 'var(--color-brand-yellow)', text: 'Comece grátis hoje' },
     ],
   },
 ]

@@ -1,0 +1,198 @@
+/*
+ * MAKEPLOY — experimental color system
+ *
+ * This file is the single source of truth for the palette evaluation phase.
+ * Components consume the Tailwind aliases below, so the experiment can be
+ * adjusted or reverted without changing layout, typography, or behavior.
+ */
+
+:root {
+  color-scheme: light;
+
+  /* Surfaces */
+  --color-surface: #ffffff;
+  --color-surface-soft: #fafafa;
+  --color-surface-subtle: #f4f4f5;
+  --color-surface-muted: #e4e4e7;
+  --color-surface-inverse: #0a0a0a;
+  --color-surface-inverse-raised: #171717;
+
+  /* Text */
+  --color-text-primary: #171717;
+  --color-text-secondary: #3f3f46;
+  --color-text-body: #52525b;
+  --color-text-muted: #71717a;
+  --color-text-disabled: #a1a1aa;
+  --color-text-inverse: #fafafa;
+  --color-text-inverse-secondary: #d4d4d8;
+  --color-text-inverse-muted: #a1a1aa;
+
+  /* Borders */
+  --color-border-subtle: #f4f4f5;
+  --color-border-default: #e4e4e7;
+  --color-border-strong: #d4d4d8;
+  --color-border-inverse: rgb(255 255 255 / 0.12);
+
+  /* Primary action */
+  --color-action: #0067d9;
+  --color-action-hover: #0057b8;
+  --color-action-active: #004a9e;
+  --color-action-soft: #eaf4ff;
+  --color-action-soft-strong: #cfe7ff;
+  --color-brand-blue: #168cff;
+
+  /* Official MAKEPLOY spectrum */
+  --color-brand-coral: #ff2d55;
+  --color-brand-orange: #ff7a00;
+  --color-brand-yellow: #facc15;
+  --color-brand-green: #22c55e;
+  --color-brand-magenta: #d92dbb;
+
+  /* Accessible semantic colors */
+  --color-success: #137a3d;
+  --color-warning: #8a4b00;
+  --color-danger: #b42318;
+
+  /* Effects */
+  --shadow-color: 23 23 23;
+  --color-focus-ring: rgb(0 103 217 / 0.35);
+  --gradient-brand: linear-gradient(90deg, #ff2d55 0%, #ff7a00 25%, #facc15 45%, #22c55e 67%, #168cff 100%);
+  --gradient-brand-soft: linear-gradient(90deg, rgb(255 45 85 / 0.16), rgb(255 122 0 / 0.16), rgb(250 204 21 / 0.16), rgb(34 197 94 / 0.16), rgb(22 140 255 / 0.16));
+}
+
+/*
+ * Tailwind compatibility aliases. Existing component structure stays intact,
+ * while every utility resolves to this centralized experimental palette.
+ */
+@theme inline {
+  --color-white: var(--color-surface);
+  --color-black: var(--color-surface-inverse);
+
+  --color-neutral-50: var(--color-surface-soft);
+  --color-neutral-100: var(--color-surface-subtle);
+  --color-neutral-200: var(--color-surface-muted);
+  --color-neutral-300: var(--color-border-strong);
+  --color-neutral-400: var(--color-text-disabled);
+  --color-neutral-500: var(--color-text-muted);
+  --color-neutral-600: var(--color-text-body);
+  --color-neutral-700: var(--color-text-secondary);
+  --color-neutral-800: #27272a;
+  --color-neutral-900: var(--color-text-primary);
+  --color-neutral-950: var(--color-surface-inverse);
+
+  --color-gray-50: var(--color-surface-soft);
+  --color-gray-100: var(--color-surface-subtle);
+  --color-gray-200: var(--color-surface-muted);
+  --color-gray-300: var(--color-border-strong);
+  --color-gray-400: var(--color-text-disabled);
+  --color-gray-500: var(--color-text-muted);
+  --color-gray-600: var(--color-text-body);
+  --color-gray-700: var(--color-text-secondary);
+  --color-gray-800: #27272a;
+  --color-gray-900: var(--color-text-primary);
+  --color-gray-950: var(--color-surface-inverse);
+
+  --color-zinc-50: var(--color-surface-soft);
+  --color-zinc-100: var(--color-surface-subtle);
+  --color-zinc-200: var(--color-surface-muted);
+  --color-zinc-300: var(--color-border-strong);
+  --color-zinc-400: var(--color-text-disabled);
+  --color-zinc-500: var(--color-text-muted);
+  --color-zinc-600: var(--color-text-body);
+  --color-zinc-700: var(--color-text-secondary);
+  --color-zinc-800: #27272a;
+  --color-zinc-900: var(--color-text-primary);
+  --color-zinc-950: var(--color-surface-inverse);
+
+  --color-slate-50: var(--color-surface-soft);
+  --color-slate-100: var(--color-surface-subtle);
+  --color-slate-200: var(--color-surface-muted);
+  --color-slate-300: var(--color-border-strong);
+  --color-slate-400: var(--color-text-disabled);
+  --color-slate-500: var(--color-text-muted);
+  --color-slate-600: var(--color-text-body);
+  --color-slate-700: var(--color-text-secondary);
+  --color-slate-800: #27272a;
+  --color-slate-900: var(--color-text-primary);
+  --color-slate-950: var(--color-surface-inverse);
+
+  /* Blue is the sole primary interaction family. */
+  --color-blue-50: var(--color-action-soft);
+  --color-blue-100: var(--color-action-soft-strong);
+  --color-blue-200: #9dceff;
+  --color-blue-300: #66b2ff;
+  --color-blue-400: var(--color-brand-blue);
+  --color-blue-500: var(--color-action);
+  --color-blue-600: var(--color-action-hover);
+  --color-blue-700: var(--color-action-active);
+  --color-blue-800: #003b80;
+  --color-blue-900: #002b5c;
+
+  --color-sky-300: #66b2ff;
+  --color-sky-400: var(--color-brand-blue);
+  --color-sky-500: var(--color-action);
+  --color-cyan-300: #66b2ff;
+  --color-cyan-400: var(--color-brand-blue);
+  --color-cyan-500: var(--color-action);
+
+  /* Legacy violet/indigo utilities now resolve to the primary blue system. */
+  --color-violet-50: var(--color-action-soft);
+  --color-violet-100: var(--color-action-soft-strong);
+  --color-violet-300: #66b2ff;
+  --color-violet-400: var(--color-brand-blue);
+  --color-violet-500: var(--color-action);
+  --color-violet-600: var(--color-action-hover);
+  --color-violet-700: var(--color-action-active);
+  --color-violet-900: #002b5c;
+  --color-purple-400: var(--color-brand-blue);
+  --color-purple-500: var(--color-action);
+  --color-purple-600: var(--color-action-hover);
+  --color-indigo-300: #66b2ff;
+  --color-indigo-400: var(--color-brand-blue);
+  --color-indigo-500: var(--color-action);
+  --color-indigo-600: var(--color-action-hover);
+
+  /* Spectrum and semantic aliases. */
+  --color-red-400: #ff5b75;
+  --color-red-500: var(--color-brand-coral);
+  --color-red-600: var(--color-danger);
+  --color-rose-50: #fff0f3;
+  --color-rose-100: #ffd5dd;
+  --color-rose-200: #ffadbd;
+  --color-rose-300: #ff7a93;
+  --color-rose-400: #ff5b75;
+  --color-rose-500: var(--color-brand-coral);
+  --color-pink-200: #f7b5e8;
+  --color-pink-300: #ed84d5;
+  --color-pink-400: var(--color-brand-magenta);
+  --color-pink-500: #b91f9d;
+  --color-orange-500: var(--color-brand-orange);
+  --color-amber-50: #fff8e6;
+  --color-amber-100: #ffedbd;
+  --color-amber-300: #fbd858;
+  --color-amber-400: var(--color-brand-yellow);
+  --color-amber-500: var(--color-warning);
+  --color-amber-700: #6e3c00;
+  --color-yellow-400: var(--color-brand-yellow);
+  --color-yellow-500: #a16207;
+  --color-green-400: #4ade80;
+  --color-green-500: var(--color-brand-green);
+  --color-green-600: var(--color-success);
+  --color-green-700: #0f6232;
+  --color-emerald-50: #ecfdf3;
+  --color-emerald-200: #a7e8bd;
+  --color-emerald-300: #6dd996;
+  --color-emerald-400: #3bca73;
+  --color-emerald-500: var(--color-success);
+  --color-emerald-600: #0f6232;
+  --color-emerald-800: #084524;
+}
+
+::selection {
+  background: var(--color-action-soft-strong);
+  color: var(--color-text-primary);
+}
+
+:focus-visible {
+  outline-color: var(--color-action);
+}

@@ -35,7 +35,7 @@ export function TechnologyPillarCard({
         className="pointer-events-none absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300"
         style={{
           background:
-            'radial-gradient(ellipse 60% 50% at 50% 0%, rgba(139,92,246,0.06) 0%, transparent 70%)',
+            'radial-gradient(ellipse 60% 50% at 50% 0%, rgb(22 140 255 / 0.08) 0%, transparent 70%)',
         }}
       />
 
@@ -49,7 +49,7 @@ export function TechnologyPillarCard({
         </span>
 
         {/* Description */}
-        <p className="text-[13px] md:text-sm text-[#B4B4B4] leading-relaxed mb-6">
+        <p className="text-[13px] md:text-sm text-neutral-400 leading-relaxed mb-6">
           {pillar.description}
         </p>
 

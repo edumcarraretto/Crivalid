@@ -26,9 +26,9 @@ export function NoCodeBuilderPreview() {
   }, [])
 
   return (
-    <div className="w-full h-full flex overflow-hidden rounded-[20px] border border-white/[0.08] bg-[#09090b]">
+    <div className="w-full h-full flex overflow-hidden rounded-[20px] border border-white/[0.08] bg-neutral-950">
       {/* Left Panel: Lovable-style Chat */}
-      <div className="w-[45%] flex flex-col border-r border-white/[0.08] bg-[#0c0c0e]">
+      <div className="w-[45%] flex flex-col border-r border-white/[0.08] bg-neutral-950">
         {/* Chat Area */}
         <div className="flex-1 p-3 flex flex-col gap-3 overflow-hidden">
           {/* User Message */}
@@ -85,7 +85,7 @@ export function NoCodeBuilderPreview() {
       </div>
 
       {/* Right Panel: Preview/Canvas */}
-      <div className="flex-1 bg-[#050505] p-3 flex flex-col gap-2.5 relative">
+      <div className="flex-1 bg-black p-3 flex flex-col gap-2.5 relative">
         {/* Browser Header */}
         <div className="flex items-center gap-1.5 mb-1">
           <div className="flex gap-1">
@@ -113,7 +113,7 @@ export function NoCodeBuilderPreview() {
            {/* Scanning line effect */}
            {!prefersReducedMotion && (
              <motion.div
-               className="absolute top-0 bottom-0 w-[1px] bg-indigo-400/60 shadow-[0_0_12px_2px_rgba(99,102,241,0.6)]"
+               className="absolute top-0 bottom-0 w-[1px] bg-blue-400/60 shadow-[0_0_12px_2px_rgb(22_140_255/0.5)]"
                animate={{ left: ['-10%', '110%'] }}
                transition={{ duration: 1.5, ease: 'linear', repeat: Infinity }}
              />
@@ -149,7 +149,7 @@ export function NoCodeBuilderPreview() {
               <path
                 d="M5 3L19 12L12 13L9 20L5 3Z"
                 fill="white"
-                stroke="rgba(99,102,241,0.6)"
+                stroke="rgb(22 140 255 / 0.6)"
                 strokeWidth="1.5"
               />
             </svg>

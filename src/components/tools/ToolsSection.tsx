@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import { motion } from 'motion/react'
+import { HighlightText } from '../text/HighlightText'
 import { tools, type Tool } from './toolsData'
 import { ProjectsMockup, DocumentsMockup, AIMockup, ChatMockup } from './FeaturedMockups'
 
@@ -320,7 +321,7 @@ export function ToolsSection() {
         <h2 className="text-3xl sm:text-4xl md:text-[2.75rem] lg:text-5xl font-bold text-gray-900 leading-[1.15] tracking-tight">
           Todas as ferramentas da sua plataforma
           <br />
-          em um só lugar
+          em <HighlightText variant="yellow">um só lugar</HighlightText>
         </h2>
         <p className="mt-4 text-sm sm:text-base text-gray-500 max-w-md mx-auto leading-relaxed">
           Recursos integrados para organizar, criar, colaborar e transformar suas ideias.

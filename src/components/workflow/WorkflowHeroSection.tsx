@@ -2,6 +2,7 @@ import { useRef, useEffect } from 'react'
 import { motion, useInView, useAnimationControls } from 'motion/react'
 import { ArrowRight } from 'lucide-react'
 import { InlineAvatarGroup } from './InlineAvatarGroup'
+import { AnimatedText } from '../text/AnimatedText'
 
 // ─── Section ─────────────────────────────────────────────────────────────────
 
@@ -48,7 +49,7 @@ export function WorkflowHeroSection() {
         >
           Deixe o trabalho
           <br />
-          fluir
+          <AnimatedText text="fluir" />
         </motion.h2>
 
         {/* ── Subtitle with inline avatars ── */}

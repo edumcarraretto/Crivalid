@@ -78,7 +78,7 @@ export function SiteFooter() {
               relative select-none pointer-events-none whitespace-nowrap
               text-[5rem] sm:text-[8rem] md:text-[11rem] lg:text-[14rem] xl:text-[17rem]
               font-extrabold tracking-[-0.05em] leading-[0.80]
-              text-[#0e0e0e]
+              text-neutral-900
             "
           >
           MAKEPLOY
