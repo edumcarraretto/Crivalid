@@ -6,6 +6,7 @@ import { NoCodeBuilderPreview } from './NoCodeBuilderPreview'
 import { AIModelsPreview } from './AIModelsPreview'
 import { IntegratedCodeEditorPreview } from './IntegratedCodeEditorPreview'
 import { CreationShowcase } from '../showcase/CreationShowcase'
+import { GradientText } from '../text/GradientText'
 
 // ─── Preview registry ─────────────────────────────────────────────────────────
 
@@ -74,9 +75,9 @@ export function CreationTechnologySection() {
             className="text-3xl sm:text-4xl md:text-5xl lg:text-[3.25rem] font-bold text-white leading-[1.12] tracking-tight"
           >
             Da ideia ao{' '}
-            <em className="italic bg-gradient-to-r from-violet-400 to-indigo-400 bg-clip-text text-transparent not-italic font-bold">
+            <GradientText inverse className="font-bold">
               código
-            </em>
+            </GradientText>
             ,
             <br className="hidden sm:block" />{' '}
             tudo no mesmo lugar.

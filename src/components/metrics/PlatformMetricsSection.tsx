@@ -3,6 +3,7 @@ import { ArrowRight } from 'lucide-react'
 import { MetricItem } from './MetricItem'
 import { DEMO_METRICS } from './metricsData'
 import type { PlatformMetric } from './metricsData'
+import { HighlightText } from '../text/HighlightText'
 
 // ─── Types ────────────────────────────────────────────────────────────────────
 
@@ -43,7 +44,7 @@ export function PlatformMetricsSection({
               >
                 Da ideia ao lançamento,
                 <br />
-                resultados que você pode medir.
+                resultados que você pode <HighlightText variant="green">medir.</HighlightText>
               </h2>
 
               <p className="mt-4 max-w-md text-sm sm:text-base leading-relaxed text-neutral-500">
@@ -71,6 +72,7 @@ export function PlatformMetricsSection({
             <MetricItem
               key={metric.id}
               metric={metric}
+              index={index}
               showDivider={index < metrics.length - 1}
             />
           ))}

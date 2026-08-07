@@ -1,4 +1,4 @@
-import { motion } from 'motion/react'
+import { motion, useReducedMotion } from 'motion/react'
 
 // ─── Decorative Illustrations ─────────────────────────────────────────────────
 
@@ -203,6 +203,8 @@ function RightIllustration() {
 // ─── Section ──────────────────────────────────────────────────────────────────
 
 export function MissionMessageSection() {
+  const reduceMotion = useReducedMotion()
+
   return (
     <section
       id="mission-message"
@@ -265,7 +267,18 @@ export function MissionMessageSection() {
               text-white
             "
           >
-            Uma ideia pode mudar tudo.
+            Uma ideia pode mudar{' '}
+            <span className="relative inline-block">
+              tudo.
+              <motion.span
+                aria-hidden="true"
+                initial={reduceMotion ? false : { scaleX: 0, opacity: 0 }}
+                whileInView={{ scaleX: 1, opacity: 1 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.8, delay: 0.45, ease: [0.22, 1, 0.36, 1] }}
+                className="absolute -bottom-[0.12em] left-0 h-[0.08em] w-full origin-left rounded-full bg-gradient-to-r from-white via-blue-200 to-blue-400"
+              />
+            </span>
           </motion.h2>
 
           <motion.p

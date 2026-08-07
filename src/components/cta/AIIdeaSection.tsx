@@ -1,6 +1,7 @@
 import { useState } from 'react'
-import { motion } from 'motion/react'
+import { motion, useReducedMotion } from 'motion/react'
 import { ArrowUp, ChevronDown, Sparkles } from 'lucide-react'
+import { GradientText } from '../text/GradientText'
 
 const SUGGESTIONS = [
   'Crie um portfólio pessoal',
@@ -12,6 +13,7 @@ const SUGGESTIONS = [
 export function AIIdeaSection() {
   const [prompt, setPrompt] = useState('')
   const [isFocused, setIsFocused] = useState(false)
+  const reduceMotion = useReducedMotion()
 
   const handleSuggestionClick = (text: string) => {
     setPrompt(text)
@@ -30,7 +32,12 @@ export function AIIdeaSection() {
         <div className="relative bg-black rounded-t-[32px] sm:rounded-t-[40px] rounded-b-none py-20 sm:py-28 overflow-hidden flex flex-col items-center px-4 sm:px-6 shadow-2xl">
           
           {/* ── Background Glow ── */}
-          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[500px] bg-white/5 rounded-full blur-[120px] pointer-events-none" />
+          <motion.div
+            aria-hidden="true"
+            animate={reduceMotion ? undefined : { x: ['-54%', '-46%', '-54%'], scale: [0.92, 1.06, 0.92], opacity: [0.45, 0.8, 0.45] }}
+            transition={{ duration: 10, repeat: Infinity, ease: 'easeInOut' }}
+            className="absolute top-1/2 left-1/2 -translate-y-1/2 w-[800px] h-[500px] rounded-full bg-[radial-gradient(circle,rgb(22_140_255_/_0.16),transparent_64%)] blur-[80px] pointer-events-none"
+          />
 
           {/* ── Title ── */}
           <motion.h2
@@ -41,16 +48,21 @@ export function AIIdeaSection() {
             className="relative z-20 text-4xl sm:text-5xl md:text-[56px] font-bold tracking-tight text-white text-center mb-10 sm:mb-14 leading-[1.1] max-w-3xl"
           >
             Sua próxima ideia <br className="hidden sm:block" />
-            começa aqui.
+            <GradientText inverse>começa aqui.</GradientText>
           </motion.h2>
 
           {/* ── Prompt Box ── */}
           <motion.form
             onSubmit={handleSubmit}
             initial={{ opacity: 0, y: 30 }}
+            animate={{
+              boxShadow: isFocused
+                ? '0 28px 80px rgb(0 103 217 / 0.22), 0 0 0 1px rgb(22 140 255 / 0.22)'
+                : '0 24px 64px rgb(0 0 0 / 0.34), 0 0 0 1px rgb(255 255 255 / 0.02)',
+            }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            transition={{ duration: 0.7, delay: 0.1 }}
+            transition={{ duration: 0.7, delay: 0.1, boxShadow: { duration: 0.35, delay: 0 } }}
             className={`
               relative z-20 w-full max-w-4xl bg-neutral-900 border rounded-[24px] p-2 sm:p-3
               transition-all duration-300 shadow-2xl
@@ -84,10 +96,10 @@ export function AIIdeaSection() {
               <button
                 type="submit"
                 disabled={!prompt.trim()}
-                className="p-2 sm:p-2.5 rounded-[12px] bg-white text-black hover:bg-neutral-200 disabled:opacity-50 disabled:bg-neutral-800 disabled:text-neutral-600 transition-all duration-200 shadow-sm"
+                className="group p-2 sm:p-2.5 rounded-[12px] bg-white text-black hover:bg-neutral-200 disabled:opacity-50 disabled:bg-neutral-800 disabled:text-neutral-600 transition-all duration-200 shadow-sm active:scale-95"
                 aria-label="Gerar com IA"
               >
-                <ArrowUp className="w-5 h-5 sm:w-6 sm:h-6" />
+                <ArrowUp className="w-5 h-5 sm:w-6 sm:h-6 transition-transform duration-300 group-hover:-translate-y-0.5" />
               </button>
             </div>
           </motion.form>

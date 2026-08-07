@@ -1,7 +1,8 @@
 import { useEffect, useState } from 'react'
-import { AnimatePresence, motion } from 'motion/react'
+import { AnimatePresence, motion, useReducedMotion } from 'motion/react'
 import { ArrowDown, Globe, Star } from 'lucide-react'
 import { FeaturesGrid } from './FeaturesGrid'
+import { GradientText } from '../text/GradientText'
 
 // ─── Types ────────────────────────────────────────────────────────────────────
 
@@ -29,16 +30,17 @@ const getSubtitleContent = () => [
 
 // ─── Rotating Subtitle ────────────────────────────────────────────────────────
 
-function RotatingSubtitle({ isDark }: { isDark: boolean }) {
+function RotatingSubtitle({ isDark, reduceMotion }: { isDark: boolean; reduceMotion: boolean }) {
   const [index, setIndex] = useState(0)
   const subtitles = getSubtitleContent()
 
   useEffect(() => {
+    if (reduceMotion) return
     const timer = setInterval(() => {
       setIndex((prev) => (prev + 1) % subtitles.length)
     }, 2500)
     return () => clearInterval(timer)
-  }, [subtitles.length])
+  }, [subtitles.length, reduceMotion])
 
   return (
     <div className="relative w-full h-[2em] mt-4 flex justify-center items-center overflow-hidden">
@@ -61,7 +63,7 @@ function RotatingSubtitle({ isDark }: { isDark: boolean }) {
 
 // ─── Mascot ───────────────────────────────────────────────────────────────────
 
-function Mascot({ isDark }: { isDark: boolean }) {
+function Mascot({ isDark, reduceMotion }: { isDark: boolean; reduceMotion: boolean }) {
   return (
     <div className="relative w-[13.8rem] h-[13.8rem] sm:w-[21rem] sm:h-[21rem] md:w-[25.5rem] md:h-[25.5rem] mx-auto mt-16 mb-8 flex items-center justify-center">
       {/* Huge background marquee */}
@@ -73,7 +75,7 @@ function Mascot({ isDark }: { isDark: boolean }) {
         }}
       >
         <motion.div
-          animate={{ x: [0, '-50%'] }}
+          animate={reduceMotion ? undefined : { x: [0, '-50%'] }}
           transition={{ repeat: Infinity, ease: 'linear', duration: 45 }}
           className={`flex w-max items-center whitespace-nowrap text-[12rem] sm:text-[18rem] md:text-[22rem] font-extrabold tracking-tighter text-black ${isDark ? '' : 'opacity-[0.04]'}`}
         >
@@ -108,7 +110,15 @@ function Mascot({ isDark }: { isDark: boolean }) {
         {/* Pulsing Dynamic Aura */}
         <motion.div 
           className="absolute inset-0 rounded-full blur-[60px] sm:blur-[80px]"
-          animate={{ 
+          animate={reduceMotion
+            ? {
+                background: isDark
+                  ? 'radial-gradient(circle, rgb(22 140 255 / 0.34) 0%, rgb(0 0 0 / 0) 70%)'
+                  : 'radial-gradient(circle, rgb(22 140 255 / 0.1) 0%, rgb(255 255 255 / 0) 70%)',
+                scale: 1,
+                opacity: 0.7,
+              }
+            : {
             background: isDark 
               ? [
                   'radial-gradient(circle, rgb(22 140 255 / 0.4) 0%, rgb(0 0 0 / 0) 70%)',
@@ -161,6 +171,7 @@ function InteractivePreview() {
 
 export function Hero({ theme = 'light' }: HeroProps) {
   const isDark = theme === 'dark'
+  const reduceMotion = Boolean(useReducedMotion())
 
   return (
     <section
@@ -173,31 +184,25 @@ export function Hero({ theme = 'light' }: HeroProps) {
       <div className="relative z-10 mx-auto w-full max-w-4xl text-center flex flex-col items-center">
 
         {/* 1 & 2 — Headline */}
-        <h1
+        <motion.h1
           id="hero-heading"
+          initial={reduceMotion ? false : { opacity: 0, y: 18, filter: 'blur(8px)' }}
+          animate={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
+          transition={{ duration: 0.85, ease: [0.22, 1, 0.36, 1] }}
           className={`text-4xl sm:text-5xl md:text-6xl lg:text-[4rem] tracking-tight leading-tight transition-colors duration-500`}
           style={{ color: isDark ? '#ffffff' : '#171717' }}
         >
           Valide suas ideias antes de{' '}
-          <span
-            className="italic bg-clip-text"
-            style={{
-          background: 'var(--gradient-brand)',
-              WebkitBackgroundClip: 'text',
-              WebkitTextFillColor: 'transparent',
-              backgroundClip: 'text',
-              color: 'transparent',
-            }}
-          >
+          <GradientText className="italic">
             investir.
-          </span>
-        </h1>
+          </GradientText>
+        </motion.h1>
 
         {/* 3 — Subtitle / Highlight */}
-        <RotatingSubtitle isDark={isDark} />
+        <RotatingSubtitle isDark={isDark} reduceMotion={reduceMotion} />
 
         {/* 4 & 5 — Mascot with Sparkle */}
-        <Mascot isDark={isDark} />
+        <Mascot isDark={isDark} reduceMotion={reduceMotion} />
 
         {/* 6 — Avatars & Ratings */}
         <div className={`mt-6 flex items-center gap-5 backdrop-blur-md px-6 py-3 rounded-full border transition-colors duration-500 ${isDark ? 'bg-black/50 border-white/5' : 'bg-white/50 border-black/5 shadow-sm'}`}>
