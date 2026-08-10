@@ -11,6 +11,7 @@ import { WorkflowHeroSection } from '@/components/workflow/WorkflowHeroSection'
 import { PlatformMetricsSection } from '@/components/metrics/PlatformMetricsSection'
 import { MissionMessageSection } from '@/components/mission/MissionMessageSection'
 import { SiteFooter } from '@/components/footer/SiteFooter'
+import { ProductFAQSection } from '@/components/faq/ProductFAQSection'
 
 import { AIIdeaSection } from '@/components/cta/AIIdeaSection'
 
@@ -28,6 +29,7 @@ function App() {
       <WorkflowHeroSection />
       <PlatformMetricsSection />
       <MissionMessageSection />
+      <ProductFAQSection />
       <AIIdeaSection />
       <MarqueeStripes />
       <SiteFooter />

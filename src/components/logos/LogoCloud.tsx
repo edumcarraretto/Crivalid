@@ -52,7 +52,7 @@ export function LogoCloud() {
         <div className="flex items-center gap-4 sm:gap-6 mb-10 sm:mb-14">
           <div className="flex-grow border-t border-neutral-200"></div>
           <p className="text-center text-xs sm:text-sm font-medium text-neutral-400">
-            Construído com a mesma tecnologia de ponta usada por empresas líderes
+            Suas tecnologias. O mesmo projeto.
           </p>
           <div className="flex-grow border-t border-neutral-200"></div>
         </div>

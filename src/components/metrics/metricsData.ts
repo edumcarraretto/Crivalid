@@ -1,7 +1,7 @@
 // ─── Types ────────────────────────────────────────────────────────────────────
 
 export interface PlatformMetric {
-  /** Stable identifier for keying and future backend mapping */
+  /** Stable identifier for keying */
   id: string
   /** Short label displayed as an uppercase eyebrow above the number */
   label: string
@@ -11,9 +11,9 @@ export interface PlatformMetric {
   startFrom?: number
   /** Number of decimal places to show during animation (default 0) */
   decimals?: number
-  /** Prefix rendered before the animated number (e.g. "R$ ") */
+  /** Prefix rendered before the animated number */
   prefix: string
-  /** Suffix appended after the animated number (e.g. "+") */
+  /** Suffix appended after the animated number */
   suffix: string
   /** Final display value — the exact formatted string shown at animation end */
   displayValue: string
@@ -27,50 +27,50 @@ export interface PlatformMetric {
 // only. Replace with real data once the Supabase integration is in place.
 // The component accepts this array as a prop, making backend binding trivial.
 
-export const DEMO_METRICS: PlatformMetric[] = [
+export const PROJECT_LIFECYCLE_STAGES: PlatformMetric[] = [
   {
-    id: 'projects-created',
-    label: 'Projetos criados',
-    numericValue: 120_000,
+    id: 'understand',
+    label: 'Compreender',
+    numericValue: 1,
     decimals: 0,
     prefix: '',
-    suffix: '+',
-    displayValue: '120.000+',
+    suffix: '',
+    displayValue: '01',
     description:
-      'Páginas, sites, cursos, SaaS e produtos digitais iniciados dentro da plataforma.',
+      'Transforme contexto, público e mercado em direção.',
   },
   {
-    id: 'hours-saved',
-    label: 'Horas economizadas',
-    numericValue: 85_000,
+    id: 'build',
+    label: 'Construir',
+    numericValue: 2,
     decimals: 0,
     prefix: '',
-    suffix: '+',
-    displayValue: '85.000+',
+    suffix: '',
+    displayValue: '02',
     description:
-      'Tempo poupado com criação no-code, inteligência artificial e automações integradas.',
+      'Passe da interface ao código sem separar decisão e execução.',
   },
   {
-    id: 'published-creations',
-    label: 'Criações publicadas',
-    numericValue: 28_500,
+    id: 'operate',
+    label: 'Operar',
+    numericValue: 3,
     decimals: 0,
     prefix: '',
-    suffix: '+',
-    displayValue: '28.500+',
+    suffix: '',
+    displayValue: '03',
     description:
-      'Projetos que avançaram da primeira ideia até uma experiência publicada e acessível.',
+      'Conecte pessoas, serviços e automações depois do lançamento.',
   },
   {
-    id: 'money-saved',
-    label: 'Dinheiro economizado',
-    numericValue: 2_400_000,
-    startFrom: 100_000,
+    id: 'evolve',
+    label: 'Evoluir',
+    numericValue: 4,
+    startFrom: 0,
     decimals: 0,
-    prefix: 'R$ ',
-    suffix: '+',
-    displayValue: 'R$ 2.400.000+',
+    prefix: '',
+    suffix: '',
+    displayValue: '04',
     description:
-      'Economia gerada ao reunir criação, inteligência artificial, automações e publicação em uma única plataforma, reduzindo custos operacionais e acelerando entregas.',
+      'Use histórico e dados para construir a próxima versão.',
   },
 ]

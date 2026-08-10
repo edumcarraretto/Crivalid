@@ -23,10 +23,10 @@ export const stripes: Stripe[] = [
     direction: 'left',
     duration: 35,
     chevrons: [
-      { color: 'var(--color-brand-blue)', text: 'Crie sem medo de errar' },
-      { color: 'var(--color-brand-yellow)', text: 'Valide com inteligência' },
-      { color: 'var(--color-brand-coral)', text: 'Realize com clareza' },
-      { color: 'var(--color-brand-green)', text: 'Pare de construir no escuro' },
+      { color: 'var(--color-brand-blue)', text: 'Contexto antes de execução' },
+      { color: 'var(--color-brand-yellow)', text: 'Visual sem barreiras' },
+      { color: 'var(--color-brand-coral)', text: 'Código sem recomeços' },
+      { color: 'var(--color-brand-green)', text: 'Operação depois do lançamento' },
     ],
   },
   {
@@ -34,10 +34,10 @@ export const stripes: Stripe[] = [
     direction: 'right',
     duration: 45,
     chevrons: [
-      { color: 'var(--color-brand-green)', text: 'Mentor ao seu lado' },
-      { color: 'var(--color-brand-coral)', text: 'Da ideia à execução' },
-      { color: 'var(--color-brand-blue)', text: 'Decida com dados' },
-      { color: 'var(--color-brand-yellow)', text: 'Comece grátis hoje' },
+      { color: 'var(--color-brand-green)', text: 'Uma origem' },
+      { color: 'var(--color-brand-coral)', text: 'Um projeto contínuo' },
+      { color: 'var(--color-brand-blue)', text: 'Próximas versões conectadas' },
+      { color: 'var(--color-brand-yellow)', text: 'MAKEPLOY' },
     ],
   },
 ]

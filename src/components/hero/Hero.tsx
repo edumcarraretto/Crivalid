@@ -12,8 +12,6 @@ interface HeroProps {
   theme?: HeroTheme
 }
 
-// ─── Constants ────────────────────────────────────────────────────────────────
-
 const AVATARS = [
   { id: '1', from: 'var(--color-brand-coral)', to: 'var(--color-brand-orange)', initials: 'JP' },
   { id: '2', from: 'var(--color-brand-blue)', to: 'var(--color-action)', initials: 'MC' },
@@ -22,13 +20,11 @@ const AVATARS = [
 ]
 
 const getSubtitleContent = () => [
-  <span key="1">Crie. Valide. <span className="italic font-medium text-blue-500">Realize.</span> ✦</span>,
-  <span key="2">Do insight ao <span className="italic font-medium text-blue-500">lançamento</span> 💡</span>,
-  <span key="3">Menos achismo, mais <span className="italic font-medium text-blue-500">dados</span> 📊</span>,
-  <span key="4">Sua ideia, validada de <span className="italic font-medium text-blue-500">verdade</span> ✓</span>,
+  <span key="1">Uma ideia entra. <span className="italic font-medium text-blue-500">O projeto continua.</span></span>,
+  <span key="2">Visual por escolha. <span className="italic font-medium text-blue-500">Código por controle.</span></span>,
+  <span key="3">Pessoas, IA e automações. <span className="italic font-medium text-blue-500">Um contexto.</span></span>,
+  <span key="4">Comece algo novo. <span className="italic font-medium text-blue-500">Ou continue o que existe.</span></span>,
 ]
-
-// ─── Rotating Subtitle ────────────────────────────────────────────────────────
 
 function RotatingSubtitle({ isDark, reduceMotion }: { isDark: boolean; reduceMotion: boolean }) {
   const [index, setIndex] = useState(0)
@@ -51,7 +47,7 @@ function RotatingSubtitle({ isDark, reduceMotion }: { isDark: boolean; reduceMot
           animate={{ opacity: 1, y: 0 }}
           exit={{ opacity: 0, y: -15 }}
           transition={{ duration: 0.4, ease: 'easeOut' }}
-          className={`absolute text-sm sm:text-base whitespace-nowrap`}
+          className="absolute text-sm sm:text-base whitespace-nowrap"
           style={{ color: isDark ? 'var(--color-text-inverse-muted)' : 'var(--color-text-body)' }}
         >
           {subtitles[index]}
@@ -183,6 +179,15 @@ export function Hero({ theme = 'light' }: HeroProps) {
 
       <div className="relative z-10 mx-auto w-full max-w-4xl text-center flex flex-col items-center">
 
+        <motion.p
+          initial={reduceMotion ? false : { opacity: 0, y: 10 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.65 }}
+          className="mb-5 text-[11px] sm:text-xs font-bold uppercase tracking-[0.16em] text-blue-600"
+        >
+          Plataforma end-to-end para produtos digitais
+        </motion.p>
+
         {/* 1 & 2 — Headline */}
         <motion.h1
           id="hero-heading"
@@ -192,19 +197,17 @@ export function Hero({ theme = 'light' }: HeroProps) {
           className={`text-4xl sm:text-5xl md:text-6xl lg:text-[4rem] tracking-tight leading-tight transition-colors duration-500`}
           style={{ color: isDark ? '#ffffff' : '#171717' }}
         >
-          Valide suas ideias antes de{' '}
+          Crie, publique e evolua.{' '}
           <GradientText className="italic">
-            investir.
+            Sem trocar de sistema.
           </GradientText>
         </motion.h1>
 
-        {/* 3 — Subtitle / Highlight */}
         <RotatingSubtitle isDark={isDark} reduceMotion={reduceMotion} />
 
         {/* 4 & 5 — Mascot with Sparkle */}
         <Mascot isDark={isDark} reduceMotion={reduceMotion} />
 
-        {/* 6 — Avatars & Ratings */}
         <div className={`mt-6 flex items-center gap-5 backdrop-blur-md px-6 py-3 rounded-full border transition-colors duration-500 ${isDark ? 'bg-black/50 border-white/5' : 'bg-white/50 border-black/5 shadow-sm'}`}>
           <div className="flex -space-x-3">
             {AVATARS.map((av) => (
@@ -225,22 +228,20 @@ export function Hero({ theme = 'light' }: HeroProps) {
                   <Star key={star} size={12} fill="currentColor" />
                 ))}
               </div>
-              <span className={`font-bold text-sm leading-none mt-0.5 transition-colors duration-500 ${isDark ? 'text-white' : 'text-neutral-900'}`}>4.8</span>
+              <span className={`font-bold text-sm leading-none mt-0.5 transition-colors duration-500 ${isDark ? 'text-white' : 'text-neutral-900'}`}>Um projeto</span>
             </div>
-            <span className="text-neutral-500 text-[10px] leading-none">
-              Mais de 2.000 avaliações
-            </span>
+            <span className="text-neutral-500 text-[10px] leading-none">Do primeiro passo à próxima versão.</span>
           </div>
         </div>
 
         {/* 7 — CTAs */}
         <div className="mt-8 flex flex-col items-center justify-center gap-4">
           <a
-            href="#testar"
+            href="#comece"
             className="flex items-center gap-2 bg-blue-500 hover:bg-blue-600 active:bg-blue-700 text-white px-7 py-3.5 rounded-full font-medium text-sm transition-all shadow-[0_0_20px_rgb(0_103_217/0.24)] hover:shadow-[0_0_25px_rgb(0_87_184/0.32)] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-500"
           >
             <Globe size={18} />
-            Testar Agora
+            Começar de onde estou
           </a>
           <a
             href="#como-funciona"
@@ -248,7 +249,7 @@ export function Hero({ theme = 'light' }: HeroProps) {
               ? 'border-white/15 text-white hover:bg-white/10'
               : 'border-neutral-200 text-neutral-700 hover:bg-neutral-50'
               }`}
-            aria-label="Ver como funciona"
+            aria-label="Conhecer o sistema"
           >
             <ArrowDown size={18} />
           </a>

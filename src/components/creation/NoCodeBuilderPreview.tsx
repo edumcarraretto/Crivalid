@@ -5,11 +5,11 @@ import { Sparkles, Send, User } from 'lucide-react'
 // ─── Constants ────────────────────────────────────────────────────────────────
 
 const PROMPTS = [
-  "Crie uma landing page com um Hero principal e um botão de CTA",
-  "Crie um curso online com módulos em vídeo e testes",
-  "Crie uma página de venda para um infoproduto",
-  "Gere um dashboard administrativo com gráficos",
-  "Monte um blog minimalista com modo escuro"
+  "Crie a primeira versão do site da minha empresa",
+  "Estruture um curso com módulos, vídeos e avaliações",
+  "Continue esta página de vendas a partir do projeto atual",
+  "Construa um SaaS com dashboard administrativo",
+  "Transforme este protótipo em uma aplicação funcional"
 ]
 
 // ─── Component ────────────────────────────────────────────────────────────────
@@ -67,7 +67,7 @@ export function NoCodeBuilderPreview() {
                     : { duration: 1, repeat: Infinity, repeatType: 'reverse' }
                 }
               >
-                Gerando interface...
+                Construindo no contexto do projeto...
               </motion.div>
             </div>
           </div>
@@ -76,7 +76,7 @@ export function NoCodeBuilderPreview() {
         {/* Input Area */}
         <div className="p-2 border-t border-white/[0.06] bg-black/20">
           <div className="flex items-center bg-white/[0.04] border border-white/[0.08] rounded-full p-1 pl-2.5">
-            <span className="text-[6px] text-neutral-500 flex-1">Faça uma alteração...</span>
+            <span className="text-[6px] text-neutral-500 flex-1">Descreva a próxima mudança...</span>
             <div className="w-4 h-4 rounded-full bg-indigo-500 flex items-center justify-center">
               <Send className="w-2 h-2 text-white ml-0.5" />
             </div>
@@ -109,7 +109,7 @@ export function NoCodeBuilderPreview() {
               : { duration: 1, repeat: Infinity, repeatType: 'reverse', ease: 'easeInOut' }
           }
         >
-           <span className="text-[6px] text-indigo-400/80 font-bold tracking-widest uppercase">Hero Section</span>
+           <span className="text-[6px] text-indigo-400/80 font-bold tracking-widest uppercase">Preview em construção</span>
            {/* Scanning line effect */}
            {!prefersReducedMotion && (
              <motion.div

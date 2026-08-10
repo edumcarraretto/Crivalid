@@ -4,10 +4,10 @@ import { ArrowUp, ChevronDown, Sparkles } from 'lucide-react'
 import { GradientText } from '../text/GradientText'
 
 const SUGGESTIONS = [
-  'Crie um portfólio pessoal',
-  'Criar site de startup',
-  'Launch landing page',
-  'Comece o blog da empresa',
+  'Criar um SaaS',
+  'Criar um site',
+  'Lançar uma página de vendas',
+  'Continuar um projeto',
 ]
 
 export function AIIdeaSection() {
@@ -27,7 +27,7 @@ export function AIIdeaSection() {
   }
 
   return (
-    <section className="bg-white pt-14 sm:pt-20 pb-0">
+    <section id="comece" className="bg-white pt-14 sm:pt-20 pb-0">
       <div className="mx-4 sm:mx-6 md:mx-10 lg:mx-16">
         <div className="relative bg-black rounded-t-[32px] sm:rounded-t-[40px] rounded-b-none py-20 sm:py-28 overflow-hidden flex flex-col items-center px-4 sm:px-6 shadow-2xl">
           
@@ -47,8 +47,8 @@ export function AIIdeaSection() {
             transition={{ duration: 0.6 }}
             className="relative z-20 text-4xl sm:text-5xl md:text-[56px] font-bold tracking-tight text-white text-center mb-10 sm:mb-14 leading-[1.1] max-w-3xl"
           >
-            Sua próxima ideia <br className="hidden sm:block" />
-            <GradientText inverse>começa aqui.</GradientText>
+            Comece de onde está. <br className="hidden sm:block" />
+            <GradientText inverse>Continue sem recomeçar.</GradientText>
           </motion.h2>
 
           {/* ── Prompt Box ── */}
@@ -75,7 +75,7 @@ export function AIIdeaSection() {
                 onChange={(e) => setPrompt(e.target.value)}
                 onFocus={() => setIsFocused(true)}
                 onBlur={() => setIsFocused(false)}
-                placeholder="Descreva o que você quer criar..."
+                placeholder="Descreva uma ideia ou o projeto que já existe."
                 className="w-full h-full bg-transparent text-neutral-200 placeholder:text-neutral-600 text-lg sm:text-xl resize-none focus:outline-none"
               />
             </div>
@@ -88,7 +88,7 @@ export function AIIdeaSection() {
                 className="flex items-center gap-2 text-sm text-neutral-500 hover:text-neutral-300 transition-colors font-medium px-2 py-1.5 rounded-lg hover:bg-white/5"
               >
                 <Sparkles className="w-4 h-4" />
-                GPT 5.6 Terra
+                Contexto do projeto
                 <ChevronDown className="w-3 h-3 opacity-50" />
               </button>
 
@@ -97,7 +97,7 @@ export function AIIdeaSection() {
                 type="submit"
                 disabled={!prompt.trim()}
                 className="group p-2 sm:p-2.5 rounded-[12px] bg-white text-black hover:bg-neutral-200 disabled:opacity-50 disabled:bg-neutral-800 disabled:text-neutral-600 transition-all duration-200 shadow-sm active:scale-95"
-                aria-label="Gerar com IA"
+                aria-label="Começar projeto"
               >
                 <ArrowUp className="w-5 h-5 sm:w-6 sm:h-6 transition-transform duration-300 group-hover:-translate-y-0.5" />
               </button>

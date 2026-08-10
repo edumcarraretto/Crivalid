@@ -27,7 +27,7 @@ export function MetricItem({ metric, showDivider, index }: MetricItemProps) {
         {metric.label}
       </span>
 
-      {/* Animated number — whitespace-nowrap prevents "R$ 2.400.000+" from breaking */}
+      {/* Animated stage number */}
       <p className="mb-3 whitespace-nowrap text-[1.75rem] sm:text-[2.25rem] md:text-[2.5rem] font-extrabold leading-[1] tracking-tight text-neutral-900 transition-transform duration-500 ease-out group-hover:-translate-y-0.5">
         <AnimatedMetricValue
           target={metric.numericValue}

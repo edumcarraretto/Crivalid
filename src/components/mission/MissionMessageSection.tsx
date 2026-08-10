@@ -267,9 +267,9 @@ export function MissionMessageSection() {
               text-white
             "
           >
-            Uma ideia pode mudar{' '}
+            O projeto{' '}
             <span className="relative inline-block">
-              tudo.
+              não volta ao zero.
               <motion.span
                 aria-hidden="true"
                 initial={reduceMotion ? false : { scaleX: 0, opacity: 0 }}
@@ -292,9 +292,8 @@ export function MissionMessageSection() {
               text-white/80
             "
           >
-            Nossa missão é acompanhar você da primeira ideia ao lançamento,
-            oferecendo direção, inteligência e as ferramentas necessárias
-            para construir algo real.
+            Cada decisão permanece útil entre pensar, construir, publicar e operar.
+            A próxima versão começa com tudo que o projeto já aprendeu.
           </motion.p>
         </div>
       </motion.div>

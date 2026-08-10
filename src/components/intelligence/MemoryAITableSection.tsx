@@ -14,7 +14,7 @@ const cardReveal = {
 
 export function MemoryAITableSection() {
   return (
-    <section className="bg-white relative">
+    <section id="inteligencia" className="bg-white relative">
       {/* Main dark area — inset card (bottom half, connects with Creation above) */}
       <div className="mx-4 sm:mx-6 md:mx-10 lg:mx-16 relative bg-black rounded-b-[24px] sm:rounded-b-[32px] pt-24 pb-12 sm:pt-32 sm:pb-16 overflow-hidden">
       {/* Container principal para o grid */}
@@ -29,10 +29,10 @@ export function MemoryAITableSection() {
           className="text-center mb-16 relative z-10"
         >
           <h2 className="text-white text-3xl sm:text-4xl md:text-5xl font-bold tracking-tight mb-4">
-            Nada se compara ao <GradientText inverse>MAKEPLOY.</GradientText>
+            IA que <GradientText inverse>conhece o projeto.</GradientText>
           </h2>
           <p className="text-neutral-400 text-base sm:text-lg max-w-2xl mx-auto">
-            Reconstruímos tudo do zero.
+            Objetivos, decisões, arquivos e histórico acompanham cada nova tarefa.
           </p>
         </motion.div>
 
@@ -49,10 +49,10 @@ export function MemoryAITableSection() {
           <motion.div variants={cardReveal} transition={{ duration: 0.62, ease: [0.22, 1, 0.36, 1] }} className="flex flex-col p-7 sm:p-8 md:aspect-square bg-black relative overflow-hidden">
             <div className="mb-6 relative z-20">
               <h3 className="text-white text-[11px] sm:text-[12px] tracking-widest uppercase mb-4 font-bold">
-                Com Você em Toda a Jornada
+                O HISTÓRICO CONTINUA ÚTIL
               </h3>
               <p className="text-neutral-400 text-sm leading-relaxed">
-                Não é apenas sobre criar. É sobre <strong className="text-white font-medium">caminhar ao seu lado</strong>. Da primeira faísca da ideia até o crescimento contínuo do seu projeto, a plataforma evolui com você.
+                Comece uma ideia ou traga o que já existe. O <strong className="text-white font-medium">histórico do projeto</strong> continua orientando mudanças e próximas versões.
               </p>
             </div>
             
@@ -65,10 +65,10 @@ export function MemoryAITableSection() {
           <motion.div variants={cardReveal} transition={{ duration: 0.62, ease: [0.22, 1, 0.36, 1] }} className="flex flex-col p-7 sm:p-8 md:aspect-square bg-black relative overflow-hidden">
             <div className="mb-6 relative z-20">
               <h3 className="text-white text-[11px] sm:text-[12px] tracking-widest uppercase mb-4 font-bold">
-                Toda IA, Ilimitada
+                MODELOS DIFERENTES. UM CONTEXTO.
               </h3>
               <p className="text-neutral-400 text-sm leading-relaxed">
-                GPT, Claude Opus, Gemini e muito mais. Cada modelo funciona com pleno conhecimento do seu trabalho.
+                Pesquisa, análise, conteúdo e código avançam sem exigir que você explique o projeto novamente.
               </p>
             </div>
 
@@ -81,10 +81,10 @@ export function MemoryAITableSection() {
           <motion.div variants={cardReveal} transition={{ duration: 0.62, ease: [0.22, 1, 0.36, 1] }} className="flex flex-col p-7 sm:p-8 md:aspect-square bg-black relative overflow-hidden">
             <div className="mb-6 relative z-20">
               <h3 className="text-white text-[11px] sm:text-[12px] tracking-widest uppercase mb-4 font-bold">
-                Feito para Qualquer Tipo de Criação
+                UMA BASE. MUITOS PRODUTOS.
               </h3>
               <p className="text-neutral-400 text-sm leading-relaxed">
-                Da ideia ao lançamento, a plataforma se adapta ao tipo de criação que você quiser construir.
+                Sites, cursos, aplicações e SaaS partem do mesmo sistema sem perder liberdade de estrutura.
               </p>
             </div>
 
@@ -97,10 +97,10 @@ export function MemoryAITableSection() {
           <motion.div variants={cardReveal} transition={{ duration: 0.62, ease: [0.22, 1, 0.36, 1] }} className="flex flex-col p-7 sm:p-8 md:aspect-square bg-black relative overflow-hidden">
             <div className="mb-6 relative z-20">
               <h3 className="text-white text-[11px] sm:text-[12px] tracking-widest uppercase mb-4 font-bold">
-                Tecnologia Conectada e Sem Limites
+                INTEGRAÇÕES AO REDOR DO PROJETO
               </h3>
               <p className="text-neutral-400 text-sm leading-relaxed">
-                Utilizamos <strong className="text-white font-medium">tecnologia de ponta</strong>, <strong className="text-white font-medium">conectada</strong> a ferramentas, serviços e recursos modernos para oferecer o <strong className="text-white font-medium">melhor resultado possível</strong> com mais inteligência e velocidade.
+                Serviços, dados e ferramentas externas entram no fluxo sem fragmentar a operação.
               </p>
             </div>
 
@@ -113,10 +113,10 @@ export function MemoryAITableSection() {
           <motion.div variants={cardReveal} transition={{ duration: 0.62, ease: [0.22, 1, 0.36, 1] }} className="flex flex-col p-7 sm:p-8 md:aspect-square bg-black relative overflow-hidden">
             <div className="mb-6 relative z-20">
               <h3 className="text-white text-[11px] sm:text-[12px] tracking-widest uppercase mb-4 font-bold">
-                Inteligência Contextual
+                O PRÓXIMO PASSO CONSIDERA OS ANTERIORES
               </h3>
               <p className="text-neutral-400 text-sm leading-relaxed">
-                A plataforma acompanha cada etapa da sua criação, <strong className="text-white font-medium">entende o contexto do projeto</strong> e <strong className="text-white font-medium">sugere melhorias</strong> <strong className="text-white font-medium">antes mesmo de você pedir</strong>.
+                Objetivos, decisões e histórico ajudam a <strong className="text-white font-medium">definir ações</strong> coerentes com o estágio atual.
               </p>
             </div>
 
@@ -129,10 +129,10 @@ export function MemoryAITableSection() {
           <motion.div variants={cardReveal} transition={{ duration: 0.62, ease: [0.22, 1, 0.36, 1] }} className="flex flex-col p-7 sm:p-8 md:aspect-square bg-black relative overflow-hidden">
             <div className="mb-auto relative z-20">
               <h3 className="text-white text-[11px] sm:text-[12px] tracking-widest uppercase mb-4 font-bold">
-                Busca Profunda
+                PESQUISA ANTES DA RESPOSTA
               </h3>
               <p className="text-neutral-400 text-sm leading-relaxed">
-                Antes de criar, a plataforma <strong className="text-white font-medium">analisa o contexto</strong>, referências e ideias para encontrar a <strong className="text-white font-medium">melhor direção possível</strong>.
+                A MAKEPLOY investiga contexto e referências antes de propor uma direção.
               </p>
             </div>
 

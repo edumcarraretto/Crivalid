@@ -8,10 +8,10 @@ interface NavItem {
 }
 
 const navItems: NavItem[] = [
-  { id: 'ferramentas', label: 'Ferramentas', href: '#ferramentas' },
-  { id: 'tecnologias', label: 'Tecnologia', href: '#tecnologias' },
+  { id: 'ferramentas', label: 'Plataforma', href: '#ferramentas' },
+  { id: 'tecnologias', label: 'Criação', href: '#tecnologias' },
+  { id: 'inteligencia', label: 'Inteligência', href: '#inteligencia' },
   { id: 'workflow', label: 'Automações', href: '#workflow' },
-  { id: 'platform-metrics', label: 'Métricas', href: '#platform-metrics' },
 ]
 
 export function Navbar() {
@@ -177,7 +177,8 @@ export function Navbar() {
             `}
           >
             {/* Botão Principal: Experimente */}
-            <button
+            <a
+              href="#comece"
               className={`
                 bg-blue-500 hover:bg-blue-600 active:bg-blue-700 text-white font-bold
                 shadow-sm hover:shadow-md active:scale-98
@@ -189,8 +190,8 @@ export function Navbar() {
                 }
               `}
             >
-              Experimente
-            </button>
+              Começar projeto
+            </a>
           </div>
 
           {/* Mobile Menu Toggle Button */}
@@ -234,9 +235,9 @@ export function Navbar() {
             </div>
 
             <div className="pt-2 border-t border-neutral-100">
-              <button className="w-full bg-blue-500 hover:bg-blue-600 active:bg-blue-700 text-white text-sm font-bold py-2.5 rounded-xl text-center">
-                Experimente
-              </button>
+              <a href="#comece" className="block w-full bg-blue-500 hover:bg-blue-600 active:bg-blue-700 text-white text-sm font-bold py-2.5 rounded-xl text-center">
+                Começar projeto
+              </a>
             </div>
           </div>
         )}

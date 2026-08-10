@@ -23,27 +23,27 @@ export interface AIModel {
 export const creationPillars: CreationPillar[] = [
   {
     id: 'no-code',
-    eyebrow: 'CRIAÇÃO NO-CODE',
+    eyebrow: 'CRIAÇÃO VISUAL',
     eyebrowColor: 'text-[#EEEEEE]',
-    title: 'Crie páginas, sites, cursos e experiências digitais sem precisar programar.',
+    title: 'Construa visualmente. Preserve a estrutura.',
     description:
-      'Use componentes visuais, blocos reutilizáveis e edição por arrastar e soltar para transformar uma ideia em um produto funcional.',
+      'Crie sites, páginas, cursos e aplicações sem fechar o caminho para o código.',
   },
   {
     id: 'ai',
-    eyebrow: 'INTELIGÊNCIA',
+    eyebrow: 'IA CONTEXTUAL',
     eyebrowColor: 'text-[#EEEEEE]',
-    title: 'As principais IAs trabalhando juntas dentro da mesma criação.',
+    title: 'IA que conhece o projeto.',
     description:
-      'A plataforma pode usar o modelo mais adequado para escrever, planejar, pesquisar, analisar, programar ou revisar cada etapa do projeto.',
+      'Modelos especializados trabalham com os objetivos, decisões e histórico produzidos durante o projeto.',
   },
   {
     id: 'code',
-    eyebrow: 'CONTROLE TOTAL',
+    eyebrow: 'CÓDIGO SEM BARREIRAS',
     eyebrowColor: 'text-[#EEEEEE]',
-    title: 'Visualize e edite o código da sua criação sem sair da plataforma.',
+    title: 'Abra o código. Continue o projeto.',
     description:
-      'Comece no modo visual e, quando precisar de controle avançado, abra o editor integrado para inspecionar, alterar e acompanhar o resultado.',
+      'Inspecione, edite e desenvolva no IDE integrado sem reconstruir o trabalho em outro ambiente.',
   },
 ]
 

@@ -74,13 +74,11 @@ export function CreationTechnologySection() {
             transition={{ duration: 0.6, delay: 0.1 }}
             className="text-3xl sm:text-4xl md:text-5xl lg:text-[3.25rem] font-bold text-white leading-[1.12] tracking-tight"
           >
-            Da ideia ao{' '}
-            <GradientText inverse className="font-bold">
-              código
-            </GradientText>
-            ,
+            Visual por escolha.
             <br className="hidden sm:block" />{' '}
-            tudo no mesmo lugar.
+            <GradientText inverse className="font-bold">
+              Código por controle.
+            </GradientText>
           </motion.h2>
 
           {/* Subtitle */}
@@ -91,8 +89,7 @@ export function CreationTechnologySection() {
             transition={{ duration: 0.6, delay: 0.2 }}
             className="mt-5 text-sm sm:text-base text-neutral-400 max-w-xl mx-auto leading-relaxed"
           >
-            Crie visualmente, trabalhe com as melhores IAs e tenha controle
-            completo sobre o código da sua criação.
+            Comece pela interface. Use IA para avançar. Abra o IDE quando precisar de profundidade.
           </motion.p>
 
           {/* Tech badges line */}
@@ -105,7 +102,7 @@ export function CreationTechnologySection() {
             aria-label="Plataformas disponíveis"
           >
             <span className="text-[10px] sm:text-xs font-medium text-neutral-500 uppercase tracking-[0.18em] mr-2">
-              DISPONÍVEL EM TODOS OS LUGARES
+              O PROJETO ACOMPANHA VOCÊ
             </span>
             <span className="flex items-center gap-2 text-[10px] sm:text-xs font-medium text-neutral-500 uppercase tracking-[0.18em]">
               <FaApple className="text-sm" /> MACOS

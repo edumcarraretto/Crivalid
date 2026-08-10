@@ -68,7 +68,7 @@ const FILE_CONTENTS: Record<string, FileContent> = {
       { num: 4, tokens: [{ text: '  return (', color: 'text-white' }], highlighted: true },
       { num: 5, tokens: [{ text: '    <', color: 'text-neutral-400' }, { text: 'motion.section', color: 'text-blue-400' }, { text: '>', color: 'text-neutral-400' }] },
       { num: 6, tokens: [{ text: '      <', color: 'text-neutral-400' }, { text: 'h1', color: 'text-blue-400' }, { text: ' className=', color: 'text-white' }, { text: '"text-5xl"', color: 'text-emerald-400' }, { text: '>', color: 'text-neutral-400' }] },
-      { num: 7, tokens: [{ text: '        Valide suas ideias', color: 'text-white' }] },
+      { num: 7, tokens: [{ text: '        Um projeto inteiro', color: 'text-white' }] },
       { num: 8, tokens: [{ text: '      </', color: 'text-neutral-400' }, { text: 'h1', color: 'text-blue-400' }, { text: '>', color: 'text-neutral-400' }] },
       { num: 9, tokens: [{ text: '    </', color: 'text-neutral-400' }, { text: 'motion.section', color: 'text-blue-400' }, { text: '>', color: 'text-neutral-400' }] },
       { num: 10, tokens: [{ text: '  )', color: 'text-white' }] },

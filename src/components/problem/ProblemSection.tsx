@@ -7,15 +7,15 @@ export function ProblemSection() {
       <div className="max-w-7xl w-full mx-auto flex flex-col items-center">
         
         {/* Section Title */}
-        <motion.h2 
+        <motion.h2
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-100px" }}
           transition={{ duration: 0.5 }}
           className="text-3xl md:text-4xl lg:text-5xl font-bold text-center mb-12 sm:mb-16 text-neutral-900 dark:text-white tracking-tight"
         >
-          Por que a maioria das ideias{' '}
-          <HighlightText variant="coral">não sai do papel</HighlightText>
+          O custo não está na ferramenta.{' '}
+          <HighlightText variant="coral">Está em reconstruir o contexto.</HighlightText>
         </motion.h2>
 
         {/* Image Container */}
@@ -27,10 +27,12 @@ export function ProblemSection() {
           className="w-full"
         >
           <img 
-            src="/images/problemas-ideia.png" 
-            alt="Ilustração mostrando os três principais obstáculos para validar uma ideia de negócio: ideias dispersas, falta de validação e paralisia por análise" 
+            src="/images/novaimagem.png" 
+            alt="Como um projeto perde continuidade: contexto disperso, decisões repetidas e retrabalho crescente"
             loading="lazy"
-            className="w-full h-auto object-cover"
+            draggable={false}
+            className="w-full h-auto object-contain select-none"
+            style={{ imageRendering: 'auto', maxWidth: '100%' }}
           />
         </motion.div>
 

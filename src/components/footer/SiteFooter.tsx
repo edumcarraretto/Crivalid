@@ -3,12 +3,13 @@ import { motion } from 'motion/react'
 // ─── Constants ────────────────────────────────────────────────────────────────
 
 const NAV_LINKS = [
-  { label: 'Ferramentas', href: '#ferramentas' },
-  { label: 'Como Funciona', href: '#como-funciona' },
-  { label: 'Depoimentos', href: '#depoimentos' },
-  { label: 'FAQ', href: '#faq' },
-  { label: 'Sobre', href: '#sobre' },
-  { label: 'Global', href: '#global' },
+  { label: 'Plataforma', href: '#ferramentas' },
+  { label: 'Como funciona', href: '#como-funciona' },
+  { label: 'Criação', href: '#tecnologias' },
+  { label: 'Inteligência', href: '#inteligencia' },
+  { label: 'Automações', href: '#workflow' },
+  { label: 'Dúvidas', href: '#duvidas' },
+  { label: 'Começar', href: '#comece' },
 ]
 
 // ─── Component ────────────────────────────────────────────────────────────────

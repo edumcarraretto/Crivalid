@@ -319,12 +319,12 @@ export function ToolsSection() {
         className="max-w-2xl w-full text-center mb-12 md:mb-16 px-4"
       >
         <h2 className="text-3xl sm:text-4xl md:text-[2.75rem] lg:text-5xl font-bold text-gray-900 leading-[1.15] tracking-tight">
-          Todas as ferramentas da sua plataforma
+          Ferramentas diferentes.
           <br />
-          em <HighlightText variant="yellow">um só lugar</HighlightText>
+          <HighlightText variant="yellow">Um projeto só.</HighlightText>
         </h2>
         <p className="mt-4 text-sm sm:text-base text-gray-500 max-w-md mx-auto leading-relaxed">
-          Recursos integrados para organizar, criar, colaborar e transformar suas ideias.
+          Documentos, tarefas, IA, dados e automações compartilham objetivos, decisões e histórico.
         </p>
       </motion.div>
 

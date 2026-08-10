@@ -1,24 +1,21 @@
 import { motion } from 'motion/react'
 import { ArrowRight } from 'lucide-react'
 import { MetricItem } from './MetricItem'
-import { DEMO_METRICS } from './metricsData'
+import { PROJECT_LIFECYCLE_STAGES } from './metricsData'
 import type { PlatformMetric } from './metricsData'
 import { HighlightText } from '../text/HighlightText'
 
 // ─── Types ────────────────────────────────────────────────────────────────────
 
 interface PlatformMetricsSectionProps {
-  /**
-   * Metric data to display. Defaults to the demonstrative dataset.
-   * Pass real data here once the Supabase integration is wired up.
-   */
+  /** Lifecycle stages rendered by the section. */
   metrics?: PlatformMetric[]
 }
 
 // ─── Component ────────────────────────────────────────────────────────────────
 
 export function PlatformMetricsSection({
-  metrics = DEMO_METRICS,
+  metrics = PROJECT_LIFECYCLE_STAGES,
 }: PlatformMetricsSectionProps) {
   return (
     <section
@@ -42,14 +39,13 @@ export function PlatformMetricsSection({
                 id="metrics-heading"
                 className="text-[1.75rem] sm:text-[2.125rem] md:text-[2.5rem] lg:text-[2.75rem] font-extrabold leading-[1.05] tracking-[-0.02em] text-neutral-900"
               >
-                Da ideia ao lançamento,
+                Um ciclo.
                 <br />
-                resultados que você pode <HighlightText variant="green">medir.</HighlightText>
+                <HighlightText variant="green">Quatro movimentos.</HighlightText>
               </h2>
 
               <p className="mt-4 max-w-md text-sm sm:text-base leading-relaxed text-neutral-500">
-                Crie, automatize e publique em um só lugar. Acompanhe o impacto da
-                plataforma em cada etapa do seu projeto.
+                Compreender, construir, operar e evoluir. Cada movimento prepara o próximo.
               </p>
             </div>
           </motion.div>
@@ -97,7 +93,7 @@ export function PlatformMetricsSection({
               focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-neutral-900
             "
           >
-            agora
+            Começar de onde estou
             <ArrowRight
               size={16}
               strokeWidth={2.5}

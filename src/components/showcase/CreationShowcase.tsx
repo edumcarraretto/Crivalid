@@ -27,7 +27,7 @@ export function CreationShowcase() {
       aria-labelledby="showcase-heading"
     >
       <h2 id="showcase-heading" className="sr-only">
-        Exemplos de interfaces criadas com a plataforma
+        Possibilidades de produtos construídos dentro da MAKEPLOY
       </h2>
 
       {/* Scoped styles & Animations */}

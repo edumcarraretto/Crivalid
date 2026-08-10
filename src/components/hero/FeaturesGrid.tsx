@@ -222,7 +222,7 @@ export function FeaturesGrid() {
   }, [])
 
   return (
-    <div className="features-wrapper">
+    <div id="como-funciona" className="features-wrapper">
       <div className="grid">
         {/* 1 */}
         <section className="card easy">
@@ -235,8 +235,8 @@ export function FeaturesGrid() {
                   </svg>
                 </div>
                 <div className="txt">
-                  <strong>Conte sua ideia</strong>
-                  <span>Descreva o que você deseja criar, mesmo que ainda seja apenas um pensamento inicial.</span>
+                  <strong>Traga o ponto de partida</strong>
+                  <span>Uma ideia, um plano ou um projeto existente. O contexto define o início.</span>
                 </div>
               </div>
               <div className="row">
@@ -246,8 +246,8 @@ export function FeaturesGrid() {
                   </svg>
                 </div>
                 <div className="txt">
-                  <strong>Pesquisa profunda</strong>
-                  <span>A plataforma analisa contexto, público, mercado, referências e oportunidades antes de começar.</span>
+                  <strong>Defina a direção</strong>
+                  <span>Público, mercado e objetivos transformam intenção em direção.</span>
                 </div>
               </div>
               <div className="row">
@@ -257,8 +257,8 @@ export function FeaturesGrid() {
                   </svg>
                 </div>
                 <div className="txt">
-                  <strong>Crie do seu jeito</strong>
-                  <span>Transforme sua ideia em páginas, cursos, SaaS e produtos digitais usando o modo visual ou o código.</span>
+                  <strong>Construa do seu jeito</strong>
+                  <span>Crie visualmente, com IA ou diretamente no código.</span>
                 </div>
               </div>
               <div className="row">
@@ -268,14 +268,14 @@ export function FeaturesGrid() {
                   </svg>
                 </div>
                 <div className="txt">
-                  <strong>Publique e desenvolva</strong>
-                  <span>Coloque sua criação no ar, acompanhe os resultados e continue evoluindo o projeto.</span>
+                  <strong>Publique sem encerrar</strong>
+                  <span>Coloque no ar, opere e desenvolva a próxima versão.</span>
                 </div>
               </div>
             </div>
           </div>
-          <h3>Da ideia à criação</h3>
-          <p>Cada etapa leva sua ideia além da imaginação, transformando-a em algo real.</p>
+          <h3>Comece do ponto real</h3>
+          <p>Traga uma ideia, um plano ou um projeto em andamento. Nada precisa voltar ao zero.</p>
         </section>
 
         {/* 2 */}
@@ -295,14 +295,14 @@ export function FeaturesGrid() {
                   </svg>
                 </span>
                 <span className="bk-label" translate="no">
-                  <b className="l1">Criando sua ideia</b>
-                  <b className="l2">Ideia criada</b>
+                  <b className="l1">Entendendo o projeto</b>
+                  <b className="l2">Próximo passo definido</b>
                 </span>
               </div>
             </div>
           </div>
-          <h3>Tudo começa com uma ideia</h3>
-          <p>Em poucos cliques, sua ideia ganha análise, plano e direção para avançar até o desenvolvimento e a criação.</p>
+          <h3>Contexto antes de execução</h3>
+          <p>Objetivos, decisões e histórico orientam cada etapa.</p>
         </section>
 
         {/* 3 */}
@@ -319,7 +319,7 @@ export function FeaturesGrid() {
                     <path className="tick" d="M7.8 12.3l2.9 2.9L16.2 9.7" />
                   </svg>
                 </span>
-                <label>Ideia recebida</label>
+                <label>Contexto compreendido</label>
                 <span className="rail">
                   <i></i>
                 </span>
@@ -334,7 +334,7 @@ export function FeaturesGrid() {
                     <path className="tick" d="M7.8 12.3l2.9 2.9L16.2 9.7" />
                   </svg>
                 </span>
-                <label>Pesquisa profunda</label>
+                <label>Direção estruturada</label>
                 <span className="rail">
                   <i></i>
                 </span>
@@ -349,13 +349,13 @@ export function FeaturesGrid() {
                     <path className="tick" d="M7.8 12.3l2.9 2.9L16.2 9.7" />
                   </svg>
                 </span>
-                <label>Caminho definido</label>
+                <label>Construção iniciada</label>
                 <time>{currentTime || 'Calculando...'}</time>
               </div>
             </div>
           </div>
-          <h3>Anos em minutos</h3>
-          <p>Pesquisa, análise e direção em poucos cliques, poupando dias, meses e até anos de tentativas.</p>
+          <h3>Pesquisa que chega à construção</h3>
+          <p>O que foi descoberto continua disponível para criar, escrever e programar.</p>
         </section>
 
         {/* 4 */}
@@ -416,8 +416,8 @@ export function FeaturesGrid() {
               </div>
             </div>
           </div>
-          <h3>No seu ritmo</h3>
-          <p>Da resposta rápida à análise profunda, tenha potência para qualquer criação.</p>
+          <h3>Profundidade sob demanda</h3>
+          <p>Seja rápido no simples. Aprofunde o que exige mais contexto.</p>
         </section>
 
         {/* 5 */}
@@ -432,8 +432,8 @@ export function FeaturesGrid() {
             <div className="ava c7"><Rocket size={34} strokeWidth={2.2} /></div>
             <div className="ava c8"><ChartNoAxesCombined size={34} strokeWidth={2.2} /></div>
           </div>
-          <h3>Sua equipe completa</h3>
-          <p>Estratégia, pesquisa, design, código e muito mais, tudo integrado em um único fluxo.</p>
+          <h3>Especialidades sem silos</h3>
+          <p>Pesquisa, design, conteúdo, código e operação trabalham sobre a mesma base.</p>
         </section>
       </div>
     </div>

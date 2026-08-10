@@ -35,7 +35,7 @@ export function WorkflowHeroSection() {
           transition={{ duration: 0.5 }}
           className="text-center text-sm sm:text-[15px] font-medium text-neutral-900 tracking-tight italic mb-5 sm:mb-6"
         >
-          Orquestre fluxos de trabalho
+          Publicar é começar a operar
         </motion.p>
 
         {/* ── Headline ── */}
@@ -47,9 +47,9 @@ export function WorkflowHeroSection() {
           transition={{ duration: 0.6, delay: 0.08 }}
           className="text-center text-[2.75rem] sm:text-[3.75rem] md:text-[4.5rem] lg:text-[5.25rem] font-extrabold text-black leading-[0.95] tracking-[-0.03em] mb-6 sm:mb-8 md:mb-10"
         >
-          Deixe o trabalho
+          Continue depois de
           <br />
-          <AnimatedText text="fluir" />
+          <AnimatedText text="publicar" />
         </motion.h2>
 
         {/* ── Subtitle with inline avatars ── */}
@@ -60,7 +60,7 @@ export function WorkflowHeroSection() {
           transition={{ duration: 0.6, delay: 0.16 }}
           className="text-center text-lg sm:text-xl md:text-[1.4rem] font-medium text-neutral-900 leading-[1.55] max-w-lg mx-auto mb-8 sm:mb-10 md:mb-12"
         >
-          Automatize a colaboração
+          Conecte decisões e tarefas
           <br />
           entre pessoas{' '}
           <InlineAvatarGroup variant="people" className="mx-0.5" />
@@ -79,7 +79,7 @@ export function WorkflowHeroSection() {
           className="flex justify-center mb-16 sm:mb-20 md:mb-24"
         >
           <a
-            href="#"
+            href="#comece"
             className="
               group inline-flex items-center gap-2
               px-7 py-3 sm:px-8 sm:py-3.5
@@ -91,7 +91,7 @@ export function WorkflowHeroSection() {
               focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-black
             "
           >
-            Comece já
+            Explorar automações
             <ArrowRight
               size={16}
               strokeWidth={2.5}
