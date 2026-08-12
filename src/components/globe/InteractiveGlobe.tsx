@@ -1,5 +1,6 @@
 import { useEffect, useRef } from 'react'
 import createGlobe, { type Globe } from '@/vendor/cobe'
+import { getRandomActivity, type ActivityMessage } from './globeData'
 
 type Color = [number, number, number]
 type Vec3 = [number, number, number]
@@ -8,6 +9,7 @@ export interface Marker {
   id: string
   location: [number, number]
   label: string
+  color?: Color
 }
 
 export interface Arc {
@@ -50,6 +52,15 @@ const DEFAULT_LABEL_BOX = { width: 90, height: 24 }
 
 const MAX_ACTIVE_ROUTES = 6
 const LINE_SAMPLE_COUNT = 48
+const TAIL_LENGTH = 0.28
+const TAIL_SEGMENTS = [
+  { opacity: 0.08, width: 1 },
+  { opacity: 0.16, width: 1.2 },
+  { opacity: 0.3, width: 1.45 },
+  { opacity: 0.5, width: 1.75 },
+  { opacity: 0.74, width: 2.1 },
+  { opacity: 1, width: 2.5 },
+] as const
 
 function clamp(value: number, minimum: number, maximum: number) {
   return Math.min(maximum, Math.max(minimum, value))
@@ -76,11 +87,14 @@ function projectToScreen(point: Vec3, phi: number, theta: number, aspect: number
 
   const c = cosPhi * x + sinPhi * z
   const s = sinPhi * sinTheta * x + cosTheta * y - cosPhi * sinTheta * z
+  const camZ = -sinPhi * cosTheta * x + sinTheta * y + cosPhi * cosTheta * z
 
   return {
     x: (c / aspect * GLOBE_SCALE + 1) / 2,
     y: (-s * GLOBE_SCALE + 1) / 2,
-    visible: -sinPhi * cosTheta * x + sinTheta * y + cosPhi * cosTheta * z >= 0 || c * c + s * s >= 0.64,
+    // Somente pontos que estão no hemisfério visível (frente) são renderizados.
+    // Isso impede as rotas e marcadores de vazarem ou ziguezaguearem através do globo quando estão atrás.
+    visible: camZ >= -0.01,
   }
 }
 
@@ -159,13 +173,34 @@ function buildArcPathD(
   width: number,
   height: number,
 ) {
-  if (progress <= 0) return ''
+  return buildArcPathRangeD(
+    from, to, 0, progress, phi, theta, aspect,
+    arcHeight, markerElevation, width, height,
+  )
+}
+
+function buildArcPathRangeD(
+  from: [number, number],
+  to: [number, number],
+  start: number,
+  end: number,
+  phi: number,
+  theta: number,
+  aspect: number,
+  arcHeight: number,
+  markerElevation: number,
+  width: number,
+  height: number,
+) {
+  if (end <= start || end <= 0) return ''
   let d = ''
   let drawing = false
-  const maxI = Math.ceil(progress * LINE_SAMPLE_COUNT)
+  const startT = clamp(start, 0, 1)
+  const endT = clamp(end, 0, 1)
+  const sampleCount = Math.max(2, Math.ceil((endT - startT) * LINE_SAMPLE_COUNT))
   
-  for (let i = 0; i <= maxI; i++) {
-    const t = Math.min(i / LINE_SAMPLE_COUNT, progress)
+  for (let i = 0; i <= sampleCount; i++) {
+    const t = startT + (endT - startT) * (i / sampleCount)
     const proj = projectArcPoint(from, to, t, phi, theta, aspect, arcHeight, markerElevation)
     if (!proj.visible) {
       drawing = false
@@ -239,6 +274,9 @@ interface ActiveRouteState {
   duration: number
   holdDuration: number
   exitDuration: number
+  activityMessage: ActivityMessage
+  cardContentSet: boolean
+  hasCard: boolean
 }
 
 export function InteractiveGlobe({
@@ -284,6 +322,8 @@ export function InteractiveGlobe({
   const labelSizesRef = useRef<Map<string, { width: number; height: number }>>(new Map())
   const pulseElsRef = useRef<Map<string, HTMLDivElement>>(new Map())
   const lineElsRef = useRef<Map<string, SVGPathElement>>(new Map())
+  const tailElsRef = useRef<Map<string, SVGPathElement>>(new Map())
+  const activityCardElsRef = useRef<Map<string, HTMLDivElement>>(new Map())
 
   // Queue state
   const activeRoutesRef = useRef<Map<string, ActiveRouteState>>(new Map())
@@ -295,7 +335,7 @@ export function InteractiveGlobe({
   const markerElevationRef = useRef(markerElevation)
   const arcHeightRef = useRef(arcHeight)
   const initialConfigurationRef = useRef({
-    markers: markers.map((m) => ({ location: m.location, size: markerSize })),
+    markers: markers.map((m) => ({ location: m.location, size: markerSize, color: m.color })),
     arcs: [], // WebGL draws no arcs; we use SVG overlay to draw progressive lines
     markerColor,
     baseColor,
@@ -431,8 +471,11 @@ export function InteractiveGlobe({
           progress: 0,
           startTime: now,
           duration: 1800 + Math.random() * 1200, // 1800ms - 3000ms
-          holdDuration: 1000 + Math.random() * 1000, // 1000ms - 2000ms
-          exitDuration: 400 + Math.random() * 400, // 400ms - 800ms
+          holdDuration: 2800 + Math.random() * 1200, // 2800ms - 4000ms (longer to show activity card)
+          exitDuration: 600 + Math.random() * 400, // 600ms - 1000ms
+          activityMessage: getRandomActivity(),
+          cardContentSet: false,
+          hasCard: Math.random() > 0.55, // Apenas ~45% das rotas mostrarão o card de atividade
         })
         // Wait between 300ms and 900ms before spawning the next one
         nextSpawnTimeRef.current = now + 300 + Math.random() * 600
@@ -483,8 +526,14 @@ export function InteractiveGlobe({
           activeRoutesRef.current.delete(id)
           pendingRoutesRef.current.push(state.arc)
           if (lineEl) lineEl.style.opacity = '0'
+          for (let segmentIndex = 0; segmentIndex < TAIL_SEGMENTS.length; segmentIndex++) {
+            const tail = tailElsRef.current.get(`tail:${id}:${segmentIndex}`)
+            if (tail) tail.style.opacity = '0'
+          }
           if (pulseEl) pulseEl.style.opacity = '0'
           if (labelEl) labelEl.style.opacity = '0'
+          const finishedCard = activityCardElsRef.current.get(`activity:${id}`)
+          if (finishedCard) finishedCard.style.opacity = '0'
           continue
         }
 
@@ -492,7 +541,31 @@ export function InteractiveGlobe({
         if (lineEl && width > 0 && height > 0) {
           const d = buildArcPathD(state.arc.from, state.arc.to, progress, phiRef.current, thetaRef.current, aspect, currentArcHeight, currentMarkerElevation, width, height)
           lineEl.setAttribute('d', d)
-          lineEl.style.opacity = String(opacity)
+          lineEl.style.opacity = String(opacity * 0.14)
+
+          const segmentLength = TAIL_LENGTH / TAIL_SEGMENTS.length
+          const tailStart = Math.max(0, progress - TAIL_LENGTH)
+          for (let segmentIndex = 0; segmentIndex < TAIL_SEGMENTS.length; segmentIndex++) {
+            const tail = tailElsRef.current.get(`tail:${id}:${segmentIndex}`)
+            if (!tail) continue
+            const start = tailStart + segmentLength * segmentIndex
+            const end = Math.min(progress, tailStart + segmentLength * (segmentIndex + 1) + 0.012)
+            const tailD = buildArcPathRangeD(
+              state.arc.from,
+              state.arc.to,
+              start,
+              end,
+              phiRef.current,
+              thetaRef.current,
+              aspect,
+              currentArcHeight,
+              currentMarkerElevation,
+              width,
+              height,
+            )
+            tail.setAttribute('d', tailD)
+            tail.style.opacity = String(opacity * TAIL_SEGMENTS[segmentIndex].opacity)
+          }
         }
 
         // Move Pulse to the end of the line
@@ -507,6 +580,59 @@ export function InteractiveGlobe({
             }
           } else {
             pulseEl.style.opacity = '0'
+          }
+        }
+
+        // ── Activity card at destination ──
+        const cardEl = activityCardElsRef.current.get(`activity:${id}`)
+        if (cardEl && width > 0 && height > 0) {
+          if (state.hasCard && (state.status === 'holding' || state.status === 'exiting') && state.activityMessage) {
+            if (!state.cardContentSet) {
+              const iconSpan = cardEl.children[0] as HTMLElement
+              const textContainer = cardEl.children[1] as HTMLElement
+              if (iconSpan && textContainer) {
+                const labelSpan = textContainer.children[0] as HTMLElement
+                const valueSpan = textContainer.children[1] as HTMLElement
+                iconSpan.textContent = state.activityMessage.icon
+                if (labelSpan) labelSpan.textContent = state.activityMessage.label
+                if (valueSpan) valueSpan.textContent = state.activityMessage.value
+              }
+              // Set arc-colored glow on the card (Light Theme Premium)
+              const arcCol = state.arc.color
+              if (arcCol) {
+                cardEl.style.boxShadow = `0 12px 32px -8px rgba(0,0,0,0.1), 0 2px 14px -4px rgba(0,0,0,0.06), 0 0 0 1px rgba(255, 255, 255, 0.8), 0 0 0 1px ${toCssColor(arcCol, 0.15)}, 0 0 24px ${toCssColor(arcCol, 0.08)}`
+              }
+              state.cardContentSet = true
+            }
+
+            const destProj = projectMarker(state.arc.to, phiRef.current, thetaRef.current, aspect, currentMarkerElevation)
+            if (destProj.visible) {
+              let cardOpacity = 0
+              let cardScale = 0.88
+              let yShift = 8
+              if (state.status === 'holding') {
+                const holdElapsed = now - state.startTime
+                const t = Math.min(holdElapsed / 500, 1)
+                const eased = 1 - Math.pow(1 - t, 3)
+                cardOpacity = eased
+                cardScale = 0.88 + 0.12 * eased
+                yShift = 8 * (1 - eased)
+              } else if (state.status === 'exiting') {
+                const exitElapsed = now - state.startTime
+                const t = Math.min(exitElapsed / state.exitDuration, 1)
+                cardOpacity = Math.max(1 - t * 1.5, 0)
+                cardScale = 1 - 0.05 * t
+                yShift = -4 * t
+              }
+              const cx = destProj.x * width
+              const cy = destProj.y * height
+              cardEl.style.transform = `translate(${cx}px, ${cy}px) translate(-50%, -100%) translateY(${-18 - yShift}px) scale(${cardScale})`
+              cardEl.style.opacity = String(Math.max(0, cardOpacity))
+            } else {
+              cardEl.style.opacity = '0'
+            }
+          } else if (cardEl.style.opacity !== '0') {
+            cardEl.style.opacity = '0'
           }
         }
       }
@@ -563,13 +689,19 @@ export function InteractiveGlobe({
           }
         }
         
-        // Hide unused pulse/lines that are in the DOM but not active
+        // Hide unused pulse/lines/cards that are in the DOM but not active
         for (const arc of arcsRef.current) {
           if (!activeRoutesRef.current.has(arc.id)) {
             const line = lineElsRef.current.get(`line:${arc.id}`)
             if (line && line.style.opacity !== '0') line.style.opacity = '0'
+            for (let segmentIndex = 0; segmentIndex < TAIL_SEGMENTS.length; segmentIndex++) {
+              const tail = tailElsRef.current.get(`tail:${arc.id}:${segmentIndex}`)
+              if (tail && tail.style.opacity !== '0') tail.style.opacity = '0'
+            }
             const pulse = pulseElsRef.current.get(`pulse:${arc.id}`)
             if (pulse && pulse.style.opacity !== '0') pulse.style.opacity = '0'
+            const card = activityCardElsRef.current.get(`activity:${arc.id}`)
+            if (card && card.style.opacity !== '0') card.style.opacity = '0'
           }
         }
       }
@@ -654,24 +786,48 @@ export function InteractiveGlobe({
         className="pointer-events-none absolute inset-0 z-[15] h-full w-full overflow-visible"
         aria-hidden="true"
       >
+        <defs>
+          <filter id="glow-effect" x="-20%" y="-20%" width="140%" height="140%">
+            <feGaussianBlur stdDeviation="2.4" result="blur" />
+            <feComposite in="SourceGraphic" in2="blur" operator="over" />
+          </filter>
+        </defs>
         {arcs.map((arc) => (
-          <path
-            key={arc.id}
-            ref={(el) => {
-              const key = `line:${arc.id}`
-              if (el) lineElsRef.current.set(key, el)
-              else lineElsRef.current.delete(key)
-            }}
-            fill="none"
-            stroke={arc.color ? toCssColor(arc.color, 1) : toCssColor(arcColor, 1)}
-            strokeOpacity={0.65}
-            strokeWidth={1.4}
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            style={{ opacity: 0, transition: 'none' }}
-          />
+          <g key={arc.id}>
+            <path
+              ref={(el) => {
+                const key = `line:${arc.id}`
+                if (el) lineElsRef.current.set(key, el)
+                else lineElsRef.current.delete(key)
+              }}
+              fill="none"
+              stroke={arc.color ? toCssColor(arc.color, 1) : toCssColor(arcColor, 1)}
+              strokeWidth={0.9}
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              style={{ opacity: 0, transition: 'none' }}
+            />
+            {TAIL_SEGMENTS.map((segment, segmentIndex) => (
+              <path
+                key={segmentIndex}
+                ref={(el) => {
+                  const key = `tail:${arc.id}:${segmentIndex}`
+                  if (el) tailElsRef.current.set(key, el)
+                  else tailElsRef.current.delete(key)
+                }}
+                fill="none"
+                stroke={arc.color ? toCssColor(arc.color, 1) : toCssColor(arcColor, 1)}
+                strokeWidth={segment.width}
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                filter={segmentIndex >= TAIL_SEGMENTS.length - 2 ? 'url(#glow-effect)' : undefined}
+                style={{ opacity: 0, transition: 'none' }}
+              />
+            ))}
+          </g>
         ))}
       </svg>
+
 
       {arcs.map((arc) => (
         <div
@@ -681,15 +837,36 @@ export function InteractiveGlobe({
             if (el) pulseElsRef.current.set(key, el)
             else pulseElsRef.current.delete(key)
           }}
-          className="pointer-events-none absolute left-0 top-0 z-20 h-2 w-2 rounded-full"
+          className="pointer-events-none absolute left-0 top-0 z-20 h-1.5 w-1.5 rounded-full"
           style={{
             backgroundColor: arc.color ? toCssColor(arc.color, 1) : toCssColor(glowColor, 1),
-            boxShadow: `0 0 8px 2px ${arc.color ? toCssColor(arc.color, 0.8) : toCssColor(arcColor, 0.8)}`,
+            boxShadow: `0 0 9px 2px ${arc.color ? toCssColor(arc.color, 0.8) : toCssColor(arcColor, 0.8)}`,
             opacity: 0,
             transition: 'none',
           }}
           aria-hidden="true"
         />
+      ))}
+
+      {/* Activity data cards at route destinations */}
+      {arcs.map((arc) => (
+        <div
+          key={`activity:${arc.id}`}
+          ref={(el) => {
+            const key = `activity:${arc.id}`
+            if (el) activityCardElsRef.current.set(key, el)
+            else activityCardElsRef.current.delete(key)
+          }}
+          className="pointer-events-none absolute left-0 top-0 z-[25] flex items-center gap-3 rounded-2xl bg-white/90 backdrop-blur-2xl px-4 py-3 shadow-xl border border-white"
+          style={{ opacity: 0, transition: 'none', willChange: 'transform, opacity' }}
+          aria-hidden="true"
+        >
+          <span className="text-xl leading-none shrink-0 drop-shadow-sm">🚀</span>
+          <div className="flex flex-col gap-0.5 min-w-0">
+            <span className="text-[10px] font-bold uppercase tracking-[0.12em] text-slate-500 leading-none">—</span>
+            <span className="text-[14px] font-bold text-slate-900 leading-none tabular-nums tracking-tight">—</span>
+          </div>
+        </div>
       ))}
 
       {markers.map((marker) => (
@@ -707,16 +884,23 @@ export function InteractiveGlobe({
               labelElsRef.current.delete(key)
             }
           }}
-          className="pointer-events-none absolute left-0 top-0 z-30 flex flex-col items-center gap-1 transition-opacity duration-200"
+          className="pointer-events-none absolute left-0 top-0 z-30 flex flex-col items-center gap-1.5 transition-opacity duration-200"
           style={{ opacity: 0 }}
         >
-          <div className="text-[10px] font-bold tracking-wider text-slate-800 backdrop-blur-sm bg-white/40 px-1.5 py-0.5 rounded-sm ring-1 ring-white/30 shadow-sm uppercase whitespace-nowrap">
+          <div className="text-[10px] font-bold tracking-[0.15em] text-slate-700 backdrop-blur-xl bg-white/80 px-2 py-1 rounded-md border border-white shadow-[0_4px_12px_rgba(0,0,0,0.08)] uppercase whitespace-nowrap">
             {marker.label}
           </div>
           <div 
-            className="h-1.5 w-1.5 rounded-full ring-2 ring-white shadow-sm"
-            style={{ backgroundColor: toCssColor(markerColor, 1) }}
-          />
+            className="flex h-[6px] w-[6px] items-center justify-center rounded-full"
+            style={{
+              backgroundColor: marker.color ? toCssColor(marker.color, 1) : toCssColor(markerColor, 1),
+              boxShadow: `0 0 12px 2px ${marker.color ? toCssColor(marker.color, 0.4) : toCssColor(markerColor, 0.4)}`,
+            }}
+          >
+            <div
+              className="absolute h-[18px] w-[18px] rounded-full border border-slate-900/10 opacity-80"
+            />
+          </div>
         </div>
       ))}
 
@@ -739,8 +923,8 @@ export function InteractiveGlobe({
           style={{ opacity: 0 }}
         >
           <div className="relative group pointer-events-auto cursor-pointer flex items-center justify-center">
-            <div className="absolute inset-0 bg-white/70 backdrop-blur-md rounded-full shadow-sm ring-1 ring-slate-200/50 scale-100 group-hover:scale-110 transition-transform duration-200" />
-            <div className="relative text-[10px] font-bold tracking-wider text-slate-700 px-2.5 py-1 uppercase whitespace-nowrap">
+            <div className="absolute inset-0 bg-white/80 backdrop-blur-xl rounded-full shadow-[0_4px_12px_rgba(0,0,0,0.08)] border border-white scale-100 group-hover:scale-105 transition-transform duration-200" />
+            <div className="relative text-[10px] font-bold tracking-[0.1em] text-slate-700 px-3 py-1.5 uppercase whitespace-nowrap">
               {arc.label}
             </div>
           </div>

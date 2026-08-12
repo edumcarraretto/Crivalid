@@ -30,3 +30,44 @@ export const globeArcs: Arc[] = [
   { id: 'londres-berlin', from: [51.5074, -0.1278], to: [52.5200, 13.4050], color: [0.39, 0.40, 0.94] }, // Indigo
   { id: 'buenos-aires-cidade-do-cabo', from: [-34.6037, -58.3816], to: [-33.9249, 18.4241], color: [0.23, 0.51, 0.96] }, // Blue
 ]
+
+// ── Activity Messages ─────────────────────────────────────────────────────────
+// Simulated platform activity data shown on globe routes when arcs arrive
+
+export interface ActivityMessage {
+  icon: string
+  label: string
+  value: string
+}
+
+function randomInt(min: number, max: number): number {
+  return Math.floor(Math.random() * (max - min + 1)) + min
+}
+
+function formatNum(n: number): string {
+  return n.toLocaleString('pt-BR')
+}
+
+const activityGenerators: (() => ActivityMessage)[] = [
+  () => ({ icon: '🚀', label: 'Projetos criados', value: formatNum(randomInt(120, 890)) }),
+  () => ({ icon: '💰', label: 'Receita gerada', value: `R$ ${formatNum(randomInt(500, 5000))}` }),
+  () => ({ icon: '👥', label: 'Novos usuários', value: `+${randomInt(2, 15)}` }),
+  () => ({ icon: '📦', label: 'Deploys hoje', value: formatNum(randomInt(80, 500)) }),
+  () => ({ icon: '🤖', label: 'Prompts de IA', value: formatNum(randomInt(1200, 15000)) }),
+  () => ({ icon: '⚡', label: 'Automações', value: formatNum(randomInt(200, 900)) }),
+  () => ({ icon: '🎯', label: 'Fluxos criados', value: `+${randomInt(10, 80)}` }),
+  () => ({ icon: '🌐', label: 'Páginas publicadas', value: formatNum(randomInt(50, 350)) }),
+  () => ({ icon: '📊', label: 'Uptime atual', value: `${(99 + Math.random() * 0.9).toFixed(1)}%` }),
+  () => ({ icon: '🔄', label: 'Integrações ativas', value: formatNum(randomInt(40, 280)) }),
+]
+
+let lastActivityIndex = -1
+
+export function getRandomActivity(): ActivityMessage {
+  let index: number
+  do {
+    index = Math.floor(Math.random() * activityGenerators.length)
+  } while (index === lastActivityIndex && activityGenerators.length > 1)
+  lastActivityIndex = index
+  return activityGenerators[index]()
+}
