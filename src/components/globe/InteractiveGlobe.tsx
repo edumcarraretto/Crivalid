@@ -1,6 +1,5 @@
 import { useEffect, useRef } from 'react'
 import createGlobe, { type Globe } from '@/vendor/cobe'
-import { getRandomActivity, type ActivityMessage } from './globeData'
 
 type Color = [number, number, number]
 type Vec3 = [number, number, number]
@@ -8,8 +7,9 @@ type Vec3 = [number, number, number]
 export interface Marker {
   id: string
   location: [number, number]
-  label: string
+  label?: string
   color?: Color
+  size?: number
 }
 
 export interface Arc {
@@ -35,6 +35,7 @@ export interface InteractiveGlobeProps {
   arcWidth?: number
   arcHeight?: number
   speed?: number
+  initialPhi?: number
   theta?: number
   diffuse?: number
   mapSamples?: number
@@ -50,7 +51,7 @@ const GLOBE_SPHERE_RADIUS = 0.8
 const LABEL_GAP_PX = 6
 const DEFAULT_LABEL_BOX = { width: 90, height: 24 }
 
-const MAX_ACTIVE_ROUTES = 6
+const MAX_ACTIVE_ROUTES = 8
 const LINE_SAMPLE_COUNT = 48
 const TAIL_LENGTH = 0.28
 const TAIL_SEGMENTS = [
@@ -274,9 +275,6 @@ interface ActiveRouteState {
   duration: number
   holdDuration: number
   exitDuration: number
-  activityMessage: ActivityMessage
-  cardContentSet: boolean
-  hasCard: boolean
 }
 
 export function InteractiveGlobe({
@@ -294,6 +292,7 @@ export function InteractiveGlobe({
   arcWidth = 0.5,
   arcHeight = 0.15,
   speed = 0.0025,
+  initialPhi = -2.55,
   theta = 0.12,
   diffuse = 3,
   mapSamples = 30000,
@@ -307,7 +306,7 @@ export function InteractiveGlobe({
   const resizeObserverRef = useRef<ResizeObserver | null>(null)
   const releaseTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null)
   
-  const phiRef = useRef(0)
+  const phiRef = useRef(initialPhi)
   const thetaRef = useRef(clamp(theta, MIN_THETA, MAX_THETA))
   const velocityPhiRef = useRef(0)
   const velocityThetaRef = useRef(0)
@@ -316,6 +315,7 @@ export function InteractiveGlobe({
   const pointerIdRef = useRef<number | null>(null)
   const lastPointerRef = useRef({ x: 0, y: 0, time: 0 })
   const speedRef = useRef(speed)
+  const hasStartedRef = useRef(false)
   const containerSizeRef = useRef({ width: 0, height: 0 })
 
   const labelElsRef = useRef<Map<string, HTMLDivElement>>(new Map())
@@ -323,7 +323,7 @@ export function InteractiveGlobe({
   const pulseElsRef = useRef<Map<string, HTMLDivElement>>(new Map())
   const lineElsRef = useRef<Map<string, SVGPathElement>>(new Map())
   const tailElsRef = useRef<Map<string, SVGPathElement>>(new Map())
-  const activityCardElsRef = useRef<Map<string, HTMLDivElement>>(new Map())
+  const destinationPulseElsRef = useRef<Map<string, HTMLDivElement>>(new Map())
 
   // Queue state
   const activeRoutesRef = useRef<Map<string, ActiveRouteState>>(new Map())
@@ -335,7 +335,7 @@ export function InteractiveGlobe({
   const markerElevationRef = useRef(markerElevation)
   const arcHeightRef = useRef(arcHeight)
   const initialConfigurationRef = useRef({
-    markers: markers.map((m) => ({ location: m.location, size: markerSize, color: m.color })),
+    markers: markers.map((m) => ({ location: m.location, size: m.size ?? markerSize, color: m.color })),
     arcs: [], // WebGL draws no arcs; we use SVG overlay to draw progressive lines
     markerColor,
     baseColor,
@@ -355,6 +355,25 @@ export function InteractiveGlobe({
   useEffect(() => {
     speedRef.current = speed
   }, [speed])
+
+  useEffect(() => {
+    const container = containerRef.current
+    if (!container) return
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (!entry.isIntersecting || hasStartedRef.current) return
+        phiRef.current = initialPhi
+        nextSpawnTimeRef.current = performance.now()
+        hasStartedRef.current = true
+        observer.disconnect()
+      },
+      { threshold: 0.15 },
+    )
+
+    observer.observe(container)
+    return () => observer.disconnect()
+  }, [initialPhi])
 
   useEffect(() => {
     thetaRef.current = clamp(theta, MIN_THETA, MAX_THETA)
@@ -445,6 +464,11 @@ export function InteractiveGlobe({
 
   useEffect(() => {
     const render = (now: number) => {
+      if (!hasStartedRef.current) {
+        animationFrameRef.current = requestAnimationFrame(render)
+        return
+      }
+
       // Interaction physics
       if (!draggingRef.current && !autoRotationPausedRef.current) {
         phiRef.current += speedRef.current
@@ -464,18 +488,33 @@ export function InteractiveGlobe({
 
       // Lifecycle update
       if (now > nextSpawnTimeRef.current && activeRoutesRef.current.size < MAX_ACTIVE_ROUTES && pendingRoutesRef.current.length > 0) {
-        const nextArc = pendingRoutesRef.current.shift()!
+        // Prioritize a route whose trajectory is currently on the front of the globe.
+        // This keeps the animation populated even while the Pacific is facing the user.
+        const visibleRouteIndex = pendingRoutesRef.current.findIndex((arc) =>
+          [0.25, 0.5, 0.75].some((progress) =>
+            projectArcPoint(
+              arc.from,
+              arc.to,
+              progress,
+              phiRef.current,
+              thetaRef.current,
+              aspect,
+              currentArcHeight,
+              currentMarkerElevation,
+            ).visible,
+          ),
+        )
+
+        const routeIndex = visibleRouteIndex >= 0 ? visibleRouteIndex : 0
+        const [nextArc] = pendingRoutesRef.current.splice(routeIndex, 1)
         activeRoutesRef.current.set(nextArc.id, {
           arc: nextArc,
           status: 'entering',
           progress: 0,
           startTime: now,
           duration: 1800 + Math.random() * 1200, // 1800ms - 3000ms
-          holdDuration: 2800 + Math.random() * 1200, // 2800ms - 4000ms (longer to show activity card)
+          holdDuration: 1000 + Math.random() * 700, // 1000ms - 1700ms for the destination pulse
           exitDuration: 600 + Math.random() * 400, // 600ms - 1000ms
-          activityMessage: getRandomActivity(),
-          cardContentSet: false,
-          hasCard: Math.random() > 0.55, // Apenas ~45% das rotas mostrarão o card de atividade
         })
         // Wait between 300ms and 900ms before spawning the next one
         nextSpawnTimeRef.current = now + 300 + Math.random() * 600
@@ -532,8 +571,8 @@ export function InteractiveGlobe({
           }
           if (pulseEl) pulseEl.style.opacity = '0'
           if (labelEl) labelEl.style.opacity = '0'
-          const finishedCard = activityCardElsRef.current.get(`activity:${id}`)
-          if (finishedCard) finishedCard.style.opacity = '0'
+          const finishedPulse = destinationPulseElsRef.current.get(`destination:${id}`)
+          if (finishedPulse) finishedPulse.style.opacity = '0'
           continue
         }
 
@@ -583,56 +622,30 @@ export function InteractiveGlobe({
           }
         }
 
-        // ── Activity card at destination ──
-        const cardEl = activityCardElsRef.current.get(`activity:${id}`)
-        if (cardEl && width > 0 && height > 0) {
-          if (state.hasCard && (state.status === 'holding' || state.status === 'exiting') && state.activityMessage) {
-            if (!state.cardContentSet) {
-              const iconSpan = cardEl.children[0] as HTMLElement
-              const textContainer = cardEl.children[1] as HTMLElement
-              if (iconSpan && textContainer) {
-                const labelSpan = textContainer.children[0] as HTMLElement
-                const valueSpan = textContainer.children[1] as HTMLElement
-                iconSpan.textContent = state.activityMessage.icon
-                if (labelSpan) labelSpan.textContent = state.activityMessage.label
-                if (valueSpan) valueSpan.textContent = state.activityMessage.value
-              }
-              // Set arc-colored glow on the card (Light Theme Premium)
-              const arcCol = state.arc.color
-              if (arcCol) {
-                cardEl.style.boxShadow = `0 12px 32px -8px rgba(0,0,0,0.1), 0 2px 14px -4px rgba(0,0,0,0.06), 0 0 0 1px rgba(255, 255, 255, 0.8), 0 0 0 1px ${toCssColor(arcCol, 0.15)}, 0 0 24px ${toCssColor(arcCol, 0.08)}`
-              }
-              state.cardContentSet = true
-            }
-
+        // Destination pulse after the route arrives
+        const destinationPulse = destinationPulseElsRef.current.get(`destination:${id}`)
+        if (destinationPulse && width > 0 && height > 0) {
+          if (state.status === 'holding' || state.status === 'exiting') {
             const destProj = projectMarker(state.arc.to, phiRef.current, thetaRef.current, aspect, currentMarkerElevation)
             if (destProj.visible) {
-              let cardOpacity = 0
-              let cardScale = 0.88
-              let yShift = 8
+              let pulseOpacity = 1
               if (state.status === 'holding') {
                 const holdElapsed = now - state.startTime
-                const t = Math.min(holdElapsed / 500, 1)
-                const eased = 1 - Math.pow(1 - t, 3)
-                cardOpacity = eased
-                cardScale = 0.88 + 0.12 * eased
-                yShift = 8 * (1 - eased)
+                pulseOpacity = Math.min(holdElapsed / 200, 1)
               } else if (state.status === 'exiting') {
                 const exitElapsed = now - state.startTime
                 const t = Math.min(exitElapsed / state.exitDuration, 1)
-                cardOpacity = Math.max(1 - t * 1.5, 0)
-                cardScale = 1 - 0.05 * t
-                yShift = -4 * t
+                pulseOpacity = Math.max(1 - t, 0)
               }
               const cx = destProj.x * width
               const cy = destProj.y * height
-              cardEl.style.transform = `translate(${cx}px, ${cy}px) translate(-50%, -100%) translateY(${-18 - yShift}px) scale(${cardScale})`
-              cardEl.style.opacity = String(Math.max(0, cardOpacity))
+              destinationPulse.style.transform = `translate(${cx}px, ${cy}px)`
+              destinationPulse.style.opacity = String(pulseOpacity)
             } else {
-              cardEl.style.opacity = '0'
+              destinationPulse.style.opacity = '0'
             }
-          } else if (cardEl.style.opacity !== '0') {
-            cardEl.style.opacity = '0'
+          } else if (destinationPulse.style.opacity !== '0') {
+            destinationPulse.style.opacity = '0'
           }
         }
       }
@@ -643,6 +656,7 @@ export function InteractiveGlobe({
         // Labels
         const markerTargets: LabelTarget[] = []
         for (const marker of markersRef.current) {
+          if (!marker.label) continue
           const key = `marker:${marker.id}`
           const proj = projectMarker(marker.location, phiRef.current, thetaRef.current, aspect, currentMarkerElevation)
           markerTargets.push({ key, el: labelElsRef.current.get(key) ?? null, x: proj.x * width, y: proj.y * height, visible: proj.visible })
@@ -689,7 +703,7 @@ export function InteractiveGlobe({
           }
         }
         
-        // Hide unused pulse/lines/cards that are in the DOM but not active
+        // Hide unused traveling pulses, destination pulses, and lines
         for (const arc of arcsRef.current) {
           if (!activeRoutesRef.current.has(arc.id)) {
             const line = lineElsRef.current.get(`line:${arc.id}`)
@@ -700,8 +714,8 @@ export function InteractiveGlobe({
             }
             const pulse = pulseElsRef.current.get(`pulse:${arc.id}`)
             if (pulse && pulse.style.opacity !== '0') pulse.style.opacity = '0'
-            const card = activityCardElsRef.current.get(`activity:${arc.id}`)
-            if (card && card.style.opacity !== '0') card.style.opacity = '0'
+            const destinationPulse = destinationPulseElsRef.current.get(`destination:${arc.id}`)
+            if (destinationPulse && destinationPulse.style.opacity !== '0') destinationPulse.style.opacity = '0'
           }
         }
       }
@@ -848,28 +862,34 @@ export function InteractiveGlobe({
         />
       ))}
 
-      {/* Activity data cards at route destinations */}
+      {/* Pulses emitted when routes reach their destinations */}
       {arcs.map((arc) => (
         <div
-          key={`activity:${arc.id}`}
+          key={`destination:${arc.id}`}
           ref={(el) => {
-            const key = `activity:${arc.id}`
-            if (el) activityCardElsRef.current.set(key, el)
-            else activityCardElsRef.current.delete(key)
+            const key = `destination:${arc.id}`
+            if (el) destinationPulseElsRef.current.set(key, el)
+            else destinationPulseElsRef.current.delete(key)
           }}
-          className="pointer-events-none absolute left-0 top-0 z-[25] flex items-center gap-3 rounded-2xl bg-white/90 backdrop-blur-2xl px-4 py-3 shadow-xl border border-white"
+          className="pointer-events-none absolute left-0 top-0 z-[25] h-0 w-0"
           style={{ opacity: 0, transition: 'none', willChange: 'transform, opacity' }}
           aria-hidden="true"
         >
-          <span className="text-xl leading-none shrink-0 drop-shadow-sm">🚀</span>
-          <div className="flex flex-col gap-0.5 min-w-0">
-            <span className="text-[10px] font-bold uppercase tracking-[0.12em] text-slate-500 leading-none">—</span>
-            <span className="text-[14px] font-bold text-slate-900 leading-none tabular-nums tracking-tight">—</span>
-          </div>
+          <span
+            className="absolute left-0 top-0 h-5 w-5 -translate-x-1/2 -translate-y-1/2 animate-ping rounded-full border"
+            style={{ borderColor: arc.color ? toCssColor(arc.color, 0.7) : toCssColor(arcColor, 0.7) }}
+          />
+          <span
+            className="absolute left-0 top-0 h-2.5 w-2.5 -translate-x-1/2 -translate-y-1/2 rounded-full ring-2 ring-white/80"
+            style={{
+              backgroundColor: arc.color ? toCssColor(arc.color, 1) : toCssColor(arcColor, 1),
+              boxShadow: `0 0 12px 3px ${arc.color ? toCssColor(arc.color, 0.5) : toCssColor(arcColor, 0.5)}`,
+            }}
+          />
         </div>
       ))}
 
-      {markers.map((marker) => (
+      {markers.filter((marker) => marker.label).map((marker) => (
         <div
           key={marker.id}
           ref={(el) => {
