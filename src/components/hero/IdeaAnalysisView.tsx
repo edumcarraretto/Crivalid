@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react'
 import { IdeaAnalysisHeader } from './IdeaAnalysisHeader'
-import { IdeaAnalysisTabs, TABS } from './IdeaAnalysisTabs'
+import { IdeaAnalysisTabs } from './IdeaAnalysisTabs'
+import { IDEA_ANALYSIS_TABS } from './ideaAnalysisTabsData'
 import { OverviewAnalysis } from './OverviewAnalysis'
 import { AudienceAnalysis } from './AudienceAnalysis'
 import { MarketAnalysis } from './MarketAnalysis'
@@ -16,7 +17,7 @@ const LOADING_STEPS = [
 ]
 
 export function IdeaAnalysisView() {
-  const [activeTab, setActiveTab] = useState(TABS[0])
+  const [activeTab, setActiveTab] = useState<string>(IDEA_ANALYSIS_TABS[0])
   const [isAnalyzing, setIsAnalyzing] = useState(true)
   const [loadingStepIndex, setLoadingStepIndex] = useState(0)
 
@@ -62,10 +63,10 @@ export function IdeaAnalysisView() {
       <IdeaAnalysisTabs activeTab={activeTab} onTabChange={setActiveTab} />
       
       <div className="flex-1 overflow-y-auto no-scrollbar max-h-[320px] md:max-h-none pb-2">
-        {activeTab === TABS[0] && <OverviewAnalysis />}
-        {activeTab === TABS[1] && <AudienceAnalysis />}
-        {activeTab === TABS[2] && <MarketAnalysis />}
-        {activeTab === TABS[3] && <RecommendedPlanAnalysis />}
+        {activeTab === IDEA_ANALYSIS_TABS[0] && <OverviewAnalysis />}
+        {activeTab === IDEA_ANALYSIS_TABS[1] && <AudienceAnalysis />}
+        {activeTab === IDEA_ANALYSIS_TABS[2] && <MarketAnalysis />}
+        {activeTab === IDEA_ANALYSIS_TABS[3] && <RecommendedPlanAnalysis />}
       </div>
     </div>
   )

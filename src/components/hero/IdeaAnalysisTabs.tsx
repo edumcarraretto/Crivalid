@@ -1,19 +1,14 @@
+import { IDEA_ANALYSIS_TABS } from './ideaAnalysisTabsData'
+
 interface IdeaAnalysisTabsProps {
   activeTab: string
   onTabChange: (tab: string) => void
 }
 
-export const TABS = [
-  'Visão geral',
-  'Público',
-  'Mercado',
-  'Plano recomendado'
-]
-
 export function IdeaAnalysisTabs({ activeTab, onTabChange }: IdeaAnalysisTabsProps) {
   return (
     <div className="flex items-center gap-1 overflow-x-auto no-scrollbar border-b border-slate-200/50 mb-6 pb-2">
-      {TABS.map((tab) => {
+      {IDEA_ANALYSIS_TABS.map((tab) => {
         const isActive = activeTab === tab
         return (
           <button
