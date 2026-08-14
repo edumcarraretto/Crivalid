@@ -1,0 +1,19 @@
+{
+  "name": "MAKEPLOY",
+  "short_name": "MAKEPLOY",
+  "description": "Crie, publique, automatize e evolua produtos digitais com IA, no-code e código.",
+  "lang": "pt-BR",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#0067D9",
+  "icons": [
+    {
+      "src": "/nova-logo-1914.png",
+      "sizes": "1024x1024",
+      "type": "image/png",
+      "purpose": "any"
+    }
+  ]
+}
