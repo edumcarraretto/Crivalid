@@ -1,16 +1,7 @@
 /* =========================================================
    MCP Online Card
-   Traços de circuito + chips de integração + ícone central
+   Traços de circuito + chips de integração + logo central MAKEPLOY
    ========================================================= */
-
-const PETALS = [
-  { rotate: 0, color: "var(--color-brand-coral)" },
-  { rotate: 60, color: "var(--color-brand-orange)" },
-  { rotate: 120, color: "var(--color-brand-yellow)" },
-  { rotate: 180, color: "var(--color-brand-green)" },
-  { rotate: 240, color: "var(--color-brand-blue)" },
-  { rotate: 300, color: "var(--color-brand-magenta)" },
-];
 
 /* Coordenadas em viewBox 400x250.
    A caixa do núcleo vai de x=142 a x=258, e as linhas verticais
@@ -105,7 +96,7 @@ function Traces() {
         ))
       )}
 
-      {/* brackets (movidos para o SVG principal para escalarem perfeitamente com as linhas) */}
+      {/* brackets */}
       <g transform="translate(142, 38)">
         <path
           d="M26 4 H16 A12 12 0 0 0 4 16 V100 A12 12 0 0 0 16 112 H26"
@@ -122,45 +113,6 @@ function Traces() {
           strokeLinejoin="round"
         />
       </g>
-    </svg>
-  );
-}
-
-function Flower() {
-  return (
-    <svg viewBox="0 0 64 64" className="mcp__flower" aria-hidden="true">
-      <defs>
-        <filter id="mcp-soft" x="-40%" y="-40%" width="180%" height="180%">
-          <feGaussianBlur stdDeviation="0.45" />
-        </filter>
-      </defs>
-
-      {/* pétalas: blur mínimo, só para suavizar as bordas */}
-      <g transform="translate(32 32)" filter="url(#mcp-soft)">
-        {PETALS.map((p) => (
-          <rect
-            key={p.rotate}
-            x="-8.5"
-            y="-18"
-            width="17"
-            height="21"
-            rx="8.5"
-            fill={p.color}
-            transform={`rotate(${p.rotate})`}
-            style={{ mixBlendMode: "screen" }}
-          />
-        ))}
-      </g>
-
-      {/* miolo fora do filtro — mantém o centro nítido */}
-      <rect
-        x="24.5"
-        y="24.5"
-        width="15"
-        height="15"
-        rx="5"
-        fill="#FFF6FA"
-      />
     </svg>
   );
 }
@@ -273,32 +225,18 @@ export function ConnectedTechPreview() {
           height: 100%;
         }
 
-        .mcp__flower {
+        .mcp__logo {
           position: relative;
-          width: 66px;
-          height: 66px;
+          width: 54px;
+          height: 54px;
+          object-fit: contain;
           transform-origin: center;
           animation: mcp-breathe 5s ease-in-out infinite;
         }
 
-        .mcp__halo {
-          position: absolute;
-          width: 62px;
-          height: 62px;
-          border-radius: 9999px;
-          background: conic-gradient(
-            from 0deg,
-            var(--color-brand-coral), var(--color-brand-orange), var(--color-brand-yellow), var(--color-brand-green), var(--color-brand-blue), var(--color-brand-magenta), var(--color-brand-coral)
-          );
-          filter: blur(16px);
-          opacity: 0.38;
-          animation: mcp-spin 9s linear infinite;
-        }
-
-        @keyframes mcp-spin    { to { transform: rotate(360deg); } }
         @keyframes mcp-breathe {
           0%, 100% { transform: scale(1) rotate(0deg); }
-          50%      { transform: scale(1.04) rotate(5deg); }
+          50%      { transform: scale(1.05) rotate(3deg); }
         }
 
         /* ---- badge ---- */
@@ -342,7 +280,7 @@ export function ConnectedTechPreview() {
         }
 
         @media (prefers-reduced-motion: reduce) {
-          .mcp__pulse, .mcp__flower, .mcp__halo, .mcp__dot {
+          .mcp__pulse, .mcp__logo, .mcp__dot {
             animation: none;
           }
         }
@@ -363,8 +301,11 @@ export function ConnectedTechPreview() {
         ))}
 
         <div className="mcp__core">
-          <div className="mcp__halo" />
-          <Flower />
+          <img
+            src="/nova-logo-1914.png"
+            alt="MAKEPLOY"
+            className="mcp__logo"
+          />
         </div>
 
         <div className="mcp__badge">

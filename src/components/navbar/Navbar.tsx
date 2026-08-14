@@ -7,12 +7,19 @@ interface NavItem {
   href: string
 }
 
-const navItems: NavItem[] = [
+const leftNavItems: NavItem[] = [
   { id: 'ferramentas', label: 'Plataforma', href: '#ferramentas' },
   { id: 'tecnologias', label: 'Criação', href: '#tecnologias' },
   { id: 'inteligencia', label: 'Inteligência', href: '#inteligencia' },
-  { id: 'workflow', label: 'Automações', href: '#workflow' },
 ]
+
+const rightNavItems: NavItem[] = [
+  { id: 'workflow', label: 'Automações', href: '#workflow' },
+  { id: 'platform-metrics', label: 'Métricas', href: '#platform-metrics' },
+  { id: 'duvidas', label: 'Dúvidas', href: '#duvidas' },
+]
+
+const allNavItems = [...leftNavItems, ...rightNavItems]
 
 export function Navbar() {
   const [activeItem, setActiveItem] = useState('')
@@ -40,7 +47,7 @@ export function Navbar() {
       const navbarOffset = 120
       let currentActive = ''
 
-      for (const item of navItems) {
+      for (const item of allNavItems) {
         const el = document.getElementById(item.id)
         if (el) {
           const rect = el.getBoundingClientRect()
@@ -60,15 +67,15 @@ export function Navbar() {
   return (
     <header
       className={`
-        sticky top-0 z-50 w-full bg-transparent pointer-events-none
+        fixed top-0 left-0 right-0 z-50 w-full bg-transparent pointer-events-none
         transition-all duration-300 ease-out
-        ${isScrolled ? 'py-3 sm:py-4 px-4 sm:px-6' : 'py-5 sm:py-7 px-4 sm:px-8'}
+        ${isScrolled ? 'py-2 sm:py-3 px-3 sm:px-6' : 'py-3.5 sm:py-5 px-3 sm:px-8'}
       `}
     >
       <div
         className={`
           mx-auto transition-all duration-300 ease-out
-          ${isScrolled ? 'max-w-6.5xl sm:max-w-7xl' : 'max-w-7xl'}
+          ${isScrolled ? 'max-w-7xl' : 'max-w-[1360px]'}
         `}
       >
         {/* Floating Navbar Container */}
@@ -79,114 +86,157 @@ export function Navbar() {
             transition-all duration-300 ease-out
             ${
               isScrolled
-                ? 'rounded-2xl px-5 sm:px-7 py-2.5 sm:py-3.5 shadow-[0_8px_30px_rgba(0,0,0,0.1)]'
-                : 'rounded-2xl sm:rounded-[26px] px-5 sm:px-8 py-3.5 sm:py-4.5 shadow-[0_6px_30px_rgba(0,0,0,0.07)]'
+                ? 'rounded-2xl px-4 sm:px-6 py-2 sm:py-3 shadow-[0_8px_30px_rgba(0,0,0,0.1)]'
+                : 'rounded-2xl sm:rounded-[26px] px-4 sm:px-7 py-3 sm:py-4 shadow-[0_6px_30px_rgba(0,0,0,0.07)]'
             }
           `}
           aria-label="Navegação principal"
         >
-          {/* ── 1. LADO ESQUERDO: Logo "MAKEPLOY" ── */}
-          <div className="flex items-center gap-2 select-none">
+          {/* ── 1. LADO ESQUERDO: Somente o ÍCONE / Símbolo da Logo ── */}
+          <div className="flex items-center select-none shrink-0 pl-1 sm:pl-2">
             <a
               href="#"
-              className="flex items-center gap-2 group"
+              className="relative w-8 h-8 sm:w-9 sm:h-9 flex items-center justify-center group cursor-pointer"
               aria-label="MAKEPLOY Home"
               onClick={(e) => {
                 e.preventDefault()
                 window.scrollTo({ top: 0, behavior: 'smooth' })
               }}
             >
-              {/* New logo symbol */}
               <img
                 src="/nova-logo-1914.png"
                 alt="Logo"
                 className={`
-                  object-contain shrink-0 transform group-hover:scale-[2.1] transition-all duration-300 ml-1 sm:ml-2 mr-1.5 sm:mr-2
-                  ${isScrolled ? 'w-7.5 h-7.5 sm:w-8.5 sm:h-8.5 scale-[1.5]' : 'w-8.5 h-8.5 sm:w-10 sm:h-10 scale-[1.95]'}
-                `}
-              />
-
-              {/* Text logo image */}
-              <img
-                src="/text-logo-1931.png"
-                alt="MAKEPLOY"
-                className={`
-                  object-contain shrink-0 transform origin-left group-hover:scale-[3.3] transition-all duration-300 mr-8 sm:mr-12
-                  ${isScrolled ? 'h-7 sm:h-8 scale-[2.4]' : 'h-8 sm:h-9.5 scale-[3.2]'}
+                  object-contain shrink-0 transform transition-transform duration-300 group-hover:scale-[2.05]
+                  ${isScrolled ? 'w-8.5 h-8.5 sm:w-9 sm:h-9 scale-[1.85]' : 'w-8 h-8 sm:w-8.5 sm:h-8.5 scale-[1.7]'}
                 `}
               />
             </a>
           </div>
 
-          {/* ── 2. CENTRO: Links de Navegação (Desktop) ── */}
-          <div
-            className={`
-              hidden md:flex items-center transition-all duration-300
-              ${isScrolled ? 'gap-1 sm:gap-1.5' : 'gap-1.5 sm:gap-2'}
-            `}
-          >
-            {navItems.map((item, index) => {
-              const isActive = activeItem === item.id
+          {/* ── 2. CENTRO EXPANDIDO: 3 Links | LOGO ESCRITA | 3 Links (Desktop) ── */}
+          <div className="hidden lg:flex items-center justify-center flex-1 mx-2 xl:mx-4">
+            
+            {/* 3 Links da Esquerda */}
+            <div className="flex items-center gap-1 xl:gap-1.5">
+              {leftNavItems.map((item, index) => {
+                const isActive = activeItem === item.id
 
-              return (
-                <div key={item.id} className="flex items-center gap-1 sm:gap-1.5">
-                  <a
-                    href={item.href}
-                    onClick={(e) => {
-                      e.preventDefault()
-                      scrollToSection(item.href)
-                    }}
-                    className={`
-                      font-bold tracking-tight rounded-xl sm:rounded-2xl
-                      transition-all duration-300 ease-out cursor-pointer
-                      ${
-                        isScrolled
-                          ? 'px-4 py-2 text-xs sm:text-sm'
-                          : 'px-4 sm:px-5 py-2 sm:py-2.5 text-sm sm:text-base'
-                      }
-                      ${
-                        isActive
-                          ? 'bg-blue-50 text-neutral-900 shadow-xs'
-                          : 'text-neutral-700 hover:text-neutral-900 hover:bg-blue-50/60'
-                      }
-                    `}
-                  >
-                    {item.label}
-                  </a>
-
-                  {/* Pequena barra vertical de divisão entre os tópicos */}
-                  {index < navItems.length - 1 && (
-                    <span
+                return (
+                  <div key={item.id} className="flex items-center gap-1 xl:gap-1.5">
+                    <a
+                      href={item.href}
+                      onClick={(e) => {
+                        e.preventDefault()
+                        scrollToSection(item.href)
+                      }}
                       className={`
-                        w-px bg-black/[0.15] rounded-full shrink-0 transition-all duration-300
-                        ${isScrolled ? 'h-3.5' : 'h-4'}
+                        font-bold tracking-tight rounded-xl
+                        transition-all duration-200 ease-out cursor-pointer whitespace-nowrap
+                        ${
+                          isScrolled
+                            ? 'px-3 py-1.5 text-xs xl:text-sm'
+                            : 'px-3.5 xl:px-4 py-2 text-sm xl:text-[15px]'
+                        }
+                        ${
+                          isActive
+                            ? 'bg-blue-50 text-neutral-900 shadow-xs'
+                            : 'text-neutral-700 hover:text-neutral-900 hover:bg-blue-50/60'
+                        }
                       `}
-                      aria-hidden="true"
-                    />
-                  )}
-                </div>
-              )
-            })}
+                    >
+                      {item.label}
+                    </a>
+
+                    {/* Divisor vertical */}
+                    {index < leftNavItems.length - 1 && (
+                      <span
+                        className="w-px h-3.5 bg-black/[0.12] rounded-full shrink-0"
+                        aria-hidden="true"
+                      />
+                    )}
+                  </div>
+                )
+              })}
+            </div>
+
+            {/* ── LOGO ESCRITA NO MEIO (ISOLADA COM RESPIRO) ── */}
+            <a
+              href="#"
+              onClick={(e) => {
+                e.preventDefault()
+                window.scrollTo({ top: 0, behavior: 'smooth' })
+              }}
+              aria-label="MAKEPLOY Home"
+              className="relative flex items-center justify-center mx-10 sm:mx-14 lg:mx-16 xl:mx-24 h-8 group cursor-pointer shrink-0"
+            >
+              <img
+                src="/text-logo-1931.png"
+                alt="MAKEPLOY"
+                className={`
+                  object-contain shrink-0 transform transition-transform duration-300 group-hover:scale-[3.35]
+                  ${isScrolled ? 'h-7 sm:h-8 scale-[3.15]' : 'h-7 sm:h-7.5 scale-[2.85]'}
+                `}
+              />
+            </a>
+
+            {/* 3 Links da Direita */}
+            <div className="flex items-center gap-1 xl:gap-1.5">
+              {rightNavItems.map((item, index) => {
+                const isActive = activeItem === item.id
+
+                return (
+                  <div key={item.id} className="flex items-center gap-1 xl:gap-1.5">
+                    <a
+                      href={item.href}
+                      onClick={(e) => {
+                        e.preventDefault()
+                        scrollToSection(item.href)
+                      }}
+                      className={`
+                        font-bold tracking-tight rounded-xl
+                        transition-all duration-200 ease-out cursor-pointer whitespace-nowrap
+                        ${
+                          isScrolled
+                            ? 'px-3 py-1.5 text-xs xl:text-sm'
+                            : 'px-3.5 xl:px-4 py-2 text-sm xl:text-[15px]'
+                        }
+                        ${
+                          isActive
+                            ? 'bg-blue-50 text-neutral-900 shadow-xs'
+                            : 'text-neutral-700 hover:text-neutral-900 hover:bg-blue-50/60'
+                        }
+                      `}
+                    >
+                      {item.label}
+                    </a>
+
+                    {/* Divisor vertical */}
+                    {index < rightNavItems.length - 1 && (
+                      <span
+                        className="w-px h-3.5 bg-black/[0.12] rounded-full shrink-0"
+                        aria-hidden="true"
+                      />
+                    )}
+                  </div>
+                )
+              })}
+            </div>
+
           </div>
 
-          {/* ── 3. LADO DIREITO: Botões (Desktop) ── */}
-          <div
-            className={`
-              hidden md:flex items-center transition-all duration-300
-              ${isScrolled ? 'gap-3' : 'gap-3.5'}
-            `}
-          >
-            {/* Botão Principal: Experimente */}
+          {/* ── 3. LADO DIREITO: Botão "Começar projeto" ── */}
+          <div className="hidden lg:flex items-center shrink-0">
             <a
               href="#comece"
               className={`
                 bg-blue-500 hover:bg-blue-600 active:bg-blue-700 text-white font-bold
-                shadow-sm hover:shadow-md active:scale-98
-                transition-all duration-300
+                shadow-sm hover:shadow-md active:scale-98 whitespace-nowrap
+                transition-all duration-200
                 ${
                   isScrolled
-                    ? 'px-5 sm:px-7 py-2.5 sm:py-3 text-xs sm:text-sm rounded-xl sm:rounded-2xl'
-                    : 'px-6 sm:px-8 py-2.5 sm:py-3.5 text-sm sm:text-base rounded-xl sm:rounded-2xl'
+                    ? 'px-5 py-2 text-xs xl:text-sm rounded-xl'
+                    : 'px-6 py-2.5 text-sm xl:text-[15px] rounded-xl'
                 }
               `}
             >
@@ -194,11 +244,28 @@ export function Navbar() {
             </a>
           </div>
 
+          {/* Mobile Center Logo View */}
+          <div className="flex lg:hidden items-center">
+            <a
+              href="#"
+              onClick={(e) => {
+                e.preventDefault()
+                window.scrollTo({ top: 0, behavior: 'smooth' })
+              }}
+            >
+              <img
+                src="/text-logo-1931.png"
+                alt="MAKEPLOY"
+                className="h-6 object-contain"
+              />
+            </a>
+          </div>
+
           {/* Mobile Menu Toggle Button */}
           <button
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
             aria-label={mobileMenuOpen ? 'Fechar menu' : 'Abrir menu'}
-            className="md:hidden p-2 rounded-xl text-neutral-800 hover:bg-neutral-100 transition-colors"
+            className="lg:hidden p-2 rounded-xl text-neutral-800 hover:bg-neutral-100 transition-colors"
           >
             {mobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
           </button>
@@ -206,9 +273,9 @@ export function Navbar() {
 
         {/* Mobile Dropdown Drawer */}
         {mobileMenuOpen && (
-          <div className="md:hidden mt-3 bg-white rounded-2xl p-4 shadow-lg border border-black/[0.04] flex flex-col gap-3 animate-in fade-in slide-in-from-top-2 duration-200 pointer-events-auto">
+          <div className="lg:hidden mt-3 bg-white rounded-2xl p-4 shadow-lg border border-black/[0.04] flex flex-col gap-3 animate-in fade-in slide-in-from-top-2 duration-200 pointer-events-auto">
             <div className="flex flex-col gap-1">
-              {navItems.map((item) => {
+              {allNavItems.map((item) => {
                 const isActive = activeItem === item.id
                 return (
                   <a
@@ -235,7 +302,11 @@ export function Navbar() {
             </div>
 
             <div className="pt-2 border-t border-neutral-100">
-              <a href="#comece" className="block w-full bg-blue-500 hover:bg-blue-600 active:bg-blue-700 text-white text-sm font-bold py-2.5 rounded-xl text-center">
+              <a
+                href="#comece"
+                onClick={() => setMobileMenuOpen(false)}
+                className="block w-full bg-blue-500 hover:bg-blue-600 active:bg-blue-700 text-white text-sm font-bold py-2.5 rounded-xl text-center"
+              >
                 Começar projeto
               </a>
             </div>
@@ -245,3 +316,5 @@ export function Navbar() {
     </header>
   )
 }
+
+export default Navbar

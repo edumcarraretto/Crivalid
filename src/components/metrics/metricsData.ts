@@ -1,7 +1,7 @@
 // ─── Types ────────────────────────────────────────────────────────────────────
 
 export interface PlatformMetric {
-  /** Stable identifier for keying */
+  /** Stable identifier for keying and future backend mapping */
   id: string
   /** Short label displayed as an uppercase eyebrow above the number */
   label: string
@@ -11,66 +11,71 @@ export interface PlatformMetric {
   startFrom?: number
   /** Number of decimal places to show during animation (default 0) */
   decimals?: number
-  /** Prefix rendered before the animated number */
+  /** Prefix rendered before the animated number (e.g. "R$ ") */
   prefix: string
-  /** Suffix appended after the animated number */
+  /** Suffix appended after the animated number (e.g. "+") */
   suffix: string
   /** Final display value — the exact formatted string shown at animation end */
   displayValue: string
   /** Contextual description rendered below the number */
   description: string
+  /** Custom duration in ms for this metric's count-up animation */
+  duration?: number
 }
 
 // ─── Demonstrative Data ───────────────────────────────────────────────────────
-//
-// ⚠ DEMONSTRATIVE VALUES — These are placeholder metrics for visual purposes
-// only. Replace with real data once the Supabase integration is in place.
-// The component accepts this array as a prop, making backend binding trivial.
 
-export const PROJECT_LIFECYCLE_STAGES: PlatformMetric[] = [
+export const DEMO_METRICS: PlatformMetric[] = [
   {
-    id: 'understand',
-    label: 'Compreender',
-    numericValue: 1,
-    decimals: 0,
-    prefix: '',
-    suffix: '',
-    displayValue: '01',
-    description:
-      'Transforme contexto, público e mercado em direção.',
-  },
-  {
-    id: 'build',
-    label: 'Construir',
-    numericValue: 2,
-    decimals: 0,
-    prefix: '',
-    suffix: '',
-    displayValue: '02',
-    description:
-      'Passe da interface ao código sem separar decisão e execução.',
-  },
-  {
-    id: 'operate',
-    label: 'Operar',
-    numericValue: 3,
-    decimals: 0,
-    prefix: '',
-    suffix: '',
-    displayValue: '03',
-    description:
-      'Conecte pessoas, serviços e automações depois do lançamento.',
-  },
-  {
-    id: 'evolve',
-    label: 'Evoluir',
-    numericValue: 4,
+    id: 'countries-active',
+    label: 'Países ativos',
+    numericValue: 150,
     startFrom: 0,
     decimals: 0,
     prefix: '',
-    suffix: '',
-    displayValue: '04',
+    suffix: '+',
+    displayValue: '150+',
+    duration: 6800,
     description:
-      'Use histórico e dados para construir a próxima versão.',
+      'Criadores, empresas e projetos construindo em escala global em qualquer lugar do mundo.',
+  },
+  {
+    id: 'hours-saved',
+    label: 'Horas economizadas',
+    numericValue: 85_000,
+    startFrom: 0,
+    decimals: 0,
+    prefix: '',
+    suffix: '+',
+    displayValue: '85.000+',
+    duration: 7200,
+    description:
+      'Tempo poupado com criação no-code, inteligência artificial e automações integradas.',
+  },
+  {
+    id: 'uptime-global',
+    label: 'Disponibilidade global',
+    numericValue: 99.9,
+    startFrom: 80.0,
+    decimals: 1,
+    prefix: '',
+    suffix: '%',
+    displayValue: '99,9%',
+    duration: 7200,
+    description:
+      'Infraestrutura distribuída de alta performance com estabilidade e escala contínua.',
+  },
+  {
+    id: 'money-saved',
+    label: 'Dinheiro economizado',
+    numericValue: 2_400_000,
+    startFrom: 50_000,
+    decimals: 0,
+    prefix: 'R$ ',
+    suffix: '+',
+    displayValue: 'R$ 2.400.000+',
+    duration: 7500,
+    description:
+      'Economia gerada ao reunir criação, inteligência artificial, automações e publicação em uma única plataforma.',
   },
 ]

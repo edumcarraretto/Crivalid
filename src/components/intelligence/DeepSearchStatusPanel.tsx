@@ -8,60 +8,6 @@ const STATUS_PHRASES = [
   'Investigando a melhor abordagem...',
 ]
 
-/* ---------------------------------------------------------------
-   Pétalas: cada uma é um <rect> arredondado, deslocado do centro
-   e rotacionado. 6 pétalas a cada 60°.
---------------------------------------------------------------- */
-const PETALS = [
-  { rotate: 0, color: "#FF4D8D" },
-  { rotate: 60, color: "#FF7A3D" },
-  { rotate: 120, color: "#FFC94A" },
-  { rotate: 180, color: "#38BDF8" },
-  { rotate: 240, color: "var(--color-brand-blue)" },
-  { rotate: 300, color: "var(--color-brand-magenta)" },
-];
-
-function FlowerIcon() {
-  return (
-    <svg viewBox="0 0 64 64" className="pp-flower" aria-hidden="true">
-      <defs>
-        <filter id="pp-soft" x="-50%" y="-50%" width="200%" height="200%">
-          <feGaussianBlur stdDeviation="1.1" />
-        </filter>
-      </defs>
-
-      <g transform="translate(32 32)" filter="url(#pp-soft)">
-        {PETALS.map((p) => (
-          <rect
-            key={p.rotate}
-            x="-8.5"
-            y="-18"
-            width="17"
-            height="21"
-            rx="8.5"
-            fill={p.color}
-            transform={`rotate(${p.rotate})`}
-            style={{ mixBlendMode: "screen" }}
-          />
-        ))}
-
-        {/* miolo — squircle claro, o mesmo primitivo <rect> */}
-        <rect
-          x="-7"
-          y="-7"
-          width="14"
-          height="14"
-          rx="5"
-          fill="#FFF0F7"
-          opacity="0.95"
-        />
-      </g>
-    </svg>
-  );
-}
-
-/* --------------------------------------------------------------- */
-
 export function DeepSearchStatusPanel() {
   const [statusIndex, setStatusIndex] = useState(0)
   const [progressWidth, setProgressWidth] = useState(0)
@@ -141,7 +87,6 @@ export function DeepSearchStatusPanel() {
           pointer-events: none;
         }
 
-
         /* --- ícone: totalmente contido no pill --- */
         .pp-icon {
           position: relative;
@@ -152,8 +97,6 @@ export function DeepSearchStatusPanel() {
           place-items: center;
           isolation: isolate;
         }
-
-
 
         .pp-ring {
           position: absolute;
@@ -173,8 +116,6 @@ export function DeepSearchStatusPanel() {
           animation: pp-spin 4s linear infinite;
         }
 
-
-
         .pp-core {
           position: absolute;
           inset: 1.5px;
@@ -185,9 +126,10 @@ export function DeepSearchStatusPanel() {
           place-items: center;
         }
 
-        .pp-flower {
-          width: 46px;
-          height: 46px;
+        .pp-logo {
+          width: 36px;
+          height: 36px;
+          object-fit: contain;
           animation: pp-breathe 4s ease-in-out infinite;
           transform-origin: center;
         }
@@ -244,7 +186,7 @@ export function DeepSearchStatusPanel() {
         }
         @keyframes pp-breathe {
           0%, 100% { transform: scale(1) rotate(0deg); }
-          50%      { transform: scale(1.06) rotate(8deg); }
+          50%      { transform: scale(1.06) rotate(6deg); }
         }
         @keyframes pp-shimmer {
           0%   { transform: translateX(-100%); }
@@ -257,7 +199,7 @@ export function DeepSearchStatusPanel() {
         }
 
         @media (prefers-reduced-motion: reduce) {
-          .pp-ring, .pp-flower,
+          .pp-ring, .pp-logo,
           .pp-fill::after, .pp-root::before {
             animation: none;
           }
@@ -266,7 +208,7 @@ export function DeepSearchStatusPanel() {
         @media (max-width: 480px) {
           .pp-root { min-width: 0; width: 100%; padding-right: 20px; gap: 12px; }
           .pp-icon { width: 48px; height: 48px; }
-          .pp-flower { width: 36px; height: 36px; }
+          .pp-logo { width: 28px; height: 28px; }
           .pp-label { font-size: 13px; }
         }
       `}</style>
@@ -282,7 +224,11 @@ export function DeepSearchStatusPanel() {
         <div className="pp-icon">
           <div className="pp-ring" />
           <div className="pp-core">
-            <FlowerIcon />
+            <img
+              src="/nova-logo-1914.png"
+              alt="MAKEPLOY"
+              className="pp-logo"
+            />
           </div>
         </div>
 

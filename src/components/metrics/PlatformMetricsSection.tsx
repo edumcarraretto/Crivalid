@@ -1,31 +1,68 @@
 import { motion } from 'motion/react'
 import { ArrowRight } from 'lucide-react'
 import { MetricItem } from './MetricItem'
-import { PROJECT_LIFECYCLE_STAGES } from './metricsData'
+import { DEMO_METRICS } from './metricsData'
 import type { PlatformMetric } from './metricsData'
-import { HighlightText } from '../text/HighlightText'
 
 // ─── Types ────────────────────────────────────────────────────────────────────
 
 interface PlatformMetricsSectionProps {
-  /** Lifecycle stages rendered by the section. */
+  /**
+   * Metric data to display. Defaults to the demonstrative dataset.
+   */
   metrics?: PlatformMetric[]
+}
+
+const TITLE_TEXT = 'Escala global,'
+
+function AnimatedTitleLine() {
+  return (
+    <span aria-label={TITLE_TEXT} className="inline-flex">
+      {Array.from(TITLE_TEXT).map((character, index) => (
+        <motion.span
+          key={`${character}-${index}`}
+          aria-hidden="true"
+          initial={{ opacity: 0, y: 14, filter: 'blur(5px)' }}
+          whileInView={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
+          viewport={{ once: true, margin: '-60px' }}
+          transition={{ duration: 0.5, delay: index * 0.035, ease: [0.22, 1, 0.36, 1] }}
+          className="inline-block whitespace-pre"
+        >
+          {character}
+        </motion.span>
+      ))}
+    </span>
+  )
+}
+
+function ShimmerHighlight() {
+  return (
+    <motion.span
+      initial={{ opacity: 0.45, backgroundPosition: '100% 50%' }}
+      whileInView={{ opacity: 1, backgroundPosition: '0% 50%' }}
+      viewport={{ once: true, margin: '-60px' }}
+      transition={{ duration: 1.15, delay: 0.35, ease: [0.22, 1, 0.36, 1] }}
+      className="inline-block bg-[linear-gradient(105deg,#047857_0%,#10b981_36%,#65a30d_68%,#059669_100%)] bg-[length:210%_100%] bg-clip-text text-transparent"
+    >
+      impacto que você pode medir.
+    </motion.span>
+  )
 }
 
 // ─── Component ────────────────────────────────────────────────────────────────
 
 export function PlatformMetricsSection({
-  metrics = PROJECT_LIFECYCLE_STAGES,
+  metrics = DEMO_METRICS,
 }: PlatformMetricsSectionProps) {
   return (
     <section
       id="platform-metrics"
       aria-labelledby="metrics-heading"
-      className="w-full bg-white px-5 py-14 sm:px-8 sm:py-16 md:py-20 lg:py-24 overflow-hidden"
+      className="w-full bg-white px-5 py-16 sm:px-8 sm:py-20 md:py-24 lg:py-28 overflow-hidden"
     >
       <div className="mx-auto w-full max-w-6xl">
         {/* ── Header: title + description ── */}
-        <div className="w-full pt-6 pb-12 md:pt-8 md:pb-16">
+        <div className="w-full pt-4 pb-12 md:pt-6 md:pb-16">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -33,19 +70,19 @@ export function PlatformMetricsSection({
             transition={{ duration: 0.6 }}
             className="flex flex-col items-center text-center max-w-4xl mx-auto"
           >
-            {/* Heading + description */}
             <div className="flex flex-col items-center px-4 max-w-3xl">
               <h2
                 id="metrics-heading"
-                className="text-[1.75rem] sm:text-[2.125rem] md:text-[2.5rem] lg:text-[2.75rem] font-extrabold leading-[1.05] tracking-[-0.02em] text-neutral-900"
+                className="text-[1.75rem] sm:text-[2.125rem] md:text-[2.5rem] lg:text-[2.75rem] font-extrabold leading-[1.08] tracking-[-0.025em] text-neutral-900"
               >
-                Um ciclo.
+                <AnimatedTitleLine />
                 <br />
-                <HighlightText variant="green">Quatro movimentos.</HighlightText>
+                <ShimmerHighlight />
               </h2>
 
-              <p className="mt-4 max-w-md text-sm sm:text-base leading-relaxed text-neutral-500">
-                Compreender, construir, operar e evoluir. Cada movimento prepara o próximo.
+              <p className="mt-4 max-w-xl text-sm sm:text-base leading-relaxed text-neutral-500">
+                Criadores e empresas ao redor do mundo acelerando lançamentos, economizando
+                tempo e escalando sem fronteiras.
               </p>
             </div>
           </motion.div>
@@ -105,3 +142,5 @@ export function PlatformMetricsSection({
     </section>
   )
 }
+
+export default PlatformMetricsSection

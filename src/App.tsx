@@ -12,7 +12,6 @@ import { PlatformMetricsSection } from '@/components/metrics/PlatformMetricsSect
 import { MissionMessageSection } from '@/components/mission/MissionMessageSection'
 import { SiteFooter } from '@/components/footer/SiteFooter'
 import { ProductFAQSection } from '@/components/faq/ProductFAQSection'
-
 import { AIIdeaSection } from '@/components/cta/AIIdeaSection'
 
 function App() {

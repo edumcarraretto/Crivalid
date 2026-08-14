@@ -16,26 +16,6 @@ const PILLAR_PREVIEWS: Record<string, React.ReactNode> = {
   code: <IntegratedCodeEditorPreview />,
 }
 
-// ─── MAKEPLOY Logo (bolt) ─────────────────────────────────────────────────────
-
-function MakeployBolt({ className }: { className?: string }) {
-  return (
-    <svg
-      xmlns="http://www.w3.org/2000/svg"
-      width="32"
-      height="31"
-      viewBox="0 0 48 46"
-      fill="none"
-      className={className}
-      aria-hidden="true"
-    >
-      <path
-        d="M25.946 44.938c-.664.845-2.021.375-2.021-.698V33.937a2.26 2.26 0 0 0-2.262-2.262H10.287c-.92 0-1.456-1.04-.92-1.788l7.48-10.471c1.07-1.497 0-3.578-1.842-3.578H1.237c-.92 0-1.456-1.04-.92-1.788L10.013.474c.214-.297.556-.474.92-.474h28.894c.92 0 1.456 1.04.92 1.788l-7.48 10.471c-1.07 1.498 0 3.579 1.842 3.579h11.377c.943 0 1.473 1.088.89 1.83L25.947 44.94z"
-        fill="var(--color-brand-blue)"
-      />
-    </svg>
-  )
-}
 
 // ─── Section ──────────────────────────────────────────────────────────────────
 
@@ -57,10 +37,14 @@ export function CreationTechnologySection() {
             whileInView={{ opacity: 1, scale: 1 }}
             viewport={{ once: true, margin: '-60px' }}
             transition={{ duration: 0.5 }}
-            className="flex items-center justify-center gap-2.5 mb-8"
+            className="flex items-center justify-center gap-3.5 sm:gap-4 mb-8 sm:mb-10"
           >
-            <MakeployBolt />
-            <span className="text-lg font-bold text-white tracking-tight">
+            <img
+              src="/nova-logo-1914.png"
+              alt="MAKEPLOY"
+              className="w-12 h-12 sm:w-14 sm:h-14 md:w-16 md:h-16 object-contain drop-shadow-md"
+            />
+            <span className="text-xl sm:text-2xl md:text-[26px] font-extrabold text-white tracking-tight leading-none">
               MAKEPLOY
             </span>
           </motion.div>

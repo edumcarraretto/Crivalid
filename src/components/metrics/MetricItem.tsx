@@ -1,6 +1,7 @@
 import { AnimatedMetricValue } from './AnimatedMetricValue'
 import type { PlatformMetric } from './metricsData'
 import { motion } from 'motion/react'
+import { useCallback, useState } from 'react'
 
 // ─── Types ────────────────────────────────────────────────────────────────────
 
@@ -14,6 +15,9 @@ interface MetricItemProps {
 // ─── Component ────────────────────────────────────────────────────────────────
 
 export function MetricItem({ metric, showDivider, index }: MetricItemProps) {
+  const [isComplete, setIsComplete] = useState(false)
+  const handleComplete = useCallback(() => setIsComplete(true), [])
+
   return (
     <motion.div
       initial={{ opacity: 0, y: 18 }}
@@ -23,12 +27,16 @@ export function MetricItem({ metric, showDivider, index }: MetricItemProps) {
       className="group relative flex flex-col py-5 px-4 sm:px-5 md:py-6 md:px-5"
     >
       {/* Eyebrow label */}
-      <span className="mb-3 text-[10px] sm:text-[11px] font-bold uppercase tracking-[0.08em] text-violet-600">
+      <span className="mb-3 text-[10px] sm:text-[11px] font-bold uppercase tracking-[0.08em] text-emerald-700">
         {metric.label}
       </span>
 
       {/* Animated stage number */}
-      <p className="mb-3 whitespace-nowrap text-[1.75rem] sm:text-[2.25rem] md:text-[2.5rem] font-extrabold leading-[1] tracking-tight text-neutral-900 transition-transform duration-500 ease-out group-hover:-translate-y-0.5">
+      <motion.p
+        animate={isComplete ? { scale: [1, 1.035, 1] } : undefined}
+        transition={{ duration: 0.42, ease: [0.22, 1, 0.36, 1] }}
+        className="mb-3 whitespace-nowrap text-[1.75rem] sm:text-[2.125rem] md:text-[clamp(1.7rem,3vw,2.5rem)] font-extrabold leading-[1] tracking-[-0.035em] text-neutral-900 transition-transform duration-500 ease-out group-hover:-translate-y-0.5"
+      >
         <AnimatedMetricValue
           target={metric.numericValue}
           startFrom={metric.startFrom}
@@ -36,17 +44,24 @@ export function MetricItem({ metric, showDivider, index }: MetricItemProps) {
           prefix={metric.prefix}
           suffix={metric.suffix}
           displayValue={metric.displayValue}
-          duration={2200}
+          duration={Math.min(metric.duration ?? 2200, 2400)}
+          onComplete={handleComplete}
         />
-      </p>
+      </motion.p>
 
       {/* Spacer pushes description to the same vertical position across columns */}
       <div className="flex-1" />
 
       {/* Description */}
-      <p className="max-w-[220px] text-[12px] sm:text-[13px] leading-relaxed text-neutral-500">
+      <motion.p
+        initial={{ opacity: 0, clipPath: 'inset(0 100% 0 0)' }}
+        whileInView={{ opacity: 1, clipPath: 'inset(0 0% 0 0)' }}
+        viewport={{ once: true, margin: '-40px' }}
+        transition={{ duration: 0.75, delay: 0.28 + index * 0.09, ease: [0.22, 1, 0.36, 1] }}
+        className="max-w-[220px] text-[12px] sm:text-[13px] leading-relaxed text-neutral-500"
+      >
         {metric.description}
-      </p>
+      </motion.p>
 
       {/* Vertical divider — visible only on md+ when not last item */}
       {showDivider && (
