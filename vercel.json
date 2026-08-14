@@ -1,18 +1,20 @@
 {
-  "redirects": [
+  "headers": [
     {
-      "source": "/:path*",
+      "source": "/(.*)",
       "has": [
         {
           "type": "host",
           "value": "makeploy.vercel.app"
         }
       ],
-      "destination": "https://www.makeploy.com/:path*",
-      "permanent": true
-    }
-  ],
-  "headers": [
+      "headers": [
+        {
+          "key": "X-Robots-Tag",
+          "value": "noindex"
+        }
+      ]
+    },
     {
       "source": "/(.*)",
       "headers": [
