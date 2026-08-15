@@ -19,13 +19,13 @@ function App() {
     <main className="min-h-screen bg-white overflow-x-hidden">
       <Navbar />
       <Hero />
+      <LogoCloud />
       <FeaturesGrid />
       <ProblemSection />
       <ToolsSection />
       <CreationTechnologySection />
       <MemoryAITableSection />
       <WorkflowHeroSection />
-      <LogoCloud />
       <GlobeSection />
       <PlatformMetricsSection />
       <MissionMessageSection />
