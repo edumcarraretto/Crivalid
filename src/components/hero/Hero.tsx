@@ -219,7 +219,7 @@ export function Hero({ theme = 'light' }: HeroProps) {
               </div>
               <span className={`font-bold text-xs sm:text-sm leading-none mt-0.5 transition-colors duration-500 ${isDark ? 'text-white' : 'text-neutral-900'}`}>Um projeto</span>
             </div>
-            <span className="text-neutral-500 text-[10px] sm:text-[11px] leading-none">Do primeiro passo à próxima versão.</span>
+            <span className={`text-[10px] sm:text-[11px] leading-none ${isDark ? 'text-neutral-400' : 'text-neutral-600'}`}>Do primeiro passo à próxima versão.</span>
           </div>
         </div>
 

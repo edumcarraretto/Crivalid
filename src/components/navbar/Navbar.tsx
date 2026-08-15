@@ -263,6 +263,7 @@ export function Navbar() {
           <div className="flex lg:hidden items-center">
             <a
               href="#"
+              aria-label="MAKEPLOY Home"
               onClick={(e) => {
                 e.preventDefault()
                 window.scrollTo({ top: 0, behavior: 'smooth' })

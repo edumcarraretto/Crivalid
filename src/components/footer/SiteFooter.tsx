@@ -53,9 +53,9 @@ export function SiteFooter() {
               key={link.label}
               href={link.href}
               className="
-                text-[13px] sm:text-sm font-medium text-white/45
+                text-[13px] sm:text-sm font-medium text-neutral-300
                 transition-colors duration-200
-                hover:text-white/80
+                hover:text-white
                 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white/40
               "
             >
@@ -101,13 +101,13 @@ export function SiteFooter() {
             py-6 sm:py-8
           "
         >
-          <span className="text-xs text-white/30 tracking-wide">
+          <span className="text-xs text-neutral-400 tracking-wide">
             ©2026 MAKEPLOY.
           </span>
-          <span className="text-xs text-white/30 tracking-wide">
+          <span className="text-xs text-neutral-400 tracking-wide">
             Todos os direitos reservados.
           </span>
-          <span className="text-xs text-white/30 tracking-wide">
+          <span className="text-xs text-neutral-400 tracking-wide">
             Criado por MAKEPLOY
           </span>
         </motion.div>

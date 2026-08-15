@@ -85,18 +85,18 @@ export function AIIdeaSection() {
               {/* Model Selector */}
               <button
                 type="button"
-                className="flex items-center gap-2 text-sm text-neutral-500 hover:text-neutral-300 transition-colors font-medium px-2 py-1.5 rounded-lg hover:bg-white/5"
+                className="flex items-center gap-2 text-sm text-neutral-400 hover:text-white transition-colors font-medium px-2 py-1.5 rounded-lg hover:bg-white/5"
               >
                 <Sparkles className="w-4 h-4" />
                 Contexto do projeto
-                <ChevronDown className="w-3 h-3 opacity-50" />
+                <ChevronDown className="w-3 h-3 opacity-70" />
               </button>
 
               {/* Submit Button */}
               <button
                 type="submit"
                 disabled={!prompt.trim()}
-                className="group p-2 sm:p-2.5 rounded-[12px] bg-white text-black hover:bg-neutral-200 disabled:opacity-50 disabled:bg-neutral-800 disabled:text-neutral-600 transition-all duration-200 shadow-sm active:scale-95"
+                className="group p-2 sm:p-2.5 rounded-[12px] bg-white text-black hover:bg-neutral-200 disabled:opacity-50 disabled:bg-neutral-800 disabled:text-neutral-400 transition-all duration-200 shadow-sm active:scale-95 cursor-pointer disabled:cursor-not-allowed"
                 aria-label="Começar projeto"
               >
                 <ArrowUp className="w-5 h-5 sm:w-6 sm:h-6 transition-transform duration-300 group-hover:-translate-y-0.5" />
@@ -117,7 +117,7 @@ export function AIIdeaSection() {
                 key={suggestion}
                 type="button"
                 onClick={() => handleSuggestionClick(suggestion)}
-                className="px-4 py-2 sm:px-5 sm:py-2.5 rounded-full border border-neutral-800 bg-neutral-900 text-[13px] sm:text-sm text-neutral-400 hover:text-neutral-200 hover:bg-neutral-800 hover:border-blue-500 transition-all duration-200 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-400"
+                className="px-4 py-2 sm:px-5 sm:py-2.5 rounded-full border border-neutral-800 bg-neutral-900 text-[13px] sm:text-sm text-neutral-300 hover:text-white hover:bg-neutral-800 hover:border-blue-500 transition-all duration-200 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-400 cursor-pointer"
               >
                 {suggestion}
               </button>
