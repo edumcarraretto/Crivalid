@@ -1,30 +1,29 @@
 import { Navbar } from '@/components/navbar/Navbar'
 import { Hero } from '@/components/hero/Hero'
-import { FeaturesGrid } from '@/components/hero/FeaturesGrid'
-import { LogoCloud } from '@/components/logos/LogoCloud'
 import { ProblemSection } from '@/components/problem/ProblemSection'
+import { FeaturesGrid } from '@/components/hero/FeaturesGrid'
 import { ToolsSection } from '@/components/tools/ToolsSection'
 import { CreationTechnologySection } from '@/components/creation/CreationTechnologySection'
-import { MarqueeStripes } from '@/components/marquee/MarqueeStripes'
 import { MemoryAITableSection } from '@/components/intelligence/MemoryAITableSection'
-import { GlobeSection } from '@/components/globe/GlobeSection'
 import { WorkflowHeroSection } from '@/components/workflow/WorkflowHeroSection'
+import { LogoCloud } from '@/components/logos/LogoCloud'
+import { GlobeSection } from '@/components/globe/GlobeSection'
 import { PlatformMetricsSection } from '@/components/metrics/PlatformMetricsSection'
 import { MissionMessageSection } from '@/components/mission/MissionMessageSection'
-import { SiteFooter } from '@/components/footer/SiteFooter'
 import { ProductFAQSection } from '@/components/faq/ProductFAQSection'
 import { AIIdeaSection } from '@/components/cta/AIIdeaSection'
+import { SiteFooter } from '@/components/footer/SiteFooter'
 
 function App() {
   return (
     <main className="min-h-screen bg-white overflow-x-hidden">
       <Navbar />
       <Hero />
-      <ProblemSection />
       <FeaturesGrid />
+      <ProblemSection />
+      <ToolsSection />
       <CreationTechnologySection />
       <MemoryAITableSection />
-      <ToolsSection />
       <WorkflowHeroSection />
       <LogoCloud />
       <GlobeSection />
@@ -32,7 +31,6 @@ function App() {
       <MissionMessageSection />
       <ProductFAQSection />
       <AIIdeaSection />
-      <MarqueeStripes />
       <SiteFooter />
     </main>
   )
