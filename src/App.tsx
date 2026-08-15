@@ -1,5 +1,6 @@
 import { Navbar } from '@/components/navbar/Navbar'
 import { Hero } from '@/components/hero/Hero'
+import { FeaturesGrid } from '@/components/hero/FeaturesGrid'
 import { LogoCloud } from '@/components/logos/LogoCloud'
 import { ProblemSection } from '@/components/problem/ProblemSection'
 import { ToolsSection } from '@/components/tools/ToolsSection'
@@ -19,13 +20,14 @@ function App() {
     <main className="min-h-screen bg-white overflow-x-hidden">
       <Navbar />
       <Hero />
-      <LogoCloud />
       <ProblemSection />
-      <ToolsSection />
+      <FeaturesGrid />
       <CreationTechnologySection />
       <MemoryAITableSection />
-      <GlobeSection />
+      <ToolsSection />
       <WorkflowHeroSection />
+      <LogoCloud />
+      <GlobeSection />
       <PlatformMetricsSection />
       <MissionMessageSection />
       <ProductFAQSection />

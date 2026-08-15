@@ -1,7 +1,6 @@
 import { useEffect, useState } from 'react'
 import { AnimatePresence, motion, useReducedMotion } from 'motion/react'
 import { ArrowDown, Globe, Star } from 'lucide-react'
-import { FeaturesGrid } from './FeaturesGrid'
 import { GradientText } from '../text/GradientText'
 
 // ─── Types ────────────────────────────────────────────────────────────────────
@@ -153,16 +152,6 @@ function Mascot({ isDark, reduceMotion }: { isDark: boolean; reduceMotion: boole
   )
 }
 
-// ─── Interactive Preview ──────────────────────────────────────────────────────
-
-function InteractivePreview() {
-  return (
-    <div className="mt-20 sm:mt-28 z-20 w-full relative">
-      <FeaturesGrid />
-    </div>
-  )
-}
-
 // ─── Hero ─────────────────────────────────────────────────────────────────────
 
 export function Hero({ theme = 'light' }: HeroProps) {
@@ -255,9 +244,6 @@ export function Hero({ theme = 'light' }: HeroProps) {
           </a>
         </div>
       </div>
-
-      {/* 8 — Video Demo / Glass Dashboard */}
-      <InteractivePreview />
 
     </section>
   )
