@@ -12,6 +12,7 @@ import { PlatformMetricsSection } from '@/components/metrics/PlatformMetricsSect
 import { MissionMessageSection } from '@/components/mission/MissionMessageSection'
 import { ProductFAQSection } from '@/components/faq/ProductFAQSection'
 import { AIIdeaSection } from '@/components/cta/AIIdeaSection'
+import { MarqueeStripes } from '@/components/marquee/MarqueeStripes'
 import { SiteFooter } from '@/components/footer/SiteFooter'
 
 function App() {
@@ -31,6 +32,7 @@ function App() {
       <MissionMessageSection />
       <ProductFAQSection />
       <AIIdeaSection />
+      <MarqueeStripes />
       <SiteFooter />
     </main>
   )
