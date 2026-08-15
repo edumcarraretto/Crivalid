@@ -12,6 +12,11 @@
     <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />
     <meta name="author" content="MAKEPLOY" />
     <meta name="description" content="Crie, publique, automatize e evolua produtos digitais com IA, no-code e código em uma única plataforma. Conheça a MAKEPLOY." />
+
+    <!-- Font Preloads (LCP Optimization) -->
+    <link rel="preload" href="/fonts/mplus-rounded-500.woff2" as="font" type="font/woff2" crossorigin />
+    <link rel="preload" href="/fonts/mplus-rounded-700.woff2" as="font" type="font/woff2" crossorigin />
+    <link rel="preload" href="/fonts/mplus-rounded-800.woff2" as="font" type="font/woff2" crossorigin />
     
     <!-- Open Graph / Social Media -->
     <meta property="og:type" content="website" />
@@ -34,6 +39,7 @@
     <meta name="twitter:image" content="https://www.makeploy.com/og-makeploy.png" />
     <meta name="twitter:image:alt" content="Símbolo colorido da MAKEPLOY sobre fundo escuro" />
 
+    <!-- Structured Data (Schema.org) -->
     <script type="application/ld+json">
       {
         "@context": "https://schema.org",
@@ -63,6 +69,105 @@
             "publisher": {
               "@id": "https://www.makeploy.com/#organization"
             }
+          },
+          {
+            "@type": "SoftwareApplication",
+            "@id": "https://www.makeploy.com/#software",
+            "name": "MAKEPLOY",
+            "applicationCategory": "DeveloperApplication",
+            "operatingSystem": "Web",
+            "offers": {
+              "@type": "Offer",
+              "price": "0",
+              "priceCurrency": "BRL"
+            },
+            "description": "Plataforma end-to-end para criação, desenvolvimento com IA, automação de fluxos e publicação de produtos digitais."
+          },
+          {
+            "@type": "FAQPage",
+            "@id": "https://www.makeploy.com/#faq",
+            "mainEntity": [
+              {
+                "@type": "Question",
+                "name": "O que é a MAKEPLOY?",
+                "acceptedAnswer": {
+                  "@type": "Answer",
+                  "text": "A MAKEPLOY é uma plataforma completa que reúne ideação, criação no-code, desenvolvimento em código com IA, automações e publicação em nuvem em um único ecossistema integrado."
+                }
+              },
+              {
+                "@type": "Question",
+                "name": "Preciso saber programar para começar?",
+                "acceptedAnswer": {
+                  "@type": "Answer",
+                  "text": "Não. Você pode começar 100% visualmente e contar com auxílio de inteligência artificial em todas as etapas. Quando quiser controle total, você pode abrir e editar o código diretamente no IDE integrado."
+                }
+              },
+              {
+                "@type": "Question",
+                "name": "Posso continuar um projeto que já existe?",
+                "acceptedAnswer": {
+                  "@type": "Answer",
+                  "text": "Sim. Você pode importar materiais, estruturas e código existentes, organizar o contexto e continuar desenvolvendo a partir do estágio atual sem recomeçar do zero."
+                }
+              },
+              {
+                "@type": "Question",
+                "name": "Ficarei limitado ao no-code?",
+                "acceptedAnswer": {
+                  "@type": "Answer",
+                  "text": "Não. A criação visual e o código compartilham a mesma base. Você tem total liberdade para alternar entre blocos visuais e código customizado sempre que precisar."
+                }
+              },
+              {
+                "@type": "Question",
+                "name": "Posso importar e exportar meu projeto?",
+                "acceptedAnswer": {
+                  "@type": "Answer",
+                  "text": "Sim. O seu projeto pertence a você. Você pode exportar todo o código, ativos e banco de dados quando quiser, sem ficar preso a uma única plataforma."
+                }
+              },
+              {
+                "@type": "Question",
+                "name": "O que posso construir na MAKEPLOY?",
+                "acceptedAnswer": {
+                  "@type": "Answer",
+                  "text": "Você pode construir desde páginas de alta conversão, landing pages e sites institucionais até cursos, SaaS, web apps interativos e plataformas completas."
+                }
+              },
+              {
+                "@type": "Question",
+                "name": "O que acontece depois que o projeto é publicado?",
+                "acceptedAnswer": {
+                  "@type": "Answer",
+                  "text": "A plataforma continua cuidando da hospedagem, domínio, tráfego, automações e métricas em tempo real, facilitando a operação e evolução contínua da sua aplicação."
+                }
+              },
+              {
+                "@type": "Question",
+                "name": "Como a IA utiliza o contexto do projeto?",
+                "acceptedAnswer": {
+                  "@type": "Answer",
+                  "text": "A IA da MAKEPLOY acessa objetivos, arquivos, banco de dados e histórico de decisões do projeto para gerar código preciso, criar designs e sugerir automações sob medida."
+                }
+              },
+              {
+                "@type": "Question",
+                "name": "A MAKEPLOY substitui várias ferramentas?",
+                "acceptedAnswer": {
+                  "@type": "Answer",
+                  "text": "Sim. Em vez de pagar e alternar entre ferramentas desconexas de design, código, hospedagem, automação e banco de dados, você opera tudo centralizado em uma só assinatura."
+                }
+              },
+              {
+                "@type": "Question",
+                "name": "Como faço para começar agora?",
+                "acceptedAnswer": {
+                  "@type": "Answer",
+                  "text": "Basta criar sua conta gratuitamente, descrever sua ideia inicial ou escolher um modelo e deixar que a MAKEPLOY estruture o primeiro passo do seu projeto em segundos."
+                }
+              }
+            ]
           }
         ]
       }

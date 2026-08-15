@@ -116,7 +116,9 @@ export function Navbar() {
             >
               <img
                 src="/nova-logo-1914.png"
-                alt="Logo"
+                alt="MAKEPLOY"
+                width={36}
+                height={36}
                 className={`
                   object-contain shrink-0 transform transition-transform duration-300 group-hover:scale-[2.05]
                   ${isScrolled ? 'w-8.5 h-8.5 sm:w-9 sm:h-9 scale-[1.85]' : 'w-8 h-8 sm:w-8.5 sm:h-8.5 scale-[1.7]'}
@@ -184,6 +186,8 @@ export function Navbar() {
               <img
                 src="/text-logo-1931.webp"
                 alt="MAKEPLOY"
+                width={140}
+                height={32}
                 className={`
                   object-contain shrink-0 transform transition-transform duration-300 group-hover:scale-[3.35]
                   ${isScrolled ? 'h-7 sm:h-8 scale-[3.15]' : 'h-7 sm:h-7.5 scale-[2.85]'}
@@ -267,6 +271,8 @@ export function Navbar() {
               <img
                 src="/text-logo-1931.webp"
                 alt="MAKEPLOY"
+                width={110}
+                height={24}
                 className="h-6 object-contain"
               />
             </a>
@@ -329,5 +335,3 @@ export function Navbar() {
     </header>
   )
 }
-
-export default Navbar
