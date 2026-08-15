@@ -1,12 +1,12 @@
 import { Navbar } from '@/components/navbar/Navbar'
 import { Hero } from '@/components/hero/Hero'
+import { LogoCloud } from '@/components/logos/LogoCloud'
 import { ProblemSection } from '@/components/problem/ProblemSection'
 import { FeaturesGrid } from '@/components/hero/FeaturesGrid'
 import { ToolsSection } from '@/components/tools/ToolsSection'
 import { CreationTechnologySection } from '@/components/creation/CreationTechnologySection'
 import { MemoryAITableSection } from '@/components/intelligence/MemoryAITableSection'
 import { WorkflowHeroSection } from '@/components/workflow/WorkflowHeroSection'
-import { LogoCloud } from '@/components/logos/LogoCloud'
 import { GlobeSection } from '@/components/globe/GlobeSection'
 import { PlatformMetricsSection } from '@/components/metrics/PlatformMetricsSection'
 import { MissionMessageSection } from '@/components/mission/MissionMessageSection'
@@ -20,8 +20,8 @@ function App() {
       <Navbar />
       <Hero />
       <LogoCloud />
-      <FeaturesGrid />
       <ProblemSection />
+      <FeaturesGrid />
       <ToolsSection />
       <CreationTechnologySection />
       <MemoryAITableSection />
