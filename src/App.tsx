@@ -21,8 +21,8 @@ function App() {
       <Navbar />
       <Hero />
       <LogoCloud />
-      <ProblemSection />
       <FeaturesGrid />
+      <ProblemSection />
       <ToolsSection />
       <CreationTechnologySection />
       <MemoryAITableSection />
