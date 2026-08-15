@@ -7,7 +7,7 @@
 
 @font-face {
   font-family: "Makeploy Rounded";
-  src: url("/fonts/mplus-rounded-500.ttf") format("truetype");
+  src: url("/fonts/mplus-rounded-500.woff2") format("woff2");
   font-style: normal;
   font-weight: 500;
   font-display: swap;
@@ -15,7 +15,7 @@
 
 @font-face {
   font-family: "Makeploy Rounded";
-  src: url("/fonts/mplus-rounded-700.ttf") format("truetype");
+  src: url("/fonts/mplus-rounded-700.woff2") format("woff2");
   font-style: normal;
   font-weight: 700;
   font-display: swap;
@@ -23,7 +23,7 @@
 
 @font-face {
   font-family: "Makeploy Rounded";
-  src: url("/fonts/mplus-rounded-800.ttf") format("truetype");
+  src: url("/fonts/mplus-rounded-800.woff2") format("woff2");
   font-style: normal;
   font-weight: 800;
   font-display: swap;

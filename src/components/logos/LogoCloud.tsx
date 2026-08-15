@@ -1,5 +1,5 @@
 import { useEffect } from 'react'
-import { motion, useAnimate } from 'motion/react'
+import { motion, useAnimate, type AnimationPlaybackControls } from 'motion/react'
 import { FaGoogle, FaGithub, FaSlack, FaFigma } from 'react-icons/fa'
 import { VscVscode } from 'react-icons/vsc'
 import { SiNotion } from 'react-icons/si'
@@ -18,7 +18,7 @@ export function LogoCloud() {
   const [scope, animate] = useAnimate()
 
   useEffect(() => {
-    let controls: any;
+    let controls: AnimationPlaybackControls | undefined
     
     if (scope.current) {
       // Cria a animação contínua (marquee) de 0 a -50% (para loop perfeito)

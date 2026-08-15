@@ -146,6 +146,7 @@ export function MultiplayerAIPreview() {
     if (mediaQuery.matches) return;
     if (isHovering) return;
 
+    let swapTimeout: ReturnType<typeof setTimeout> | undefined;
     const interval = setInterval(() => {
       const slotToSwap = nextSlotRef.current;
 
@@ -153,7 +154,7 @@ export function MultiplayerAIPreview() {
       setExitingSlot(slotToSwap);
 
       // Phase 2: after the exit animation, swap the tile and enter
-      setTimeout(() => {
+      swapTimeout = setTimeout(() => {
         const newTileIndex = nextTileRef.current;
 
         setVisible((prev) => {
@@ -172,7 +173,10 @@ export function MultiplayerAIPreview() {
       }, 500); // matches the CSS exit transition duration
     }, 3000);
 
-    return () => clearInterval(interval);
+    return () => {
+      clearInterval(interval);
+      if (swapTimeout) clearTimeout(swapTimeout);
+    };
   }, [isHovering]);
 
   const mid = 1; // always 3 visible, mid = 1

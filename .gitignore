@@ -8,6 +8,9 @@ pnpm-debug.log*
 lerna-debug.log*
 .vite-audit*
 .vite-route-audit*
+.audit-fonttools/
+*.test.png
+*.test.webp
 
 # Dependencies & Build
 node_modules

@@ -8,9 +8,13 @@ O nome usado pela aplicação é **Makeploy Rounded**, baseado na família M PLU
 
 Arquivos locais:
 
-- `public/fonts/mplus-rounded-500.ttf` — textos longos, descrições e conteúdo auxiliar;
-- `public/fonts/mplus-rounded-700.ttf` — títulos, botões, navegação e interface;
-- `public/fonts/mplus-rounded-800.ttf` — títulos de alto impacto e elementos de marca.
+- `public/fonts/mplus-rounded-500.woff2` — textos longos, descrições e conteúdo auxiliar;
+- `public/fonts/mplus-rounded-700.woff2` — títulos, botões, navegação e interface;
+- `public/fonts/mplus-rounded-800.woff2` — títulos de alto impacto e elementos de marca.
+
+Os arquivos WOFF2 contêm os blocos Unicode latino, latino estendido, pontuação,
+símbolos monetários e setas usados pela interface. O navegador recorre aos
+fallbacks do sistema para caracteres fora dessa cobertura.
 
 ## Implementação
 

@@ -2,9 +2,12 @@
 
 Esta pasta contém os arquivos tipográficos incorporados ao projeto MAKEPLOY:
 
-- `mplus-rounded-500.ttf`
-- `mplus-rounded-700.ttf`
-- `mplus-rounded-800.ttf`
+- `mplus-rounded-500.woff2`
+- `mplus-rounded-700.woff2`
+- `mplus-rounded-800.woff2`
+
+Os arquivos são subconjuntos web em WOFF2 com cobertura latina ampla, gerados
+das fontes oficiais para reduzir a transferência sem alterar a identidade visual.
 
 Eles são carregados por `src/styles/typography.css` sob o nome CSS `Makeploy Rounded`.
 

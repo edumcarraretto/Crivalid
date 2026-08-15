@@ -27,9 +27,12 @@ export function ProblemSection() {
           className="w-full"
         >
           <img 
-            src="/images/novaimagem.png" 
+            src="/images/novaimagem.webp"
             alt="Como um projeto perde continuidade: contexto disperso, decisões repetidas e retrabalho crescente"
             loading="lazy"
+            decoding="async"
+            width={2172}
+            height={724}
             draggable={false}
             className="w-full h-auto object-contain select-none"
             style={{ imageRendering: 'auto', maxWidth: '100%' }}

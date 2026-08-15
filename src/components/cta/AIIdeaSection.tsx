@@ -22,7 +22,6 @@ export function AIIdeaSection() {
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault()
     if (!prompt.trim()) return
-    console.log('Simulating AI generation for:', prompt)
     setPrompt('')
   }
 
@@ -71,6 +70,7 @@ export function AIIdeaSection() {
           >
             <div className="relative h-32 sm:h-44 px-3 sm:px-4 pt-3 sm:pt-4">
               <textarea
+                aria-label="Descreva sua ideia ou projeto"
                 value={prompt}
                 onChange={(e) => setPrompt(e.target.value)}
                 onFocus={() => setIsFocused(true)}

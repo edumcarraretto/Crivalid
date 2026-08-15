@@ -39,29 +39,40 @@ export function Navbar() {
 
   // ── Scroll-spy: highlight active section + shrink navbar ──
   useEffect(() => {
+    let frameId: number | undefined
+
     const handleScroll = () => {
-      // Navbar shrink
-      setIsScrolled(window.scrollY > 30)
+      if (frameId !== undefined) return
 
-      // Scroll-spy: find which section is currently in view
-      const navbarOffset = 120
-      let currentActive = ''
+      frameId = window.requestAnimationFrame(() => {
+        // Navbar shrink
+        setIsScrolled(window.scrollY > 30)
 
-      for (const item of allNavItems) {
-        const el = document.getElementById(item.id)
-        if (el) {
-          const rect = el.getBoundingClientRect()
-          if (rect.top <= navbarOffset && rect.bottom > navbarOffset) {
-            currentActive = item.id
+        // Scroll-spy: find which section is currently in view
+        const navbarOffset = 120
+        let currentActive = ''
+
+        for (const item of allNavItems) {
+          const el = document.getElementById(item.id)
+          if (el) {
+            const rect = el.getBoundingClientRect()
+            if (rect.top <= navbarOffset && rect.bottom > navbarOffset) {
+              currentActive = item.id
+            }
           }
         }
-      }
 
-      setActiveItem(currentActive)
+        setActiveItem(currentActive)
+        frameId = undefined
+      })
     }
 
+    handleScroll()
     window.addEventListener('scroll', handleScroll, { passive: true })
-    return () => window.removeEventListener('scroll', handleScroll)
+    return () => {
+      window.removeEventListener('scroll', handleScroll)
+      if (frameId !== undefined) window.cancelAnimationFrame(frameId)
+    }
   }, [])
 
   return (
@@ -171,7 +182,7 @@ export function Navbar() {
               className="relative flex items-center justify-center mx-10 sm:mx-14 lg:mx-16 xl:mx-24 h-8 group cursor-pointer shrink-0"
             >
               <img
-                src="/text-logo-1931.png"
+                src="/text-logo-1931.webp"
                 alt="MAKEPLOY"
                 className={`
                   object-contain shrink-0 transform transition-transform duration-300 group-hover:scale-[3.35]
@@ -254,7 +265,7 @@ export function Navbar() {
               }}
             >
               <img
-                src="/text-logo-1931.png"
+                src="/text-logo-1931.webp"
                 alt="MAKEPLOY"
                 className="h-6 object-contain"
               />
@@ -265,6 +276,8 @@ export function Navbar() {
           <button
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
             aria-label={mobileMenuOpen ? 'Fechar menu' : 'Abrir menu'}
+            aria-expanded={mobileMenuOpen}
+            aria-controls="mobile-navigation"
             className="lg:hidden p-2 rounded-xl text-neutral-800 hover:bg-neutral-100 transition-colors"
           >
             {mobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
@@ -273,7 +286,7 @@ export function Navbar() {
 
         {/* Mobile Dropdown Drawer */}
         {mobileMenuOpen && (
-          <div className="lg:hidden mt-3 bg-white rounded-2xl p-4 shadow-lg border border-black/[0.04] flex flex-col gap-3 animate-in fade-in slide-in-from-top-2 duration-200 pointer-events-auto">
+          <div id="mobile-navigation" className="lg:hidden mt-3 bg-white rounded-2xl p-4 shadow-lg border border-black/[0.04] flex flex-col gap-3 animate-in fade-in slide-in-from-top-2 duration-200 pointer-events-auto">
             <div className="flex flex-col gap-1">
               {allNavItems.map((item) => {
                 const isActive = activeItem === item.id

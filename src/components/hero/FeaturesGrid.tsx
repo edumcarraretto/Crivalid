@@ -173,6 +173,7 @@ export function FeaturesGrid() {
 
     // 4. Team carousel (fun card)
     let funInterval: ReturnType<typeof setInterval> | null = null
+    let funResetTimeout: ReturnType<typeof setTimeout> | null = null
     const funStage = funRef.current
     if (funStage) {
       const circles = Array.from(funStage.querySelectorAll('.ava')) as HTMLElement[]
@@ -197,7 +198,7 @@ export function FeaturesGrid() {
         funInterval = setInterval(() => {
           const prevLeft = (idx - 1 + count) % count
           circles[prevLeft].dataset.pos = 'exit'
-          setTimeout(() => {
+          funResetTimeout = setTimeout(() => {
             circles[prevLeft].style.transition = 'none'
             circles[prevLeft].dataset.pos = 'enter'
             requestAnimationFrame(() => {
@@ -218,6 +219,7 @@ export function FeaturesGrid() {
       if (speedInterval) window.clearInterval(speedInterval)
       if (frameId) window.cancelAnimationFrame(frameId)
       if (funInterval) window.clearInterval(funInterval)
+      if (funResetTimeout) window.clearTimeout(funResetTimeout)
     }
   }, [])
 
