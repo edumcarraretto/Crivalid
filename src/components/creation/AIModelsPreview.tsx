@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react'
 import { Check } from 'lucide-react'
-import { SiAnthropic, SiGooglegemini } from '@icons-pack/react-simple-icons'
+import { SiAnthropic, SiGooglegemini } from 'react-icons/si'
 import { aiModels } from './creationData'
 
 // ─── Provider icon indicator ──────────────────────────────────────────────────

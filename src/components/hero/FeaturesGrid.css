@@ -319,8 +319,19 @@
 .features-wrapper .ava.c8 { background: #F59E0B; }
 
 @media (max-width:860px) {
-  .features-wrapper .grid { grid-template-columns: 1fr }
-  .features-wrapper .easy { grid-row: auto }
-  .features-wrapper .wallet, .features-wrapper .timeline { width: 100%; margin-left: 0 }
-  .features-wrapper .speed-strip { margin-left: 0 }
+  .features-wrapper { padding: 24px 12px; }
+  .features-wrapper .grid { grid-template-columns: 1fr; gap: 20px; }
+  .features-wrapper .easy { grid-row: auto; }
+  .features-wrapper .wallet, .features-wrapper .timeline { width: 100%; margin-left: 0; }
+  .features-wrapper .speed-strip { margin-left: 0; width: 100%; }
+  .features-wrapper .card .stage { margin: -18px -18px 0; padding: 18px; }
+  .features-wrapper .card { padding: 18px 18px 22px; }
+  .features-wrapper .ghost { display: none; }
 }
+
+@media (max-width:400px) {
+  .features-wrapper .backing { font-size: 17px; padding: 10px 18px 10px 14px; gap: 8px; }
+  .features-wrapper .speed b { font-size: 20px; }
+  .features-wrapper .speed span { font-size: 14px; }
+}
+

@@ -77,7 +77,7 @@ export function SiteFooter() {
             aria-hidden="true"
             className="
               relative select-none pointer-events-none whitespace-nowrap
-              text-[5rem] sm:text-[8rem] md:text-[11rem] lg:text-[14rem] xl:text-[17rem]
+              text-[clamp(3.5rem,16vw,17rem)]
               font-extrabold tracking-[-0.05em] leading-[0.80]
               text-neutral-900
             "

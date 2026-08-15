@@ -1,19 +1,42 @@
+import { Suspense, lazy } from 'react'
 import { Navbar } from '@/components/navbar/Navbar'
 import { Hero } from '@/components/hero/Hero'
+import { FeaturesGrid } from '@/components/hero/FeaturesGrid'
 import { LogoCloud } from '@/components/logos/LogoCloud'
 import { ProblemSection } from '@/components/problem/ProblemSection'
-import { FeaturesGrid } from '@/components/hero/FeaturesGrid'
 import { ToolsSection } from '@/components/tools/ToolsSection'
-import { CreationTechnologySection } from '@/components/creation/CreationTechnologySection'
-import { MemoryAITableSection } from '@/components/intelligence/MemoryAITableSection'
-import { WorkflowHeroSection } from '@/components/workflow/WorkflowHeroSection'
-import { GlobeSection } from '@/components/globe/GlobeSection'
-import { PlatformMetricsSection } from '@/components/metrics/PlatformMetricsSection'
-import { MissionMessageSection } from '@/components/mission/MissionMessageSection'
-import { ProductFAQSection } from '@/components/faq/ProductFAQSection'
-import { AIIdeaSection } from '@/components/cta/AIIdeaSection'
-import { MarqueeStripes } from '@/components/marquee/MarqueeStripes'
-import { SiteFooter } from '@/components/footer/SiteFooter'
+
+// Below-the-fold components loaded on demand for optimal initial load time
+const CreationTechnologySection = lazy(() =>
+  import('@/components/creation/CreationTechnologySection').then((m) => ({ default: m.CreationTechnologySection }))
+)
+const MemoryAITableSection = lazy(() =>
+  import('@/components/intelligence/MemoryAITableSection').then((m) => ({ default: m.MemoryAITableSection }))
+)
+const WorkflowHeroSection = lazy(() =>
+  import('@/components/workflow/WorkflowHeroSection').then((m) => ({ default: m.WorkflowHeroSection }))
+)
+const GlobeSection = lazy(() =>
+  import('@/components/globe/GlobeSection').then((m) => ({ default: m.GlobeSection }))
+)
+const PlatformMetricsSection = lazy(() =>
+  import('@/components/metrics/PlatformMetricsSection').then((m) => ({ default: m.PlatformMetricsSection }))
+)
+const MissionMessageSection = lazy(() =>
+  import('@/components/mission/MissionMessageSection').then((m) => ({ default: m.MissionMessageSection }))
+)
+const ProductFAQSection = lazy(() =>
+  import('@/components/faq/ProductFAQSection').then((m) => ({ default: m.ProductFAQSection }))
+)
+const AIIdeaSection = lazy(() =>
+  import('@/components/cta/AIIdeaSection').then((m) => ({ default: m.AIIdeaSection }))
+)
+const MarqueeStripes = lazy(() =>
+  import('@/components/marquee/MarqueeStripes').then((m) => ({ default: m.MarqueeStripes }))
+)
+const SiteFooter = lazy(() =>
+  import('@/components/footer/SiteFooter').then((m) => ({ default: m.SiteFooter }))
+)
 
 function App() {
   return (
@@ -24,16 +47,18 @@ function App() {
       <LogoCloud />
       <ProblemSection />
       <ToolsSection />
-      <CreationTechnologySection />
-      <MemoryAITableSection />
-      <WorkflowHeroSection />
-      <GlobeSection />
-      <PlatformMetricsSection />
-      <MissionMessageSection />
-      <ProductFAQSection />
-      <AIIdeaSection />
-      <MarqueeStripes />
-      <SiteFooter />
+      <Suspense fallback={null}>
+        <CreationTechnologySection />
+        <MemoryAITableSection />
+        <WorkflowHeroSection />
+        <GlobeSection />
+        <PlatformMetricsSection />
+        <MissionMessageSection />
+        <ProductFAQSection />
+        <AIIdeaSection />
+        <MarqueeStripes />
+        <SiteFooter />
+      </Suspense>
     </main>
   )
 }

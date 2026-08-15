@@ -45,11 +45,11 @@ export function LogoCloud() {
   }, [animate, scope])
 
   return (
-    <section className="py-16 sm:py-24 bg-white overflow-hidden border-b border-neutral-100">
-      <div className="max-w-7xl mx-auto px-6">
+    <section className="py-12 sm:py-20 bg-white overflow-hidden border-b border-neutral-100">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6">
         
         {/* Texto de apoio com divisores laterais */}
-        <div className="flex items-center gap-4 sm:gap-6 mb-10 sm:mb-14">
+        <div className="flex items-center gap-3 sm:gap-6 mb-8 sm:mb-14">
           <div className="flex-grow border-t border-neutral-200"></div>
           <p className="text-center text-xs sm:text-sm font-medium text-neutral-400">
             Suas tecnologias. O mesmo projeto.
@@ -61,8 +61,8 @@ export function LogoCloud() {
         <div className="relative w-full overflow-hidden flex items-center">
           
           {/* Gradient Masks para fade nas bordas horizontais */}
-          <div className="absolute left-0 top-0 bottom-0 w-24 sm:w-40 lg:w-64 bg-gradient-to-r from-white to-transparent z-10 pointer-events-none" />
-          <div className="absolute right-0 top-0 bottom-0 w-24 sm:w-40 lg:w-64 bg-gradient-to-l from-white to-transparent z-10 pointer-events-none" />
+          <div className="absolute left-0 top-0 bottom-0 w-8 sm:w-28 lg:w-64 bg-gradient-to-r from-white to-transparent z-10 pointer-events-none" />
+          <div className="absolute right-0 top-0 bottom-0 w-8 sm:w-28 lg:w-64 bg-gradient-to-l from-white to-transparent z-10 pointer-events-none" />
 
           {/* Container animado que desliza continuamente */}
           <motion.div
@@ -75,11 +75,10 @@ export function LogoCloud() {
               return (
                 <div 
                   key={`${logo.id}-${index}`} 
-                  // Força a largura para exatamente 1/5 do container visível (max-w-7xl = 1280px - 48px padding = 1232px / 5 = ~246px)
-                  className={`w-[calc((100vw-48px)/5)] max-w-[246px] shrink-0 flex flex-col items-center justify-center text-neutral-300 transition-colors duration-300 group cursor-pointer ${logo.hoverColor}`}
+                  className="w-[calc((100vw-32px)/3)] sm:w-[calc((100vw-48px)/4)] md:w-[calc((100vw-48px)/5)] max-w-[246px] min-w-[80px] sm:min-w-[140px] shrink-0 flex flex-col items-center justify-center text-neutral-300 transition-colors duration-300 group cursor-pointer"
                   aria-label={`Logo oficial de ${logo.name}`}
                 >
-                  <Icon size={36} className="group-hover:scale-110 transition-transform duration-300" />
+                  <Icon size={32} className={`group-hover:scale-110 transition-transform duration-300 ${logo.hoverColor}`} />
                 </div>
               )
             })}

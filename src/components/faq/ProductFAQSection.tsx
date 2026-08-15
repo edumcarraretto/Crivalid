@@ -239,7 +239,7 @@ export function ProductFAQSection() {
                           initial={{ opacity: 0, y: 8, filter: 'blur(5px)' }}
                           animate={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
                           transition={{ duration: 0.36, delay: 0.06, ease: [0.22, 1, 0.36, 1] }}
-                          className="px-6 pb-5.5 pt-1 text-sm sm:text-[15px] leading-relaxed text-neutral-600 pl-16"
+                          className="px-5 sm:px-6 pb-5 pt-1 text-sm sm:text-[15px] leading-relaxed text-neutral-600 pl-12 sm:pl-16"
                         >
                           {item.answer}
                         </motion.div>
@@ -304,7 +304,7 @@ export function ProductFAQSection() {
                           initial={{ opacity: 0, y: 8, filter: 'blur(5px)' }}
                           animate={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
                           transition={{ duration: 0.36, delay: 0.06, ease: [0.22, 1, 0.36, 1] }}
-                          className="px-6 pb-5.5 pt-1 text-sm sm:text-[15px] leading-relaxed text-neutral-600 pl-16"
+                          className="px-5 sm:px-6 pb-5 pt-1 text-sm sm:text-[15px] leading-relaxed text-neutral-600 pl-12 sm:pl-16"
                         >
                           {item.answer}
                         </motion.div>

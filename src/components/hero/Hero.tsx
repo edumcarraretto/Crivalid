@@ -38,7 +38,7 @@ function RotatingSubtitle({ isDark, reduceMotion }: { isDark: boolean; reduceMot
   }, [subtitles.length, reduceMotion])
 
   return (
-    <div className="relative w-full h-[2em] mt-4 flex justify-center items-center overflow-hidden">
+    <div className="relative w-full min-h-[2.5em] mt-3 sm:mt-4 flex justify-center items-center overflow-hidden">
       <AnimatePresence mode="wait">
         <motion.div
           key={index}
@@ -46,7 +46,7 @@ function RotatingSubtitle({ isDark, reduceMotion }: { isDark: boolean; reduceMot
           animate={{ opacity: 1, y: 0 }}
           exit={{ opacity: 0, y: -15 }}
           transition={{ duration: 0.4, ease: 'easeOut' }}
-          className="absolute text-sm sm:text-base whitespace-nowrap"
+          className="text-xs sm:text-base text-center px-4 max-w-full leading-snug"
           style={{ color: isDark ? 'var(--color-text-inverse-muted)' : 'var(--color-text-body)' }}
         >
           {subtitles[index]}
@@ -161,7 +161,7 @@ export function Hero({ theme = 'light' }: HeroProps) {
   return (
     <section
       aria-labelledby="hero-heading"
-      className={`relative flex flex-col items-center justify-center min-h-svh px-6 py-20 transition-colors duration-500 ${isDark ? 'bg-black' : 'bg-white'}`}
+      className={`relative flex flex-col items-center justify-center min-h-svh px-4 sm:px-6 py-16 sm:py-20 transition-colors duration-500 ${isDark ? 'bg-black' : 'bg-white'}`}
     >
       {/* Top Background Gradient (subtle) */}
       <div className={`absolute top-0 left-0 right-0 h-64 pointer-events-none transition-colors duration-500 ${isDark ? 'bg-gradient-to-b from-violet-900/20 to-transparent' : 'hidden'}`} />
@@ -172,7 +172,7 @@ export function Hero({ theme = 'light' }: HeroProps) {
           initial={reduceMotion ? false : { opacity: 0, y: 10 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.65 }}
-          className="mb-5 text-[11px] sm:text-xs font-bold uppercase tracking-[0.16em] text-blue-600"
+          className="mb-4 sm:mb-5 text-[10px] sm:text-xs font-bold uppercase tracking-[0.16em] text-blue-600"
         >
           Plataforma end-to-end para produtos digitais
         </motion.p>
@@ -183,7 +183,7 @@ export function Hero({ theme = 'light' }: HeroProps) {
           initial={reduceMotion ? false : { opacity: 0, y: 18, filter: 'blur(8px)' }}
           animate={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
           transition={{ duration: 0.85, ease: [0.22, 1, 0.36, 1] }}
-          className={`text-4xl sm:text-5xl md:text-6xl lg:text-[4rem] tracking-tight leading-tight transition-colors duration-500`}
+          className={`text-3xl sm:text-5xl md:text-6xl lg:text-[4rem] tracking-tight leading-tight transition-colors duration-500`}
           style={{ color: isDark ? '#ffffff' : '#171717' }}
         >
           Crie, publique e evolua.{' '}
@@ -197,29 +197,29 @@ export function Hero({ theme = 'light' }: HeroProps) {
         {/* 4 & 5 — Mascot with Sparkle */}
         <Mascot isDark={isDark} reduceMotion={reduceMotion} />
 
-        <div className={`mt-6 flex items-center gap-5 backdrop-blur-md px-6 py-3 rounded-full border transition-colors duration-500 ${isDark ? 'bg-black/50 border-white/5' : 'bg-white/50 border-black/5 shadow-sm'}`}>
-          <div className="flex -space-x-3">
+        <div className={`mt-6 flex flex-wrap sm:flex-nowrap items-center justify-center gap-3 sm:gap-5 backdrop-blur-md px-4 sm:px-6 py-2.5 sm:py-3 rounded-2xl sm:rounded-full border transition-colors duration-500 ${isDark ? 'bg-black/50 border-white/5' : 'bg-white/50 border-black/5 shadow-sm'}`}>
+          <div className="flex -space-x-2.5 sm:-space-x-3">
             {AVATARS.map((av) => (
               <div
                 key={av.id}
-                className={`flex h-10 w-10 select-none items-center justify-center rounded-full border-2 text-[10px] font-bold text-white shadow-sm transition-colors duration-500 ${isDark ? 'border-black' : 'border-white'}`}
+                className={`flex h-8 w-8 sm:h-10 sm:w-10 select-none items-center justify-center rounded-full border-2 text-[9px] sm:text-[10px] font-bold text-white shadow-sm transition-colors duration-500 ${isDark ? 'border-black' : 'border-white'}`}
                 style={{ background: `linear-gradient(135deg, ${av.from}, ${av.to})` }}
               >
                 {av.initials}
               </div>
             ))}
           </div>
-          <div className={`h-8 w-px transition-colors duration-500 ${isDark ? 'bg-white/10' : 'bg-black/10'}`} />
-          <div className="flex flex-col items-start gap-0.5">
+          <div className={`hidden sm:block h-8 w-px transition-colors duration-500 ${isDark ? 'bg-white/10' : 'bg-black/10'}`} />
+          <div className="flex flex-col items-center sm:items-start gap-0.5 text-center sm:text-left">
             <div className="flex items-center gap-1.5">
               <div className="flex text-yellow-500">
                 {[1, 2, 3, 4, 5].map((star) => (
                   <Star key={star} size={12} fill="currentColor" />
                 ))}
               </div>
-              <span className={`font-bold text-sm leading-none mt-0.5 transition-colors duration-500 ${isDark ? 'text-white' : 'text-neutral-900'}`}>Um projeto</span>
+              <span className={`font-bold text-xs sm:text-sm leading-none mt-0.5 transition-colors duration-500 ${isDark ? 'text-white' : 'text-neutral-900'}`}>Um projeto</span>
             </div>
-            <span className="text-neutral-500 text-[10px] leading-none">Do primeiro passo à próxima versão.</span>
+            <span className="text-neutral-500 text-[10px] sm:text-[11px] leading-none">Do primeiro passo à próxima versão.</span>
           </div>
         </div>
 

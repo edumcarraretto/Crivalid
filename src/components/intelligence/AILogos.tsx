@@ -1,4 +1,4 @@
-import { SiAnthropic, SiGooglegemini } from '@icons-pack/react-simple-icons'
+import { SiAnthropic, SiGooglegemini } from 'react-icons/si'
 
 export const ChatGPTLogo = ({ className }: { className?: string }) => (
   <svg viewBox="0 0 16 16" fill="currentColor" className={className}>

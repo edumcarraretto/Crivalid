@@ -787,11 +787,12 @@ export function InteractiveGlobe({
       onPointerMove={handlePointerMove}
       onPointerUp={handlePointerUp}
       onPointerCancel={handlePointerUp}
-      style={{ cursor: 'grab' }}
+      style={{ cursor: 'grab', touchAction: 'pan-y' }}
     >
       <canvas
         ref={canvasRef}
-        className="relative z-10 h-full w-full touch-none select-none"
+        className="relative z-10 h-full w-full select-none"
+        style={{ touchAction: 'pan-y' }}
         aria-hidden="true"
       />
 

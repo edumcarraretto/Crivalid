@@ -11,9 +11,25 @@ export default defineConfig({
       "@": path.resolve(__dirname, "./src"),
     },
   },
-  server: {
-    watch: {
-      ignored: ['**/public/video/**', '**/*.mp4', '**/public/comply-logo.png'],
+  build: {
+    rollupOptions: {
+      output: {
+        manualChunks(id) {
+          if (id.includes('node_modules')) {
+            if (id.includes('react/') || id.includes('react-dom/')) {
+              return 'vendor-react'
+            }
+            if (id.includes('motion')) {
+              return 'vendor-motion'
+            }
+            if (id.includes('lucide-react') || id.includes('react-icons')) {
+              return 'vendor-icons'
+            }
+            return 'vendor-libs'
+          }
+        },
+      },
     },
+    chunkSizeWarningLimit: 600,
   },
 })
