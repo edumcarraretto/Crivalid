@@ -20,8 +20,8 @@ function App() {
     <main className="min-h-screen bg-white overflow-x-hidden">
       <Navbar />
       <Hero />
-      <LogoCloud />
       <FeaturesGrid />
+      <LogoCloud />
       <ProblemSection />
       <ToolsSection />
       <CreationTechnologySection />
