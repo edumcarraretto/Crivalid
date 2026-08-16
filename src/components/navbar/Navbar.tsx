@@ -260,10 +260,11 @@ export function Navbar() {
           </div>
 
           {/* Mobile Center Logo View */}
-          <div className="flex lg:hidden items-center">
+          <div className="flex lg:hidden items-center justify-center">
             <a
               href="#"
               aria-label="MAKEPLOY Home"
+              className="relative flex items-center justify-center h-8 group cursor-pointer"
               onClick={(e) => {
                 e.preventDefault()
                 window.scrollTo({ top: 0, behavior: 'smooth' })
@@ -272,9 +273,9 @@ export function Navbar() {
               <img
                 src="/text-logo-1931.webp"
                 alt="MAKEPLOY"
-                width={110}
-                height={24}
-                className="h-6 object-contain"
+                width={140}
+                height={32}
+                className="h-6 sm:h-7 object-contain scale-[3.0] sm:scale-[3.2] transform transition-transform duration-300"
               />
             </a>
           </div>
