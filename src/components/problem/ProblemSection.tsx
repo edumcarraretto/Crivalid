@@ -1,9 +1,10 @@
 import { motion } from 'motion/react'
 import { HighlightText } from '../text/HighlightText'
+import { MobileProblemImageCarousel } from './MobileProblemImageCarousel'
 
 export function ProblemSection() {
   return (
-    <section className="py-24 px-6 bg-white dark:bg-neutral-950 w-full flex flex-col items-center overflow-hidden transition-colors duration-500">
+    <section className="py-20 sm:py-24 px-4 sm:px-6 bg-white dark:bg-neutral-950 w-full flex flex-col items-center overflow-hidden transition-colors duration-500">
       <div className="max-w-7xl w-full mx-auto flex flex-col items-center">
         
         {/* Section Title */}
@@ -12,22 +13,22 @@ export function ProblemSection() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-100px" }}
           transition={{ duration: 0.5 }}
-          className="text-3xl md:text-4xl lg:text-5xl font-bold text-center mb-12 sm:mb-16 text-neutral-900 dark:text-white tracking-tight"
+          className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-center mb-10 sm:mb-16 text-neutral-900 dark:text-white tracking-tight px-2"
         >
           O custo não está na ferramenta.{' '}
           <HighlightText variant="coral">Está em reconstruir o contexto.</HighlightText>
         </motion.h2>
 
-        {/* Image Container */}
+        {/* Desktop Image Container (hidden on mobile, visible on md+) */}
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-100px" }}
           transition={{ duration: 0.7, delay: 0.2 }}
-          className="w-full"
+          className="hidden md:block w-full"
         >
           <img 
-            src="/images/novaimagem.webp"
+            src="/images/novaimagem_v2.png"
             alt="Como um projeto perde continuidade: contexto disperso, decisões repetidas e retrabalho crescente"
             loading="lazy"
             decoding="async"
@@ -39,7 +40,13 @@ export function ProblemSection() {
           />
         </motion.div>
 
+        {/* Mobile Carousel framing the original image (visible on mobile, hidden on md+) */}
+        <div className="block md:hidden w-full">
+          <MobileProblemImageCarousel />
+        </div>
+
       </div>
     </section>
   )
 }
+
