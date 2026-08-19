@@ -43,7 +43,7 @@ export function MobileProblemImageCarousel() {
                 className="absolute top-0 bottom-0 h-full w-[300%] max-w-none object-cover select-none pointer-events-none transition-transform duration-300"
                 style={{
                   left: '0%',
-                  transform: `translateX(-${index * 33.333}%)`,
+                  transform: `translateX(-${offset}%)`,
                   imageRendering: 'auto',
                 }}
               />
