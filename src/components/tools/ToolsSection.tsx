@@ -1,4 +1,4 @@
-import { useState, useRef, useEffect } from 'react'
+import { useState } from 'react'
 import { motion } from 'motion/react'
 import { HighlightText } from '../text/HighlightText'
 import { tools, type Tool } from './toolsData'
@@ -286,14 +286,6 @@ function FeaturedToolCard({
 // ────────────────────────────────────────────────────────────
 export function ToolsSection() {
   const [selectedToolId, setSelectedToolId] = useState<string | null>(null)
-  const mobileScrollRef = useRef<HTMLDivElement>(null)
-
-  useEffect(() => {
-    if (mobileScrollRef.current) {
-      const el = mobileScrollRef.current
-      el.scrollLeft = (el.scrollWidth - el.clientWidth) / 2
-    }
-  }, [])
 
   const handleSelect = (id: string) => {
     setSelectedToolId((prev) => (prev === id ? null : id))
@@ -432,15 +424,14 @@ export function ToolsSection() {
         </div>
       </div>
 
-      {/* ── 3. Mobile grid (< 768px: 8 columns, centered large matrix with fade) ──── */}
+      {/* ── 3. Mobile grid (< 768px: 8 columns, static centered matrix with fade, no side scrolling) ──── */}
       <div
-        ref={mobileScrollRef}
-        className="block md:hidden w-full overflow-x-auto no-scrollbar py-2 scroll-smooth"
+        className="block md:hidden w-full overflow-hidden py-2"
         style={GRID_MASK_STYLE}
       >
-        <div className="flex justify-center min-w-full w-max mx-auto px-4">
+        <div className="flex justify-center w-full mx-auto">
           <div
-            className="border-t border-l border-gray-200/60 shrink-0"
+            className="border-t border-l border-gray-200/60 shrink-0 select-none"
             style={{
               display: 'grid',
               width: '640px',
