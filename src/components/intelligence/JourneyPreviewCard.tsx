@@ -21,8 +21,8 @@ const badges: Badge[] = [
     size: "lg",
     rotation: -6,
     zIndex: 1,
-    offsetX: -80,
-    offsetY: -85,
+    offsetX: -75,
+    offsetY: -42,
   },
   {
     id: "social-media",
@@ -32,7 +32,7 @@ const badges: Badge[] = [
     rotation: 5,
     zIndex: 2,
     offsetX: 75,
-    offsetY: -70,
+    offsetY: -28,
   },
   {
     id: "email-marketing",
@@ -42,7 +42,7 @@ const badges: Badge[] = [
     rotation: -2,
     zIndex: 3,
     offsetX: -60,
-    offsetY: -10,
+    offsetY: 32,
   },
   {
     id: "conversions",
@@ -51,8 +51,8 @@ const badges: Badge[] = [
     size: "md",
     rotation: 2,
     zIndex: 4,
-    offsetX: 85,
-    offsetY: 0,
+    offsetX: 80,
+    offsetY: 42,
   },
 ]
 
@@ -84,7 +84,7 @@ export function JourneyPreviewCard() {
   }
 
   return (
-    <div className="relative flex h-full min-h-[260px] w-full items-center justify-center">
+    <div className="relative flex h-[160px] sm:h-[170px] w-full items-center justify-center">
       {badges.map((badge, idx) => {
         const isHovered = hoveredId === badge.id || (hoveredId === null && clickedId === null && autoIndex === idx)
         const isClicked = clickedId === badge.id
