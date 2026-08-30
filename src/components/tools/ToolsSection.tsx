@@ -1,25 +1,20 @@
-import { useState } from 'react'
+import { useState, useRef, useEffect } from 'react'
 import { motion } from 'motion/react'
 import { HighlightText } from '../text/HighlightText'
 import { tools, type Tool } from './toolsData'
 import { ProjectsMockup, DocumentsMockup, AIMockup, ChatMockup } from './FeaturedMockups'
 
 // ────────────────────────────────────────────────────────────
-// Grid constants
-// ────────────────────────────────────────────────────────────
-const COLS = 10
-const TOTAL_ROWS = 8
-const GRID_ROW_HEIGHT = 96
-
-// ────────────────────────────────────────────────────────────
-// Grid placement algorithm
-// Fills small tools into free cells (row-major), respecting
-// cells already occupied by featured cards.
+// Grid placement types & algorithms
 // ────────────────────────────────────────────────────────────
 type Placement = { tool: Tool; col: number; row: number }
 
-function buildGridPlacements(allTools: Tool[]): Placement[] {
-  // 1. Mark all cells occupied by featured cards (shifted by 1)
+// ── 1. Desktop placement (10 columns, 8 rows) ──
+const DESKTOP_COLS = 10
+const DESKTOP_TOTAL_ROWS = 8
+const DESKTOP_ROW_HEIGHT = 96
+
+function buildDesktopPlacements(allTools: Tool[]): Placement[] {
   const occupied = new Set<string>()
   const featured = allTools.filter((t) => t.featured)
 
@@ -31,19 +26,17 @@ function buildGridPlacements(allTools: Tool[]): Placement[] {
     }
   }
 
-  // 2. Collect placements for featured cards (shifted by 1)
   const placements: Placement[] = featured.map((ft) => ({
     tool: ft,
     col: ft.colStart!,
     row: ft.rowStart! + 1,
   }))
 
-  // 3. Place small tools into free cells (row-major) starting from row 2
   const small = allTools.filter((t) => !t.featured)
   let idx = 0
 
-  for (let r = 2; r <= TOTAL_ROWS - 1 && idx < small.length; r++) {
-    for (let c = 1; c <= COLS && idx < small.length; c++) {
+  for (let r = 2; r <= DESKTOP_TOTAL_ROWS - 1 && idx < small.length; r++) {
+    for (let c = 1; c <= DESKTOP_COLS && idx < small.length; c++) {
       if (occupied.has(`${r}-${c}`)) continue
       placements.push({ tool: small[idx], col: c, row: r })
       idx++
@@ -53,7 +46,59 @@ function buildGridPlacements(allTools: Tool[]): Placement[] {
   return placements
 }
 
-const placements = buildGridPlacements(tools)
+// ── 2. 8-Column placement for Tablet & Mobile (8 columns, 8 rows) ──
+const EIGHT_COLS = 8
+const EIGHT_TOTAL_ROWS = 8
+const TABLET_ROW_HEIGHT = 88
+const MOBILE_ROW_HEIGHT = 80
+
+function buildEightColumnPlacements(allTools: Tool[]): Placement[] {
+  const occupied = new Set<string>()
+
+  // In 8 columns:
+  // Center cards occupy cols 3-4 and cols 5-6 (leaving 2 columns on left and 2 on right)
+  const featuredMap: Record<string, { col: number; row: number }> = {
+    projetos: { col: 3, row: 3 },
+    documentos: { col: 5, row: 3 },
+    'assistente-ia': { col: 3, row: 5 },
+    conversas: { col: 5, row: 5 },
+  }
+
+  const featured = allTools.filter((t) => t.featured)
+  const placements: Placement[] = []
+
+  for (const ft of featured) {
+    const pos = featuredMap[ft.id]
+    if (pos) {
+      for (let r = pos.row; r < pos.row + 2; r++) {
+        for (let c = pos.col; c < pos.col + 2; c++) {
+          occupied.add(`${r}-${c}`)
+        }
+      }
+      placements.push({
+        tool: { ...ft, colSpan: 2, rowSpan: 2 },
+        col: pos.col,
+        row: pos.row,
+      })
+    }
+  }
+
+  const small = allTools.filter((t) => !t.featured)
+  let idx = 0
+
+  for (let r = 2; r <= EIGHT_TOTAL_ROWS - 1 && idx < small.length; r++) {
+    for (let c = 1; c <= EIGHT_COLS && idx < small.length; c++) {
+      if (occupied.has(`${r}-${c}`)) continue
+      placements.push({ tool: small[idx], col: c, row: r })
+      idx++
+    }
+  }
+
+  return placements
+}
+
+const desktopPlacements = buildDesktopPlacements(tools)
+const eightColPlacements = buildEightColumnPlacements(tools)
 
 // ────────────────────────────────────────────────────────────
 // Mockup registry
@@ -83,7 +128,7 @@ const GRID_MASK_STYLE: React.CSSProperties = {
 }
 
 // ────────────────────────────────────────────────────────────
-// Small tool cell
+// Small tool cell component
 // ────────────────────────────────────────────────────────────
 interface SmallToolCellProps {
   tool: Tool
@@ -91,9 +136,17 @@ interface SmallToolCellProps {
   row: number
   isSelected: boolean
   onSelect: (id: string) => void
+  isMobileOrTablet?: boolean
 }
 
-function SmallToolCell({ tool, col, row, isSelected, onSelect }: SmallToolCellProps) {
+function SmallToolCell({
+  tool,
+  col,
+  row,
+  isSelected,
+  onSelect,
+  isMobileOrTablet = false,
+}: SmallToolCellProps) {
   const Icon = tool.icon
   const isAvailable = tool.status === 'available'
   const isComingSoon = tool.status === 'coming_soon'
@@ -102,8 +155,8 @@ function SmallToolCell({ tool, col, row, isSelected, onSelect }: SmallToolCellPr
     <motion.div
       initial={{ opacity: 0, scale: 0.9 }}
       whileInView={{ opacity: 1, scale: 1 }}
-      viewport={{ once: true, margin: '-30px' }}
-      transition={{ duration: 0.4, delay: Math.random() * 0.25 }}
+      viewport={{ once: true, margin: '-20px' }}
+      transition={{ duration: 0.4, delay: Math.random() * 0.2 }}
       style={{
         gridColumn: `${col} / span 1`,
         gridRow: `${row} / span 1`,
@@ -114,14 +167,14 @@ function SmallToolCell({ tool, col, row, isSelected, onSelect }: SmallToolCellPr
     >
       <div
         className={[
-          'flex flex-col items-center justify-center gap-1.5 h-full w-full select-none',
+          'flex flex-col items-center justify-center gap-1 h-full w-full select-none p-1',
           'border-r border-b border-gray-200/60',
           'transition-all duration-200 ease-out',
           isAvailable ? 'cursor-pointer' : 'cursor-default',
           !isAvailable ? 'opacity-45' : '',
           // ── Selected state ──
           isSelected
-            ? 'scale-[1.04] -translate-y-1.5 shadow-2xl z-20 ring-2 ring-gray-900/10 bg-white rounded-lg'
+            ? 'scale-[1.04] -translate-y-1 shadow-2xl z-20 ring-2 ring-gray-900/10 bg-white rounded-lg'
             : 'scale-100 translate-y-0 z-0',
           // ── Hover (only when NOT selected) ──
           isAvailable && !isSelected ? 'hover:bg-gray-50 hover:scale-[1.02] hover:z-10 hover:ring-1 hover:ring-black/50' : '',
@@ -129,7 +182,8 @@ function SmallToolCell({ tool, col, row, isSelected, onSelect }: SmallToolCellPr
       >
         <Icon
           className={[
-            'w-5 h-5 transition-colors duration-200',
+            isMobileOrTablet ? 'w-4 h-4' : 'w-5 h-5',
+            'transition-colors duration-200 shrink-0',
             isSelected ? 'text-gray-700' : 'text-gray-400',
             isAvailable && !isSelected ? 'group-hover:text-gray-600' : '',
           ].join(' ')}
@@ -137,7 +191,8 @@ function SmallToolCell({ tool, col, row, isSelected, onSelect }: SmallToolCellPr
         />
         <span
           className={[
-            'text-[10px] leading-tight text-center px-1 max-w-full transition-colors duration-200',
+            isMobileOrTablet ? 'text-[8.5px] leading-tight' : 'text-[10px] leading-tight',
+            'text-center px-0.5 max-w-full truncate transition-colors duration-200',
             isSelected ? 'text-gray-800 font-medium' : 'text-gray-500',
             isAvailable && !isSelected ? 'group-hover:text-gray-700' : '',
           ].join(' ')}
@@ -165,9 +220,17 @@ interface FeaturedToolCardProps {
   row: number
   isSelected: boolean
   onSelect: (id: string) => void
+  isMobileOrTablet?: boolean
 }
 
-function FeaturedToolCard({ tool, col, row, isSelected, onSelect }: FeaturedToolCardProps) {
+function FeaturedToolCard({
+  tool,
+  col,
+  row,
+  isSelected,
+  onSelect,
+  isMobileOrTablet = false,
+}: FeaturedToolCardProps) {
   const Icon = tool.icon
   const mockup = featuredMockups[tool.id]
 
@@ -199,17 +262,17 @@ function FeaturedToolCard({ tool, col, row, isSelected, onSelect }: FeaturedTool
         ].join(' ')}
       >
         {/* Mockup preview area */}
-        <div className="flex-1 min-h-0 overflow-hidden m-2 mb-0 rounded-sm bg-white/70 border border-gray-100/80">
+        <div className="flex-1 min-h-0 overflow-hidden m-1.5 md:m-2 mb-0 rounded-sm bg-white/70 border border-gray-100/80">
           {mockup}
         </div>
 
         {/* Card label */}
-        <div className="flex items-center gap-2 px-3 py-2.5 shrink-0">
+        <div className="flex items-center gap-1.5 md:gap-2 px-2.5 md:px-3 py-1.5 md:py-2.5 shrink-0">
           <Icon
-            className={`w-4 h-4 ${tool.accentColor ?? 'text-gray-500'}`}
+            className={`${isMobileOrTablet ? 'w-3.5 h-3.5' : 'w-4 h-4'} ${tool.accentColor ?? 'text-gray-500'} shrink-0`}
             strokeWidth={2}
           />
-          <span className="text-xs md:text-sm font-bold text-gray-800 tracking-tight">
+          <span className={`${isMobileOrTablet ? 'text-xs' : 'text-xs md:text-sm'} font-bold text-gray-800 tracking-tight truncate`}>
             {tool.title}
           </span>
         </div>
@@ -219,89 +282,20 @@ function FeaturedToolCard({ tool, col, row, isSelected, onSelect }: FeaturedTool
 }
 
 // ────────────────────────────────────────────────────────────
-// Mobile tool grid — simplified 3-col list
-// ────────────────────────────────────────────────────────────
-function MobileToolsGrid({ selectedToolId, onSelect }: { selectedToolId: string | null; onSelect: (id: string) => void }) {
-  const featured = tools.filter((t) => t.featured)
-  const small = tools.filter((t) => !t.featured)
-
-  return (
-    <div className="md:hidden w-full">
-      {/* Featured cards — 2-column grid, full-width cards */}
-      <div className="grid grid-cols-2 gap-3 mb-4 px-4">
-        {featured.map((tool) => {
-          const Icon = tool.icon
-          const mockup = featuredMockups[tool.id]
-          const isSelected = selectedToolId === tool.id
-          return (
-            <motion.div
-              key={tool.id}
-              initial={{ opacity: 0, y: 10 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.4 }}
-              className={[
-                'rounded-xl border overflow-hidden cursor-pointer',
-                'transition-all duration-300 ease-out',
-                tool.bgColor ?? 'bg-white',
-                isSelected
-                  ? 'scale-[1.03] -translate-y-1 shadow-2xl z-20 ring-2 ring-gray-900/10 border-transparent'
-                  : 'scale-100 translate-y-0 z-0 border-gray-200/80',
-              ].join(' ')}
-              onClick={() => onSelect(tool.id)}
-            >
-              {/* Mini mockup */}
-              <div className="h-24 overflow-hidden m-1.5 mb-0 rounded-sm bg-white/80 border border-gray-100">
-                {mockup}
-              </div>
-              {/* Label */}
-              <div className="flex items-center gap-1.5 px-2.5 py-2">
-                <Icon className={`w-3.5 h-3.5 ${tool.accentColor ?? 'text-gray-500'}`} strokeWidth={2} />
-                <span className="text-xs font-bold text-gray-800">{tool.title}</span>
-              </div>
-            </motion.div>
-          )
-        })}
-      </div>
-
-      {/* Small tools — 3-column grid */}
-      <div className="grid grid-cols-3 border-t border-l border-gray-200/60">
-        {small.map((tool) => {
-          const Icon = tool.icon
-          const isAvailable = tool.status === 'available'
-          const isSelected = selectedToolId === tool.id
-          return (
-            <div
-              key={tool.id}
-              className={[
-                'flex flex-col items-center justify-center gap-1 py-5 px-2',
-                'border-r border-b border-gray-200/60',
-                'transition-all duration-300 ease-out',
-                !isAvailable ? 'opacity-40' : 'cursor-pointer',
-                isSelected
-                  ? 'scale-[1.04] -translate-y-1 shadow-2xl z-20 ring-2 ring-gray-900/10 bg-white rounded-lg'
-                  : 'scale-100 translate-y-0 z-0',
-              ].join(' ')}
-              onClick={() => isAvailable && onSelect(tool.id)}
-            >
-              <Icon className={`w-5 h-5 ${isSelected ? 'text-gray-700' : 'text-gray-400'} transition-colors duration-200`} strokeWidth={1.5} />
-              <span className={`text-[9px] text-center leading-tight transition-colors duration-200 ${isSelected ? 'text-gray-800 font-medium' : 'text-gray-500'}`}>{tool.title}</span>
-            </div>
-          )
-        })}
-      </div>
-    </div>
-  )
-}
-
-// ────────────────────────────────────────────────────────────
-// Main section export
+// Main section export with responsive device configurations
 // ────────────────────────────────────────────────────────────
 export function ToolsSection() {
   const [selectedToolId, setSelectedToolId] = useState<string | null>(null)
+  const mobileScrollRef = useRef<HTMLDivElement>(null)
+
+  useEffect(() => {
+    if (mobileScrollRef.current) {
+      const el = mobileScrollRef.current
+      el.scrollLeft = (el.scrollWidth - el.clientWidth) / 2
+    }
+  }, [])
 
   const handleSelect = (id: string) => {
-    // Toggle: clicking the same card again deselects it
     setSelectedToolId((prev) => (prev === id ? null : id))
   }
 
@@ -328,45 +322,39 @@ export function ToolsSection() {
         </p>
       </motion.div>
 
-      {/* ── Desktop grid ────────────────────────────────────── */}
-      <div className="hidden md:block w-full max-w-7xl mx-auto px-4">
+      {/* ── 1. Desktop grid (>= 1024px: 10 columns, full width) ──── */}
+      <div className="hidden lg:block w-full max-w-7xl mx-auto px-4">
         <div className="overflow-visible pb-6" style={GRID_MASK_STYLE}>
           <div
             className="border-t border-l border-gray-200/60"
             style={{
               display: 'grid',
-              gridTemplateColumns: `repeat(${COLS}, minmax(0, 1fr))`,
-              gridTemplateRows: `repeat(${TOTAL_ROWS}, ${GRID_ROW_HEIGHT}px)`,
+              gridTemplateColumns: `repeat(${DESKTOP_COLS}, minmax(0, 1fr))`,
+              gridTemplateRows: `repeat(${DESKTOP_TOTAL_ROWS}, ${DESKTOP_ROW_HEIGHT}px)`,
             }}
           >
             {/* Linha 1: células vazias para formar a borda fantasma superior */}
-            {Array.from({ length: COLS }).map((_, i) => (
+            {Array.from({ length: DESKTOP_COLS }).map((_, i) => (
               <div
-                key={`empty-top-cell-${i}`}
+                key={`desktop-empty-top-cell-${i}`}
                 className="border-r border-b border-gray-100/50"
-                style={{
-                  gridColumn: i + 1,
-                  gridRow: 1,
-                }}
+                style={{ gridColumn: i + 1, gridRow: 1 }}
               />
             ))}
 
             {/* Linha Final: células vazias para formar a borda fantasma inferior */}
-            {Array.from({ length: COLS }).map((_, i) => (
+            {Array.from({ length: DESKTOP_COLS }).map((_, i) => (
               <div
-                key={`empty-bottom-cell-${i}`}
+                key={`desktop-empty-bottom-cell-${i}`}
                 className="border-r border-b border-gray-100/50"
-                style={{
-                  gridColumn: i + 1,
-                  gridRow: TOTAL_ROWS,
-                }}
+                style={{ gridColumn: i + 1, gridRow: DESKTOP_TOTAL_ROWS }}
               />
             ))}
 
-            {placements.map(({ tool, col, row }) =>
+            {desktopPlacements.map(({ tool, col, row }) =>
               tool.featured ? (
                 <FeaturedToolCard
-                  key={tool.id}
+                  key={`desktop-${tool.id}`}
                   tool={tool}
                   col={col}
                   row={row}
@@ -375,7 +363,7 @@ export function ToolsSection() {
                 />
               ) : (
                 <SmallToolCell
-                  key={tool.id}
+                  key={`desktop-${tool.id}`}
                   tool={tool}
                   col={col}
                   row={row}
@@ -388,8 +376,122 @@ export function ToolsSection() {
         </div>
       </div>
 
-      {/* ── Mobile / Tablet ─────────────────────────────────── */}
-      <MobileToolsGrid selectedToolId={selectedToolId} onSelect={handleSelect} />
+      {/* ── 2. Tablet grid (768px - 1023px: 8 columns, 8 rows) ──── */}
+      <div className="hidden md:block lg:hidden w-full max-w-4xl mx-auto px-4">
+        <div className="overflow-visible pb-6" style={GRID_MASK_STYLE}>
+          <div
+            className="border-t border-l border-gray-200/60"
+            style={{
+              display: 'grid',
+              gridTemplateColumns: `repeat(${EIGHT_COLS}, minmax(0, 1fr))`,
+              gridTemplateRows: `repeat(${EIGHT_TOTAL_ROWS}, ${TABLET_ROW_HEIGHT}px)`,
+            }}
+          >
+            {/* Top ghost row */}
+            {Array.from({ length: EIGHT_COLS }).map((_, i) => (
+              <div
+                key={`tablet-empty-top-cell-${i}`}
+                className="border-r border-b border-gray-100/50"
+                style={{ gridColumn: i + 1, gridRow: 1 }}
+              />
+            ))}
+
+            {/* Bottom ghost row */}
+            {Array.from({ length: EIGHT_COLS }).map((_, i) => (
+              <div
+                key={`tablet-empty-bottom-cell-${i}`}
+                className="border-r border-b border-gray-100/50"
+                style={{ gridColumn: i + 1, gridRow: EIGHT_TOTAL_ROWS }}
+              />
+            ))}
+
+            {eightColPlacements.map(({ tool, col, row }) =>
+              tool.featured ? (
+                <FeaturedToolCard
+                  key={`tablet-${tool.id}`}
+                  tool={tool}
+                  col={col}
+                  row={row}
+                  isSelected={selectedToolId === tool.id}
+                  onSelect={handleSelect}
+                  isMobileOrTablet
+                />
+              ) : (
+                <SmallToolCell
+                  key={`tablet-${tool.id}`}
+                  tool={tool}
+                  col={col}
+                  row={row}
+                  isSelected={selectedToolId === tool.id}
+                  onSelect={handleSelect}
+                  isMobileOrTablet
+                />
+              )
+            )}
+          </div>
+        </div>
+      </div>
+
+      {/* ── 3. Mobile grid (< 768px: 8 columns, centered large matrix with fade) ──── */}
+      <div
+        ref={mobileScrollRef}
+        className="block md:hidden w-full overflow-x-auto no-scrollbar py-2 scroll-smooth"
+        style={GRID_MASK_STYLE}
+      >
+        <div className="flex justify-center min-w-full w-max mx-auto px-4">
+          <div
+            className="border-t border-l border-gray-200/60 shrink-0"
+            style={{
+              display: 'grid',
+              width: '640px',
+              gridTemplateColumns: `repeat(${EIGHT_COLS}, 80px)`,
+              gridTemplateRows: `repeat(${EIGHT_TOTAL_ROWS}, ${MOBILE_ROW_HEIGHT}px)`,
+            }}
+          >
+            {/* Top ghost row */}
+            {Array.from({ length: EIGHT_COLS }).map((_, i) => (
+              <div
+                key={`mobile-empty-top-cell-${i}`}
+                className="border-r border-b border-gray-100/50"
+                style={{ gridColumn: i + 1, gridRow: 1 }}
+              />
+            ))}
+
+            {/* Bottom ghost row */}
+            {Array.from({ length: EIGHT_COLS }).map((_, i) => (
+              <div
+                key={`mobile-empty-bottom-cell-${i}`}
+                className="border-r border-b border-gray-100/50"
+                style={{ gridColumn: i + 1, gridRow: EIGHT_TOTAL_ROWS }}
+              />
+            ))}
+
+            {eightColPlacements.map(({ tool, col, row }) =>
+              tool.featured ? (
+                <FeaturedToolCard
+                  key={`mobile-${tool.id}`}
+                  tool={tool}
+                  col={col}
+                  row={row}
+                  isSelected={selectedToolId === tool.id}
+                  onSelect={handleSelect}
+                  isMobileOrTablet
+                />
+              ) : (
+                <SmallToolCell
+                  key={`mobile-${tool.id}`}
+                  tool={tool}
+                  col={col}
+                  row={row}
+                  isSelected={selectedToolId === tool.id}
+                  onSelect={handleSelect}
+                  isMobileOrTablet
+                />
+              )
+            )}
+          </div>
+        </div>
+      </div>
     </section>
   )
 }
