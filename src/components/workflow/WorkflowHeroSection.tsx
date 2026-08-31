@@ -101,7 +101,7 @@ export function WorkflowHeroSection() {
         </motion.div>
 
         {/* ── Animated Automation Flow Image (reveal on scroll) ── */}
-        <div ref={imageRef} className="flex justify-center -mx-10 sm:mx-0 overflow-hidden">
+        <div ref={imageRef} className="flex justify-center -mx-5 sm:mx-0 overflow-hidden">
           <div className="relative w-full sm:inline-block">
             <motion.div
               initial="hidden"
@@ -119,7 +119,7 @@ export function WorkflowHeroSection() {
               <img
                 src="/images/automation-flow-mobile.png"
                 alt="Fluxo de automação entre pessoas e agentes"
-                className="w-full h-auto block mx-auto -translate-x-2.5 sm:translate-x-0 sm:hidden"
+                className="w-full h-auto block mx-auto sm:hidden"
                 decoding="async"
                 loading="lazy"
               />
