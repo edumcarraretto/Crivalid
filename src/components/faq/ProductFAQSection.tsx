@@ -88,12 +88,13 @@ function AnimatedFAQHeading() {
         ))}
       </span>
       {' '}
+      <span className="sr-only">Frequentes</span>
       <motion.span
         initial={reduceMotion ? false : { opacity: 0, y: 18 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true, margin: '-60px' }}
         transition={{ duration: 0.9, delay: 0.22, ease: [0.22, 1, 0.36, 1] }}
-        aria-label="Frequentes"
+        aria-hidden="true"
         className="relative inline-flex px-[0.04em]"
       >
         {Array.from('Frequentes').map((letter, index) => (

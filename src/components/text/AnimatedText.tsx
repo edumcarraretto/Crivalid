@@ -25,8 +25,10 @@ export function AnimatedText({
   const isInView = useInView(containerRef, { margin: '120px 0px 120px 0px' })
 
   return (
-    <span ref={containerRef} aria-label={text} className={`relative inline-flex whitespace-pre ${className}`}>
-      {Array.from(text).map((character, index) => (
+    <span ref={containerRef} className={`relative inline-flex whitespace-pre ${className}`}>
+      <span className="sr-only">{text}</span>
+      <span aria-hidden="true" className="relative inline-flex">
+        {Array.from(text).map((character, index) => (
         <motion.span
           key={`${character}-${index}`}
           aria-hidden="true"
@@ -52,15 +54,16 @@ export function AnimatedText({
         >
           {character}
         </motion.span>
-      ))}
-      <motion.span
-        aria-hidden="true"
-        initial={reduceMotion ? false : { scaleX: 0, opacity: 0 }}
-        whileInView={{ scaleX: 1, opacity: 1 }}
-        viewport={{ once: true }}
-        transition={{ duration: 0.9, delay: 0.3, ease: [0.22, 1, 0.36, 1] }}
-        className="absolute inset-x-[0.04em] -bottom-[0.08em] h-[0.055em] origin-left rounded-full bg-gradient-to-r from-blue-600 via-blue-400 to-transparent"
-      />
+        ))}
+        <motion.span
+          aria-hidden="true"
+          initial={reduceMotion ? false : { scaleX: 0, opacity: 0 }}
+          whileInView={{ scaleX: 1, opacity: 1 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.9, delay: 0.3, ease: [0.22, 1, 0.36, 1] }}
+          className="absolute inset-x-[0.04em] -bottom-[0.08em] h-[0.055em] origin-left rounded-full bg-gradient-to-r from-blue-600 via-blue-400 to-transparent"
+        />
+      </span>
     </span>
   )
 }

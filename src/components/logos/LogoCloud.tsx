@@ -74,13 +74,21 @@ export function LogoCloud() {
             {/* Duplicamos a lista para criar o loop perfeito */}
             {[...LOGOS, ...LOGOS, ...LOGOS].map((logo, index) => {
               const Icon = logo.icon
+              const isDuplicate = index >= LOGOS.length
               return (
                 <div 
                   key={`${logo.id}-${index}`} 
                   className="w-[calc((100vw-32px)/3)] sm:w-[calc((100vw-48px)/4)] md:w-[calc((100vw-48px)/5)] max-w-[246px] min-w-[80px] sm:min-w-[140px] shrink-0 flex flex-col items-center justify-center text-neutral-500 transition-colors duration-300 group"
-                  aria-label={`Logo oficial de ${logo.name}`}
+                  role={isDuplicate ? undefined : 'img'}
+                  aria-label={isDuplicate ? undefined : `Logo oficial de ${logo.name}`}
+                  aria-hidden={isDuplicate ? 'true' : undefined}
                 >
-                  <Icon size={32} className={`group-hover:scale-110 transition-transform duration-300 ${logo.hoverColor}`} />
+                  <Icon
+                    size={32}
+                    aria-hidden="true"
+                    focusable="false"
+                    className={`group-hover:scale-110 transition-transform duration-300 ${logo.hoverColor}`}
+                  />
                 </div>
               )
             })}
