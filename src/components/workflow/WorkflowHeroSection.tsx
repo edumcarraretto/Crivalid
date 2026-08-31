@@ -121,7 +121,7 @@ export function WorkflowHeroSection() {
                 alt="Fluxo de automação entre pessoas e agentes"
                 width={4800}
                 height={3200}
-                className="w-full max-w-[680px] sm:max-w-[720px] md:max-w-[740px] h-auto block mx-auto"
+                className="w-full max-w-none sm:max-w-[720px] md:max-w-[740px] h-auto block mx-auto"
                 decoding="async"
                 loading="lazy"
                 fetchPriority="low"
