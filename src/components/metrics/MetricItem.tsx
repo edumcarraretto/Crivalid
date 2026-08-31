@@ -24,7 +24,13 @@ export function MetricItem({ metric, showDivider, index }: MetricItemProps) {
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, margin: '-50px' }}
       transition={{ duration: 0.58, delay: index * 0.08, ease: [0.22, 1, 0.36, 1] }}
-      className="group relative flex flex-col justify-between rounded-2xl bg-neutral-50/80 border border-neutral-200/70 p-4 sm:p-5 md:bg-transparent md:border-0 md:rounded-none md:p-6 transition-all duration-300 hover:border-neutral-300 hover:shadow-sm md:hover:shadow-none"
+      className={`
+        group relative flex flex-col justify-between
+        py-5 px-3.5 sm:px-5 md:py-6 md:px-6
+        transition-colors duration-200
+        ${index % 2 === 0 ? 'border-r border-neutral-200/80 md:border-r-0' : ''}
+        ${index < 2 ? 'border-b border-neutral-200/80 md:border-b-0' : ''}
+      `}
     >
       <div>
         {/* Eyebrow label */}
@@ -36,7 +42,7 @@ export function MetricItem({ metric, showDivider, index }: MetricItemProps) {
         <motion.p
           animate={isComplete ? { scale: [1, 1.035, 1] } : undefined}
           transition={{ duration: 0.42, ease: [0.22, 1, 0.36, 1] }}
-          className="mb-2 sm:mb-3 whitespace-nowrap text-[1.3rem] xs:text-[1.45rem] sm:text-[2rem] md:text-[clamp(1.7rem,3vw,2.5rem)] font-extrabold leading-[1.1] tracking-[-0.035em] text-neutral-900 transition-transform duration-500 ease-out group-hover:-translate-y-0.5"
+          className="mb-2 sm:mb-3 whitespace-nowrap text-[1.35rem] xs:text-[1.55rem] sm:text-[2rem] md:text-[clamp(1.7rem,3vw,2.5rem)] font-extrabold leading-[1.1] tracking-[-0.035em] text-neutral-900 transition-transform duration-500 ease-out group-hover:-translate-y-0.5"
         >
           <AnimatedMetricValue
             target={metric.numericValue}
@@ -57,7 +63,7 @@ export function MetricItem({ metric, showDivider, index }: MetricItemProps) {
         whileInView={{ opacity: 1 }}
         viewport={{ once: true, margin: '-40px' }}
         transition={{ duration: 0.5, delay: 0.2 + index * 0.06 }}
-        className="mt-1 sm:mt-2 text-[11.5px] sm:text-[13px] leading-relaxed text-neutral-500 line-clamp-3 sm:line-clamp-none"
+        className="mt-1.5 sm:mt-2 text-[11.5px] sm:text-[13px] leading-relaxed text-neutral-500 line-clamp-3 sm:line-clamp-none"
       >
         {metric.description}
       </motion.p>

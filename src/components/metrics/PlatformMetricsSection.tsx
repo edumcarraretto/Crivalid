@@ -95,8 +95,8 @@ export function PlatformMetricsSection({
           viewport={{ once: true, margin: '-60px' }}
           transition={{ duration: 0.65, delay: 0.1 }}
           className="
-            grid grid-cols-2 gap-3 sm:gap-4.5
-            md:grid-cols-4 md:gap-0
+            grid grid-cols-2 gap-0
+            md:grid-cols-4
             mb-12 md:mb-16
           "
         >
