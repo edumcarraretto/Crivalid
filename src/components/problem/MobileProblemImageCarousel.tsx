@@ -82,11 +82,13 @@ export function MobileProblemImageCarousel() {
             onClick={() => goToSlide(i)}
             aria-label={`Mostrar etapa ${i + 1}`}
             aria-current={activeIndex === i ? 'true' : undefined}
-            className={`
-              rounded-full transition-all duration-300
-              ${activeIndex === i ? 'w-5 h-1.5 bg-blue-600' : 'w-1.5 h-1.5 bg-neutral-300'}
-            `}
-          />
+            className="flex h-11 w-11 items-center justify-center rounded-full"
+          >
+            <span
+              aria-hidden="true"
+              className={`rounded-full transition-all duration-300 ${activeIndex === i ? 'w-5 h-1.5 bg-blue-600' : 'w-1.5 h-1.5 bg-neutral-400'}`}
+            />
+          </button>
         ))}
       </div>
     </section>

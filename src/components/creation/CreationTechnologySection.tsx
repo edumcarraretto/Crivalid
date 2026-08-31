@@ -87,19 +87,19 @@ export function CreationTechnologySection() {
             className="mt-6 flex flex-wrap items-center justify-center gap-4 sm:gap-6"
             aria-label="Plataformas disponíveis"
           >
-            <span className="text-[10px] sm:text-xs font-medium text-neutral-500 uppercase tracking-[0.18em] mr-2">
+            <span className="text-[10px] sm:text-xs font-medium text-neutral-400 uppercase tracking-[0.18em] mr-2">
               O PROJETO ACOMPANHA VOCÊ
             </span>
-            <span className="flex items-center gap-2 text-[10px] sm:text-xs font-medium text-neutral-500 uppercase tracking-[0.18em]">
+            <span className="flex items-center gap-2 text-[10px] sm:text-xs font-medium text-neutral-400 uppercase tracking-[0.18em]">
               <FaApple className="text-sm" /> MACOS
             </span>
-            <span className="flex items-center gap-2 text-[10px] sm:text-xs font-medium text-neutral-500 uppercase tracking-[0.18em]">
+            <span className="flex items-center gap-2 text-[10px] sm:text-xs font-medium text-neutral-400 uppercase tracking-[0.18em]">
               <FaApple className="text-sm" /> IOS
             </span>
-            <span className="flex items-center gap-2 text-[10px] sm:text-xs font-medium text-neutral-500 uppercase tracking-[0.18em]">
+            <span className="flex items-center gap-2 text-[10px] sm:text-xs font-medium text-neutral-400 uppercase tracking-[0.18em]">
               <FaWindows className="text-sm" /> WINDOWS
             </span>
-            <span className="flex items-center gap-2 text-[10px] sm:text-xs font-medium text-neutral-500 uppercase tracking-[0.18em]">
+            <span className="flex items-center gap-2 text-[10px] sm:text-xs font-medium text-neutral-400 uppercase tracking-[0.18em]">
               <FaGooglePlay className="text-sm" /> ANDROID
             </span>
           </motion.div>

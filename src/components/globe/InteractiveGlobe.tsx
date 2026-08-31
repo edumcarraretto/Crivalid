@@ -1,4 +1,4 @@
-import { useEffect, useRef } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import createGlobe, { type Globe } from '@/vendor/cobe'
 
 type Color = [number, number, number]
@@ -298,6 +298,7 @@ export function InteractiveGlobe({
   mapSamples = 30000,
   className = '',
 }: InteractiveGlobeProps) {
+  const [isActive, setIsActive] = useState(false)
   const containerRef = useRef<HTMLDivElement>(null)
   const canvasRef = useRef<HTMLCanvasElement>(null)
   const svgRef = useRef<SVGSVGElement>(null)
@@ -366,6 +367,7 @@ export function InteractiveGlobe({
         phiRef.current = initialPhi
         nextSpawnTimeRef.current = performance.now()
         hasStartedRef.current = true
+        setIsActive(true)
         observer.disconnect()
       },
       { threshold: 0.15 },
@@ -401,6 +403,7 @@ export function InteractiveGlobe({
   }, [markers, arcs])
 
   useEffect(() => {
+    if (!isActive) return
     if (!containerRef.current || !canvasRef.current) return
 
     let currentWidth = 0
@@ -460,9 +463,11 @@ export function InteractiveGlobe({
         globeRef.current.destroy()
       }
     }
-  }, [])
+  }, [isActive])
 
   useEffect(() => {
+    if (!isActive) return
+
     const render = (now: number) => {
       if (!hasStartedRef.current) {
         animationFrameRef.current = requestAnimationFrame(render)
@@ -727,7 +732,7 @@ export function InteractiveGlobe({
     return () => {
       if (animationFrameRef.current) cancelAnimationFrame(animationFrameRef.current)
     }
-  }, [])
+  }, [isActive])
 
   const handlePointerDown = (e: React.PointerEvent) => {
     if (pointerIdRef.current !== null) return

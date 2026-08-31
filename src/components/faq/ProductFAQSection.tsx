@@ -341,19 +341,21 @@ export function ProductFAQSection() {
                   onClick={() => handlePageChange(0)}
                   aria-label="Página 1: Perguntas 1 a 5"
                   className={`
-                    h-1.5 rounded-full transition-all duration-300 cursor-pointer
-                    ${activePage === 0 ? 'w-5 bg-neutral-900' : 'w-1.5 bg-neutral-300 hover:bg-neutral-400'}
+                    flex h-8 w-8 items-center justify-center rounded-full transition-all duration-300 cursor-pointer
                   `}
-                />
+                >
+                  <span aria-hidden="true" className={`h-1.5 rounded-full transition-all duration-300 ${activePage === 0 ? 'w-5 bg-neutral-900' : 'w-1.5 bg-neutral-400'}`} />
+                </button>
                 <button
                   type="button"
                   onClick={() => handlePageChange(1)}
                   aria-label="Página 2: Perguntas 6 a 10"
                   className={`
-                    h-1.5 rounded-full transition-all duration-300 cursor-pointer
-                    ${activePage === 1 ? 'w-5 bg-neutral-900' : 'w-1.5 bg-neutral-300 hover:bg-neutral-400'}
+                    flex h-8 w-8 items-center justify-center rounded-full transition-all duration-300 cursor-pointer
                   `}
-                />
+                >
+                  <span aria-hidden="true" className={`h-1.5 rounded-full transition-all duration-300 ${activePage === 1 ? 'w-5 bg-neutral-900' : 'w-1.5 bg-neutral-400'}`} />
+                </button>
               </div>
 
               {/* Next button */}
