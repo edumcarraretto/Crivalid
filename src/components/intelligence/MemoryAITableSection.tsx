@@ -49,7 +49,7 @@ export function MemoryAITableSection() {
             <motion.div
               variants={cardReveal}
               transition={{ duration: 0.62, ease: [0.22, 1, 0.36, 1] }}
-              className="group relative flex flex-col pt-6 px-6 pb-2 sm:pt-7 sm:px-7 sm:pb-3 md:aspect-square rounded-[22px] sm:rounded-[26px] border border-white/[0.08] bg-[#0d0d11] hover:border-white/[0.16] shadow-[0_12px_36px_-10px_rgba(0,0,0,0.8)] overflow-hidden transition-all duration-300"
+              className="group relative flex flex-col pt-6 px-6 pb-2 sm:pt-7 sm:px-7 sm:pb-3 md:aspect-square rounded-[22px] sm:rounded-[26px] border border-white/[0.08] bg-black hover:border-white/[0.16] shadow-[0_12px_36px_-10px_rgba(0,0,0,0.8)] overflow-hidden transition-all duration-300"
             >
               {/* Top subtle hover glow */}
               <div
@@ -78,7 +78,7 @@ export function MemoryAITableSection() {
             <motion.div
               variants={cardReveal}
               transition={{ duration: 0.62, ease: [0.22, 1, 0.36, 1] }}
-              className="group relative flex flex-col p-6 sm:p-7 md:aspect-square rounded-[22px] sm:rounded-[26px] border border-white/[0.08] bg-[#0d0d11] hover:border-white/[0.16] shadow-[0_12px_36px_-10px_rgba(0,0,0,0.8)] overflow-hidden transition-all duration-300"
+              className="group relative flex flex-col p-6 sm:p-7 md:aspect-square rounded-[22px] sm:rounded-[26px] border border-white/[0.08] bg-black hover:border-white/[0.16] shadow-[0_12px_36px_-10px_rgba(0,0,0,0.8)] overflow-hidden transition-all duration-300"
             >
               <div
                 className="pointer-events-none absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500"
@@ -106,7 +106,7 @@ export function MemoryAITableSection() {
             <motion.div
               variants={cardReveal}
               transition={{ duration: 0.62, ease: [0.22, 1, 0.36, 1] }}
-              className="group relative flex flex-col p-6 sm:p-7 md:aspect-square rounded-[22px] sm:rounded-[26px] border border-white/[0.08] bg-[#0d0d11] hover:border-white/[0.16] shadow-[0_12px_36px_-10px_rgba(0,0,0,0.8)] overflow-hidden transition-all duration-300"
+              className="group relative flex flex-col p-6 sm:p-7 md:aspect-square rounded-[22px] sm:rounded-[26px] border border-white/[0.08] bg-black hover:border-white/[0.16] shadow-[0_12px_36px_-10px_rgba(0,0,0,0.8)] overflow-hidden transition-all duration-300"
             >
               <div
                 className="pointer-events-none absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500"
@@ -134,7 +134,7 @@ export function MemoryAITableSection() {
             <motion.div
               variants={cardReveal}
               transition={{ duration: 0.62, ease: [0.22, 1, 0.36, 1] }}
-              className="group relative flex flex-col p-6 sm:p-7 md:aspect-square rounded-[22px] sm:rounded-[26px] border border-white/[0.08] bg-[#0d0d11] hover:border-white/[0.16] shadow-[0_12px_36px_-10px_rgba(0,0,0,0.8)] overflow-hidden transition-all duration-300"
+              className="group relative flex flex-col p-6 sm:p-7 md:aspect-square rounded-[22px] sm:rounded-[26px] border border-white/[0.08] bg-black hover:border-white/[0.16] shadow-[0_12px_36px_-10px_rgba(0,0,0,0.8)] overflow-hidden transition-all duration-300"
             >
               <div
                 className="pointer-events-none absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500"
@@ -162,7 +162,7 @@ export function MemoryAITableSection() {
             <motion.div
               variants={cardReveal}
               transition={{ duration: 0.62, ease: [0.22, 1, 0.36, 1] }}
-              className="group relative flex flex-col p-6 sm:p-7 md:aspect-square rounded-[22px] sm:rounded-[26px] border border-white/[0.08] bg-[#0d0d11] hover:border-white/[0.16] shadow-[0_12px_36px_-10px_rgba(0,0,0,0.8)] overflow-hidden transition-all duration-300"
+              className="group relative flex flex-col p-6 sm:p-7 md:aspect-square rounded-[22px] sm:rounded-[26px] border border-white/[0.08] bg-black hover:border-white/[0.16] shadow-[0_12px_36px_-10px_rgba(0,0,0,0.8)] overflow-hidden transition-all duration-300"
             >
               <div
                 className="pointer-events-none absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500"
@@ -190,7 +190,7 @@ export function MemoryAITableSection() {
             <motion.div
               variants={cardReveal}
               transition={{ duration: 0.62, ease: [0.22, 1, 0.36, 1] }}
-              className="group relative flex flex-col p-6 sm:p-7 md:aspect-square rounded-[22px] sm:rounded-[26px] border border-white/[0.08] bg-[#0d0d11] hover:border-white/[0.16] shadow-[0_12px_36px_-10px_rgba(0,0,0,0.8)] overflow-hidden transition-all duration-300"
+              className="group relative flex flex-col p-6 sm:p-7 md:aspect-square rounded-[22px] sm:rounded-[26px] border border-white/[0.08] bg-black hover:border-white/[0.16] shadow-[0_12px_36px_-10px_rgba(0,0,0,0.8)] overflow-hidden transition-all duration-300"
             >
               <div
                 className="pointer-events-none absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500"

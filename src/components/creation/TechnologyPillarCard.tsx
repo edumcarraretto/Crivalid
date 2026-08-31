@@ -23,7 +23,7 @@ export function TechnologyPillarCard({
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, margin: '-40px' }}
       transition={{ duration: 0.5, delay: 0.12 * index, ease: 'easeOut' }}
-      className="group relative flex flex-col rounded-[22px] sm:rounded-[26px] border border-white/[0.08] bg-[#0d0d11] hover:border-white/[0.16] shadow-[0_12px_36px_-10px_rgba(0,0,0,0.8)] overflow-hidden transition-all duration-300"
+      className="group relative flex flex-col rounded-[22px] sm:rounded-[26px] border border-white/[0.08] bg-black hover:border-white/[0.16] shadow-[0_12px_36px_-10px_rgba(0,0,0,0.8)] overflow-hidden transition-all duration-300"
     >
       {/* Top subtle surface highlight / glow on hover */}
       <div
