@@ -115,12 +115,21 @@ export function WorkflowHeroSection() {
                 ease: [0.22, 1, 0.36, 1],
               }}
             >
+              {/* Mobile image */}
+              <img
+                src="/images/automation-flow-mobile.png"
+                alt="Fluxo de automação entre pessoas e agentes"
+                className="w-full h-auto block mx-auto sm:hidden"
+                decoding="async"
+                loading="lazy"
+              />
+              {/* Desktop/tablet image */}
               <img
                 src="/images/automation-flow.webp"
                 alt="Fluxo de automação entre pessoas e agentes"
                 width={4800}
                 height={3200}
-                className="w-full max-w-none sm:max-w-[720px] md:max-w-[740px] h-auto block mx-auto"
+                className="hidden sm:block w-full max-w-[720px] md:max-w-[740px] h-auto mx-auto"
                 decoding="async"
                 loading="lazy"
                 fetchPriority="low"
