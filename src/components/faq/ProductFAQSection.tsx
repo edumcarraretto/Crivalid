@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { motion, AnimatePresence, useReducedMotion } from 'motion/react'
-import { Plus } from 'lucide-react'
+import { Plus, ChevronLeft, ChevronRight } from 'lucide-react'
 
 // ─── FAQ Questions & Answers ──────────────────────────────────────────────────
 
@@ -122,24 +122,104 @@ function AnimatedFAQHeading() {
   )
 }
 
-// ─── Component ────────────────────────────────────────────────────────────────
+// ─── Reusable FAQ Item Component ─────────────────────────────────────────────
+
+interface FAQCardProps {
+  item: (typeof FAQ_ITEMS)[number]
+  isOpen: boolean
+  onToggle: () => void
+  delayIndex?: number
+}
+
+function FAQCard({ item, isOpen, onToggle, delayIndex = 0 }: FAQCardProps) {
+  return (
+    <motion.div
+      initial={{ opacity: 0, y: 10 }}
+      animate={{ opacity: 1, y: 0 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, margin: '-40px' }}
+      transition={{ duration: 0.35, delay: delayIndex * 0.04 }}
+      whileHover={{ y: -2 }}
+      className={`
+        rounded-2xl transition-all duration-300 overflow-hidden border
+        ${
+          isOpen
+            ? 'bg-neutral-50/90 border-neutral-200 shadow-xs'
+            : 'bg-[#F8F8F9] border-transparent hover:bg-[#F0F0F2] hover:border-neutral-200/50'
+        }
+      `}
+    >
+      <button
+        type="button"
+        onClick={onToggle}
+        aria-expanded={isOpen}
+        className="w-full flex items-center gap-3 sm:gap-4 px-4.5 sm:px-6 py-4 sm:py-5 text-left cursor-pointer focus-visible:outline-2 focus-visible:outline-neutral-900 rounded-2xl"
+      >
+        {/* Plus Icon with smooth rotation */}
+        <div
+          className={`
+            shrink-0 w-6 h-6 rounded-full flex items-center justify-center transition-all duration-300
+            ${isOpen ? 'rotate-45 bg-neutral-900 text-white' : 'bg-neutral-200/60 text-neutral-600'}
+          `}
+        >
+          <Plus className="w-3.5 h-3.5 stroke-[2.5]" />
+        </div>
+
+        <span className="text-[14.5px] sm:text-base font-bold text-neutral-900 tracking-tight leading-snug">
+          {item.question}
+        </span>
+      </button>
+
+      {/* Expandable Answer */}
+      <AnimatePresence initial={false}>
+        {isOpen && (
+          <motion.div
+            initial={{ height: 0, opacity: 0 }}
+            animate={{ height: 'auto', opacity: 1 }}
+            exit={{ height: 0, opacity: 0 }}
+            transition={{ duration: 0.28, ease: [0.16, 1, 0.3, 1] }}
+            className="overflow-hidden"
+          >
+            <motion.div
+              initial={{ opacity: 0, y: 6, filter: 'blur(4px)' }}
+              animate={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
+              transition={{ duration: 0.3, delay: 0.05, ease: [0.22, 1, 0.36, 1] }}
+              className="px-4.5 sm:px-6 pb-4.5 pt-0.5 text-[13.5px] sm:text-[15px] leading-relaxed text-neutral-600 pl-11 sm:pl-16"
+            >
+              {item.answer}
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </motion.div>
+  )
+}
+
+// ─── Main Component ──────────────────────────────────────────────────────────
 
 export function ProductFAQSection() {
   const [openId, setOpenId] = useState<string | null>(null)
+  const [activePage, setActivePage] = useState<number>(0) // 0: Questions 1-5, 1: Questions 6-10
 
   const toggleItem = (id: string) => {
     setOpenId((current) => (current === id ? null : id))
   }
 
-  // Split into 2 columns for a balanced layout
-  const leftColumn = FAQ_ITEMS.slice(0, Math.ceil(FAQ_ITEMS.length / 2))
-  const rightColumn = FAQ_ITEMS.slice(Math.ceil(FAQ_ITEMS.length / 2))
+  const handlePageChange = (newPage: number) => {
+    setActivePage(newPage)
+    setOpenId(null) // Close any open accordion to keep transition clean
+  }
+
+  // 2 subsets of 5 questions each
+  const page1Items = FAQ_ITEMS.slice(0, 5)
+  const page2Items = FAQ_ITEMS.slice(5, 10)
+  const activeMobileItems = activePage === 0 ? page1Items : page2Items
 
   return (
     <section
       id="duvidas"
       aria-labelledby="faq-heading"
-      className="w-full bg-white px-5 py-24 sm:px-8 sm:py-28 md:py-32 overflow-hidden"
+      className="w-full bg-white px-4.5 py-16 sm:px-8 sm:py-24 md:py-28 lg:py-32 overflow-hidden"
     >
       <div className="mx-auto w-full max-w-6xl">
         
@@ -149,16 +229,16 @@ export function ProductFAQSection() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: '-60px' }}
           transition={{ duration: 0.6 }}
-          className="flex flex-col items-center text-center max-w-3xl mx-auto mb-16 sm:mb-20"
+          className="flex flex-col items-center text-center max-w-3xl mx-auto mb-10 sm:mb-16 md:mb-20"
         >
           <h2
             id="faq-heading"
-            className="text-4xl sm:text-5xl md:text-[52px] font-extrabold leading-[1.08] tracking-[-0.03em] text-neutral-900"
+            className="text-3xl sm:text-4xl md:text-5xl lg:text-[52px] font-extrabold leading-[1.1] tracking-[-0.03em] text-neutral-900"
           >
             <AnimatedFAQHeading />
           </h2>
 
-          <p className="mt-5 max-w-xl text-base sm:text-lg leading-relaxed text-neutral-500">
+          <p className="mt-4 sm:mt-5 max-w-xl text-sm sm:text-base md:text-lg leading-relaxed text-neutral-500">
             Tudo o que você precisa saber sobre a MAKEPLOY, desde a{' '}
             <motion.span
               initial={{ backgroundSize: '0% 35%' }}
@@ -183,139 +263,116 @@ export function ProductFAQSection() {
           </p>
         </motion.div>
 
-        {/* ── 2-Column FAQ Grid ── */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-3.5 sm:gap-4 items-start">
-          
-          {/* Left Column */}
-          <div className="flex flex-col gap-3.5 sm:gap-4">
-            {leftColumn.map((item, index) => {
-              const isOpen = openId === item.id
-
-              return (
-                <motion.div
-                  key={item.id}
-                  initial={{ opacity: 0, y: 14 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true, margin: '-40px' }}
-                  transition={{ duration: 0.45, delay: index * 0.05 }}
-                  whileHover={{ y: -2 }}
-                  className={`
-                    rounded-2xl transition-all duration-300 overflow-hidden
-                    ${isOpen ? 'bg-[#F4F4F6] shadow-xs' : 'bg-[#F7F7F8] hover:bg-[#F0F0F2]'}
-                  `}
-                >
-                  <button
-                    type="button"
-                    onClick={() => toggleItem(item.id)}
-                    aria-expanded={isOpen}
-                    className="w-full flex items-center gap-4 px-6 py-5 sm:py-5.5 text-left cursor-pointer focus-visible:outline-2 focus-visible:outline-neutral-900 rounded-2xl"
-                  >
-                    {/* Plus Icon with smooth rotation */}
-                    <div
-                      className={`
-                        shrink-0 w-6 h-6 rounded-full flex items-center justify-center transition-transform duration-300
-                        ${isOpen ? 'rotate-45 text-neutral-900' : 'text-neutral-600'}
-                      `}
-                    >
-                      <Plus className="w-5 h-5 stroke-[2.2]" />
-                    </div>
-
-                    <span className="text-[15px] sm:text-base font-bold text-neutral-900 tracking-tight leading-snug">
-                      {item.question}
-                    </span>
-                  </button>
-
-                  {/* Expandable Answer */}
-                  <AnimatePresence initial={false}>
-                    {isOpen && (
-                      <motion.div
-                        initial={{ height: 0, opacity: 0 }}
-                        animate={{ height: 'auto', opacity: 1 }}
-                        exit={{ height: 0, opacity: 0 }}
-                        transition={{ duration: 0.3, ease: [0.16, 1, 0.3, 1] }}
-                        className="overflow-hidden"
-                      >
-                        <motion.div
-                          initial={{ opacity: 0, y: 8, filter: 'blur(5px)' }}
-                          animate={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
-                          transition={{ duration: 0.36, delay: 0.06, ease: [0.22, 1, 0.36, 1] }}
-                          className="px-5 sm:px-6 pb-5 pt-1 text-sm sm:text-[15px] leading-relaxed text-neutral-600 pl-12 sm:pl-16"
-                        >
-                          {item.answer}
-                        </motion.div>
-                      </motion.div>
-                    )}
-                  </AnimatePresence>
-                </motion.div>
-              )
-            })}
+        {/* ── Desktop View (2 Columns - all 10 visible) ── */}
+        <div className="hidden md:grid md:grid-cols-2 gap-4 items-start">
+          {/* Column 1 */}
+          <div className="flex flex-col gap-4">
+            {page1Items.map((item, index) => (
+              <FAQCard
+                key={item.id}
+                item={item}
+                isOpen={openId === item.id}
+                onToggle={() => toggleItem(item.id)}
+                delayIndex={index}
+              />
+            ))}
           </div>
 
-          {/* Right Column */}
-          <div className="flex flex-col gap-3.5 sm:gap-4">
-            {rightColumn.map((item, index) => {
-              const isOpen = openId === item.id
-
-              return (
-                <motion.div
-                  key={item.id}
-                  initial={{ opacity: 0, y: 14 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true, margin: '-40px' }}
-                  transition={{ duration: 0.45, delay: (index + leftColumn.length) * 0.05 }}
-                  whileHover={{ y: -2 }}
-                  className={`
-                    rounded-2xl transition-all duration-300 overflow-hidden
-                    ${isOpen ? 'bg-[#F4F4F6] shadow-xs' : 'bg-[#F7F7F8] hover:bg-[#F0F0F2]'}
-                  `}
-                >
-                  <button
-                    type="button"
-                    onClick={() => toggleItem(item.id)}
-                    aria-expanded={isOpen}
-                    className="w-full flex items-center gap-4 px-6 py-5 sm:py-5.5 text-left cursor-pointer focus-visible:outline-2 focus-visible:outline-neutral-900 rounded-2xl"
-                  >
-                    {/* Plus Icon with smooth rotation */}
-                    <div
-                      className={`
-                        shrink-0 w-6 h-6 rounded-full flex items-center justify-center transition-transform duration-300
-                        ${isOpen ? 'rotate-45 text-neutral-900' : 'text-neutral-600'}
-                      `}
-                    >
-                      <Plus className="w-5 h-5 stroke-[2.2]" />
-                    </div>
-
-                    <span className="text-[15px] sm:text-base font-bold text-neutral-900 tracking-tight leading-snug">
-                      {item.question}
-                    </span>
-                  </button>
-
-                  {/* Expandable Answer */}
-                  <AnimatePresence initial={false}>
-                    {isOpen && (
-                      <motion.div
-                        initial={{ height: 0, opacity: 0 }}
-                        animate={{ height: 'auto', opacity: 1 }}
-                        exit={{ height: 0, opacity: 0 }}
-                        transition={{ duration: 0.3, ease: [0.16, 1, 0.3, 1] }}
-                        className="overflow-hidden"
-                      >
-                        <motion.div
-                          initial={{ opacity: 0, y: 8, filter: 'blur(5px)' }}
-                          animate={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
-                          transition={{ duration: 0.36, delay: 0.06, ease: [0.22, 1, 0.36, 1] }}
-                          className="px-5 sm:px-6 pb-5 pt-1 text-sm sm:text-[15px] leading-relaxed text-neutral-600 pl-12 sm:pl-16"
-                        >
-                          {item.answer}
-                        </motion.div>
-                      </motion.div>
-                    )}
-                  </AnimatePresence>
-                </motion.div>
-              )
-            })}
+          {/* Column 2 */}
+          <div className="flex flex-col gap-4">
+            {page2Items.map((item, index) => (
+              <FAQCard
+                key={item.id}
+                item={item}
+                isOpen={openId === item.id}
+                onToggle={() => toggleItem(item.id)}
+                delayIndex={index}
+              />
+            ))}
           </div>
+        </div>
 
+        {/* ── Mobile View (Paginated 5-Card Swap in place) ── */}
+        <div className="block md:hidden">
+          <AnimatePresence mode="wait">
+            <motion.div
+              key={activePage}
+              initial={{ opacity: 0, x: activePage === 1 ? 16 : -16 }}
+              animate={{ opacity: 1, x: 0 }}
+              exit={{ opacity: 0, x: activePage === 1 ? -16 : 16 }}
+              transition={{ duration: 0.26, ease: [0.22, 1, 0.36, 1] }}
+              className="flex flex-col gap-3"
+            >
+              {activeMobileItems.map((item, index) => (
+                <FAQCard
+                  key={item.id}
+                  item={item}
+                  isOpen={openId === item.id}
+                  onToggle={() => toggleItem(item.id)}
+                  delayIndex={index}
+                />
+              ))}
+            </motion.div>
+          </AnimatePresence>
+
+          {/* ── Mobile Pagination Dock (Unified Capsule Design) ── */}
+          <div className="flex items-center justify-center mt-7">
+            <div className="inline-flex items-center gap-1.5 p-1 rounded-full bg-neutral-100/90 border border-neutral-200/80 shadow-xs">
+              {/* Previous button */}
+              <button
+                type="button"
+                onClick={() => handlePageChange(0)}
+                disabled={activePage === 0}
+                aria-label="Perguntas anteriores (1 a 5)"
+                className="
+                  w-8 h-8 rounded-full flex items-center justify-center
+                  text-neutral-700 hover:bg-white hover:shadow-xs active:scale-90
+                  disabled:opacity-20 disabled:pointer-events-none
+                  transition-all duration-200 cursor-pointer
+                "
+              >
+                <ChevronLeft className="w-4 h-4 stroke-[2.5]" />
+              </button>
+
+              {/* Seamless Dot Indicators */}
+              <div className="flex items-center gap-1.5 px-2">
+                <button
+                  type="button"
+                  onClick={() => handlePageChange(0)}
+                  aria-label="Página 1: Perguntas 1 a 5"
+                  className={`
+                    h-1.5 rounded-full transition-all duration-300 cursor-pointer
+                    ${activePage === 0 ? 'w-5 bg-neutral-900' : 'w-1.5 bg-neutral-300 hover:bg-neutral-400'}
+                  `}
+                />
+                <button
+                  type="button"
+                  onClick={() => handlePageChange(1)}
+                  aria-label="Página 2: Perguntas 6 a 10"
+                  className={`
+                    h-1.5 rounded-full transition-all duration-300 cursor-pointer
+                    ${activePage === 1 ? 'w-5 bg-neutral-900' : 'w-1.5 bg-neutral-300 hover:bg-neutral-400'}
+                  `}
+                />
+              </div>
+
+              {/* Next button */}
+              <button
+                type="button"
+                onClick={() => handlePageChange(1)}
+                disabled={activePage === 1}
+                aria-label="Próximas perguntas (6 a 10)"
+                className="
+                  w-8 h-8 rounded-full flex items-center justify-center
+                  text-neutral-700 hover:bg-white hover:shadow-xs active:scale-90
+                  disabled:opacity-20 disabled:pointer-events-none
+                  transition-all duration-200 cursor-pointer
+                "
+              >
+                <ChevronRight className="w-4 h-4 stroke-[2.5]" />
+              </button>
+            </div>
+          </div>
         </div>
 
       </div>
