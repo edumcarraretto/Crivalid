@@ -24,41 +24,40 @@ export function MetricItem({ metric, showDivider, index }: MetricItemProps) {
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, margin: '-50px' }}
       transition={{ duration: 0.58, delay: index * 0.08, ease: [0.22, 1, 0.36, 1] }}
-      className="group relative flex flex-col py-5 px-4 sm:px-5 md:py-6 md:px-5"
+      className="group relative flex flex-col justify-between rounded-2xl bg-neutral-50/80 border border-neutral-200/70 p-4 sm:p-5 md:bg-transparent md:border-0 md:rounded-none md:p-6 transition-all duration-300 hover:border-neutral-300 hover:shadow-sm md:hover:shadow-none"
     >
-      {/* Eyebrow label */}
-      <span className="mb-3 text-[10px] sm:text-[11px] font-bold uppercase tracking-[0.08em] text-emerald-700">
-        {metric.label}
-      </span>
+      <div>
+        {/* Eyebrow label */}
+        <span className="mb-2.5 sm:mb-3 inline-block text-[9.5px] sm:text-[11px] font-bold uppercase tracking-[0.08em] text-emerald-700">
+          {metric.label}
+        </span>
 
-      {/* Animated stage number */}
-      <motion.p
-        animate={isComplete ? { scale: [1, 1.035, 1] } : undefined}
-        transition={{ duration: 0.42, ease: [0.22, 1, 0.36, 1] }}
-        className="mb-3 whitespace-nowrap text-[1.75rem] sm:text-[2.125rem] md:text-[clamp(1.7rem,3vw,2.5rem)] font-extrabold leading-[1] tracking-[-0.035em] text-neutral-900 transition-transform duration-500 ease-out group-hover:-translate-y-0.5"
-      >
-        <AnimatedMetricValue
-          target={metric.numericValue}
-          startFrom={metric.startFrom}
-          decimals={metric.decimals}
-          prefix={metric.prefix}
-          suffix={metric.suffix}
-          displayValue={metric.displayValue}
-          duration={Math.min(metric.duration ?? 2200, 2400)}
-          onComplete={handleComplete}
-        />
-      </motion.p>
-
-      {/* Spacer pushes description to the same vertical position across columns */}
-      <div className="flex-1" />
+        {/* Animated stage number */}
+        <motion.p
+          animate={isComplete ? { scale: [1, 1.035, 1] } : undefined}
+          transition={{ duration: 0.42, ease: [0.22, 1, 0.36, 1] }}
+          className="mb-2 sm:mb-3 whitespace-nowrap text-[1.3rem] xs:text-[1.45rem] sm:text-[2rem] md:text-[clamp(1.7rem,3vw,2.5rem)] font-extrabold leading-[1.1] tracking-[-0.035em] text-neutral-900 transition-transform duration-500 ease-out group-hover:-translate-y-0.5"
+        >
+          <AnimatedMetricValue
+            target={metric.numericValue}
+            startFrom={metric.startFrom}
+            decimals={metric.decimals}
+            prefix={metric.prefix}
+            suffix={metric.suffix}
+            displayValue={metric.displayValue}
+            duration={Math.min(metric.duration ?? 2200, 2400)}
+            onComplete={handleComplete}
+          />
+        </motion.p>
+      </div>
 
       {/* Description */}
       <motion.p
-        initial={{ opacity: 0, clipPath: 'inset(0 100% 0 0)' }}
-        whileInView={{ opacity: 1, clipPath: 'inset(0 0% 0 0)' }}
+        initial={{ opacity: 0 }}
+        whileInView={{ opacity: 1 }}
         viewport={{ once: true, margin: '-40px' }}
-        transition={{ duration: 0.75, delay: 0.28 + index * 0.09, ease: [0.22, 1, 0.36, 1] }}
-        className="max-w-[220px] text-[12px] sm:text-[13px] leading-relaxed text-neutral-500"
+        transition={{ duration: 0.5, delay: 0.2 + index * 0.06 }}
+        className="mt-1 sm:mt-2 text-[11.5px] sm:text-[13px] leading-relaxed text-neutral-500 line-clamp-3 sm:line-clamp-none"
       >
         {metric.description}
       </motion.p>
