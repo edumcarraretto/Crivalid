@@ -101,7 +101,7 @@ export function WorkflowHeroSection() {
         </motion.div>
 
         {/* ── Animated Automation Flow Image (reveal on scroll) ── */}
-        <div ref={imageRef} className="flex justify-center -mx-6 sm:mx-0 overflow-hidden">
+        <div ref={imageRef} className="flex justify-center -mx-10 sm:mx-0 overflow-hidden">
           <div className="relative w-full sm:inline-block">
             <motion.div
               initial="hidden"
