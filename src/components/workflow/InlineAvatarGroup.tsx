@@ -32,7 +32,7 @@ export function InlineAvatarGroup({ variant, className = '' }: InlineAvatarGroup
   return (
     <span
       className={`inline-flex items-center align-middle -space-x-1.5 ${className}`}
-      role="img"
+      role="group"
       aria-label={variant === 'people' ? 'Avatares de pessoas' : 'Avatares de agentes de IA'}
     >
       {colors.map((color, i) => (

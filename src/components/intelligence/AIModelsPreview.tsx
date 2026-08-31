@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react'
 import { motion, AnimatePresence } from 'motion/react'
-import { ChatGPTLogo, GeminiLogo, MakeployLogo, ClaudeLogo } from './AILogos'
+import { ChatGPTLogo, GeminiLogo, MakeployLogo, ClaudeLogo } from '@/components/intelligence/AILogos'
 
 // Adjusted order to match the reference image exactly
 const ALL_MODELS = [

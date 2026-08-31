@@ -1,8 +1,8 @@
 import { useState } from 'react'
 import { motion } from 'motion/react'
-import { HighlightText } from '../text/HighlightText'
-import { tools, type Tool } from './toolsData'
-import { ProjectsMockup, DocumentsMockup, AIMockup, ChatMockup } from './FeaturedMockups'
+import { HighlightText } from '@/components/text/HighlightText'
+import { tools, type Tool } from '@/components/tools/toolsData'
+import { ProjectsMockup, DocumentsMockup, AIMockup, ChatMockup } from '@/components/tools/FeaturedMockups'
 
 // ────────────────────────────────────────────────────────────
 // Grid placement types & algorithms
@@ -152,18 +152,22 @@ function SmallToolCell({
   const isComingSoon = tool.status === 'coming_soon'
 
   return (
-    <motion.div
+    <motion.button
+      type="button"
+      disabled={!isAvailable}
+      aria-pressed={isAvailable ? isSelected : undefined}
+      aria-label={isComingSoon ? `${tool.title} — em breve` : tool.title}
       initial={{ opacity: 0, scale: 0.9 }}
       whileInView={{ opacity: 1, scale: 1 }}
       viewport={{ once: true, margin: '-20px' }}
-      transition={{ duration: 0.4, delay: Math.random() * 0.2 }}
+      transition={{ duration: 0.4, delay: (row * 4 + col) * 0.015 }}
       style={{
         gridColumn: `${col} / span 1`,
         gridRow: `${row} / span 1`,
       }}
       className="relative group"
       title={isComingSoon ? 'Em breve' : tool.title}
-      onClick={() => isAvailable && onSelect(tool.id)}
+      onClick={() => onSelect(tool.id)}
     >
       <div
         className={[
@@ -207,7 +211,7 @@ function SmallToolCell({
           </span>
         )}
       </div>
-    </motion.div>
+    </motion.button>
   )
 }
 
@@ -235,7 +239,10 @@ function FeaturedToolCard({
   const mockup = featuredMockups[tool.id]
 
   return (
-    <motion.div
+    <motion.button
+      type="button"
+      aria-pressed={isSelected}
+      aria-label={tool.title}
       initial={{ opacity: 0, y: 12 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, margin: '-40px' }}
@@ -277,7 +284,7 @@ function FeaturedToolCard({
           </span>
         </div>
       </div>
-    </motion.div>
+    </motion.button>
   )
 }
 

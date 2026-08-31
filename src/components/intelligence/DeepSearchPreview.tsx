@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react'
 import { motion, AnimatePresence } from 'motion/react'
-import { DeepSearchStatusPanel } from './DeepSearchStatusPanel'
+import { DeepSearchStatusPanel } from '@/components/intelligence/DeepSearchStatusPanel'
 
 /* ── Background analysis lines (simulated deep context scan) ── */
 const BG_LINES = [
@@ -69,4 +69,3 @@ export function DeepSearchPreview() {
     </div>
   )
 }
-

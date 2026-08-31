@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react'
 import { AnimatePresence, motion, useReducedMotion } from 'motion/react'
 import { ArrowDown, Globe, Star } from 'lucide-react'
-import { GradientText } from '../text/GradientText'
+import { GradientText } from '@/components/text/GradientText'
 
 // ─── Types ────────────────────────────────────────────────────────────────────
 
@@ -139,6 +139,8 @@ function Mascot({ isDark, reduceMotion }: { isDark: boolean; reduceMotion: boole
           <motion.img 
             src="/nova-logo-1914.png" 
             alt="Logo oficial da MAKEPLOY"
+            width={1024}
+            height={1024}
             className="w-full h-full object-contain" 
             style={{ 
               filter: isDark 

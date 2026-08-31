@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react'
 import { Check } from 'lucide-react'
 import { SiAnthropic, SiGooglegemini } from 'react-icons/si'
-import { aiModels } from './creationData'
+import { aiModels } from '@/components/creation/creationData'
 
 // ─── Provider icon indicator ──────────────────────────────────────────────────
 

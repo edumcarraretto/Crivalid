@@ -1,12 +1,12 @@
 import { motion } from 'motion/react'
 import { FaApple, FaWindows, FaGooglePlay } from 'react-icons/fa'
-import { creationPillars } from './creationData'
-import { TechnologyPillarCard } from './TechnologyPillarCard'
-import { NoCodeBuilderPreview } from './NoCodeBuilderPreview'
-import { AIModelsPreview } from './AIModelsPreview'
-import { IntegratedCodeEditorPreview } from './IntegratedCodeEditorPreview'
-import { CreationShowcase } from '../showcase/CreationShowcase'
-import { GradientText } from '../text/GradientText'
+import { creationPillars } from '@/components/creation/creationData'
+import { TechnologyPillarCard } from '@/components/creation/TechnologyPillarCard'
+import { NoCodeBuilderPreview } from '@/components/creation/NoCodeBuilderPreview'
+import { AIModelsPreview } from '@/components/creation/AIModelsPreview'
+import { IntegratedCodeEditorPreview } from '@/components/creation/IntegratedCodeEditorPreview'
+import { CreationShowcase } from '@/components/showcase/CreationShowcase'
+import { GradientText } from '@/components/text/GradientText'
 
 // ─── Preview registry ─────────────────────────────────────────────────────────
 
@@ -42,6 +42,8 @@ export function CreationTechnologySection() {
             <img
               src="/nova-logo-1914.png"
               alt="MAKEPLOY"
+              width={1024}
+              height={1024}
               className="w-12 h-12 sm:w-14 sm:h-14 md:w-16 md:h-16 object-contain drop-shadow-md"
             />
             <span className="text-xl sm:text-2xl md:text-[26px] font-extrabold text-white tracking-tight leading-none">

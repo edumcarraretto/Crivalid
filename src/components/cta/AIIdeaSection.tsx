@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { motion, useReducedMotion } from 'motion/react'
 import { ArrowUp, ChevronDown, Sparkles } from 'lucide-react'
-import { GradientText } from '../text/GradientText'
+import { GradientText } from '@/components/text/GradientText'
 
 const SUGGESTIONS = [
   'Criar um SaaS',
@@ -13,20 +13,22 @@ const SUGGESTIONS = [
 export function AIIdeaSection() {
   const [prompt, setPrompt] = useState('')
   const [isFocused, setIsFocused] = useState(false)
+  const [feedback, setFeedback] = useState('')
   const reduceMotion = useReducedMotion()
 
   const handleSuggestionClick = (text: string) => {
     setPrompt(text)
+    setFeedback('')
   }
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault()
     if (!prompt.trim()) return
-    setPrompt('')
+    setFeedback('Sua ideia está pronta. A criação de projetos estará disponível na próxima fase.')
   }
 
   return (
-    <section id="comece" className="bg-white pt-14 sm:pt-20 pb-0">
+    <section id="comece" aria-labelledby="start-heading" className="bg-white pt-14 sm:pt-20 pb-0">
       <div className="mx-4 sm:mx-6 md:mx-10 lg:mx-16">
         <div className="relative bg-black rounded-t-[32px] sm:rounded-t-[40px] rounded-b-none py-20 sm:py-28 overflow-hidden flex flex-col items-center px-4 sm:px-6 shadow-2xl">
           
@@ -40,6 +42,7 @@ export function AIIdeaSection() {
 
           {/* ── Title ── */}
           <motion.h2
+            id="start-heading"
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
@@ -72,7 +75,10 @@ export function AIIdeaSection() {
               <textarea
                 aria-label="Descreva sua ideia ou projeto"
                 value={prompt}
-                onChange={(e) => setPrompt(e.target.value)}
+                onChange={(e) => {
+                  setPrompt(e.target.value)
+                  setFeedback('')
+                }}
                 onFocus={() => setIsFocused(true)}
                 onBlur={() => setIsFocused(false)}
                 placeholder="Descreva uma ideia ou o projeto que já existe."
@@ -104,13 +110,20 @@ export function AIIdeaSection() {
             </div>
           </motion.form>
 
+          <p
+            aria-live="polite"
+            className="relative z-20 min-h-5 mt-3 px-4 text-center text-xs sm:text-sm text-neutral-400"
+          >
+            {feedback}
+          </p>
+
           {/* ── Suggestions Chips ── */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6, delay: 0.3 }}
-            className="relative z-20 flex flex-wrap items-center justify-center gap-2 sm:gap-3 mt-6 w-full max-w-4xl"
+            className="relative z-20 flex flex-wrap items-center justify-center gap-2 sm:gap-3 mt-3 w-full max-w-4xl"
           >
             {SUGGESTIONS.map((suggestion) => (
               <button

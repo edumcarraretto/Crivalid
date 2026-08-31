@@ -1,5 +1,5 @@
 import { motion } from 'motion/react'
-import type { CreationPillar } from './creationData'
+import type { CreationPillar } from '@/components/creation/creationData'
 
 // ─── Types ────────────────────────────────────────────────────────────────────
 

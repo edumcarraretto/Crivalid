@@ -221,14 +221,14 @@
 @keyframes ping { 0% { opacity: .6; transform: scale(.65) } 100% { opacity: 0; transform: scale(1.3) } }
 @keyframes pop { 0% { opacity: .55; transform: scale(.7) } 100% { opacity: 0; transform: scale(1.55) } }
 
-.features-wrapper .step label { font-size: 14.5px; font-weight: 700; color: #B4B4B9; letter-spacing: -.01em; transition: color .35s ease }
-.features-wrapper .step.loading label, .features-wrapper .step.done label { color: var(--blue) }
+.features-wrapper .step .label { font-size: 14.5px; font-weight: 700; color: #B4B4B9; letter-spacing: -.01em; transition: color .35s ease }
+.features-wrapper .step.loading .label, .features-wrapper .step.done .label { color: var(--blue) }
 .features-wrapper .step time { margin-left: auto; font-size: 13px; color: #9A9AA0; white-space: nowrap;
            opacity: 0; transform: translateX(6px); transition: opacity .45s ease, transform .45s ease }
 .features-wrapper .step.done time { opacity: 1; transform: none }
 
 @media (prefers-reduced-motion: reduce) {
-  .features-wrapper .rail i, .features-wrapper .core, .features-wrapper .tick, .features-wrapper .prog, .features-wrapper .step label, .features-wrapper .step time { transition: none }
+  .features-wrapper .rail i, .features-wrapper .core, .features-wrapper .tick, .features-wrapper .prog, .features-wrapper .step .label, .features-wrapper .step time { transition: none }
   .features-wrapper .pulse { animation: none!important }
 }
 
@@ -456,7 +456,7 @@
     width: 15px;
     height: 15px;
   }
-  .features-wrapper .step label {
+  .features-wrapper .step .label {
     font-size: 10.5px;
     line-height: 1.2;
   }
@@ -576,7 +576,7 @@
     font-size: 11px;
     padding: 6px 8px;
   }
-  .features-wrapper .step label {
+  .features-wrapper .step .label {
     font-size: 9.5px;
   }
   .features-wrapper .speed b {

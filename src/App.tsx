@@ -5,6 +5,7 @@ import { FeaturesGrid } from '@/components/hero/FeaturesGrid'
 import { LogoCloud } from '@/components/logos/LogoCloud'
 import { ProblemSection } from '@/components/problem/ProblemSection'
 import { ToolsSection } from '@/components/tools/ToolsSection'
+import { SectionErrorBoundary, SectionSkeleton } from '@/components/system/AsyncSectionBoundary'
 
 // Below-the-fold components loaded on demand for optimal initial load time
 const CreationTechnologySection = lazy(() =>
@@ -40,26 +41,69 @@ const SiteFooter = lazy(() =>
 
 function App() {
   return (
-    <main className="min-h-screen bg-white overflow-x-hidden">
+    <>
+      <a href="#conteudo-principal" className="skip-link">
+        Pular para o conteúdo
+      </a>
       <Navbar />
-      <Hero />
-      <FeaturesGrid />
-      <LogoCloud />
-      <ProblemSection />
-      <ToolsSection />
-      <Suspense fallback={null}>
-        <CreationTechnologySection />
-        <MemoryAITableSection />
-        <WorkflowHeroSection />
-        <GlobeSection />
-        <PlatformMetricsSection />
-        <MissionMessageSection />
-        <ProductFAQSection />
-        <AIIdeaSection />
-        <MarqueeStripes />
-        <SiteFooter />
-      </Suspense>
-    </main>
+      <main id="conteudo-principal" className="min-h-screen bg-white overflow-x-hidden">
+        <Hero />
+        <FeaturesGrid />
+        <LogoCloud />
+        <ProblemSection />
+        <ToolsSection />
+        <SectionErrorBoundary>
+          <Suspense fallback={<SectionSkeleton minHeight="min-h-[720px]" />}>
+          <CreationTechnologySection />
+          </Suspense>
+        </SectionErrorBoundary>
+        <SectionErrorBoundary>
+          <Suspense fallback={<SectionSkeleton minHeight="min-h-[640px]" />}>
+          <MemoryAITableSection />
+          </Suspense>
+        </SectionErrorBoundary>
+        <SectionErrorBoundary>
+          <Suspense fallback={<SectionSkeleton minHeight="min-h-[520px]" />}>
+          <WorkflowHeroSection />
+          </Suspense>
+        </SectionErrorBoundary>
+        <SectionErrorBoundary>
+          <Suspense fallback={<SectionSkeleton minHeight="min-h-[520px]" />}>
+          <GlobeSection />
+          </Suspense>
+        </SectionErrorBoundary>
+        <SectionErrorBoundary>
+          <Suspense fallback={<SectionSkeleton />}>
+          <PlatformMetricsSection />
+          </Suspense>
+        </SectionErrorBoundary>
+        <SectionErrorBoundary>
+          <Suspense fallback={<SectionSkeleton />}>
+          <MissionMessageSection />
+          </Suspense>
+        </SectionErrorBoundary>
+        <SectionErrorBoundary>
+          <Suspense fallback={<SectionSkeleton />}>
+          <ProductFAQSection />
+          </Suspense>
+        </SectionErrorBoundary>
+        <SectionErrorBoundary>
+          <Suspense fallback={<SectionSkeleton />}>
+          <AIIdeaSection />
+          </Suspense>
+        </SectionErrorBoundary>
+        <SectionErrorBoundary>
+          <Suspense fallback={<SectionSkeleton minHeight="min-h-40" />}>
+          <MarqueeStripes />
+          </Suspense>
+        </SectionErrorBoundary>
+      </main>
+      <SectionErrorBoundary>
+        <Suspense fallback={<SectionSkeleton />}>
+          <SiteFooter />
+        </Suspense>
+      </SectionErrorBoundary>
+    </>
   )
 }
 

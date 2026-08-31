@@ -1,8 +1,8 @@
 import { useRef, useEffect } from 'react'
 import { motion, useInView, useAnimationControls } from 'motion/react'
 import { ArrowRight } from 'lucide-react'
-import { InlineAvatarGroup } from './InlineAvatarGroup'
-import { AnimatedText } from '../text/AnimatedText'
+import { InlineAvatarGroup } from '@/components/workflow/InlineAvatarGroup'
+import { AnimatedText } from '@/components/text/AnimatedText'
 
 // ─── Section ─────────────────────────────────────────────────────────────────
 
@@ -117,18 +117,20 @@ export function WorkflowHeroSection() {
             >
               {/* Mobile image */}
               <img
-                src="/images/automation-flow-mobile.png"
+                src="/images/automation-flow-mobile.webp"
                 alt="Fluxo de automação entre pessoas e agentes"
+                width={1024}
+                height={649}
                 className="w-full h-auto block mx-auto -translate-x-1 sm:translate-x-0 sm:hidden"
                 decoding="async"
                 loading="lazy"
               />
               {/* Desktop/tablet image */}
               <img
-                src="/images/automation-flow.webp"
+                src="/images/automation-flow-1480.webp"
                 alt="Fluxo de automação entre pessoas e agentes"
-                width={4800}
-                height={3200}
+                width={1480}
+                height={987}
                 className="hidden sm:block w-full max-w-[720px] md:max-w-[740px] h-auto mx-auto"
                 decoding="async"
                 loading="lazy"

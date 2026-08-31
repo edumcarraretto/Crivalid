@@ -1,6 +1,6 @@
 import { motion } from 'motion/react'
-import { allProjects } from './showcaseData'
-import { ShowcaseCard } from './ShowcaseCard'
+import { allProjects } from '@/components/showcase/showcaseData'
+import { ShowcaseCard } from '@/components/showcase/ShowcaseCard'
 
 // ─── Component ────────────────────────────────────────────────────────────────
 
@@ -50,6 +50,11 @@ export function CreationShowcase() {
         }
         .animate-showcase-marquee {
           animation: showcase-marquee 40s linear infinite;
+        }
+        @media (prefers-reduced-motion: reduce) {
+          .animate-showcase-marquee {
+            animation-play-state: paused;
+          }
         }
       `}</style>
 

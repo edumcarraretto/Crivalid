@@ -1,6 +1,6 @@
 import { useLayoutEffect, useRef } from 'react'
-import { stripes } from './marqueeData'
-import type { Chevron, Stripe } from './marqueeData'
+import { stripes } from '@/components/marquee/marqueeData'
+import type { Chevron, Stripe } from '@/components/marquee/marqueeData'
 
 // ─── Constants ───────────────────────────────────────────────────────────────
 

@@ -33,9 +33,21 @@ export function Navbar() {
     if (el) {
       const navbarHeight = 100 // offset for sticky navbar
       const top = el.getBoundingClientRect().top + window.scrollY - navbarHeight
-      window.scrollTo({ top, behavior: 'smooth' })
+      const behavior = window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth'
+      window.scrollTo({ top, behavior })
     }
   }, [])
+
+  useEffect(() => {
+    if (!mobileMenuOpen) return
+
+    const handleKeyDown = (event: KeyboardEvent) => {
+      if (event.key === 'Escape') setMobileMenuOpen(false)
+    }
+
+    window.addEventListener('keydown', handleKeyDown)
+    return () => window.removeEventListener('keydown', handleKeyDown)
+  }, [mobileMenuOpen])
 
   // ── Scroll-spy: highlight active section + shrink navbar ──
   useEffect(() => {
@@ -105,13 +117,13 @@ export function Navbar() {
         >
           {/* ── 1. LADO ESQUERDO: Somente o ÍCONE / Símbolo da Logo ── */}
           <div className="flex items-center select-none shrink-0 pl-1 sm:pl-2">
-            <a
-              href="#"
+            <button
+              type="button"
               className="relative w-8 h-8 sm:w-9 sm:h-9 flex items-center justify-center group cursor-pointer"
               aria-label="MAKEPLOY Home"
               onClick={(e) => {
                 e.preventDefault()
-                window.scrollTo({ top: 0, behavior: 'smooth' })
+                window.scrollTo({ top: 0, behavior: window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth' })
               }}
             >
               <img
@@ -124,7 +136,7 @@ export function Navbar() {
                   ${isScrolled ? 'w-8.5 h-8.5 sm:w-9 sm:h-9 scale-[1.85]' : 'w-8 h-8 sm:w-8.5 sm:h-8.5 scale-[1.7]'}
                 `}
               />
-            </a>
+            </button>
           </div>
 
           {/* ── 2. CENTRO EXPANDIDO: 3 Links | LOGO ESCRITA | 3 Links (Desktop) ── */}
@@ -174,11 +186,11 @@ export function Navbar() {
             </div>
 
             {/* ── LOGO ESCRITA NO MEIO (ISOLADA COM RESPIRO) ── */}
-            <a
-              href="#"
+            <button
+              type="button"
               onClick={(e) => {
                 e.preventDefault()
-                window.scrollTo({ top: 0, behavior: 'smooth' })
+                window.scrollTo({ top: 0, behavior: window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth' })
               }}
               aria-label="MAKEPLOY Home"
               className="relative flex items-center justify-center mx-10 sm:mx-14 lg:mx-16 xl:mx-24 h-8 group cursor-pointer shrink-0"
@@ -193,7 +205,7 @@ export function Navbar() {
                   ${isScrolled ? 'h-7 sm:h-8 scale-[3.15]' : 'h-7 sm:h-7.5 scale-[2.85]'}
                 `}
               />
-            </a>
+            </button>
 
             {/* 3 Links da Direita */}
             <div className="flex items-center gap-1 xl:gap-1.5">
@@ -261,13 +273,13 @@ export function Navbar() {
 
           {/* Mobile Center Logo View */}
           <div className="flex lg:hidden items-center justify-center">
-            <a
-              href="#"
+            <button
+              type="button"
               aria-label="MAKEPLOY Home"
               className="relative flex items-center justify-center h-8 group cursor-pointer"
               onClick={(e) => {
                 e.preventDefault()
-                window.scrollTo({ top: 0, behavior: 'smooth' })
+                window.scrollTo({ top: 0, behavior: window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth' })
               }}
             >
               <img
@@ -277,7 +289,7 @@ export function Navbar() {
                 height={32}
                 className="h-6 sm:h-7 object-contain scale-[3.0] sm:scale-[3.2] transform transition-transform duration-300"
               />
-            </a>
+            </button>
           </div>
 
           {/* Mobile Menu Toggle Button */}

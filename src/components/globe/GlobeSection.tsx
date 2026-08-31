@@ -1,8 +1,8 @@
 import { useEffect, useState } from 'react'
 import { AnimatePresence, motion, useReducedMotion } from 'motion/react'
-import { InteractiveGlobe } from './InteractiveGlobe'
-import { globeArcs, globeMarkers } from './globeData'
-import { HighlightText } from '../text/HighlightText'
+import { InteractiveGlobe } from '@/components/globe/InteractiveGlobe'
+import { globeArcs, globeMarkers } from '@/components/globe/globeData'
+import { HighlightText } from '@/components/text/HighlightText'
 
 const sectionStars = [
   { left: '6%', top: '16%', size: 3, delay: 0.2, duration: 3.8 },

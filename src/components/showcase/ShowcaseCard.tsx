@@ -1,4 +1,4 @@
-import type { ShowcaseProject } from './showcaseData'
+import type { ShowcaseProject } from '@/components/showcase/showcaseData'
 
 // ─── Props ────────────────────────────────────────────────────────────────────
 
@@ -27,6 +27,8 @@ export function ShowcaseCard({ project, layout }: ShowcaseCardProps) {
       <img
         src={project.image}
         alt={`${project.title} — ${project.category}`}
+        width={941}
+        height={1672}
         className={isHorizontal ? 'absolute inset-0 w-full h-full object-cover' : 'block h-full w-auto object-cover'}
         style={{
           objectPosition: project.objectPosition ?? 'top center',

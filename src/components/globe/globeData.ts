@@ -1,4 +1,4 @@
-import type { Arc, Marker } from './InteractiveGlobe'
+import type { Arc, Marker } from '@/components/globe/InteractiveGlobe'
 
 export const globeMarkers: Marker[] = []
 

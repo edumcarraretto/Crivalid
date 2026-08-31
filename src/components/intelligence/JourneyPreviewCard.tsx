@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react"
+import { useReducedMotion } from "motion/react"
 
 const cn = (...args: (string | undefined | null | false)[]) => args.filter(Boolean).join(" ");
 
@@ -63,6 +64,7 @@ const sizeClasses = {
 }
 
 export function JourneyPreviewCard() {
+  const reduceMotion = useReducedMotion()
   const [hoveredId, setHoveredId] = useState<string | null>(null)
   const [clickedId, setClickedId] = useState<string | null>(null)
   const [autoIndex, setAutoIndex] = useState(0)
@@ -70,14 +72,14 @@ export function JourneyPreviewCard() {
   // Auto-cycle effect
   useEffect(() => {
     // Pause auto-rotation if user is interacting
-    if (hoveredId !== null || clickedId !== null) return;
+    if (reduceMotion || hoveredId !== null || clickedId !== null) return
 
     const timer = setInterval(() => {
       setAutoIndex((prev) => (prev + 1) % badges.length)
     }, 2000) // Change highlight every 2 seconds
 
     return () => clearInterval(timer)
-  }, [hoveredId, clickedId])
+  }, [hoveredId, clickedId, reduceMotion])
 
   const handleClick = (id: string) => {
     setClickedId(clickedId === id ? null : id)
@@ -93,8 +95,10 @@ export function JourneyPreviewCard() {
           (hoveredId === null && clickedId === null && autoIndex !== idx)
 
         return (
-          <div
+          <button
+            type="button"
             key={badge.id}
+            aria-pressed={isClicked}
             className={cn(
               "absolute cursor-pointer select-none rounded-full font-bold transition-all duration-500 ease-out",
               "bg-gradient-to-b shadow-lg",
@@ -118,6 +122,8 @@ export function JourneyPreviewCard() {
             }}
             onMouseEnter={() => setHoveredId(badge.id)}
             onMouseLeave={() => setHoveredId(null)}
+            onFocus={() => setHoveredId(badge.id)}
+            onBlur={() => setHoveredId(null)}
             onClick={() => handleClick(badge.id)}
           >
             <span
@@ -138,7 +144,7 @@ export function JourneyPreviewCard() {
                 background: "linear-gradient(180deg, rgba(255,255,255,0.4) 0%, rgba(255,255,255,0) 50%)",
               }}
             />
-          </div>
+          </button>
         )
       })}
     </div>

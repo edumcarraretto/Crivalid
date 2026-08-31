@@ -15,12 +15,31 @@ export function MobileProblemImageCarousel() {
     setActiveIndex(Math.min(Math.max(newIndex, 0), OFFSETS.length - 1))
   }
 
+  const goToSlide = (index: number) => {
+    const container = scrollRef.current
+    if (!container) return
+    const behavior = window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth'
+    container.scrollTo({ left: container.offsetWidth * index, behavior })
+    setActiveIndex(index)
+  }
+
   return (
-    <div className="w-full flex flex-col items-center gap-3">
+    <section className="w-full flex flex-col items-center gap-3" aria-label="Etapas do projeto">
       {/* ── Horizontal Snap Slider ── */}
       <div
         ref={scrollRef}
         onScroll={handleScroll}
+        tabIndex={0}
+        role="slider"
+        aria-valuemin={1}
+        aria-valuemax={OFFSETS.length}
+        aria-valuenow={activeIndex + 1}
+        aria-orientation="horizontal"
+        aria-label={`Etapa ${activeIndex + 1} de ${OFFSETS.length}`}
+        onKeyDown={(event) => {
+          if (event.key === 'ArrowLeft') goToSlide(Math.max(0, activeIndex - 1))
+          if (event.key === 'ArrowRight') goToSlide(Math.min(OFFSETS.length - 1, activeIndex + 1))
+        }}
         className="w-full flex overflow-x-auto snap-x snap-mandatory no-scrollbar scroll-smooth"
         style={{
           scrollbarWidth: 'none',
@@ -35,8 +54,10 @@ export function MobileProblemImageCarousel() {
             {/* Image Frame: displays exact third of the original image */}
             <div className="relative w-full overflow-hidden flex items-center" style={{ aspectRatio: '1.15 / 1' }}>
               <img
-                src="/images/novaimagem_v2.png"
+                src="/images/novaimagem-v2.webp"
                 alt={`Etapa ${index + 1} de 3`}
+                width={2480}
+                height={709}
                 loading="lazy"
                 decoding="async"
                 draggable={false}
@@ -55,8 +76,12 @@ export function MobileProblemImageCarousel() {
       {/* ── Minimal dots indicator ── */}
       <div className="flex items-center gap-1.5">
         {OFFSETS.map((_, i) => (
-          <span
+          <button
+            type="button"
             key={i}
+            onClick={() => goToSlide(i)}
+            aria-label={`Mostrar etapa ${i + 1}`}
+            aria-current={activeIndex === i ? 'true' : undefined}
             className={`
               rounded-full transition-all duration-300
               ${activeIndex === i ? 'w-5 h-1.5 bg-blue-600' : 'w-1.5 h-1.5 bg-neutral-300'}
@@ -64,6 +89,6 @@ export function MobileProblemImageCarousel() {
           />
         ))}
       </div>
-    </div>
+    </section>
   )
 }

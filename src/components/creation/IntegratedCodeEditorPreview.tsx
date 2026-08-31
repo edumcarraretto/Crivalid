@@ -129,6 +129,8 @@ const FILE_CONTENTS: Record<string, FileContent> = {
 
 const NAVIGABLE_FILES = FILE_TREE.filter((f) => !f.isDir).map((f) => f.name)
 
+const getTabId = (fileName: string) => `editor-tab-${fileName.replace(/[^a-zA-Z0-9]/g, '-')}`
+
 // ─── Component ────────────────────────────────────────────────────────────────
 
 export function IntegratedCodeEditorPreview() {
@@ -169,6 +171,22 @@ export function IntegratedCodeEditorPreview() {
     }
   }
 
+  const handleTabKeyDown = (event: React.KeyboardEvent<HTMLButtonElement>, tab: string) => {
+    const currentIndex = openTabs.indexOf(tab)
+    let nextIndex = currentIndex
+
+    if (event.key === 'ArrowRight') nextIndex = (currentIndex + 1) % openTabs.length
+    else if (event.key === 'ArrowLeft') nextIndex = (currentIndex - 1 + openTabs.length) % openTabs.length
+    else if (event.key === 'Home') nextIndex = 0
+    else if (event.key === 'End') nextIndex = openTabs.length - 1
+    else return
+
+    event.preventDefault()
+    const nextTab = openTabs[nextIndex]
+    setActiveFile(nextTab)
+    document.getElementById(getTabId(nextTab))?.focus()
+  }
+
   const content = FILE_CONTENTS[activeFile]
 
   return (
@@ -191,10 +209,11 @@ export function IntegratedCodeEditorPreview() {
           const isActive = activeFile === file.name
 
           return (
-            <div
+            <button
+              type="button"
               key={`${file.indent}-${file.name}`}
               className={[
-                'flex items-center gap-1 px-2 py-[3px] text-[7px] transition-colors duration-150',
+                'flex w-full items-center gap-1 px-2 py-[3px] text-left text-[7px] transition-colors duration-150',
                 isActive
                   ? 'bg-white/[0.08] text-white font-medium'
                   : 'text-neutral-500',
@@ -204,14 +223,7 @@ export function IntegratedCodeEditorPreview() {
               ].join(' ')}
               style={{ paddingLeft: `${8 + file.indent * 8}px` }}
               onClick={() => isNavigable && handleFileClick(file.name)}
-              role={isNavigable ? 'button' : undefined}
-              tabIndex={isNavigable ? 0 : undefined}
-              onKeyDown={(e) => {
-                if (isNavigable && (e.key === 'Enter' || e.key === ' ')) {
-                  e.preventDefault()
-                  handleFileClick(file.name)
-                }
-              }}
+              disabled={!isNavigable}
             >
               {file.isDir ? (
                 <span className="text-[6px] text-neutral-500">▸</span>
@@ -219,7 +231,7 @@ export function IntegratedCodeEditorPreview() {
                 <span className={`text-[6px] ${isActive ? 'text-violet-400' : 'text-neutral-600'}`}>◇</span>
               )}
               <span className="truncate">{file.name}</span>
-            </div>
+            </button>
           )
         })}
       </div>
@@ -227,23 +239,37 @@ export function IntegratedCodeEditorPreview() {
       {/* Editor area */}
       <div className="flex-1 flex flex-col min-w-0">
         {/* Tabs */}
-        <div className="flex border-b border-white/[0.06] shrink-0 overflow-x-auto no-scrollbar">
+        <div
+          role="tablist"
+          aria-label="Arquivos abertos"
+          className="flex border-b border-white/[0.06] shrink-0 overflow-x-auto no-scrollbar"
+        >
           {openTabs.map((tab) => (
             <div
               key={tab}
               className={[
-                'group/tab flex items-center gap-1 px-2.5 py-1.5 text-[7px] border-r border-white/[0.06] cursor-pointer shrink-0 transition-colors duration-150',
+                'group/tab flex items-center gap-1 px-1 py-1 text-[7px] border-r border-white/[0.06] shrink-0 transition-colors duration-150',
                 tab === activeFile
                   ? 'text-white bg-neutral-950 border-b-2 border-b-blue-500'
                   : 'text-neutral-500 bg-[#080809] hover:text-neutral-300',
               ].join(' ')}
-              onClick={() => setActiveFile(tab)}
-              role="tab"
-              aria-selected={tab === activeFile}
             >
-              <span>{tab}</span>
+              <button
+                id={getTabId(tab)}
+                type="button"
+                role="tab"
+                aria-selected={tab === activeFile}
+                aria-controls="editor-tabpanel"
+                tabIndex={tab === activeFile ? 0 : -1}
+                onClick={() => setActiveFile(tab)}
+                onKeyDown={(event) => handleTabKeyDown(event, tab)}
+                className="cursor-pointer rounded-sm px-1.5 py-0.5 focus-visible:outline-offset-0"
+              >
+                {tab}
+              </button>
               {openTabs.length > 1 && (
                 <button
+                  type="button"
                   className="ml-0.5 w-2.5 h-2.5 flex items-center justify-center rounded-sm opacity-0 group-hover/tab:opacity-100 hover:bg-white/[0.1] transition-opacity duration-150 text-[6px] text-neutral-500 hover:text-white"
                   onClick={(e) => handleTabClose(tab, e)}
                   aria-label={`Fechar ${tab}`}
@@ -257,7 +283,12 @@ export function IntegratedCodeEditorPreview() {
 
         {/* Code */}
         {content && (
-          <div className="flex-1 overflow-hidden py-1.5">
+          <div
+            id="editor-tabpanel"
+            role="tabpanel"
+            aria-labelledby={getTabId(activeFile)}
+            className="flex-1 overflow-hidden py-1.5"
+          >
             {content.lines.map((line) => (
               <div
                 key={line.num}

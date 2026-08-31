@@ -1,11 +1,11 @@
-import { JourneyPreviewCard } from './JourneyPreviewCard'
-import { AIModelsPreview } from './AIModelsPreview'
-import { MultiplayerAIPreview } from './MultiplayerAIPreview'
-import { ConnectedTechPreview } from './ConnectedTechPreview'
-import { AmbientIntelligencePreview } from './AmbientIntelligencePreview'
-import { DeepSearchPreview } from './DeepSearchPreview'
+import { JourneyPreviewCard } from '@/components/intelligence/JourneyPreviewCard'
+import { AIModelsPreview } from '@/components/intelligence/AIModelsPreview'
+import { MultiplayerAIPreview } from '@/components/intelligence/MultiplayerAIPreview'
+import { ConnectedTechPreview } from '@/components/intelligence/ConnectedTechPreview'
+import { AmbientIntelligencePreview } from '@/components/intelligence/AmbientIntelligencePreview'
+import { DeepSearchPreview } from '@/components/intelligence/DeepSearchPreview'
 import { motion } from 'motion/react'
-import { GradientText } from '../text/GradientText'
+import { GradientText } from '@/components/text/GradientText'
 
 const cardReveal = {
   hidden: { opacity: 0, y: 22, scale: 0.985 },

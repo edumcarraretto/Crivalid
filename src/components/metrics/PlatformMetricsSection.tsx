@@ -1,8 +1,8 @@
 import { motion } from 'motion/react'
 import { ArrowRight } from 'lucide-react'
-import { MetricItem } from './MetricItem'
-import { DEMO_METRICS } from './metricsData'
-import type { PlatformMetric } from './metricsData'
+import { MetricItem } from '@/components/metrics/MetricItem'
+import { DEMO_METRICS } from '@/components/metrics/metricsData'
+import type { PlatformMetric } from '@/components/metrics/metricsData'
 
 // ─── Types ────────────────────────────────────────────────────────────────────
 

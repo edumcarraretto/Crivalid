@@ -304,6 +304,8 @@ export function ConnectedTechPreview() {
           <img
             src="/nova-logo-1914.png"
             alt="MAKEPLOY"
+            width={1024}
+            height={1024}
             className="mcp__logo"
           />
         </div>

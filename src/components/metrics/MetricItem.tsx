@@ -1,5 +1,5 @@
-import { AnimatedMetricValue } from './AnimatedMetricValue'
-import type { PlatformMetric } from './metricsData'
+import { AnimatedMetricValue } from '@/components/metrics/AnimatedMetricValue'
+import type { PlatformMetric } from '@/components/metrics/metricsData'
 import { motion } from 'motion/react'
 import { useCallback, useState } from 'react'
 

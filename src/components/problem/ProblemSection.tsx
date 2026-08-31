@@ -1,6 +1,6 @@
 import { motion } from 'motion/react'
-import { HighlightText } from '../text/HighlightText'
-import { MobileProblemImageCarousel } from './MobileProblemImageCarousel'
+import { HighlightText } from '@/components/text/HighlightText'
+import { MobileProblemImageCarousel } from '@/components/problem/MobileProblemImageCarousel'
 
 export function ProblemSection() {
   return (
@@ -28,12 +28,12 @@ export function ProblemSection() {
           className="hidden md:block w-full"
         >
           <img 
-            src="/images/novaimagem_v2.png"
+            src="/images/novaimagem-v2.webp"
             alt="Como um projeto perde continuidade: contexto disperso, decisões repetidas e retrabalho crescente"
             loading="lazy"
             decoding="async"
-            width={2172}
-            height={724}
+            width={2480}
+            height={709}
             draggable={false}
             className="w-full h-auto object-contain select-none"
             style={{ imageRendering: 'auto', maxWidth: '100%' }}

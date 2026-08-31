@@ -213,20 +213,16 @@ export function DeepSearchStatusPanel() {
         }
       `}</style>
 
-      <div
-        className="pp-root"
-        role="progressbar"
-        aria-valuenow={pct}
-        aria-valuemin={0}
-        aria-valuemax={100}
-        aria-label={label}
-      >
+      <progress className="sr-only" value={pct} max={100} aria-label={label} />
+      <div className="pp-root" aria-hidden="true">
         <div className="pp-icon">
           <div className="pp-ring" />
           <div className="pp-core">
             <img
               src="/nova-logo-1914.png"
               alt="MAKEPLOY"
+              width={1024}
+              height={1024}
               className="pp-logo"
             />
           </div>
