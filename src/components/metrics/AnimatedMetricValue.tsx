@@ -123,8 +123,8 @@ export function AnimatedMetricValue({
   return (
     <span
       ref={containerRef}
-      aria-label={displayValue}
     >
+      <span className="sr-only">{displayValue}</span>
       <motion.span
         aria-hidden="true"
         initial={{ opacity: 0, y: 8 }}

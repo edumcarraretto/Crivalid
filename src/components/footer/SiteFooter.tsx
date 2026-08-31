@@ -16,11 +16,10 @@ const NAV_LINKS = [
 
 export function SiteFooter() {
   return (
-    <footer className="bg-white pt-0 pb-14 sm:pb-20">
+    <footer aria-label="Rodapé do site" className="bg-white pt-0 pb-14 sm:pb-20">
       <div className="mx-4 sm:mx-6 md:mx-10 lg:mx-16">
         <div
           id="site-footer"
-          aria-label="Rodapé do site"
           className="relative bg-black rounded-b-[32px] sm:rounded-b-[40px] rounded-t-none overflow-hidden"
         >
           {/* ── Concave notch transition ── */}

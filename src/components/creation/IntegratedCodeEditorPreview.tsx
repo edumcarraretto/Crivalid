@@ -239,11 +239,7 @@ export function IntegratedCodeEditorPreview() {
       {/* Editor area */}
       <div className="flex-1 flex flex-col min-w-0">
         {/* Tabs */}
-        <div
-          role="tablist"
-          aria-label="Arquivos abertos"
-          className="flex border-b border-white/[0.06] shrink-0 overflow-x-auto no-scrollbar"
-        >
+        <div className="flex border-b border-white/[0.06] shrink-0 overflow-x-auto no-scrollbar">
           {openTabs.map((tab) => (
             <div
               key={tab}
@@ -257,9 +253,7 @@ export function IntegratedCodeEditorPreview() {
               <button
                 id={getTabId(tab)}
                 type="button"
-                role="tab"
-                aria-selected={tab === activeFile}
-                aria-controls="editor-tabpanel"
+                aria-pressed={tab === activeFile}
                 tabIndex={tab === activeFile ? 0 : -1}
                 onClick={() => setActiveFile(tab)}
                 onKeyDown={(event) => handleTabKeyDown(event, tab)}
@@ -284,9 +278,6 @@ export function IntegratedCodeEditorPreview() {
         {/* Code */}
         {content && (
           <div
-            id="editor-tabpanel"
-            role="tabpanel"
-            aria-labelledby={getTabId(activeFile)}
             className="flex-1 overflow-hidden py-1.5"
           >
             {content.lines.map((line) => (

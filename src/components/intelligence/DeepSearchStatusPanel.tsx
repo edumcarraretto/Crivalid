@@ -219,10 +219,10 @@ export function DeepSearchStatusPanel() {
           <div className="pp-ring" />
           <div className="pp-core">
             <img
-              src="/nova-logo-1914.png"
+              src="/nova-logo-512.webp"
               alt="MAKEPLOY"
-              width={1024}
-              height={1024}
+              width={512}
+              height={512}
               className="pp-logo"
             />
           </div>

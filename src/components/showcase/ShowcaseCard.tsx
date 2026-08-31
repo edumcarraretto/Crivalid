@@ -22,7 +22,6 @@ export function ShowcaseCard({ project, layout }: ShowcaseCardProps) {
         }
       `}
       style={{ borderRadius: '16px' }}
-      aria-label={`Projeto ${project.title} — ${project.category}`}
     >
       <img
         src={project.image}

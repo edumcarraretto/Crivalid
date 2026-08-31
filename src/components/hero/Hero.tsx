@@ -137,10 +137,11 @@ function Mascot({ isDark, reduceMotion }: { isDark: boolean; reduceMotion: boole
         >
           {/* The Logo with Complex Drop Shadows */}
           <motion.img 
-            src="/nova-logo-1914.png" 
+            src="/nova-logo-512.webp"
             alt="Logo oficial da MAKEPLOY"
-            width={1024}
-            height={1024}
+            width={512}
+            height={512}
+            fetchPriority="high"
             className="w-full h-full object-contain" 
             style={{ 
               filter: isDark 
@@ -182,14 +183,12 @@ export function Hero({ theme = 'light' }: HeroProps) {
         {/* 1 & 2 — Headline */}
         <motion.h1
           id="hero-heading"
-          initial={reduceMotion ? false : { opacity: 0, y: 18, filter: 'blur(8px)' }}
-          animate={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
-          transition={{ duration: 0.85, ease: [0.22, 1, 0.36, 1] }}
+          initial={false}
           className={`text-3xl sm:text-5xl md:text-6xl lg:text-[4rem] tracking-tight leading-tight transition-colors duration-500`}
           style={{ color: isDark ? '#ffffff' : '#171717' }}
         >
           Crie, publique e evolua.{' '}
-          <GradientText className="italic">
+          <GradientText className="italic" priority>
             Sem trocar de sistema.
           </GradientText>
         </motion.h1>

@@ -5,9 +5,10 @@ interface GradientTextProps {
   children: ReactNode
   className?: string
   inverse?: boolean
+  priority?: boolean
 }
 
-export function GradientText({ children, className = '', inverse = false }: GradientTextProps) {
+export function GradientText({ children, className = '', inverse = false, priority = false }: GradientTextProps) {
   const reduceMotion = useReducedMotion()
 
   return (
@@ -19,8 +20,8 @@ export function GradientText({ children, className = '', inverse = false }: Grad
           : 'var(--gradient-brand)',
         backgroundSize: reduceMotion ? '100% 100%' : '220% 100%',
       }}
-      initial={reduceMotion ? false : { backgroundPosition: '100% 50%', opacity: 0.72 }}
-      whileInView={{ backgroundPosition: '0% 50%', opacity: 1 }}
+      initial={reduceMotion || priority ? false : { backgroundPosition: '100% 50%', opacity: 0.72 }}
+      whileInView={priority ? undefined : { backgroundPosition: '0% 50%', opacity: 1 }}
       viewport={{ once: true, margin: '-10% 0px' }}
       transition={{ duration: 1.35, ease: [0.22, 1, 0.36, 1] }}
     >

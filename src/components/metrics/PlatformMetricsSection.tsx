@@ -17,7 +17,8 @@ const TITLE_TEXT = 'Escala global,'
 
 function AnimatedTitleLine() {
   return (
-    <span aria-label={TITLE_TEXT} className="inline-flex">
+    <span className="inline-flex">
+      <span className="sr-only">{TITLE_TEXT}</span>
       {Array.from(TITLE_TEXT).map((character, index) => (
         <motion.span
           key={`${character}-${index}`}

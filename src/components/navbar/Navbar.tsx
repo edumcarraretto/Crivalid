@@ -127,7 +127,7 @@ export function Navbar() {
               }}
             >
               <img
-                src="/nova-logo-1914.png"
+                src="/nova-logo-512.webp"
                 alt="MAKEPLOY"
                 width={36}
                 height={36}
@@ -196,7 +196,7 @@ export function Navbar() {
               className="relative flex items-center justify-center mx-10 sm:mx-14 lg:mx-16 xl:mx-24 h-8 group cursor-pointer shrink-0"
             >
               <img
-                src="/text-logo-1931.webp"
+                src="/text-logo-512.webp"
                 alt="MAKEPLOY"
                 width={140}
                 height={32}
@@ -283,7 +283,7 @@ export function Navbar() {
               }}
             >
               <img
-                src="/text-logo-1931.webp"
+                src="/text-logo-512.webp"
                 alt="MAKEPLOY"
                 width={140}
                 height={32}

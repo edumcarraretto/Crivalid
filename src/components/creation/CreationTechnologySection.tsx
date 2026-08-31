@@ -40,10 +40,10 @@ export function CreationTechnologySection() {
             className="flex items-center justify-center gap-3.5 sm:gap-4 mb-8 sm:mb-10"
           >
             <img
-              src="/nova-logo-1914.png"
+              src="/nova-logo-512.webp"
               alt="MAKEPLOY"
-              width={1024}
-              height={1024}
+              width={512}
+              height={512}
               className="w-12 h-12 sm:w-14 sm:h-14 md:w-16 md:h-16 object-contain drop-shadow-md"
             />
             <span className="text-xl sm:text-2xl md:text-[26px] font-extrabold text-white tracking-tight leading-none">
@@ -85,6 +85,7 @@ export function CreationTechnologySection() {
             viewport={{ once: true, margin: '-40px' }}
             transition={{ duration: 0.5, delay: 0.35 }}
             className="mt-6 flex flex-wrap items-center justify-center gap-4 sm:gap-6"
+            role="group"
             aria-label="Plataformas disponíveis"
           >
             <span className="text-[10px] sm:text-xs font-medium text-neutral-400 uppercase tracking-[0.18em] mr-2">

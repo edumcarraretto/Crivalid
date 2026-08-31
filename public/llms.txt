@@ -1,0 +1,20 @@
+# MAKEPLOY
+
+> Plataforma para transformar ideias em projetos completos, reunindo criação visual, código, inteligência artificial, automações e colaboração em um único contexto.
+
+## Página principal
+
+- [MAKEPLOY](https://www.makeploy.com/): apresentação oficial da plataforma, seus recursos, fluxo de trabalho e formas de contato.
+
+## Principais capacidades
+
+- Criação visual e edição de código no mesmo projeto.
+- Inteligência artificial contextual para pesquisa, planejamento e execução.
+- Automações, integrações e colaboração em equipe.
+- Continuidade do projeto entre ideia, desenvolvimento, publicação e evolução.
+
+## Informações adicionais
+
+- Idioma principal: português do Brasil.
+- Conteúdo oficial: https://www.makeploy.com/
+- Contato: disponível na página principal.

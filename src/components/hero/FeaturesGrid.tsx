@@ -3,12 +3,29 @@ import { Target, Search, PenLine, Palette, Code2, Workflow, Rocket, ChartNoAxesC
 import './FeaturesGrid.css'
 
 export function FeaturesGrid() {
+  const sectionRef = useRef<HTMLElement>(null)
   const tlRef = useRef<HTMLDivElement>(null)
   const speedRef = useRef<HTMLDivElement>(null)
   const backupRef = useRef<HTMLDivElement>(null)
   const funRef = useRef<HTMLDivElement>(null)
   
   const [currentTime, setCurrentTime] = useState('')
+  const [animationsActive, setAnimationsActive] = useState(false)
+
+  useEffect(() => {
+    const section = sectionRef.current
+    if (!section) return
+
+    const observer = new IntersectionObserver(([entry]) => {
+      if (entry.isIntersecting) {
+        setAnimationsActive(true)
+        observer.disconnect()
+      }
+    }, { threshold: 0.05 })
+
+    observer.observe(section)
+    return () => observer.disconnect()
+  }, [])
 
   useEffect(() => {
     const updateTime = () => {
@@ -24,6 +41,8 @@ export function FeaturesGrid() {
   }, [])
 
   useEffect(() => {
+    if (!animationsActive) return
+
     let isActive = true
     const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches
     const wait = (ms: number) => new Promise(r => setTimeout(r, ms))
@@ -221,10 +240,11 @@ export function FeaturesGrid() {
       if (funInterval) window.clearInterval(funInterval)
       if (funResetTimeout) window.clearTimeout(funResetTimeout)
     }
-  }, [])
+  }, [animationsActive])
 
   return (
-    <div id="como-funciona" className="features-wrapper">
+    <section ref={sectionRef} id="como-funciona" aria-labelledby="features-heading" className="features-wrapper">
+      <h2 id="features-heading" className="sr-only">Como a MAKEPLOY mantém o contexto do projeto</h2>
       <div className="grid">
         {/* 1 */}
         <section className="card easy">
@@ -438,6 +458,6 @@ export function FeaturesGrid() {
           <p>Pesquisa, design, conteúdo, código e operação trabalham sobre a mesma base.</p>
         </section>
       </div>
-    </div>
+    </section>
   )
 }
