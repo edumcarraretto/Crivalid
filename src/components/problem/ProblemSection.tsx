@@ -13,10 +13,12 @@ export function ProblemSection() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-100px" }}
           transition={{ duration: 0.5 }}
-          className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-center mb-10 sm:mb-16 text-neutral-900 dark:text-white tracking-tight px-2"
+          className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-center mb-10 sm:mb-16 text-neutral-900 dark:text-white tracking-tight px-2 leading-[1.25]"
         >
           O custo não está na ferramenta.{' '}
-          <HighlightText variant="coral">Está em reconstruir o contexto.</HighlightText>
+          <br className="hidden sm:inline" />
+          Está em reconstruir{' '}
+          <HighlightText variant="coral">o contexto.</HighlightText>
         </motion.h2>
 
         {/* Desktop Image Container (hidden on mobile, visible on md+) */}
@@ -28,7 +30,7 @@ export function ProblemSection() {
           className="hidden md:block w-full"
         >
           <img 
-            src="/images/novaimagem-v2.webp"
+            src="/images/novaimagem_v2.png"
             alt="Como um projeto perde continuidade: contexto disperso, decisões repetidas e retrabalho crescente"
             loading="lazy"
             decoding="async"
@@ -49,4 +51,3 @@ export function ProblemSection() {
     </section>
   )
 }
-

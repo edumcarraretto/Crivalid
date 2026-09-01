@@ -24,14 +24,14 @@ export function HighlightText({
   const reduceMotion = useReducedMotion()
 
   return (
-    <span className="relative isolate inline-block px-[0.06em]">
+    <span className="relative isolate inline-block whitespace-nowrap px-[0.08em]">
       <motion.span
         aria-hidden="true"
         initial={reduceMotion ? false : { scaleX: 0, opacity: 0.35 }}
         whileInView={{ scaleX: 1, opacity: 1 }}
         viewport={{ once: true, margin: '-12% 0px' }}
         transition={{ duration: 0.72, delay: 0.12, ease: [0.22, 1, 0.36, 1] }}
-        className={`absolute inset-x-[-0.04em] bottom-[0.02em] -z-10 h-[0.48em] origin-left -rotate-[0.6deg] rounded-[0.08em] will-change-transform ${highlightVariants[variant]} ${className}`}
+        className={`absolute inset-x-[-0.02em] bottom-[0.06em] -z-10 h-[0.42em] origin-left -rotate-[0.5deg] rounded-[0.08em] will-change-transform ${highlightVariants[variant]} ${className}`}
       />
       <span className="relative">{children}</span>
     </span>
