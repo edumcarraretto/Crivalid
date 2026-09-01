@@ -58,36 +58,34 @@ function RotatingSubtitle({ isDark, reduceMotion }: { isDark: boolean; reduceMot
 
 // ─── Mascot ───────────────────────────────────────────────────────────────────
 
-function Mascot({ isDark, reduceMotion, mobile }: { isDark: boolean; reduceMotion: boolean; mobile: boolean }) {
+function Mascot({ isDark, reduceMotion }: { isDark: boolean; reduceMotion: boolean }) {
   return (
     <div className="relative w-[13.8rem] h-[13.8rem] sm:w-[21rem] sm:h-[21rem] md:w-[25.5rem] md:h-[25.5rem] mx-auto mt-16 mb-8 flex items-center justify-center">
-      {/* Huge background marquee */}
+      {/* Background marquee (adapted proportionally for mobile & desktop) */}
       <div 
-        className={`${mobile ? 'hidden' : 'flex'} absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[150vw] sm:w-[120vw] pointer-events-none -z-10 select-none overflow-hidden`}
+        className="flex absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[140vw] sm:w-[120vw] pointer-events-none -z-10 select-none overflow-hidden"
         style={{
-          maskImage: 'radial-gradient(circle at center, transparent 100px, black 320px)',
-          WebkitMaskImage: 'radial-gradient(circle at center, transparent 100px, black 320px)'
+          maskImage: 'radial-gradient(circle at center, transparent 65px, black 200px)',
+          WebkitMaskImage: 'radial-gradient(circle at center, transparent 65px, black 200px)'
         }}
       >
         <motion.div
           animate={reduceMotion ? undefined : { x: [0, '-50%'] }}
-          transition={{ repeat: Infinity, ease: 'linear', duration: 45 }}
-          className={`flex w-max items-center whitespace-nowrap text-[12rem] sm:text-[18rem] md:text-[22rem] font-extrabold tracking-tighter text-black ${isDark ? '' : 'opacity-[0.04]'}`}
+          transition={{ repeat: Infinity, ease: 'linear', duration: 40 }}
+          className={`flex w-max items-center whitespace-nowrap text-[4.2rem] sm:text-[16rem] md:text-[22rem] font-extrabold tracking-tighter text-black ${isDark ? 'text-white opacity-20' : 'opacity-[0.06] sm:opacity-[0.04]'}`}
         >
           {[...Array(2)].map((_, i) => (
             <div key={i} className="flex items-center">
               {['VALIDE', 'MAKEPLOY', 'CRIE', 'REALIZE'].map((word, j) => (
                 <div key={j} className="flex items-center">
                   <span>{word}</span>
-                  <span className="mx-8 sm:mx-16 text-[6rem] sm:text-[10rem] text-black">•</span>
+                  <span className="mx-4 sm:mx-12 md:mx-16 text-[2rem] sm:text-[8rem] md:text-[10rem] text-black">•</span>
                 </div>
               ))}
             </div>
           ))}
         </motion.div>
       </div>
-
-
 
       {/* Premium Logo Showcase */}
       <div className="relative z-10 flex items-center justify-center w-[13.8rem] h-[13.8rem] sm:w-[21rem] sm:h-[21rem] md:w-[25.5rem] md:h-[25.5rem] translate-y-2.5 sm:translate-y-4 md:translate-y-5">
@@ -210,7 +208,7 @@ export function Hero({ theme = 'light' }: HeroProps) {
         <RotatingSubtitle isDark={isDark} reduceMotion={limitMotion} />
 
         {/* 4 & 5 — Mascot with Sparkle */}
-        <Mascot isDark={isDark} reduceMotion={limitMotion} mobile={isMobile} />
+        <Mascot isDark={isDark} reduceMotion={reduceMotion} />
 
         <div className={`mt-6 flex flex-wrap sm:flex-nowrap items-center justify-center gap-3 sm:gap-5 backdrop-blur-md px-4 sm:px-6 py-2.5 sm:py-3 rounded-2xl sm:rounded-full border transition-colors duration-500 ${isDark ? 'bg-black/50 border-white/5' : 'bg-white/50 border-black/5 shadow-sm'}`}>
           <div className="flex -space-x-2.5 sm:-space-x-3">
