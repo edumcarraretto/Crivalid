@@ -51,6 +51,7 @@ const GLOBE_SCALE = 0.94
 const GLOBE_SPHERE_RADIUS = 0.8
 const LABEL_GAP_PX = 6
 const DEFAULT_LABEL_BOX = { width: 90, height: 24 }
+const unitVectorCache = new Map<string, Vec3>()
 
 const MAX_ACTIVE_ROUTES = 8
 const LINE_SAMPLE_COUNT = 48
@@ -75,10 +76,16 @@ function toCssColor(color: Color, alpha: number) {
 }
 
 function latLngToUnitVector([lat, lng]: [number, number]): Vec3 {
+  const cacheKey = `${lat}:${lng}`
+  const cached = unitVectorCache.get(cacheKey)
+  if (cached) return cached
+
   const latRad = (lat * Math.PI) / 180
   const lngRad = (lng * Math.PI) / 180 - Math.PI
   const cosLat = Math.cos(latRad)
-  return [-cosLat * Math.cos(lngRad), Math.sin(latRad), cosLat * Math.sin(lngRad)]
+  const vector: Vec3 = [-cosLat * Math.cos(lngRad), Math.sin(latRad), cosLat * Math.sin(lngRad)]
+  unitVectorCache.set(cacheKey, vector)
+  return vector
 }
 
 function projectToScreen(point: Vec3, phi: number, theta: number, aspect: number) {
@@ -175,10 +182,11 @@ function buildArcPathD(
   markerElevation: number,
   width: number,
   height: number,
+  lineSampleCount = LINE_SAMPLE_COUNT,
 ) {
   return buildArcPathRangeD(
     from, to, 0, progress, phi, theta, aspect,
-    arcHeight, markerElevation, width, height,
+    arcHeight, markerElevation, width, height, lineSampleCount,
   )
 }
 
@@ -194,13 +202,14 @@ function buildArcPathRangeD(
   markerElevation: number,
   width: number,
   height: number,
+  lineSampleCount = LINE_SAMPLE_COUNT,
 ) {
   if (end <= start || end <= 0) return ''
   let d = ''
   let drawing = false
   const startT = clamp(start, 0, 1)
   const endT = clamp(end, 0, 1)
-  const sampleCount = Math.max(2, Math.ceil((endT - startT) * LINE_SAMPLE_COUNT))
+  const sampleCount = Math.max(2, Math.ceil((endT - startT) * lineSampleCount))
   
   for (let i = 0; i <= sampleCount; i++) {
     const t = startT + (endT - startT) * (i / sampleCount)
@@ -303,6 +312,7 @@ export function InteractiveGlobe({
 }: InteractiveGlobeProps) {
   const tailSegments = mobileOptimized ? MOBILE_TAIL_SEGMENTS : TAIL_SEGMENTS
   const maxActiveRoutes = mobileOptimized ? 4 : MAX_ACTIVE_ROUTES
+  const lineSampleCount = mobileOptimized ? 28 : LINE_SAMPLE_COUNT
   const [isActive, setIsActive] = useState(false)
   const containerRef = useRef<HTMLDivElement>(null)
   const canvasRef = useRef<HTMLCanvasElement>(null)
@@ -368,12 +378,16 @@ export function InteractiveGlobe({
 
     const observer = new IntersectionObserver(
       ([entry]) => {
-        if (!entry.isIntersecting || hasStartedRef.current) return
-        phiRef.current = initialPhi
-        nextSpawnTimeRef.current = performance.now()
-        hasStartedRef.current = true
-        setIsActive(true)
-        observer.disconnect()
+        if (entry.isIntersecting) {
+          if (!hasStartedRef.current) {
+            phiRef.current = initialPhi
+            nextSpawnTimeRef.current = performance.now()
+            hasStartedRef.current = true
+          }
+          setIsActive(true)
+        } else if (hasStartedRef.current) {
+          setIsActive(false)
+        }
       },
       { threshold: 0.15 },
     )
@@ -590,7 +604,7 @@ export function InteractiveGlobe({
 
         // Draw Line up to progress
         if (lineEl && width > 0 && height > 0) {
-          const d = buildArcPathD(state.arc.from, state.arc.to, progress, phiRef.current, thetaRef.current, aspect, currentArcHeight, currentMarkerElevation, width, height)
+          const d = buildArcPathD(state.arc.from, state.arc.to, progress, phiRef.current, thetaRef.current, aspect, currentArcHeight, currentMarkerElevation, width, height, lineSampleCount)
           lineEl.setAttribute('d', d)
           lineEl.style.opacity = String(opacity * 0.14)
 
@@ -613,6 +627,7 @@ export function InteractiveGlobe({
               currentMarkerElevation,
               width,
               height,
+              lineSampleCount,
             )
             tail.setAttribute('d', tailD)
             tail.style.opacity = String(opacity * tailSegments[segmentIndex].opacity)
@@ -739,7 +754,7 @@ export function InteractiveGlobe({
     return () => {
       if (animationFrameRef.current) cancelAnimationFrame(animationFrameRef.current)
     }
-  }, [isActive, maxActiveRoutes, tailSegments])
+  }, [isActive, lineSampleCount, maxActiveRoutes, tailSegments])
 
   const handlePointerDown = (e: React.PointerEvent) => {
     if (pointerIdRef.current !== null) return
