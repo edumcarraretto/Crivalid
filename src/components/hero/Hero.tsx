@@ -63,11 +63,14 @@ function Mascot({ isDark, reduceMotion }: { isDark: boolean; reduceMotion: boole
     <div className="relative w-[13.8rem] h-[13.8rem] sm:w-[21rem] sm:h-[21rem] md:w-[25.5rem] md:h-[25.5rem] mx-auto mt-16 mb-8 flex items-center justify-center">
       {/* Background marquee (adapted proportionally for mobile & desktop) */}
       <div 
-        className="flex absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[140vw] sm:w-[120vw] pointer-events-none -z-10 select-none overflow-hidden"
-        style={{
-          maskImage: 'radial-gradient(circle at center, transparent 65px, black 200px)',
-          WebkitMaskImage: 'radial-gradient(circle at center, transparent 65px, black 200px)'
-        }}
+        className="
+          flex absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2
+          w-[140vw] sm:w-[120vw] pointer-events-none -z-10 select-none overflow-hidden
+          [mask-image:radial-gradient(circle_at_center,transparent_30px,black_105px)]
+          sm:[mask-image:radial-gradient(circle_at_center,transparent_100px,black_320px)]
+          [-webkit-mask-image:radial-gradient(circle_at_center,transparent_30px,black_105px)]
+          sm:[-webkit-mask-image:radial-gradient(circle_at_center,transparent_100px,black_320px)]
+        "
       >
         <motion.div
           animate={reduceMotion ? undefined : { x: [0, '-50%'] }}
@@ -90,21 +93,17 @@ function Mascot({ isDark, reduceMotion }: { isDark: boolean; reduceMotion: boole
       {/* Premium Logo Showcase */}
       <div className="relative z-10 flex items-center justify-center w-[13.8rem] h-[13.8rem] sm:w-[21rem] sm:h-[21rem] md:w-[25.5rem] md:h-[25.5rem] translate-y-2.5 sm:translate-y-4 md:translate-y-5">
         
-        {/* Solid Theme-Matched Backing to Prevent Text Bleed */}
+        {/* Solid Theme-Matched Backing to Prevent Text Bleed (hidden on mobile, full on desktop) */}
         <div 
-          className={`absolute inset-6 rounded-3xl pointer-events-none ${isDark ? 'bg-black' : 'bg-white'}`}
-          style={{
-            boxShadow: reduceMotion
-              ? 'none'
-              : isDark
-              ? '0 0 50px 25px rgba(0,0,0,1)' 
-              : '0 0 50px 25px rgba(255,255,255,1)'
-          }}
+          className={`
+            absolute inset-6 rounded-3xl pointer-events-none hidden sm:block
+            ${isDark ? 'bg-black shadow-[0_0_50px_25px_rgba(0,0,0,1)]' : 'bg-white shadow-[0_0_50px_25px_rgba(255,255,255,1)]'}
+          `}
         />
         
         {/* Pulsing Dynamic Aura */}
         <motion.div 
-          className={`absolute inset-0 rounded-full ${reduceMotion ? '' : 'blur-[60px] sm:blur-[80px]'}`}
+          className={`absolute inset-0 rounded-full ${reduceMotion ? '' : 'blur-[20px] sm:blur-[80px]'}`}
           animate={reduceMotion
             ? {
                 background: isDark
