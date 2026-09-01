@@ -238,6 +238,18 @@ function FeaturedToolCard({
   const Icon = tool.icon
   const mockup = featuredMockups[tool.id]
 
+  // Rounded corner ONLY on the inner vertex facing the center (creates the 4-point star cutout in the center)
+  const centerCornerRounding =
+    tool.id === 'projetos'
+      ? 'rounded-br-[20px] sm:rounded-br-[24px]'
+      : tool.id === 'documentos'
+      ? 'rounded-bl-[20px] sm:rounded-bl-[24px]'
+      : tool.id === 'assistente-ia'
+      ? 'rounded-tr-[20px] sm:rounded-tr-[24px]'
+      : tool.id === 'conversas'
+      ? 'rounded-tl-[20px] sm:rounded-tl-[24px]'
+      : ''
+
   return (
     <motion.button
       type="button"
@@ -258,11 +270,12 @@ function FeaturedToolCard({
         className={[
           'h-full w-full flex flex-col overflow-hidden',
           'border-r border-b border-gray-200/60',
+          centerCornerRounding,
           tool.bgColor ?? 'bg-white',
           'transition-all duration-200 ease-out',
           // ── Selected state ──
           isSelected
-            ? 'scale-[1.03] -translate-y-1.5 shadow-2xl z-20 ring-2 ring-gray-900/10 rounded-lg'
+            ? 'scale-[1.02] -translate-y-1 shadow-2xl z-20 ring-2 ring-gray-900/10'
             : 'scale-100 translate-y-0 z-0',
           // ── Hover (only when NOT selected) ──
           !isSelected ? 'hover:scale-[1.01] hover:shadow-md hover:z-10 hover:ring-1 hover:ring-black/50' : '',
