@@ -178,7 +178,7 @@ export function GlobeSection() {
               height: star.size,
               boxShadow: star.size >= 3 ? '0 0 10px 2px rgb(96 165 250 / 0.3)' : '0 0 6px rgb(96 165 250 / 0.25)',
             }}
-            animate={reduceMotion || isMobile ? undefined : { opacity: [0.18, 0.72, 0.18], scale: [0.8, 1.15, 0.8] }}
+            animate={reduceMotion ? undefined : { opacity: [0.18, 0.72, 0.18], scale: [0.8, 1.15, 0.8] }}
             transition={{
               duration: star.duration,
               delay: star.delay,
