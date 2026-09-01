@@ -42,9 +42,9 @@ function RotatingSubtitle({ isDark, reduceMotion }: { isDark: boolean; reduceMot
       <AnimatePresence mode="wait">
         <motion.div
           key={index}
-          initial={{ opacity: 0, y: 15 }}
+          initial={reduceMotion ? false : { opacity: 0, y: 15 }}
           animate={{ opacity: 1, y: 0 }}
-          exit={{ opacity: 0, y: -15 }}
+          exit={reduceMotion ? undefined : { opacity: 0, y: -15 }}
           transition={{ duration: 0.4, ease: 'easeOut' }}
           className="text-xs sm:text-base text-center px-4 max-w-full leading-snug"
           style={{ color: isDark ? 'var(--color-text-inverse-muted)' : 'var(--color-text-body)' }}
@@ -160,6 +160,16 @@ function Mascot({ isDark, reduceMotion }: { isDark: boolean; reduceMotion: boole
 export function Hero({ theme = 'light' }: HeroProps) {
   const isDark = theme === 'dark'
   const reduceMotion = Boolean(useReducedMotion())
+  const [isMobile, setIsMobile] = useState(() => window.matchMedia('(max-width: 639px)').matches)
+
+  useEffect(() => {
+    const media = window.matchMedia('(max-width: 639px)')
+    const update = () => setIsMobile(media.matches)
+    media.addEventListener('change', update)
+    return () => media.removeEventListener('change', update)
+  }, [])
+
+  const limitMotion = reduceMotion || isMobile
 
   return (
     <section
@@ -172,7 +182,7 @@ export function Hero({ theme = 'light' }: HeroProps) {
       <div className="relative z-10 mx-auto w-full max-w-4xl text-center flex flex-col items-center">
 
         <motion.p
-          initial={reduceMotion ? false : { opacity: 0, y: 10 }}
+          initial={limitMotion ? false : { opacity: 0, y: 10 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.65 }}
           className="mb-4 sm:mb-5 text-[10px] sm:text-xs font-bold uppercase tracking-[0.16em] text-blue-600"
@@ -193,10 +203,10 @@ export function Hero({ theme = 'light' }: HeroProps) {
           </GradientText>
         </motion.h1>
 
-        <RotatingSubtitle isDark={isDark} reduceMotion={reduceMotion} />
+        <RotatingSubtitle isDark={isDark} reduceMotion={limitMotion} />
 
         {/* 4 & 5 — Mascot with Sparkle */}
-        <Mascot isDark={isDark} reduceMotion={reduceMotion} />
+        <Mascot isDark={isDark} reduceMotion={limitMotion} />
 
         <div className={`mt-6 flex flex-wrap sm:flex-nowrap items-center justify-center gap-3 sm:gap-5 backdrop-blur-md px-4 sm:px-6 py-2.5 sm:py-3 rounded-2xl sm:rounded-full border transition-colors duration-500 ${isDark ? 'bg-black/50 border-white/5' : 'bg-white/50 border-black/5 shadow-sm'}`}>
           <div className="flex -space-x-2.5 sm:-space-x-3">
