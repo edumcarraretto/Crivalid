@@ -105,26 +105,17 @@ function Mascot({ isDark, reduceMotion }: { isDark: boolean; reduceMotion: boole
         {/* Pulsing Dynamic Aura */}
         <motion.div 
           className="absolute inset-0 rounded-full blur-[60px] sm:blur-[80px]"
+          style={{
+            background: isDark
+              ? 'radial-gradient(circle, rgb(22 140 255 / 0.34) 0%, rgb(0 0 0 / 0) 70%)'
+              : 'radial-gradient(circle, rgb(22 140 255 / 0.1) 0%, rgb(255 255 255 / 0) 70%)',
+          }}
           animate={reduceMotion
             ? {
-                background: isDark
-                  ? 'radial-gradient(circle, rgb(22 140 255 / 0.34) 0%, rgb(0 0 0 / 0) 70%)'
-                  : 'radial-gradient(circle, rgb(22 140 255 / 0.1) 0%, rgb(255 255 255 / 0) 70%)',
                 scale: 1,
                 opacity: 0.7,
               }
             : {
-            background: isDark 
-              ? [
-                  'radial-gradient(circle, rgb(22 140 255 / 0.4) 0%, rgb(0 0 0 / 0) 70%)',
-                  'radial-gradient(circle, rgba(59,130,246,0.4) 0%, rgba(0,0,0,0) 70%)',
-                  'radial-gradient(circle, rgb(22 140 255 / 0.4) 0%, rgb(0 0 0 / 0) 70%)'
-                ]
-              : [
-                  'radial-gradient(circle, rgba(22,140,255,0.12) 0%, rgba(255,255,255,0) 70%)',
-                  'radial-gradient(circle, rgba(34,197,94,0.12) 0%, rgba(255,255,255,0) 70%)',
-                  'radial-gradient(circle, rgba(22,140,255,0.12) 0%, rgba(255,255,255,0) 70%)'
-                ],
             scale: [0.8, 1.1, 0.8],
             opacity: [0.5, 1, 0.5]
           }}

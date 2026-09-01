@@ -101,11 +101,8 @@ function AnimatedFAQHeading() {
           <motion.span
             key={`${letter}-${index}`}
             aria-hidden="true"
-            animate={
-              reduceMotion
-                ? { color: '#2563eb' }
-                : { color: ['#2563eb', '#06b6d4', '#4f46e5', '#2563eb'], y: [0, -2, 0] }
-            }
+            animate={reduceMotion ? undefined : { y: [0, -2, 0] }}
+            style={{ color: '#1d4ed8' }}
             transition={{
               duration: 2.1,
               delay: index * 0.065,
