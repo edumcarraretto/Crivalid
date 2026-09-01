@@ -116,7 +116,7 @@ export function Navbar() {
           aria-label="Navegação principal"
         >
           {/* ── 1. LADO ESQUERDO: Somente o ÍCONE / Símbolo da Logo ── */}
-          <div className="flex items-center select-none shrink-0 pl-1 sm:pl-2">
+          <div className="flex items-center select-none shrink-0 pl-1 sm:pl-2 relative z-30">
             <button
               type="button"
               className="relative w-8 h-8 sm:w-9 sm:h-9 flex items-center justify-center group cursor-pointer"
@@ -252,7 +252,7 @@ export function Navbar() {
 
           </div>
 
-          {/* ── 3. LADO DIREITO: Botão "Começar projeto" ── */}
+          {/* ── 3. LADO DIREITO: Botão "Começar projeto" (Desktop) ── */}
           <div className="hidden lg:flex items-center shrink-0">
             <a
               href="#comece"
@@ -272,41 +272,37 @@ export function Navbar() {
           </div>
 
           {/* Mobile Center Logo View */}
-          <div className="flex lg:hidden items-center justify-center">
-            <button
-              type="button"
-              aria-label="MAKEPLOY Home"
-              className="relative flex items-center justify-center h-8 group cursor-pointer"
-              onClick={(e) => {
-                e.preventDefault()
-                window.scrollTo({ top: 0, behavior: window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth' })
-              }}
-            >
+          <div className="flex lg:hidden items-center justify-center flex-1 mx-2 pointer-events-none">
+            <div className="relative w-[110px] h-8 flex items-center justify-center overflow-hidden">
               <img
                 src="/text-logo-128.webp"
                 alt="MAKEPLOY"
                 width={140}
                 height={32}
-                className="h-6 sm:h-7 object-contain scale-[3.0] sm:scale-[3.2] transform transition-transform duration-300"
+                className="h-6 sm:h-7 object-contain scale-[3.0] sm:scale-[3.2] transform transition-transform duration-300 select-none pointer-events-none"
               />
-            </button>
+            </div>
           </div>
 
           {/* Mobile Menu Toggle Button */}
           <button
-            onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+            type="button"
+            onClick={() => setMobileMenuOpen((prev) => !prev)}
             aria-label={mobileMenuOpen ? 'Fechar menu' : 'Abrir menu'}
             aria-expanded={mobileMenuOpen}
             aria-controls="mobile-navigation"
-            className="lg:hidden p-2 rounded-xl text-neutral-800 hover:bg-neutral-100 transition-colors"
+            className="lg:hidden relative z-30 p-2 -mr-1 rounded-xl text-neutral-800 hover:bg-neutral-100 active:scale-90 transition-all cursor-pointer pointer-events-auto select-none"
           >
-            {mobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
+            {mobileMenuOpen ? <X className="w-6 h-6 stroke-[2.2]" /> : <Menu className="w-6 h-6 stroke-[2.2]" />}
           </button>
         </nav>
 
         {/* Mobile Dropdown Drawer */}
         {mobileMenuOpen && (
-          <div id="mobile-navigation" className="lg:hidden mt-3 bg-white rounded-2xl p-4 shadow-lg border border-black/[0.04] flex flex-col gap-3 animate-in fade-in slide-in-from-top-2 duration-200 pointer-events-auto">
+          <div
+            id="mobile-navigation"
+            className="lg:hidden mt-3 bg-white rounded-2xl p-4 shadow-xl border border-black/[0.08] flex flex-col gap-3 animate-in fade-in slide-in-from-top-2 duration-200 pointer-events-auto relative z-40"
+          >
             <div className="flex flex-col gap-1">
               {allNavItems.map((item) => {
                 const isActive = activeItem === item.id
@@ -320,7 +316,7 @@ export function Navbar() {
                       setMobileMenuOpen(false)
                     }}
                     className={`
-                      w-full text-left px-4 py-2.5 text-sm font-bold rounded-xl transition-colors block
+                      w-full text-left px-4 py-2.5 text-sm font-bold rounded-xl transition-colors block cursor-pointer
                       ${
                         isActive
                           ? 'bg-blue-50 text-neutral-900'
@@ -338,7 +334,7 @@ export function Navbar() {
               <a
                 href="#comece"
                 onClick={() => setMobileMenuOpen(false)}
-                className="block w-full bg-blue-500 hover:bg-blue-600 active:bg-blue-700 text-white text-sm font-bold py-2.5 rounded-xl text-center"
+                className="block w-full bg-blue-500 hover:bg-blue-600 active:bg-blue-700 text-white text-sm font-bold py-2.5 rounded-xl text-center cursor-pointer shadow-xs"
               >
                 Começar projeto
               </a>
