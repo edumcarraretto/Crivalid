@@ -85,7 +85,6 @@ export function LogoCloud() {
                 >
                   <Icon
                     size={32}
-                    role="presentation"
                     aria-hidden="true"
                     focusable="false"
                     className={`group-hover:scale-110 transition-transform duration-300 ${logo.hoverColor}`}
