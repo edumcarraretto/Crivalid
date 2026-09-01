@@ -58,12 +58,12 @@ function RotatingSubtitle({ isDark, reduceMotion }: { isDark: boolean; reduceMot
 
 // ─── Mascot ───────────────────────────────────────────────────────────────────
 
-function Mascot({ isDark, reduceMotion }: { isDark: boolean; reduceMotion: boolean }) {
+function Mascot({ isDark, reduceMotion, mobile }: { isDark: boolean; reduceMotion: boolean; mobile: boolean }) {
   return (
     <div className="relative w-[13.8rem] h-[13.8rem] sm:w-[21rem] sm:h-[21rem] md:w-[25.5rem] md:h-[25.5rem] mx-auto mt-16 mb-8 flex items-center justify-center">
       {/* Huge background marquee */}
       <div 
-        className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[150vw] sm:w-[120vw] flex pointer-events-none -z-10 select-none overflow-hidden"
+        className={`${mobile ? 'hidden' : 'flex'} absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[150vw] sm:w-[120vw] pointer-events-none -z-10 select-none overflow-hidden`}
         style={{
           maskImage: 'radial-gradient(circle at center, transparent 100px, black 320px)',
           WebkitMaskImage: 'radial-gradient(circle at center, transparent 100px, black 320px)'
@@ -210,7 +210,7 @@ export function Hero({ theme = 'light' }: HeroProps) {
         <RotatingSubtitle isDark={isDark} reduceMotion={limitMotion} />
 
         {/* 4 & 5 — Mascot with Sparkle */}
-        <Mascot isDark={isDark} reduceMotion={limitMotion} />
+        <Mascot isDark={isDark} reduceMotion={limitMotion} mobile={isMobile} />
 
         <div className={`mt-6 flex flex-wrap sm:flex-nowrap items-center justify-center gap-3 sm:gap-5 backdrop-blur-md px-4 sm:px-6 py-2.5 sm:py-3 rounded-2xl sm:rounded-full border transition-colors duration-500 ${isDark ? 'bg-black/50 border-white/5' : 'bg-white/50 border-black/5 shadow-sm'}`}>
           <div className="flex -space-x-2.5 sm:-space-x-3">

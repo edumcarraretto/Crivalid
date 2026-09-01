@@ -1,4 +1,4 @@
-import { Component, type ErrorInfo, type ReactNode } from 'react'
+import { Component, useEffect, useRef, useState, type ErrorInfo, type ReactNode } from 'react'
 
 interface AsyncSectionBoundaryProps {
   children: ReactNode
@@ -56,4 +56,30 @@ function SectionSkeleton({ minHeight = 'min-h-80' }: Pick<AsyncSectionBoundaryPr
   )
 }
 
-export { SectionErrorBoundary, SectionSkeleton }
+function DeferredSection({ children, minHeight = 'min-h-80' }: AsyncSectionBoundaryProps) {
+  const [shouldRender, setShouldRender] = useState(import.meta.env.MODE === 'test')
+  const placeholderRef = useRef<HTMLDivElement>(null)
+
+  useEffect(() => {
+    if (shouldRender) return
+    const placeholder = placeholderRef.current
+    if (!placeholder) return
+
+    const observer = new IntersectionObserver(([entry]) => {
+      if (!entry.isIntersecting) return
+      setShouldRender(true)
+      observer.disconnect()
+    }, { rootMargin: '600px 0px' })
+
+    observer.observe(placeholder)
+    return () => observer.disconnect()
+  }, [shouldRender])
+
+  return (
+    <div ref={placeholderRef} className={shouldRender ? undefined : minHeight}>
+      {shouldRender ? children : null}
+    </div>
+  )
+}
+
+export { DeferredSection, SectionErrorBoundary, SectionSkeleton }

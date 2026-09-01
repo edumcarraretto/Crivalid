@@ -1,11 +1,11 @@
-import { Suspense, lazy } from 'react'
+import { Suspense, lazy, type ReactNode } from 'react'
 import { Navbar } from '@/components/navbar/Navbar'
 import { Hero } from '@/components/hero/Hero'
 import { FeaturesGrid } from '@/components/hero/FeaturesGrid'
 import { LogoCloud } from '@/components/logos/LogoCloud'
 import { ProblemSection } from '@/components/problem/ProblemSection'
 import { ToolsSection } from '@/components/tools/ToolsSection'
-import { SectionErrorBoundary, SectionSkeleton } from '@/components/system/AsyncSectionBoundary'
+import { DeferredSection, SectionErrorBoundary, SectionSkeleton } from '@/components/system/AsyncSectionBoundary'
 
 // Below-the-fold components loaded on demand for optimal initial load time
 const CreationTechnologySection = lazy(() =>
@@ -39,6 +39,18 @@ const SiteFooter = lazy(() =>
   import('@/components/footer/SiteFooter').then((m) => ({ default: m.SiteFooter }))
 )
 
+function DeferredAsyncSection({ children, minHeight }: { children: ReactNode; minHeight?: string }) {
+  return (
+    <DeferredSection minHeight={minHeight}>
+      <SectionErrorBoundary>
+        <Suspense fallback={<SectionSkeleton minHeight={minHeight} />}>
+          {children}
+        </Suspense>
+      </SectionErrorBoundary>
+    </DeferredSection>
+  )
+}
+
 function App() {
   return (
     <>
@@ -52,57 +64,37 @@ function App() {
         <LogoCloud />
         <ProblemSection />
         <ToolsSection />
-        <SectionErrorBoundary>
-          <Suspense fallback={<SectionSkeleton minHeight="min-h-[720px]" />}>
+        <DeferredAsyncSection minHeight="min-h-[720px]">
           <CreationTechnologySection />
-          </Suspense>
-        </SectionErrorBoundary>
-        <SectionErrorBoundary>
-          <Suspense fallback={<SectionSkeleton minHeight="min-h-[640px]" />}>
+        </DeferredAsyncSection>
+        <DeferredAsyncSection minHeight="min-h-[640px]">
           <MemoryAITableSection />
-          </Suspense>
-        </SectionErrorBoundary>
-        <SectionErrorBoundary>
-          <Suspense fallback={<SectionSkeleton minHeight="min-h-[520px]" />}>
+        </DeferredAsyncSection>
+        <DeferredAsyncSection minHeight="min-h-[520px]">
           <WorkflowHeroSection />
-          </Suspense>
-        </SectionErrorBoundary>
-        <SectionErrorBoundary>
-          <Suspense fallback={<SectionSkeleton minHeight="min-h-[520px]" />}>
+        </DeferredAsyncSection>
+        <DeferredAsyncSection minHeight="min-h-[520px]">
           <GlobeSection />
-          </Suspense>
-        </SectionErrorBoundary>
-        <SectionErrorBoundary>
-          <Suspense fallback={<SectionSkeleton />}>
+        </DeferredAsyncSection>
+        <DeferredAsyncSection>
           <PlatformMetricsSection />
-          </Suspense>
-        </SectionErrorBoundary>
-        <SectionErrorBoundary>
-          <Suspense fallback={<SectionSkeleton />}>
+        </DeferredAsyncSection>
+        <DeferredAsyncSection>
           <MissionMessageSection />
-          </Suspense>
-        </SectionErrorBoundary>
-        <SectionErrorBoundary>
-          <Suspense fallback={<SectionSkeleton />}>
+        </DeferredAsyncSection>
+        <DeferredAsyncSection>
           <ProductFAQSection />
-          </Suspense>
-        </SectionErrorBoundary>
-        <SectionErrorBoundary>
-          <Suspense fallback={<SectionSkeleton />}>
+        </DeferredAsyncSection>
+        <DeferredAsyncSection>
           <AIIdeaSection />
-          </Suspense>
-        </SectionErrorBoundary>
-        <SectionErrorBoundary>
-          <Suspense fallback={<SectionSkeleton minHeight="min-h-40" />}>
+        </DeferredAsyncSection>
+        <DeferredAsyncSection minHeight="min-h-40">
           <MarqueeStripes />
-          </Suspense>
-        </SectionErrorBoundary>
+        </DeferredAsyncSection>
       </main>
-      <SectionErrorBoundary>
-        <Suspense fallback={<SectionSkeleton />}>
-          <SiteFooter />
-        </Suspense>
-      </SectionErrorBoundary>
+      <DeferredAsyncSection>
+        <SiteFooter />
+      </DeferredAsyncSection>
     </>
   )
 }
