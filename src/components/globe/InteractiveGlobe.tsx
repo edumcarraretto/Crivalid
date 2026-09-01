@@ -39,6 +39,7 @@ export interface InteractiveGlobeProps {
   theta?: number
   diffuse?: number
   mapSamples?: number
+  mobileOptimized?: boolean
   className?: string
 }
 
@@ -62,6 +63,7 @@ const TAIL_SEGMENTS = [
   { opacity: 0.74, width: 2.1 },
   { opacity: 1, width: 2.5 },
 ] as const
+const MOBILE_TAIL_SEGMENTS = [TAIL_SEGMENTS[1], TAIL_SEGMENTS[3], TAIL_SEGMENTS[5]] as const
 
 function clamp(value: number, minimum: number, maximum: number) {
   return Math.min(maximum, Math.max(minimum, value))
@@ -296,8 +298,11 @@ export function InteractiveGlobe({
   theta = 0.12,
   diffuse = 3,
   mapSamples = 30000,
+  mobileOptimized = false,
   className = '',
 }: InteractiveGlobeProps) {
+  const tailSegments = mobileOptimized ? MOBILE_TAIL_SEGMENTS : TAIL_SEGMENTS
+  const maxActiveRoutes = mobileOptimized ? 4 : MAX_ACTIVE_ROUTES
   const [isActive, setIsActive] = useState(false)
   const containerRef = useRef<HTMLDivElement>(null)
   const canvasRef = useRef<HTMLCanvasElement>(null)
@@ -350,7 +355,7 @@ export function InteractiveGlobe({
     arcWidth,
     arcHeight,
     diffuse,
-    mapSamples,
+    mapSamples: mobileOptimized ? Math.min(mapSamples, 12000) : mapSamples,
   })
 
   useEffect(() => {
@@ -419,7 +424,9 @@ export function InteractiveGlobe({
       currentHeight = height
       containerSizeRef.current = { width, height }
       
-      const initialDpr = window.devicePixelRatio || 1
+      const initialDpr = mobileOptimized
+        ? Math.min(window.devicePixelRatio || 1, 1.25)
+        : window.devicePixelRatio || 1
       canvasRef.current!.width = Math.round(width * initialDpr)
       canvasRef.current!.height = Math.round(height * initialDpr)
 
@@ -463,7 +470,7 @@ export function InteractiveGlobe({
         globeRef.current.destroy()
       }
     }
-  }, [isActive])
+  }, [isActive, mobileOptimized])
 
   useEffect(() => {
     if (!isActive) return
@@ -492,7 +499,7 @@ export function InteractiveGlobe({
       const currentMarkerElevation = markerElevationRef.current
 
       // Lifecycle update
-      if (now > nextSpawnTimeRef.current && activeRoutesRef.current.size < MAX_ACTIVE_ROUTES && pendingRoutesRef.current.length > 0) {
+      if (now > nextSpawnTimeRef.current && activeRoutesRef.current.size < maxActiveRoutes && pendingRoutesRef.current.length > 0) {
         // Prioritize a route whose trajectory is currently on the front of the globe.
         // This keeps the animation populated even while the Pacific is facing the user.
         const visibleRouteIndex = pendingRoutesRef.current.findIndex((arc) =>
@@ -570,7 +577,7 @@ export function InteractiveGlobe({
           activeRoutesRef.current.delete(id)
           pendingRoutesRef.current.push(state.arc)
           if (lineEl) lineEl.style.opacity = '0'
-          for (let segmentIndex = 0; segmentIndex < TAIL_SEGMENTS.length; segmentIndex++) {
+          for (let segmentIndex = 0; segmentIndex < tailSegments.length; segmentIndex++) {
             const tail = tailElsRef.current.get(`tail:${id}:${segmentIndex}`)
             if (tail) tail.style.opacity = '0'
           }
@@ -587,9 +594,9 @@ export function InteractiveGlobe({
           lineEl.setAttribute('d', d)
           lineEl.style.opacity = String(opacity * 0.14)
 
-          const segmentLength = TAIL_LENGTH / TAIL_SEGMENTS.length
+          const segmentLength = TAIL_LENGTH / tailSegments.length
           const tailStart = Math.max(0, progress - TAIL_LENGTH)
-          for (let segmentIndex = 0; segmentIndex < TAIL_SEGMENTS.length; segmentIndex++) {
+          for (let segmentIndex = 0; segmentIndex < tailSegments.length; segmentIndex++) {
             const tail = tailElsRef.current.get(`tail:${id}:${segmentIndex}`)
             if (!tail) continue
             const start = tailStart + segmentLength * segmentIndex
@@ -608,7 +615,7 @@ export function InteractiveGlobe({
               height,
             )
             tail.setAttribute('d', tailD)
-            tail.style.opacity = String(opacity * TAIL_SEGMENTS[segmentIndex].opacity)
+            tail.style.opacity = String(opacity * tailSegments[segmentIndex].opacity)
           }
         }
 
@@ -713,7 +720,7 @@ export function InteractiveGlobe({
           if (!activeRoutesRef.current.has(arc.id)) {
             const line = lineElsRef.current.get(`line:${arc.id}`)
             if (line && line.style.opacity !== '0') line.style.opacity = '0'
-            for (let segmentIndex = 0; segmentIndex < TAIL_SEGMENTS.length; segmentIndex++) {
+            for (let segmentIndex = 0; segmentIndex < tailSegments.length; segmentIndex++) {
               const tail = tailElsRef.current.get(`tail:${arc.id}:${segmentIndex}`)
               if (tail && tail.style.opacity !== '0') tail.style.opacity = '0'
             }
@@ -732,7 +739,7 @@ export function InteractiveGlobe({
     return () => {
       if (animationFrameRef.current) cancelAnimationFrame(animationFrameRef.current)
     }
-  }, [isActive])
+  }, [isActive, maxActiveRoutes, tailSegments])
 
   const handlePointerDown = (e: React.PointerEvent) => {
     if (pointerIdRef.current !== null) return
@@ -827,7 +834,7 @@ export function InteractiveGlobe({
               strokeLinejoin="round"
               style={{ opacity: 0, transition: 'none' }}
             />
-            {TAIL_SEGMENTS.map((segment, segmentIndex) => (
+              {tailSegments.map((segment, segmentIndex) => (
               <path
                 key={segmentIndex}
                 ref={(el) => {
@@ -840,7 +847,7 @@ export function InteractiveGlobe({
                 strokeWidth={segment.width}
                 strokeLinecap="round"
                 strokeLinejoin="round"
-                filter={segmentIndex >= TAIL_SEGMENTS.length - 2 ? 'url(#glow-effect)' : undefined}
+                filter={segmentIndex >= tailSegments.length - 2 ? 'url(#glow-effect)' : undefined}
                 style={{ opacity: 0, transition: 'none' }}
               />
             ))}

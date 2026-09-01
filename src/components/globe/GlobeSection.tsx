@@ -152,10 +152,22 @@ function RotatingNoun() {
 }
 
 export function GlobeSection() {
+  const reduceMotion = Boolean(useReducedMotion())
+  const [isMobile, setIsMobile] = useState(() => window.matchMedia('(max-width: 639px)').matches)
+
+  useEffect(() => {
+    const media = window.matchMedia('(max-width: 639px)')
+    const update = () => setIsMobile(media.matches)
+    media.addEventListener('change', update)
+    return () => media.removeEventListener('change', update)
+  }, [])
+
+  const visibleStars = isMobile ? sectionStars.filter((_, index) => index % 5 === 0) : sectionStars
+
   return (
     <section className="relative w-full overflow-hidden bg-white px-4 py-20 sm:px-6 sm:py-24 md:py-28">
       <div aria-hidden="true" className="pointer-events-none absolute inset-0 overflow-hidden">
-        {sectionStars.map((star) => (
+        {visibleStars.map((star) => (
           <motion.span
             key={`${star.left}-${star.top}`}
             className="absolute rounded-full bg-blue-400"
@@ -166,7 +178,7 @@ export function GlobeSection() {
               height: star.size,
               boxShadow: star.size >= 3 ? '0 0 10px 2px rgb(96 165 250 / 0.3)' : '0 0 6px rgb(96 165 250 / 0.25)',
             }}
-            animate={{ opacity: [0.18, 0.72, 0.18], scale: [0.8, 1.15, 0.8] }}
+            animate={reduceMotion || isMobile ? undefined : { opacity: [0.18, 0.72, 0.18], scale: [0.8, 1.15, 0.8] }}
             transition={{
               duration: star.duration,
               delay: star.delay,
@@ -176,16 +188,16 @@ export function GlobeSection() {
           />
         ))}
 
-        <motion.span
+        {!isMobile && <motion.span
           className="absolute left-[18%] top-[27%] h-px w-12 rotate-[-24deg] bg-gradient-to-r from-transparent via-blue-300/60 to-transparent"
           animate={{ opacity: [0, 0.65, 0], x: [-10, 18] }}
           transition={{ duration: 5.5, delay: 1.4, repeat: Infinity, repeatDelay: 6 }}
-        />
-        <motion.span
+        />}
+        {!isMobile && <motion.span
           className="absolute right-[14%] top-[64%] h-px w-10 rotate-[-18deg] bg-gradient-to-r from-transparent via-violet-300/55 to-transparent"
           animate={{ opacity: [0, 0.6, 0], x: [-8, 16] }}
           transition={{ duration: 4.8, delay: 3.2, repeat: Infinity, repeatDelay: 7 }}
-        />
+        />}
       </div>
 
       <div className="relative z-10 mx-auto flex w-full max-w-7xl flex-col items-center">
@@ -215,6 +227,7 @@ export function GlobeSection() {
             glowColor={[0.85, 0.92, 1]} // Brilho azul claro para suavizar as bordas
             mapColor={[0.1, 0.75, 0.4]} // Verde esmeralda brilhante
             mapSamples={24000}
+            mobileOptimized={isMobile}
             mapBrightness={7.5}
             className="relative z-10 max-w-[min(680px,calc(100vw-2rem))] sm:max-w-[520px] lg:max-w-[640px] xl:max-w-[680px]"
           />
