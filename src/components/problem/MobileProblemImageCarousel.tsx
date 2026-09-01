@@ -54,7 +54,7 @@ export function MobileProblemImageCarousel() {
             {/* Image Frame: displays exact third of the original image */}
             <div className="relative w-full overflow-hidden flex items-center" style={{ aspectRatio: '1.15 / 1' }}>
               <img
-                src="/images/novaimagem-v2.webp"
+                src="/images/novaimagem-v2-2048.webp"
                 alt={`Etapa ${index + 1} de 3`}
                 width={2480}
                 height={709}

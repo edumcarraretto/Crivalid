@@ -30,7 +30,7 @@ export function ProblemSection() {
           className="hidden md:block w-full"
         >
           <img 
-            src="/images/novaimagem-v2.webp"
+            src="/images/novaimagem-v2-2048.webp"
             alt="Como um projeto perde continuidade: contexto disperso, decisões repetidas e retrabalho crescente"
             loading="lazy"
             decoding="async"

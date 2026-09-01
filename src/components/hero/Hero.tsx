@@ -96,7 +96,9 @@ function Mascot({ isDark, reduceMotion }: { isDark: boolean; reduceMotion: boole
         <div 
           className={`absolute inset-6 rounded-3xl pointer-events-none ${isDark ? 'bg-black' : 'bg-white'}`}
           style={{
-            boxShadow: isDark 
+            boxShadow: reduceMotion
+              ? 'none'
+              : isDark
               ? '0 0 50px 25px rgba(0,0,0,1)' 
               : '0 0 50px 25px rgba(255,255,255,1)'
           }}
@@ -104,7 +106,7 @@ function Mascot({ isDark, reduceMotion }: { isDark: boolean; reduceMotion: boole
         
         {/* Pulsing Dynamic Aura */}
         <motion.div 
-          className="absolute inset-0 rounded-full blur-[60px] sm:blur-[80px]"
+          className={`absolute inset-0 rounded-full ${reduceMotion ? '' : 'blur-[60px] sm:blur-[80px]'}`}
           animate={reduceMotion
             ? {
                 background: isDark
@@ -137,14 +139,16 @@ function Mascot({ isDark, reduceMotion }: { isDark: boolean; reduceMotion: boole
         >
           {/* The Logo with Complex Drop Shadows */}
           <motion.img 
-            src="/nova-logo-512.webp"
+            src="/nova-logo-384.webp"
             alt="Logo oficial da MAKEPLOY"
-            width={512}
-            height={512}
+            width={384}
+            height={384}
             fetchPriority="high"
             className="w-full h-full object-contain" 
             style={{ 
-              filter: isDark 
+              filter: reduceMotion
+                ? 'none'
+                : isDark
                 ? 'drop-shadow(0 30px 40px rgba(0,0,0,0.6)) drop-shadow(0 0 50px rgba(22,140,255,0.3))' 
                 : 'drop-shadow(0 18px 30px rgba(0,0,0,0.08)) drop-shadow(0 10px 28px rgba(22,140,255,0.08))' 
             }}

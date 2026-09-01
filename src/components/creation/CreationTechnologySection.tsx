@@ -40,7 +40,7 @@ export function CreationTechnologySection() {
             className="flex items-center justify-center gap-3.5 sm:gap-4 mb-8 sm:mb-10"
           >
             <img
-              src="/nova-logo-512.webp"
+              src="/nova-logo-128.webp"
               alt="MAKEPLOY"
               width={512}
               height={512}
