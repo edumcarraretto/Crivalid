@@ -10,6 +10,7 @@ const NAV_LINKS = [
   { label: 'Inteligência', href: '#inteligencia' },
   { label: 'Automações', href: '#workflow' },
   { label: 'Dúvidas', href: '#duvidas' },
+  { label: 'Artigos', href: '/blog' },
   { label: 'Começar', href: '#comece', isAction: true },
 ]
 

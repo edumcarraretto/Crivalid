@@ -18,6 +18,7 @@ const rightNavItems: NavItem[] = [
   { id: 'workflow', label: 'Automações', href: '#workflow' },
   { id: 'platform-metrics', label: 'Métricas', href: '#platform-metrics' },
   { id: 'duvidas', label: 'Dúvidas', href: '#duvidas' },
+  { id: 'blog', label: 'Artigos', href: '/blog' },
 ]
 
 const allNavItems = [...leftNavItems, ...rightNavItems]
@@ -218,8 +219,10 @@ export function Navbar() {
                     <a
                       href={item.href}
                       onClick={(e) => {
-                        e.preventDefault()
-                        scrollToSection(item.href)
+                        if (item.href.startsWith('#')) {
+                          e.preventDefault()
+                          scrollToSection(item.href)
+                        }
                       }}
                       className={`
                         font-bold tracking-tight rounded-xl
@@ -313,8 +316,10 @@ export function Navbar() {
                     key={item.id}
                     href={item.href}
                     onClick={(e) => {
-                      e.preventDefault()
-                      scrollToSection(item.href)
+                      if (item.href.startsWith('#')) {
+                        e.preventDefault()
+                        scrollToSection(item.href)
+                      }
                       setMobileMenuOpen(false)
                     }}
                     className={`

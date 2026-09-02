@@ -1,4 +1,5 @@
-import { Suspense, lazy, type ReactNode } from 'react'
+import { Suspense, lazy, useEffect, type ReactNode } from 'react'
+import { BrowserRouter, Routes, Route, Navigate, useLocation } from 'react-router-dom'
 import { Navbar } from '@/components/navbar/Navbar'
 import { Hero } from '@/components/hero/Hero'
 import { FeaturesGrid } from '@/components/hero/FeaturesGrid'
@@ -40,6 +41,14 @@ const SiteFooter = lazy(() =>
   import('@/components/footer/SiteFooter').then((m) => ({ default: m.SiteFooter }))
 )
 
+// Google Blog Page loaded on demand
+const GoogleBlogIndexPage = lazy(() =>
+  import('@/pages/GoogleBlogIndexPage').then((m) => ({ default: m.GoogleBlogIndexPage }))
+)
+const MakeployBlogArticlePage = lazy(() =>
+  import('@/pages/MakeployBlogArticlePage').then((m) => ({ default: m.MakeployBlogArticlePage }))
+)
+
 function DeferredAsyncSection({ children, minHeight }: { children: ReactNode; minHeight?: string }) {
   return (
     <DeferredSection minHeight={minHeight}>
@@ -52,7 +61,15 @@ function DeferredAsyncSection({ children, minHeight }: { children: ReactNode; mi
   )
 }
 
-function App() {
+function ScrollToTop() {
+  const { pathname } = useLocation()
+  useEffect(() => {
+    window.scrollTo(0, 0)
+  }, [pathname])
+  return null
+}
+
+function HomePage() {
   return (
     <>
       <a href="#conteudo-principal" className="skip-link">
@@ -101,4 +118,18 @@ function App() {
   )
 }
 
-export default App
+export default function App() {
+  return (
+    <BrowserRouter>
+      <ScrollToTop />
+      <Suspense fallback={<div className="min-h-screen bg-white" />}>
+        <Routes>
+          <Route path="/" element={<HomePage />} />
+          <Route path="/blog" element={<GoogleBlogIndexPage />} />
+          <Route path="/blog/:slug" element={<MakeployBlogArticlePage />} />
+          <Route path="*" element={<Navigate to="/" replace />} />
+        </Routes>
+      </Suspense>
+    </BrowserRouter>
+  )
+}

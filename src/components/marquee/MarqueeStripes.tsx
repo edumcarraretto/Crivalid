@@ -181,11 +181,19 @@ function MarqueeTrack({ stripe }: MarqueeTrackProps) {
 
 // ─── MarqueeStripes (exported section) ───────────────────────────────────────
 
-export function MarqueeStripes() {
+export interface MarqueeStripesProps {
+  data?: Stripe[]
+  className?: string
+}
+
+export function MarqueeStripes({ 
+  data = stripes, 
+  className = "w-full overflow-hidden bg-black" 
+}: MarqueeStripesProps) {
   return (
     <section
       aria-label="MAKEPLOY em movimento"
-      className="w-full overflow-hidden bg-black"
+      className={className}
     >
       {/* Scoped keyframes — uses measured --marquee-distance so the loop
           is pixel-perfect even with overlapping negative margins.
@@ -216,7 +224,7 @@ export function MarqueeStripes() {
         }
       `}</style>
 
-      {stripes.map((stripe, i) => (
+      {data.map((stripe, i) => (
         <MarqueeTrack key={i} stripe={stripe} />
       ))}
     </section>
