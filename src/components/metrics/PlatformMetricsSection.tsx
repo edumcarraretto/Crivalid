@@ -1,5 +1,6 @@
 import { motion } from 'motion/react'
 import { ArrowRight } from 'lucide-react'
+import { openEarlyAccess } from '@/lib/earlyAccess'
 import { MetricItem } from '@/components/metrics/MetricItem'
 import { DEMO_METRICS } from '@/components/metrics/metricsData'
 import type { PlatformMetric } from '@/components/metrics/metricsData'
@@ -121,6 +122,10 @@ export function PlatformMetricsSection({
         >
           <a
             href="#comece"
+            onClick={(e) => {
+              e.preventDefault()
+              openEarlyAccess('metrics')
+            }}
             className="
               group inline-flex items-center gap-2
               rounded-full bg-neutral-900 px-8 py-3.5
@@ -128,6 +133,7 @@ export function PlatformMetricsSection({
               transition-all duration-200
               hover:bg-neutral-800 active:scale-[0.97]
               focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-neutral-900
+              cursor-pointer
             "
           >
             Começar de onde estou

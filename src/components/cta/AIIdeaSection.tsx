@@ -2,6 +2,7 @@ import { useState } from 'react'
 import { motion, useReducedMotion } from 'motion/react'
 import { ArrowUp, ChevronDown, Sparkles } from 'lucide-react'
 import { GradientText } from '@/components/text/GradientText'
+import { openEarlyAccess } from '@/lib/earlyAccess'
 
 const SUGGESTIONS = [
   'Criar um SaaS',
@@ -24,7 +25,7 @@ export function AIIdeaSection() {
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault()
     if (!prompt.trim()) return
-    setFeedback('Sua ideia está pronta. A criação de projetos estará disponível na próxima fase.')
+    openEarlyAccess('idea')
   }
 
   return (

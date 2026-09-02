@@ -1,5 +1,7 @@
 import { useState } from 'react'
 import { motion } from 'motion/react'
+import { ArrowRight } from 'lucide-react'
+import { openEarlyAccess } from '@/lib/earlyAccess'
 import { HighlightText } from '@/components/text/HighlightText'
 import { tools, type Tool } from '@/components/tools/toolsData'
 import { ProjectsMockup, DocumentsMockup, AIMockup, ChatMockup } from '@/components/tools/FeaturedMockups'
@@ -503,6 +505,38 @@ export function ToolsSection() {
           </div>
         </div>
       </div>
+
+      {/* ── Call to action below grid ──── */}
+      <motion.div
+        initial={{ opacity: 0, y: 16 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, margin: '-40px' }}
+        transition={{ duration: 0.5, delay: 0.15 }}
+        className="flex justify-center mt-10 md:mt-14 px-4"
+      >
+        <button
+          type="button"
+          onClick={() => openEarlyAccess('tools')}
+          className="
+            group inline-flex items-center gap-2
+            px-7 py-3.5 sm:px-8 sm:py-4
+            bg-neutral-900 text-white text-sm sm:text-[15px] font-bold
+            rounded-full
+            hover:bg-neutral-800
+            active:scale-[0.97]
+            transition-all duration-200
+            shadow-md hover:shadow-lg
+            cursor-pointer
+          "
+        >
+          Explorar ferramentas integradas
+          <ArrowRight
+            size={16}
+            strokeWidth={2.5}
+            className="transition-transform duration-200 group-hover:translate-x-0.5"
+          />
+        </button>
+      </motion.div>
     </section>
   )
 }

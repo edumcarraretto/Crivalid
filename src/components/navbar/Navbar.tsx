@@ -1,5 +1,6 @@
 import { useEffect, useState, useCallback } from 'react'
 import { Menu, X } from 'lucide-react'
+import { openEarlyAccess } from '@/lib/earlyAccess'
 
 interface NavItem {
   id: string
@@ -256,6 +257,7 @@ export function Navbar() {
           <div className="hidden lg:flex items-center shrink-0">
             <a
               href="#comece"
+              onClick={(event) => { event.preventDefault(); openEarlyAccess('navbar') }}
               className={`
                 bg-blue-500 hover:bg-blue-600 active:bg-blue-700 text-white font-bold
                 shadow-sm hover:shadow-md active:scale-98 whitespace-nowrap
@@ -333,7 +335,7 @@ export function Navbar() {
             <div className="pt-2 border-t border-neutral-100">
               <a
                 href="#comece"
-                onClick={() => setMobileMenuOpen(false)}
+                onClick={(event) => { event.preventDefault(); setMobileMenuOpen(false); openEarlyAccess('navbar_mobile') }}
                 className="block w-full bg-blue-500 hover:bg-blue-600 active:bg-blue-700 text-white text-sm font-bold py-2.5 rounded-xl text-center cursor-pointer shadow-xs"
               >
                 Começar projeto

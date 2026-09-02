@@ -1,6 +1,7 @@
 import { useRef, useEffect } from 'react'
 import { motion, useInView, useAnimationControls } from 'motion/react'
 import { ArrowRight } from 'lucide-react'
+import { openEarlyAccess } from '@/lib/earlyAccess'
 import { InlineAvatarGroup } from '@/components/workflow/InlineAvatarGroup'
 import { AnimatedText } from '@/components/text/AnimatedText'
 
@@ -80,6 +81,10 @@ export function WorkflowHeroSection() {
         >
           <a
             href="#comece"
+            onClick={(e) => {
+              e.preventDefault()
+              openEarlyAccess('workflow')
+            }}
             className="
               group inline-flex items-center gap-2
               px-7 py-3 sm:px-8 sm:py-3.5
@@ -89,6 +94,7 @@ export function WorkflowHeroSection() {
               active:scale-[0.97]
               transition-all duration-200
               focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-black
+              cursor-pointer
             "
           >
             Explorar automações

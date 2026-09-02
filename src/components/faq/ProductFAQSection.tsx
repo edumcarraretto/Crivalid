@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { motion, AnimatePresence, useReducedMotion } from 'motion/react'
-import { Plus, ChevronLeft, ChevronRight } from 'lucide-react'
+import { Plus, ChevronLeft, ChevronRight, ArrowRight } from 'lucide-react'
+import { openEarlyAccess } from '@/lib/earlyAccess'
 
 // ─── FAQ Questions & Answers ──────────────────────────────────────────────────
 
@@ -377,6 +378,38 @@ export function ProductFAQSection() {
             </div>
           </div>
         </div>
+
+        {/* ── FAQ CTA Button ── */}
+        <motion.div
+          initial={{ opacity: 0, y: 16 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: '-40px' }}
+          transition={{ duration: 0.5, delay: 0.15 }}
+          className="flex justify-center mt-10 sm:mt-14"
+        >
+          <button
+            type="button"
+            onClick={() => openEarlyAccess('faq')}
+            className="
+              group inline-flex items-center gap-2
+              px-7 py-3.5 sm:px-8 sm:py-4
+              bg-neutral-900 text-white text-sm sm:text-[15px] font-bold
+              rounded-full
+              hover:bg-neutral-800
+              active:scale-[0.97]
+              transition-all duration-200
+              shadow-md hover:shadow-lg
+              cursor-pointer
+            "
+          >
+            Entrar na fila de espera
+            <ArrowRight
+              size={16}
+              strokeWidth={2.5}
+              className="transition-transform duration-200 group-hover:translate-x-0.5"
+            />
+          </button>
+        </motion.div>
 
       </div>
     </section>

@@ -1,4 +1,5 @@
 import { motion } from 'motion/react'
+import { openEarlyAccess } from '@/lib/earlyAccess'
 
 // ─── Constants ────────────────────────────────────────────────────────────────
 
@@ -9,7 +10,7 @@ const NAV_LINKS = [
   { label: 'Inteligência', href: '#inteligencia' },
   { label: 'Automações', href: '#workflow' },
   { label: 'Dúvidas', href: '#duvidas' },
-  { label: 'Começar', href: '#comece' },
+  { label: 'Começar', href: '#comece', isAction: true },
 ]
 
 // ─── Component ────────────────────────────────────────────────────────────────
@@ -51,11 +52,13 @@ export function SiteFooter() {
             <a
               key={link.label}
               href={link.href}
+              onClick={link.isAction ? (e) => { e.preventDefault(); openEarlyAccess('footer') } : undefined}
               className="
                 text-[13px] sm:text-sm font-medium text-neutral-300
                 transition-colors duration-200
                 hover:text-white
                 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white/40
+                cursor-pointer
               "
             >
               {link.label}

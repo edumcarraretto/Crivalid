@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react'
 import { AnimatePresence, motion, useReducedMotion } from 'motion/react'
 import { ArrowDown, Globe, Star } from 'lucide-react'
 import { GradientText } from '@/components/text/GradientText'
+import { openEarlyAccess } from '@/lib/earlyAccess'
 
 // ─── Types ────────────────────────────────────────────────────────────────────
 
@@ -229,6 +230,7 @@ export function Hero({ theme = 'light' }: HeroProps) {
         <div className="mt-8 flex flex-col items-center justify-center gap-4">
           <a
             href="#comece"
+            onClick={(event) => { event.preventDefault(); openEarlyAccess('hero') }}
             className="flex items-center gap-2 bg-blue-500 hover:bg-blue-600 active:bg-blue-700 text-white px-7 py-3.5 rounded-full font-medium text-sm transition-all shadow-[0_0_20px_rgb(0_103_217/0.24)] hover:shadow-[0_0_25px_rgb(0_87_184/0.32)] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-500"
           >
             <Globe size={18} />

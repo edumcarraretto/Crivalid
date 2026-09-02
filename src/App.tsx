@@ -6,6 +6,7 @@ import { LogoCloud } from '@/components/logos/LogoCloud'
 import { ProblemSection } from '@/components/problem/ProblemSection'
 import { ToolsSection } from '@/components/tools/ToolsSection'
 import { DeferredSection, SectionErrorBoundary, SectionSkeleton } from '@/components/system/AsyncSectionBoundary'
+import { EarlyAccessModal } from '@/components/early-access/EarlyAccessModal'
 
 // Below-the-fold components loaded on demand for optimal initial load time
 const CreationTechnologySection = lazy(() =>
@@ -95,6 +96,7 @@ function App() {
       <DeferredAsyncSection>
         <SiteFooter />
       </DeferredAsyncSection>
+      <EarlyAccessModal />
     </>
   )
 }
