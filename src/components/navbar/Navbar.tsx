@@ -1,5 +1,6 @@
 import { useEffect, useState, useCallback } from 'react'
 import { Menu, X } from 'lucide-react'
+import { useLocation, useNavigate } from 'react-router-dom'
 import { openEarlyAccess } from '@/lib/earlyAccess'
 
 interface NavItem {
@@ -27,18 +28,29 @@ export function Navbar() {
   const [activeItem, setActiveItem] = useState('')
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
   const [isScrolled, setIsScrolled] = useState(false)
+  const location = useLocation()
+  const navigate = useNavigate()
+  const isHomePage = location.pathname === '/'
 
   // ── Smooth scroll to section ──
   const scrollToSection = useCallback((href: string) => {
-    const id = href.replace('#', '')
-    const el = document.getElementById(id)
-    if (el) {
-      const navbarHeight = 100 // offset for sticky navbar
-      const top = el.getBoundingClientRect().top + window.scrollY - navbarHeight
-      const behavior = window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth'
-      window.scrollTo({ top, behavior })
+    if (href.startsWith('#')) {
+      if (!isHomePage) {
+        navigate('/' + href)
+        return
+      }
+      const id = href.replace('#', '')
+      const el = document.getElementById(id)
+      if (el) {
+        const navbarHeight = 100 // offset for sticky navbar
+        const top = el.getBoundingClientRect().top + window.scrollY - navbarHeight
+        const behavior = window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth'
+        window.scrollTo({ top, behavior })
+      }
+    } else {
+      navigate(href)
     }
-  }, [])
+  }, [isHomePage, navigate])
 
   useEffect(() => {
     if (!mobileMenuOpen) return
@@ -123,9 +135,12 @@ export function Navbar() {
               type="button"
               className="relative w-8 h-8 sm:w-9 sm:h-9 flex items-center justify-center group cursor-pointer"
               aria-label="MAKEPLOY Home"
-              onClick={(e) => {
-                e.preventDefault()
-                window.scrollTo({ top: 0, behavior: window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth' })
+              onClick={() => {
+                if (isHomePage) {
+                  window.scrollTo({ top: 0, behavior: window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth' })
+                } else {
+                  navigate('/')
+                }
               }}
             >
               <img
@@ -190,9 +205,12 @@ export function Navbar() {
             {/* ── LOGO ESCRITA NO MEIO (ISOLADA COM RESPIRO) ── */}
             <button
               type="button"
-              onClick={(e) => {
-                e.preventDefault()
-                window.scrollTo({ top: 0, behavior: window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth' })
+              onClick={() => {
+                if (isHomePage) {
+                  window.scrollTo({ top: 0, behavior: window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth' })
+                } else {
+                  navigate('/')
+                }
               }}
               aria-label="MAKEPLOY Home"
               className="relative flex items-center justify-center mx-10 sm:mx-14 lg:mx-16 xl:mx-24 h-8 group cursor-pointer shrink-0"
