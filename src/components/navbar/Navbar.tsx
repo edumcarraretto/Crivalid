@@ -213,7 +213,7 @@ export function Navbar() {
                 }
               }}
               aria-label="MAKEPLOY Home"
-              className="relative flex items-center justify-center mx-10 sm:mx-14 lg:mx-16 xl:mx-24 h-8 group cursor-pointer shrink-0"
+              className="relative z-10 flex items-center justify-center mx-10 sm:mx-14 lg:mx-16 xl:mx-24 h-8 group cursor-pointer shrink-0"
             >
               <img
                 src="/text-logo-128.webp"
@@ -295,7 +295,18 @@ export function Navbar() {
           </div>
 
           {/* Mobile Center Logo View */}
-          <div className="flex lg:hidden items-center justify-center flex-1 mx-2 pointer-events-none">
+          <button
+            type="button"
+            onClick={() => {
+              if (isHomePage) {
+                window.scrollTo({ top: 0, behavior: window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth' })
+              } else {
+                navigate('/')
+              }
+            }}
+            aria-label="MAKEPLOY Home"
+            className="flex lg:hidden items-center justify-center flex-1 mx-2 cursor-pointer"
+          >
             <div className="relative w-[110px] h-8 flex items-center justify-center overflow-hidden">
               <img
                 src="/text-logo-128.webp"
@@ -305,7 +316,7 @@ export function Navbar() {
                 className="h-6 sm:h-7 object-contain scale-[3.0] sm:scale-[3.2] transform transition-transform duration-300 select-none pointer-events-none"
               />
             </div>
-          </div>
+          </button>
 
           {/* Mobile Menu Toggle Button */}
           <button
