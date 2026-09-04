@@ -8,6 +8,7 @@ import { ProblemSection } from '@/components/problem/ProblemSection'
 import { ToolsSection } from '@/components/tools/ToolsSection'
 import { DeferredSection, SectionErrorBoundary, SectionSkeleton } from '@/components/system/AsyncSectionBoundary'
 import { EarlyAccessModal } from '@/components/early-access/EarlyAccessModal'
+import { FeedbackWidget } from '@/components/feedback/FeedbackWidget'
 
 // Below-the-fold components loaded on demand for optimal initial load time
 const CreationTechnologySection = lazy(() =>
@@ -48,6 +49,11 @@ const GoogleBlogIndexPage = lazy(() =>
 const MakeployBlogArticlePage = lazy(() =>
   import('@/pages/MakeployBlogArticlePage').then((m) => ({ default: m.MakeployBlogArticlePage }))
 )
+const PrivacyPolicyPage = lazy(() => import('@/pages/PrivacyPolicyPage').then((m) => ({ default: m.PrivacyPolicyPage })))
+const TermsOfUsePage = lazy(() => import('@/pages/TermsOfUsePage').then((m) => ({ default: m.TermsOfUsePage })))
+const CookiePolicyPage = lazy(() => import('@/pages/CookiePolicyPage').then((m) => ({ default: m.CookiePolicyPage })))
+const ContactPage = lazy(() => import('@/pages/ContactPage').then((m) => ({ default: m.ContactPage })))
+const AboutPage = lazy(() => import('@/pages/AboutPage').then((m) => ({ default: m.AboutPage })))
 
 function DeferredAsyncSection({ children, minHeight }: { children: ReactNode; minHeight?: string }) {
   return (
@@ -127,9 +133,15 @@ export default function App() {
           <Route path="/" element={<HomePage />} />
           <Route path="/blog" element={<GoogleBlogIndexPage />} />
           <Route path="/blog/:slug" element={<MakeployBlogArticlePage />} />
+          <Route path="/privacidade" element={<PrivacyPolicyPage />} />
+          <Route path="/termos" element={<TermsOfUsePage />} />
+          <Route path="/cookies" element={<CookiePolicyPage />} />
+          <Route path="/contato" element={<ContactPage />} />
+          <Route path="/sobre" element={<AboutPage />} />
           <Route path="*" element={<Navigate to="/" replace />} />
         </Routes>
       </Suspense>
+      <FeedbackWidget />
     </BrowserRouter>
   )
 }

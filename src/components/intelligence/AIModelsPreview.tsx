@@ -110,7 +110,9 @@ export function AIModelsPreview() {
                         : 'px-5 py-2.5 bg-[#0e0e11]'
                     }`}
                   >
-                    <Icon className={`w-4 h-4 transition-all duration-700 ${item.color} ${isActive ? 'opacity-100' : 'opacity-60'}`} />
+                    <span aria-hidden="true" className="flex shrink-0">
+                      <Icon className={`w-4 h-4 transition-all duration-700 ${item.color} ${isActive ? 'opacity-100' : 'opacity-60'}`} />
+                    </span>
                     <span
                       className={`transition-colors duration-700 ${
                         isActive ? 'text-white text-[14px] font-bold' : 'text-white/60 text-[14px] font-medium'

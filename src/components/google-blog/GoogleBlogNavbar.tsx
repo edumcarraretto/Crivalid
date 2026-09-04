@@ -6,7 +6,7 @@ export function GoogleBlogNavbar() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
         {/* Left: Logo & Blog Label */}
         <div className="flex items-center gap-3 sm:gap-6">
-          <Link to="/" className="flex items-center gap-2 group">
+          <Link to="/" className="flex items-center gap-2 group" aria-label="MAKEPLOY — página inicial">
             <img
               src="/nova-logo-128.webp"
               alt="Makeploy Logo"
@@ -14,9 +14,15 @@ export function GoogleBlogNavbar() {
               height={26}
               className="object-contain transition-transform duration-200 group-hover:scale-105"
             />
-            <span className="font-bold text-lg sm:text-xl tracking-tight text-neutral-900">
-              MAKEPLOY
-            </span>
+            <div className="relative flex h-7 w-[105px] items-center justify-center overflow-hidden">
+              <img
+                src="/text-logo-128.webp"
+                alt="MAKEPLOY"
+                width={140}
+                height={32}
+                className="h-6 object-contain scale-[3.0] transform select-none transition-transform duration-300 group-hover:scale-[3.2]"
+              />
+            </div>
           </Link>
 
           <span className="text-sm font-normal text-neutral-600 hidden sm:inline-block border-l border-neutral-300 pl-3">

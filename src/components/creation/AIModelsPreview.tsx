@@ -87,7 +87,7 @@ export function AIModelsPreview() {
               ].join(' ')}
             >
               {/* Provider logo */}
-              <div className="w-[18px] h-[18px] flex items-center justify-center shrink-0">
+              <div aria-hidden="true" className="w-[18px] h-[18px] flex items-center justify-center shrink-0">
                 {getProviderIcon(model.provider)}
               </div>
 
@@ -104,7 +104,7 @@ export function AIModelsPreview() {
                   isSelected ? 'opacity-100' : 'opacity-0'
                 }`}
               >
-                <Check className="w-full h-full text-white" strokeWidth={2.5} />
+                <Check aria-hidden="true" className="w-full h-full text-white" strokeWidth={2.5} />
               </div>
             </div>
           )

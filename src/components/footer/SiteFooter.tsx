@@ -14,6 +14,14 @@ const NAV_LINKS = [
   { label: 'Começar', href: '#comece', isAction: true },
 ]
 
+const INSTITUTIONAL_LINKS = [
+  { label: 'Sobre', href: '/sobre' },
+  { label: 'Contato e suporte', href: '/contato' },
+  { label: 'Privacidade', href: '/privacidade' },
+  { label: 'Termos de uso', href: '/termos' },
+  { label: 'Cookies', href: '/cookies' },
+]
+
 // ─── Component ────────────────────────────────────────────────────────────────
 
 export function SiteFooter() {
@@ -92,6 +100,14 @@ export function SiteFooter() {
       {/* ── Bottom section (rule + legal) ── */}
       <div className="relative z-10 mx-auto max-w-6xl px-6 sm:px-8">
         <div className="w-full h-px bg-white/[0.08]" />
+
+        <nav aria-label="Links institucionais" className="flex flex-wrap items-center justify-center gap-x-5 gap-y-3 border-b border-white/[0.08] py-6">
+          {INSTITUTIONAL_LINKS.map((link) => (
+            <a key={link.href} href={link.href} className="text-xs font-medium text-neutral-400 transition-colors hover:text-white">
+              {link.label}
+            </a>
+          ))}
+        </nav>
 
         <motion.div
           initial={{ opacity: 0 }}
