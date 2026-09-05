@@ -29,6 +29,7 @@ export function InstitutionalShell({ section, eyebrow, title, description, child
 
   return (
     <div className="min-h-screen bg-white text-neutral-900">
+      <a href="#conteudo-principal" className="skip-link">Pular para o conteúdo</a>
       <Navbar />
       <div aria-hidden="true" className="h-1" style={{ background: activeStep.color }} />
 
@@ -42,7 +43,7 @@ export function InstitutionalShell({ section, eyebrow, title, description, child
                   const isActive = step.id === section
                   return (
                     <li key={step.id}>
-                      <Link to={step.href} aria-current={isActive ? 'page' : undefined} className="group block">
+                      <Link to={step.href} aria-label={step.label} aria-current={isActive ? 'page' : undefined} className="group block">
                         <span className="flex items-center gap-1.5">
                           <span className="text-[9px] font-bold tabular-nums text-neutral-400 sm:text-[10px]">0{index + 1}</span>
                           <span aria-hidden="true" className={`h-1 rounded-full transition-all duration-300 ${isActive ? 'flex-1 opacity-100' : 'flex-1 opacity-25 group-hover:opacity-60'}`} style={{ background: step.color }} />

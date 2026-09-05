@@ -6,7 +6,6 @@ import type { CreationPillar } from '@/components/creation/creationData'
 interface TechnologyPillarCardProps {
   pillar: CreationPillar
   index: number
-  isLast?: boolean
   children: React.ReactNode
 }
 

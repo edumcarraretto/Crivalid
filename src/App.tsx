@@ -68,10 +68,25 @@ function DeferredAsyncSection({ children, minHeight }: { children: ReactNode; mi
 }
 
 function ScrollToTop() {
-  const { pathname } = useLocation()
+  const { pathname, hash, key } = useLocation()
   useEffect(() => {
-    window.scrollTo(0, 0)
-  }, [pathname])
+    if (!hash) {
+      window.scrollTo({ top: 0, behavior: 'instant' })
+      return
+    }
+    let id: string
+    try { id = decodeURIComponent(hash.slice(1)) } catch { return }
+    const scroll = () => {
+      const target = document.getElementById(id)
+      if (!target || document.querySelector('[data-section-loading]')) return false
+      target.scrollIntoView({ block: 'start', behavior: 'instant' })
+      return true
+    }
+    if (scroll()) return
+    const observer = new MutationObserver(() => { if (scroll()) observer.disconnect() })
+    observer.observe(document.getElementById('root') ?? document.body, { childList: true, subtree: true, attributes: true, attributeFilter: ['data-section-loading'] })
+    return () => observer.disconnect()
+  }, [pathname, hash, key])
   return null
 }
 
@@ -119,7 +134,6 @@ function HomePage() {
       <DeferredAsyncSection>
         <SiteFooter />
       </DeferredAsyncSection>
-      <EarlyAccessModal />
     </>
   )
 }
@@ -141,6 +155,7 @@ export default function App() {
           <Route path="*" element={<Navigate to="/" replace />} />
         </Routes>
       </Suspense>
+      <EarlyAccessModal />
       <FeedbackWidget />
     </BrowserRouter>
   )

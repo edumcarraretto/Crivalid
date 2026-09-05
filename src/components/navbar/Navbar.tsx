@@ -35,22 +35,11 @@ export function Navbar() {
   // ── Smooth scroll to section ──
   const scrollToSection = useCallback((href: string) => {
     if (href.startsWith('#')) {
-      if (!isHomePage) {
-        navigate('/' + href)
-        return
-      }
-      const id = href.replace('#', '')
-      const el = document.getElementById(id)
-      if (el) {
-        const navbarHeight = 100 // offset for sticky navbar
-        const top = el.getBoundingClientRect().top + window.scrollY - navbarHeight
-        const behavior = window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth'
-        window.scrollTo({ top, behavior })
-      }
+      navigate('/' + href)
     } else {
       navigate(href)
     }
-  }, [isHomePage, navigate])
+  }, [navigate])
 
   useEffect(() => {
     if (!mobileMenuOpen) return

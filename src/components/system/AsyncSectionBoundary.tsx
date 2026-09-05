@@ -1,4 +1,5 @@
 import { Component, useEffect, useRef, useState, type ErrorInfo, type ReactNode } from 'react'
+import { useLocation } from 'react-router-dom'
 
 interface AsyncSectionBoundaryProps {
   children: ReactNode
@@ -48,6 +49,7 @@ class SectionErrorBoundary extends Component<AsyncSectionBoundaryProps, ErrorBou
 function SectionSkeleton({ minHeight = 'min-h-80' }: Pick<AsyncSectionBoundaryProps, 'minHeight'>) {
   return (
     <output
+      data-section-loading
       className={`flex ${minHeight} items-center justify-center bg-white px-6`}
       aria-label="Carregando seção"
     >
@@ -57,11 +59,16 @@ function SectionSkeleton({ minHeight = 'min-h-80' }: Pick<AsyncSectionBoundaryPr
 }
 
 function DeferredSection({ children, minHeight = 'min-h-80' }: AsyncSectionBoundaryProps) {
+  const { hash } = useLocation()
   const [shouldRender, setShouldRender] = useState(import.meta.env.MODE === 'test')
+  const renderContent = shouldRender || Boolean(hash)
   const placeholderRef = useRef<HTMLDivElement>(null)
 
   useEffect(() => {
-    if (shouldRender) return
+    if (renderContent) {
+      if (!shouldRender) setShouldRender(true)
+      return
+    }
     const placeholder = placeholderRef.current
     if (!placeholder) return
 
@@ -73,11 +80,11 @@ function DeferredSection({ children, minHeight = 'min-h-80' }: AsyncSectionBound
 
     observer.observe(placeholder)
     return () => observer.disconnect()
-  }, [shouldRender])
+  }, [renderContent, shouldRender])
 
   return (
-    <div ref={placeholderRef} className={shouldRender ? undefined : minHeight}>
-      {shouldRender ? children : null}
+    <div ref={placeholderRef} data-section-loading={!renderContent ? '' : undefined} className={renderContent ? undefined : minHeight}>
+      {renderContent ? children : null}
     </div>
   )
 }

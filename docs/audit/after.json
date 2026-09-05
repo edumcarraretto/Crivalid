@@ -1,0 +1,996 @@
+{
+  "commit": "7bf89b8a207e521d71f54f679b7062bd6a754f81",
+  "generatedAt": "2026-09-04T23:12:32.859Z",
+  "files": [
+    {
+      "file": "src/App.tsx",
+      "lines": 163,
+      "bytes": 6665,
+      "reachable": true
+    },
+    {
+      "file": "src/components/creation/AIModelsPreview.tsx",
+      "lines": 116,
+      "bytes": 5996,
+      "reachable": true
+    },
+    {
+      "file": "src/components/creation/creationData.ts",
+      "lines": 58,
+      "bytes": 2145,
+      "reachable": true
+    },
+    {
+      "file": "src/components/creation/CreationTechnologySection.tsx",
+      "lines": 130,
+      "bytes": 6087,
+      "reachable": true
+    },
+    {
+      "file": "src/components/creation/IntegratedCodeEditorPreview.tsx",
+      "lines": 330,
+      "bytes": 18259,
+      "reachable": true
+    },
+    {
+      "file": "src/components/creation/NoCodeBuilderPreview.tsx",
+      "lines": 162,
+      "bytes": 7030,
+      "reachable": true
+    },
+    {
+      "file": "src/components/creation/TechnologyPillarCard.tsx",
+      "lines": 64,
+      "bytes": 2595,
+      "reachable": true
+    },
+    {
+      "file": "src/components/cta/AIIdeaSection.test.tsx",
+      "lines": 31,
+      "bytes": 1221,
+      "reachable": false
+    },
+    {
+      "file": "src/components/cta/AIIdeaSection.tsx",
+      "lines": 148,
+      "bytes": 6796,
+      "reachable": true
+    },
+    {
+      "file": "src/components/early-access/EarlyAccessModal.test.tsx",
+      "lines": 38,
+      "bytes": 2006,
+      "reachable": false
+    },
+    {
+      "file": "src/components/early-access/EarlyAccessModal.tsx",
+      "lines": 433,
+      "bytes": 18268,
+      "reachable": true
+    },
+    {
+      "file": "src/components/faq/ProductFAQSection.tsx",
+      "lines": 420,
+      "bytes": 17087,
+      "reachable": true
+    },
+    {
+      "file": "src/components/feedback/FeedbackWidget.tsx",
+      "lines": 63,
+      "bytes": 5584,
+      "reachable": true
+    },
+    {
+      "file": "src/components/footer/SiteFooter.tsx",
+      "lines": 139,
+      "bytes": 5524,
+      "reachable": true
+    },
+    {
+      "file": "src/components/globe/globeData.ts",
+      "lines": 78,
+      "bytes": 6501,
+      "reachable": true
+    },
+    {
+      "file": "src/components/globe/GlobeSection.tsx",
+      "lines": 240,
+      "bytes": 12276,
+      "reachable": true
+    },
+    {
+      "file": "src/components/globe/InteractiveGlobe.test.tsx",
+      "lines": 28,
+      "bytes": 1387,
+      "reachable": false
+    },
+    {
+      "file": "src/components/globe/InteractiveGlobe.tsx",
+      "lines": 987,
+      "bytes": 34732,
+      "reachable": true
+    },
+    {
+      "file": "src/components/google-blog/AllArticlesSection.tsx",
+      "lines": 93,
+      "bytes": 4209,
+      "reachable": true
+    },
+    {
+      "file": "src/components/google-blog/blogArticleData.ts",
+      "lines": 108,
+      "bytes": 7023,
+      "reachable": true
+    },
+    {
+      "file": "src/components/google-blog/EditorialTrustStrip.tsx",
+      "lines": 38,
+      "bytes": 1141,
+      "reachable": true
+    },
+    {
+      "file": "src/components/google-blog/FeaturedCardsGrid.tsx",
+      "lines": 87,
+      "bytes": 4077,
+      "reachable": true
+    },
+    {
+      "file": "src/components/google-blog/googleBlogData.ts",
+      "lines": 150,
+      "bytes": 5838,
+      "reachable": true
+    },
+    {
+      "file": "src/components/google-blog/GoogleBlogNavbar.tsx",
+      "lines": 59,
+      "bytes": 2458,
+      "reachable": true
+    },
+    {
+      "file": "src/components/google-blog/HeroSpotlightSection.tsx",
+      "lines": 109,
+      "bytes": 6015,
+      "reachable": true
+    },
+    {
+      "file": "src/components/google-blog/PhoneCarouselSection.tsx",
+      "lines": 216,
+      "bytes": 12340,
+      "reachable": true
+    },
+    {
+      "file": "src/components/google-blog/ResearchHighlightSection.tsx",
+      "lines": 92,
+      "bytes": 4477,
+      "reachable": true
+    },
+    {
+      "file": "src/components/hero/FeaturesGrid.css",
+      "lines": 590,
+      "bytes": 19685,
+      "reachable": true
+    },
+    {
+      "file": "src/components/hero/FeaturesGrid.tsx",
+      "lines": 464,
+      "bytes": 18598,
+      "reachable": true
+    },
+    {
+      "file": "src/components/hero/Hero.tsx",
+      "lines": 255,
+      "bytes": 12717,
+      "reachable": true
+    },
+    {
+      "file": "src/components/institutional/InstitutionalShell.tsx",
+      "lines": 83,
+      "bytes": 4737,
+      "reachable": true
+    },
+    {
+      "file": "src/components/institutional/LegalDocumentLayout.tsx",
+      "lines": 79,
+      "bytes": 3829,
+      "reachable": true
+    },
+    {
+      "file": "src/components/intelligence/AILogos.tsx",
+      "lines": 27,
+      "bytes": 2620,
+      "reachable": true
+    },
+    {
+      "file": "src/components/intelligence/AIModelsPreview.tsx",
+      "lines": 133,
+      "bytes": 4971,
+      "reachable": true
+    },
+    {
+      "file": "src/components/intelligence/AmbientIntelligencePreview.tsx",
+      "lines": 188,
+      "bytes": 6877,
+      "reachable": true
+    },
+    {
+      "file": "src/components/intelligence/ConnectedTechPreview.tsx",
+      "lines": 321,
+      "bytes": 12756,
+      "reachable": true
+    },
+    {
+      "file": "src/components/intelligence/DeepSearchPreview.tsx",
+      "lines": 72,
+      "bytes": 3060,
+      "reachable": true
+    },
+    {
+      "file": "src/components/intelligence/DeepSearchStatusPanel.tsx",
+      "lines": 241,
+      "bytes": 7124,
+      "reachable": true
+    },
+    {
+      "file": "src/components/intelligence/JourneyPreviewCard.tsx",
+      "lines": 153,
+      "bytes": 4877,
+      "reachable": true
+    },
+    {
+      "file": "src/components/intelligence/MemoryAITableSection.tsx",
+      "lines": 232,
+      "bytes": 11940,
+      "reachable": true
+    },
+    {
+      "file": "src/components/intelligence/MultiplayerAIPreview.tsx",
+      "lines": 383,
+      "bytes": 12286,
+      "reachable": true
+    },
+    {
+      "file": "src/components/logos/LogoCloud.tsx",
+      "lines": 102,
+      "bytes": 4593,
+      "reachable": true
+    },
+    {
+      "file": "src/components/marquee/marqueeData.ts",
+      "lines": 44,
+      "bytes": 1512,
+      "reachable": true
+    },
+    {
+      "file": "src/components/marquee/MarqueeStripes.tsx",
+      "lines": 235,
+      "bytes": 7448,
+      "reachable": true
+    },
+    {
+      "file": "src/components/metrics/AnimatedMetricValue.tsx",
+      "lines": 159,
+      "bytes": 5282,
+      "reachable": true
+    },
+    {
+      "file": "src/components/metrics/MetricItem.tsx",
+      "lines": 81,
+      "bytes": 3501,
+      "reachable": true
+    },
+    {
+      "file": "src/components/metrics/metricsData.ts",
+      "lines": 82,
+      "bytes": 2705,
+      "reachable": true
+    },
+    {
+      "file": "src/components/metrics/PlatformMetricsSection.tsx",
+      "lines": 153,
+      "bytes": 5726,
+      "reachable": true
+    },
+    {
+      "file": "src/components/mission/MissionMessageSection.tsx",
+      "lines": 303,
+      "bytes": 9245,
+      "reachable": true
+    },
+    {
+      "file": "src/components/navbar/Navbar.test.tsx",
+      "lines": 20,
+      "bytes": 827,
+      "reachable": false
+    },
+    {
+      "file": "src/components/navbar/Navbar.tsx",
+      "lines": 373,
+      "bytes": 14543,
+      "reachable": true
+    },
+    {
+      "file": "src/components/problem/MobileProblemImageCarousel.test.tsx",
+      "lines": 29,
+      "bytes": 1117,
+      "reachable": false
+    },
+    {
+      "file": "src/components/problem/MobileProblemImageCarousel.tsx",
+      "lines": 97,
+      "bytes": 3555,
+      "reachable": true
+    },
+    {
+      "file": "src/components/problem/ProblemSection.tsx",
+      "lines": 54,
+      "bytes": 2188,
+      "reachable": true
+    },
+    {
+      "file": "src/components/showcase/CreationShowcase.tsx",
+      "lines": 86,
+      "bytes": 3191,
+      "reachable": true
+    },
+    {
+      "file": "src/components/showcase/ShowcaseCard.tsx",
+      "lines": 41,
+      "bytes": 1455,
+      "reachable": true
+    },
+    {
+      "file": "src/components/showcase/showcaseData.ts",
+      "lines": 51,
+      "bytes": 1437,
+      "reachable": true
+    },
+    {
+      "file": "src/components/system/AsyncSectionBoundary.tsx",
+      "lines": 93,
+      "bytes": 2933,
+      "reachable": true
+    },
+    {
+      "file": "src/components/text/AnimatedText.tsx",
+      "lines": 70,
+      "bytes": 2424,
+      "reachable": true
+    },
+    {
+      "file": "src/components/text/GradientText.tsx",
+      "lines": 32,
+      "bytes": 1078,
+      "reachable": true
+    },
+    {
+      "file": "src/components/text/HighlightText.tsx",
+      "lines": 40,
+      "bytes": 1321,
+      "reachable": true
+    },
+    {
+      "file": "src/components/tools/FeaturedMockups.tsx",
+      "lines": 292,
+      "bytes": 13322,
+      "reachable": true
+    },
+    {
+      "file": "src/components/tools/toolsData.ts",
+      "lines": 195,
+      "bytes": 10198,
+      "reachable": true
+    },
+    {
+      "file": "src/components/tools/ToolsSection.tsx",
+      "lines": 543,
+      "bytes": 20684,
+      "reachable": true
+    },
+    {
+      "file": "src/components/workflow/InlineAvatarGroup.tsx",
+      "lines": 60,
+      "bytes": 1885,
+      "reachable": true
+    },
+    {
+      "file": "src/components/workflow/WorkflowHeroSection.tsx",
+      "lines": 142,
+      "bytes": 5638,
+      "reachable": true
+    },
+    {
+      "file": "src/hooks/useModalFocus.ts",
+      "lines": 55,
+      "bytes": 2630,
+      "reachable": true
+    },
+    {
+      "file": "src/hooks/usePageMetadata.ts",
+      "lines": 18,
+      "bytes": 548,
+      "reachable": true
+    },
+    {
+      "file": "src/index.css",
+      "lines": 76,
+      "bytes": 1401,
+      "reachable": true
+    },
+    {
+      "file": "src/lib/earlyAccess.ts",
+      "lines": 6,
+      "bytes": 284,
+      "reachable": true
+    },
+    {
+      "file": "src/lib/site.ts",
+      "lines": 13,
+      "bytes": 380,
+      "reachable": true
+    },
+    {
+      "file": "src/main.tsx",
+      "lines": 11,
+      "bytes": 236,
+      "reachable": true
+    },
+    {
+      "file": "src/pages/AboutPage.tsx",
+      "lines": 78,
+      "bytes": 6445,
+      "reachable": true
+    },
+    {
+      "file": "src/pages/ContactPage.tsx",
+      "lines": 137,
+      "bytes": 7103,
+      "reachable": true
+    },
+    {
+      "file": "src/pages/CookiePolicyPage.tsx",
+      "lines": 27,
+      "bytes": 2959,
+      "reachable": true
+    },
+    {
+      "file": "src/pages/GoogleBlogIndexPage.test.tsx",
+      "lines": 63,
+      "bytes": 2057,
+      "reachable": false
+    },
+    {
+      "file": "src/pages/GoogleBlogIndexPage.tsx",
+      "lines": 53,
+      "bytes": 2171,
+      "reachable": true
+    },
+    {
+      "file": "src/pages/MakeployBlogArticlePage.tsx",
+      "lines": 100,
+      "bytes": 5849,
+      "reachable": true
+    },
+    {
+      "file": "src/pages/PrivacyPolicyPage.tsx",
+      "lines": 49,
+      "bytes": 4180,
+      "reachable": true
+    },
+    {
+      "file": "src/pages/TermsOfUsePage.tsx",
+      "lines": 31,
+      "bytes": 3562,
+      "reachable": true
+    },
+    {
+      "file": "src/styles/palette.css",
+      "lines": 199,
+      "bytes": 7010,
+      "reachable": false
+    },
+    {
+      "file": "src/styles/typography.css",
+      "lines": 97,
+      "bytes": 1821,
+      "reachable": false
+    },
+    {
+      "file": "src/test/accessibility.test.tsx",
+      "lines": 55,
+      "bytes": 1892,
+      "reachable": false
+    },
+    {
+      "file": "src/test/navigation.test.tsx",
+      "lines": 36,
+      "bytes": 1805,
+      "reachable": false
+    },
+    {
+      "file": "src/test/setup.ts",
+      "lines": 57,
+      "bytes": 1411,
+      "reachable": false
+    },
+    {
+      "file": "src/vendor/cobe/index.d.ts",
+      "lines": 56,
+      "bytes": 1228,
+      "reachable": false
+    },
+    {
+      "file": "src/vendor/cobe/index.js",
+      "lines": 14,
+      "bytes": 14004,
+      "reachable": true
+    },
+    {
+      "file": "src/vendor/cobe/lifecycle.test.ts",
+      "lines": 31,
+      "bytes": 1617,
+      "reachable": false
+    }
+  ],
+  "unreachableProductionModules": [],
+  "importedPackages": [
+    "@testing-library/jest-dom",
+    "@testing-library/react",
+    "@testing-library/user-event",
+    "axe-core",
+    "lucide-react",
+    "motion",
+    "react",
+    "react-dom",
+    "react-icons",
+    "react-router-dom",
+    "vitest"
+  ],
+  "assets": [
+    {
+      "file": "public/favicon.svg",
+      "bytes": 2294,
+      "sha256": "b266b76199b6b3ce3bd3c3f410cc1edc3cd2b8bbe7de00ed8e1f04c8bb3a1898",
+      "references": [
+        "index.html"
+      ]
+    },
+    {
+      "file": "public/fonts/mplus-rounded-500.woff2",
+      "bytes": 41172,
+      "sha256": "a70fda0ebf1ea304e1c5f3f47934748ba017114e192eee646f312da7600253a7",
+      "references": [
+        "docs/TYPOGRAPHY.md",
+        "index.html",
+        "public/fonts/README.md",
+        "src/styles/typography.css"
+      ]
+    },
+    {
+      "file": "public/fonts/mplus-rounded-700.woff2",
+      "bytes": 42508,
+      "sha256": "36d18924ec16991b2a9f33588a1c78371d5246e101d831225586deb7d0c7607e",
+      "references": [
+        "docs/TYPOGRAPHY.md",
+        "public/fonts/README.md",
+        "src/styles/typography.css"
+      ]
+    },
+    {
+      "file": "public/fonts/mplus-rounded-800.woff2",
+      "bytes": 42676,
+      "sha256": "7e7947760f081865484a2f12c3a1104862f8b311f5ed996f6f39737e2b8a024a",
+      "references": [
+        "docs/TYPOGRAPHY.md",
+        "public/fonts/README.md",
+        "src/styles/typography.css"
+      ]
+    },
+    {
+      "file": "public/fonts/OFL.txt",
+      "bytes": 4443,
+      "sha256": "38a1af1431673a61c71f56c585c150687f7c16c64091540a9debd08e582f61c1",
+      "references": []
+    },
+    {
+      "file": "public/fonts/README.md",
+      "bytes": 639,
+      "sha256": "32ae79c7c5b24f87da9249009f4a8d2872ba84259ff49af7173ce766ea0fe82a",
+      "references": []
+    },
+    {
+      "file": "public/images/automation-flow-1480.webp",
+      "bytes": 222988,
+      "sha256": "4cde27722a86bdd51c5059f4df62959c90383d48543da0a0a09580feb03272fd",
+      "references": []
+    },
+    {
+      "file": "public/images/automation-flow-mobile.webp",
+      "bytes": 106542,
+      "sha256": "3fd00fea362800d94c8ae28bf05e8ae4f86eaf0ef33782abab91db027a13dfed",
+      "references": [
+        "src/components/workflow/WorkflowHeroSection.tsx"
+      ]
+    },
+    {
+      "file": "public/images/blog/cover-ai.jpg",
+      "bytes": 678466,
+      "sha256": "d8285d277671dded36f2e2625d4ec8492ca4b0851d8c1c28fd3de5e458256ac0",
+      "references": []
+    },
+    {
+      "file": "public/images/blog/cover-cost.jpg",
+      "bytes": 674473,
+      "sha256": "f9de0e05473f401a31b39c271b17ccad2c6a33b110ac0ef844cc0965e68848ff",
+      "references": []
+    },
+    {
+      "file": "public/images/blog/cover-hero.jpg",
+      "bytes": 618288,
+      "sha256": "ede5e0e42c844a8e5ea08332255109a2c2ad19efabcb5722af4b832b4cdacb37",
+      "references": []
+    },
+    {
+      "file": "public/images/blog/cover-mvp.jpg",
+      "bytes": 547233,
+      "sha256": "1ff4dc54b9dd95b86bfcf5253f32f3387aad7da7a7dce98dc6ee035a2307b74e",
+      "references": []
+    },
+    {
+      "file": "public/images/blog/cover-startup.jpg",
+      "bytes": 497330,
+      "sha256": "53b24260eaed5f44cf4ac788dfa9d1f16d66a82dda5834d5925728ed5d243112",
+      "references": []
+    },
+    {
+      "file": "public/images/blog/cover-validation.jpg",
+      "bytes": 486411,
+      "sha256": "a773ddc862636ca81e83a6a56f4bb3e417773b0a342e2b9056aeaa162174553e",
+      "references": []
+    },
+    {
+      "file": "public/images/blog/google-gemini-hero.jpg",
+      "bytes": 846324,
+      "sha256": "d1b91174735f0e737590809d48bb2ec30078056c74b382c1f0bfccf4d3190e36",
+      "references": [
+        "src/components/google-blog/HeroSpotlightSection.tsx"
+      ]
+    },
+    {
+      "file": "public/images/blog/makeploy-ai-agents.jpg",
+      "bytes": 173663,
+      "sha256": "848f8b51feb784e6f4c79adeb2ceb96efc2e3d10b120e48ad9b49b228f06724d",
+      "references": [
+        "src/components/google-blog/blogArticleData.ts",
+        "src/components/google-blog/googleBlogData.ts"
+      ]
+    },
+    {
+      "file": "public/images/blog/makeploy-market-focus.jpg",
+      "bytes": 219256,
+      "sha256": "895196a561e64a22e1f4bd61c98e39ce405bfb8eb58fae586c445faa64a6bfd9",
+      "references": [
+        "src/components/google-blog/blogArticleData.ts",
+        "src/components/google-blog/googleBlogData.ts"
+      ]
+    },
+    {
+      "file": "public/images/blog/makeploy-mvp-experiment.jpg",
+      "bytes": 83052,
+      "sha256": "9610064e44acbe9b2fcb5559a3ba0e0e62c5967a8a55c98cfb7a9db8599ad8d8",
+      "references": [
+        "src/components/google-blog/blogArticleData.ts",
+        "src/components/google-blog/googleBlogData.ts"
+      ]
+    },
+    {
+      "file": "public/images/blog/makeploy-validation-signals.jpg",
+      "bytes": 83920,
+      "sha256": "7cd2234bffc1de88dd41e680f4c9f81bd304d7dc8662d96b80fea6dcff50c5a8",
+      "references": [
+        "src/components/google-blog/blogArticleData.ts",
+        "src/components/google-blog/googleBlogData.ts"
+      ]
+    },
+    {
+      "file": "public/images/novaimagem-v2-2048.webp",
+      "bytes": 71160,
+      "sha256": "e42175d72f727f3640fdd721836fa4d82d9b58439fd5bdd7365cf910359fc7e0",
+      "references": [
+        "src/components/problem/MobileProblemImageCarousel.tsx",
+        "src/components/problem/ProblemSection.tsx"
+      ]
+    },
+    {
+      "file": "public/images/novaimagem-v2.webp",
+      "bytes": 100620,
+      "sha256": "4233e1a99a67ea9424482f5aee76babcea3a1f865c51d4ad5f38f2012324df49",
+      "references": []
+    },
+    {
+      "file": "public/images/showcase/aura-step.webp",
+      "bytes": 146464,
+      "sha256": "3a22b29bcd5b4a8da61b09e2211341895d7a8adda6db6e386c5da790110f2556",
+      "references": [
+        "src/components/showcase/showcaseData.ts"
+      ]
+    },
+    {
+      "file": "public/images/showcase/cria-checkout-gold.webp",
+      "bytes": 128618,
+      "sha256": "a88b124918c4eecb4d4a7394bb0344f2cb01bc94d3071dc36f1b9552d84c8cdf",
+      "references": [
+        "src/components/showcase/showcaseData.ts"
+      ]
+    },
+    {
+      "file": "public/images/showcase/cria-checkout-red.webp",
+      "bytes": 110340,
+      "sha256": "de3f4f21e9731680831352d3e277b1e817dc3a00f6675a7a617d5834ef18dad9",
+      "references": [
+        "src/components/showcase/showcaseData.ts"
+      ]
+    },
+    {
+      "file": "public/images/showcase/lumen-deep.webp",
+      "bytes": 127290,
+      "sha256": "70276d54534bae3e2fb87f89c5149053d3dc2abd21cac7a5d6e2a7d6506ebd99",
+      "references": [
+        "src/components/showcase/showcaseData.ts"
+      ]
+    },
+    {
+      "file": "public/images/showcase/nexa-vision.webp",
+      "bytes": 128048,
+      "sha256": "f17ddfbfde6c45ce1021e30d2e09e6f47ebb85d33dc0640f3ddb1e4c5710eae4",
+      "references": [
+        "src/components/showcase/showcaseData.ts"
+      ]
+    },
+    {
+      "file": "public/images/showcase/pulse-grid.webp",
+      "bytes": 135610,
+      "sha256": "08c2c604e29fe98226a46b759bfaea68688411a9bc397a5652ca1800dd732d63",
+      "references": [
+        "src/components/showcase/showcaseData.ts"
+      ]
+    },
+    {
+      "file": "public/llms.txt",
+      "bytes": 813,
+      "sha256": "698732249a4ba037cc6d7b6fb876f041843b5766de8213bee63bc08e031fa05f",
+      "references": []
+    },
+    {
+      "file": "public/nova-logo-128.webp",
+      "bytes": 3228,
+      "sha256": "1de070eeda7b093665e72d5bece5c925bb89a51508a8604efdc0a2b71a9d312d",
+      "references": [
+        "src/components/creation/CreationTechnologySection.tsx",
+        "src/components/google-blog/GoogleBlogNavbar.tsx",
+        "src/components/google-blog/HeroSpotlightSection.tsx",
+        "src/components/intelligence/ConnectedTechPreview.tsx",
+        "src/components/intelligence/DeepSearchStatusPanel.tsx",
+        "src/components/navbar/Navbar.tsx"
+      ]
+    },
+    {
+      "file": "public/nova-logo-1914.png",
+      "bytes": 116874,
+      "sha256": "d889e50117a94c7f76397f42fffd1e69b1ad1f5f076999b8fc71d16ae37590e1",
+      "references": [
+        "index.html",
+        "public/site.webmanifest"
+      ]
+    },
+    {
+      "file": "public/nova-logo-384.webp",
+      "bytes": 13084,
+      "sha256": "efd6e8754a2996ac48943ab9573a8ad5fd699d44a6b10261f06a4c2e3947ff4b",
+      "references": [
+        "index.html",
+        "src/components/early-access/EarlyAccessModal.tsx",
+        "src/components/hero/Hero.tsx"
+      ]
+    },
+    {
+      "file": "public/nova-logo-512.webp",
+      "bytes": 27312,
+      "sha256": "d561d89ec9e8c581a5537b2440a37171a99715d032bc908130903980c157887d",
+      "references": []
+    },
+    {
+      "file": "public/og-makeploy.png",
+      "bytes": 155348,
+      "sha256": "e9dc265cddb767f6ae9e393513593bc3b14e9169399ab1907707551b3172aa29",
+      "references": [
+        "index.html"
+      ]
+    },
+    {
+      "file": "public/robots.txt",
+      "bytes": 70,
+      "sha256": "591558eeb3ee78a561840e87be4b8df032f1cdd842853bf26166b6b976d2cd0b",
+      "references": []
+    },
+    {
+      "file": "public/site.webmanifest",
+      "bytes": 441,
+      "sha256": "c6fa0f0801678a1061e1cea228fc402d54b1c6163d4b20839a3e892ca5a478d8",
+      "references": [
+        "index.html"
+      ]
+    },
+    {
+      "file": "public/sitemap.xml",
+      "bytes": 1235,
+      "sha256": "bb280d0207a6997807ee0686b1d4c023fc7280a32737aacf8c1593113031d27b",
+      "references": [
+        "public/robots.txt"
+      ]
+    },
+    {
+      "file": "public/text-logo-128.webp",
+      "bytes": 2238,
+      "sha256": "d1360e4fe1f6e2421e013dd06df33245b3b95668ed1681fc01517fed8f47fd0f",
+      "references": [
+        "src/components/google-blog/GoogleBlogNavbar.tsx",
+        "src/components/navbar/Navbar.tsx"
+      ]
+    },
+    {
+      "file": "public/text-logo-1931.webp",
+      "bytes": 56062,
+      "sha256": "7c30c5cd9eb8371a54b89076663bb89f0836e131a89d0bbe0cd9e50dbda0d887",
+      "references": []
+    },
+    {
+      "file": "public/text-logo-512.webp",
+      "bytes": 20938,
+      "sha256": "e052b9228b4cbf50ea8031d46e55ecc1637718c2b57c7ef1fd7dcdefb1badce8",
+      "references": []
+    }
+  ],
+  "bundle": [
+    {
+      "file": "dist/assets/AboutPage-D8sLmhlC.js",
+      "bytes": 6140,
+      "gzip": 2220
+    },
+    {
+      "file": "dist/assets/AIIdeaSection-Bog-M7sb.js",
+      "bytes": 4633,
+      "gzip": 1940
+    },
+    {
+      "file": "dist/assets/blogArticleData-CTk2EQ52.js",
+      "bytes": 8006,
+      "gzip": 3348
+    },
+    {
+      "file": "dist/assets/ContactPage-Emv8GKid.js",
+      "bytes": 5968,
+      "gzip": 2014
+    },
+    {
+      "file": "dist/assets/CookiePolicyPage-B6ECOmDr.js",
+      "bytes": 2788,
+      "gzip": 1259
+    },
+    {
+      "file": "dist/assets/CreationTechnologySection-BaBSbscC.js",
+      "bytes": 29115,
+      "gzip": 7864
+    },
+    {
+      "file": "dist/assets/GlobeSection-C4ft6GQn.js",
+      "bytes": 40624,
+      "gzip": 14737
+    },
+    {
+      "file": "dist/assets/GoogleBlogIndexPage-CD2Sles4.js",
+      "bytes": 29124,
+      "gzip": 7311
+    },
+    {
+      "file": "dist/assets/index-Dax08f-1.js",
+      "bytes": 90135,
+      "gzip": 22292
+    },
+    {
+      "file": "dist/assets/LegalDocumentLayout-BgUqEsDs.js",
+      "bytes": 3023,
+      "gzip": 1331
+    },
+    {
+      "file": "dist/assets/MakeployBlogArticlePage-JMWziYii.js",
+      "bytes": 5171,
+      "gzip": 1721
+    },
+    {
+      "file": "dist/assets/MarqueeStripes-Cg-ExWQM.js",
+      "bytes": 4258,
+      "gzip": 1764
+    },
+    {
+      "file": "dist/assets/MemoryAITableSection-XqlBfUYW.js",
+      "bytes": 48851,
+      "gzip": 13553
+    },
+    {
+      "file": "dist/assets/MissionMessageSection-D_QFBnk2.js",
+      "bytes": 6215,
+      "gzip": 1737
+    },
+    {
+      "file": "dist/assets/PlatformMetricsSection-B8m2dLBg.js",
+      "bytes": 7907,
+      "gzip": 2961
+    },
+    {
+      "file": "dist/assets/PrivacyPolicyPage-DlqnBQSA.js",
+      "bytes": 3902,
+      "gzip": 1657
+    },
+    {
+      "file": "dist/assets/ProductFAQSection-C850zXIy.js",
+      "bytes": 10993,
+      "gzip": 3591
+    },
+    {
+      "file": "dist/assets/rolldown-runtime-CNC7AqOf.js",
+      "bytes": 879,
+      "gzip": 504
+    },
+    {
+      "file": "dist/assets/SiteFooter-BZJFO4Ev.js",
+      "bytes": 4019,
+      "gzip": 1478
+    },
+    {
+      "file": "dist/assets/TermsOfUsePage-C2ZnUAdw.js",
+      "bytes": 3348,
+      "gzip": 1469
+    },
+    {
+      "file": "dist/assets/usePageMetadata-CTNRljjK.js",
+      "bytes": 3935,
+      "gzip": 1608
+    },
+    {
+      "file": "dist/assets/vendor-icons-DN7dMfvS.js",
+      "bytes": 18311,
+      "gzip": 7184
+    },
+    {
+      "file": "dist/assets/vendor-libs-DmG7QdCP.js",
+      "bytes": 46294,
+      "gzip": 16531
+    },
+    {
+      "file": "dist/assets/vendor-motion-DFyZL97m.js",
+      "bytes": 133566,
+      "gzip": 43488
+    },
+    {
+      "file": "dist/assets/vendor-react-CIcrh0Jt.js",
+      "bytes": 194306,
+      "gzip": 61108
+    },
+    {
+      "file": "dist/assets/WorkflowHeroSection-FFmO3_Gg.js",
+      "bytes": 5632,
+      "gzip": 2151
+    },
+    {
+      "file": "dist/index.html",
+      "bytes": 149829,
+      "gzip": 24725
+    }
+  ],
+  "secretFindings": [],
+  "limitations": [
+    "Literal import graph only; inspect indirect references before deleting.",
+    "Pattern scan is not proof of absence of secrets.",
+    "No browser performance or layout measurements."
+  ]
+}

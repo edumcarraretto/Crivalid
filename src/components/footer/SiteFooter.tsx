@@ -60,7 +60,7 @@ export function SiteFooter() {
           {NAV_LINKS.map((link) => (
             <a
               key={link.label}
-              href={link.href}
+              href={link.href.startsWith('#') ? `/${link.href}` : link.href}
               onClick={link.isAction ? (e) => { e.preventDefault(); openEarlyAccess('footer') } : undefined}
               className="
                 text-[13px] sm:text-sm font-medium text-neutral-300

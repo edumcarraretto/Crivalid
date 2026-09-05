@@ -4,6 +4,9 @@ import { afterEach, vi } from 'vitest'
 
 afterEach(() => cleanup())
 
+Object.defineProperty(window, 'scrollTo', { writable: true, value: vi.fn() })
+Object.defineProperty(HTMLElement.prototype, 'scrollIntoView', { writable: true, value: vi.fn() })
+
 Object.defineProperty(window, 'matchMedia', {
   writable: true,
   value: vi.fn().mockImplementation((query: string) => ({
@@ -31,6 +34,7 @@ class IntersectionObserverMock implements IntersectionObserver {
 }
 
 Object.defineProperty(window, 'IntersectionObserver', {
+  configurable: true,
   writable: true,
   value: IntersectionObserverMock,
 })

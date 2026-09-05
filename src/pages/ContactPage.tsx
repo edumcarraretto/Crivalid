@@ -77,6 +77,7 @@ export function ContactPage() {
                 key={opt}
                 type="button"
                 onClick={() => setSubject(opt)}
+                aria-pressed={subject === opt}
                 className={`cursor-pointer rounded-full border px-4 py-2 text-[13px] font-semibold transition-colors ${
                   subject === opt
                     ? 'border-neutral-900 bg-neutral-900 text-white'

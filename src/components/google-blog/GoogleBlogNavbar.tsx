@@ -32,16 +32,16 @@ export function GoogleBlogNavbar() {
 
         {/* Center: Navigation Links */}
         <nav className="hidden md:flex items-center gap-6 text-sm text-neutral-700 font-normal">
-          <a href="#ultimos-posts" className="hover:text-neutral-950 transition-colors">
+          <a href="/blog#ultimos-posts" className="hover:text-neutral-950 transition-colors">
             Destaque
           </a>
-          <a href="#novidades" className="hover:text-neutral-950 transition-colors">
+          <a href="/blog#novidades" className="hover:text-neutral-950 transition-colors">
             Na prática
           </a>
-          <a href="#pesquisa" className="hover:text-neutral-950 transition-colors">
+          <a href="/blog#pesquisa" className="hover:text-neutral-950 transition-colors">
             Pesquisa
           </a>
-          <a href="#todas-noticias" className="hover:text-neutral-950 transition-colors">
+          <a href="/blog#todas-noticias" className="hover:text-neutral-950 transition-colors">
             Explorar
           </a>
           <Link to="/" className="text-blue-600 font-medium hover:underline">

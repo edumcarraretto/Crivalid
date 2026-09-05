@@ -319,7 +319,6 @@ export function InteractiveGlobe({
   const svgRef = useRef<SVGSVGElement>(null)
   const globeRef = useRef<Globe | null>(null)
   const animationFrameRef = useRef<number | null>(null)
-  const resizeObserverRef = useRef<ResizeObserver | null>(null)
   const releaseTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null)
   
   const phiRef = useRef(initialPhi)
@@ -371,6 +370,10 @@ export function InteractiveGlobe({
   useEffect(() => {
     speedRef.current = speed
   }, [speed])
+
+  useEffect(() => () => {
+    if (releaseTimerRef.current) clearTimeout(releaseTimerRef.current)
+  }, [])
 
   useEffect(() => {
     const container = containerRef.current
@@ -450,8 +453,8 @@ export function InteractiveGlobe({
 
       globeRef.current = createGlobe(canvasRef.current!, {
         ...initialConfigurationRef.current,
-        width: Math.round(width * initialDpr),
-        height: Math.round(height * initialDpr),
+        width,
+        height,
         devicePixelRatio: initialDpr,
         phi: phiRef.current,
         theta: thetaRef.current,
@@ -471,7 +474,6 @@ export function InteractiveGlobe({
     })
 
     ro.observe(containerRef.current)
-    resizeObserverRef.current = ro
     
     const rect = containerRef.current.getBoundingClientRect()
     if (rect.width > 0 && rect.height > 0) {
@@ -482,6 +484,7 @@ export function InteractiveGlobe({
       ro.disconnect()
       if (globeRef.current) {
         globeRef.current.destroy()
+        globeRef.current = null
       }
     }
   }, [isActive, mobileOptimized])
@@ -724,7 +727,7 @@ export function InteractiveGlobe({
         // Apply opacity properly to labels based on route state
         for (const target of targets) {
           if (target.el && target.el.dataset.targetOpacity) {
-            if (target.el.style.opacity !== '0' || target.el.dataset.targetOpacity !== '0') {
+            if (target.el.style.opacity !== '0') {
               target.el.style.opacity = target.el.dataset.targetOpacity
             }
           }

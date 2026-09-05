@@ -39,6 +39,7 @@ export function AllArticlesSection() {
                     key={topic}
                     type="button"
                     onClick={() => setSelectedTopic(topic)}
+                    aria-pressed={isActive}
                     className={`
                       px-4 py-2 rounded-full text-xs font-normal transition-all cursor-pointer whitespace-nowrap
                       ${

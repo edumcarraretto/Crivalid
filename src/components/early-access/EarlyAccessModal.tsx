@@ -1,8 +1,9 @@
-import { useEffect, useRef, useState } from 'react'
+import { useCallback, useEffect, useRef, useState } from 'react'
 import { AnimatePresence, motion, useReducedMotion } from 'motion/react'
 import { ArrowRight, CheckCircle2, Mail, X } from 'lucide-react'
 import { HighlightText } from '@/components/text/HighlightText'
 import type { EarlyAccessSource } from '@/lib/earlyAccess'
+import { useModalFocus } from '@/hooks/useModalFocus'
 
 interface ModalContent {
   badge: string
@@ -214,7 +215,7 @@ export function EarlyAccessModal() {
   const [source, setSource] = useState<EarlyAccessSource>('hero')
   const [email, setEmail] = useState('')
   const [submitted, setSubmitted] = useState(false)
-  const closeButtonRef = useRef<HTMLButtonElement>(null)
+  const modalRef = useRef<HTMLDivElement>(null)
   const reduceMotion = useReducedMotion()
 
   useEffect(() => {
@@ -232,17 +233,8 @@ export function EarlyAccessModal() {
     return () => window.removeEventListener('makeploy:early-access', open)
   }, [])
 
-  useEffect(() => {
-    if (!isOpen) return
-    const previousOverflow = document.body.style.overflow
-    document.body.style.overflow = 'hidden'
-    closeButtonRef.current?.focus()
-    const onKeyDown = (event: KeyboardEvent) => event.key === 'Escape' && setIsOpen(false)
-    window.addEventListener('keydown', onKeyDown)
-    return () => { document.body.style.overflow = previousOverflow; window.removeEventListener('keydown', onKeyDown) }
-  }, [isOpen])
-
-  const close = () => setIsOpen(false)
+  const close = useCallback(() => setIsOpen(false), [])
+  useModalFocus(isOpen, modalRef, close)
   const submit = (event: React.FormEvent) => {
     event.preventDefault()
     if (!email.trim()) return
@@ -254,10 +246,11 @@ export function EarlyAccessModal() {
   return (
     <AnimatePresence>
       {isOpen && (
-        <div role="dialog" aria-modal="true" aria-labelledby="early-access-title" className="fixed inset-0 z-[100] flex items-center justify-center overflow-y-auto p-3 sm:p-4">
+        <div ref={modalRef} tabIndex={-1} role="dialog" aria-modal="true" aria-labelledby="early-access-title" className="fixed inset-0 z-[100] flex items-center justify-center overflow-y-auto p-3 sm:p-4">
           <motion.button
             type="button"
             aria-label="Fechar mensagem"
+            tabIndex={-1}
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
@@ -274,7 +267,6 @@ export function EarlyAccessModal() {
           >
             {/* Botão de Fechar flutuante */}
             <button
-              ref={closeButtonRef}
               type="button"
               onClick={close}
               aria-label="Fechar janela"
@@ -379,6 +371,7 @@ export function EarlyAccessModal() {
                       <div className="flex items-center gap-2 rounded-2xl bg-white/15 p-1.5 backdrop-blur-md border border-white/25 focus-within:bg-white/20 focus-within:border-white/50 transition">
                         <Mail className="ml-3 h-4 w-4 text-blue-100 flex-shrink-0" />
                         <input
+                          aria-label="Seu e-mail para acesso antecipado"
                           type="email"
                           required
                           autoComplete="email"

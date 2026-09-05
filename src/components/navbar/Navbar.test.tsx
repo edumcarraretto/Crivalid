@@ -2,11 +2,12 @@ import { fireEvent, render, screen } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import { describe, expect, it } from 'vitest'
 import { Navbar } from '@/components/navbar/Navbar'
+import { MemoryRouter } from 'react-router-dom'
 
 describe('Navbar', () => {
   it('abre e fecha o menu mobile com Escape', async () => {
     const user = userEvent.setup()
-    render(<Navbar />)
+    render(<MemoryRouter><Navbar /></MemoryRouter>)
 
     const toggle = screen.getByRole('button', { name: /abrir menu/i })
     await user.click(toggle)
