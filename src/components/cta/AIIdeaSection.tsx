@@ -1,8 +1,9 @@
-import { useState } from 'react'
-import { motion, useReducedMotion } from 'motion/react'
-import { ArrowUp, ChevronDown, Sparkles } from 'lucide-react'
+import { useState, useRef, useEffect } from 'react'
+import { motion, AnimatePresence, useReducedMotion } from 'motion/react'
+import { ArrowUp, ChevronDown, Check } from 'lucide-react'
 import { GradientText } from '@/components/text/GradientText'
 import { openEarlyAccess } from '@/lib/earlyAccess'
+import { ChatGPTLogo, ClaudeLogo, GeminiLogo } from '@/components/intelligence/AILogos'
 
 const SUGGESTIONS = [
   'Criar um SaaS',
@@ -11,11 +12,117 @@ const SUGGESTIONS = [
   'Continuar um projeto',
 ]
 
+interface AIModelOption {
+  id: string
+  name: string
+  label: string | null
+  icon: React.ComponentType<{ className?: string }>
+  iconColor: string
+  provider: 'OpenAI' | 'Google' | 'Anthropic'
+}
+
+const AI_MODELS: AIModelOption[] = [
+  // OpenAI
+  { id: 'gpt-5-6-terra', name: 'GPT 5.6 Terra', label: null, icon: ChatGPTLogo, iconColor: 'text-white', provider: 'OpenAI' },
+  { id: 'gpt-5-6-sol', name: 'GPT 5.6 Sol', label: 'Entrar', icon: ChatGPTLogo, iconColor: 'text-white', provider: 'OpenAI' },
+  { id: 'gpt-5-6-luna', name: 'GPT 5.6 Luna', label: 'Entrar', icon: ChatGPTLogo, iconColor: 'text-white', provider: 'OpenAI' },
+  // Google
+  { id: 'gemini-3-1-pro', name: 'Gemini 3.1 Pro', label: 'Entrar', icon: GeminiLogo, iconColor: 'text-blue-400', provider: 'Google' },
+  { id: 'gemini-3-8-flash', name: 'Gemini 3.8 Flash', label: 'Entrar', icon: GeminiLogo, iconColor: 'text-blue-400', provider: 'Google' },
+  // Anthropic
+  { id: 'soneto-5', name: 'Soneto 5', label: 'Entrar', icon: ClaudeLogo, iconColor: 'text-[#d97757]', provider: 'Anthropic' },
+  { id: 'fabula-5', name: 'Fábula 5', label: 'Entrar', icon: ClaudeLogo, iconColor: 'text-[#d97757]', provider: 'Anthropic' },
+]
+
+const PLACEHOLDER_SUGGESTIONS = [
+  'Tenho uma ideia de criação de conteúdo...',
+  'Quero criar um SaaS para automatizar processos...',
+  'Criar uma landing page de alta conversão para meu produto...',
+  'Desenvolver um app moderno e validar no mercado...',
+  'Continuar meu projeto existente e acelerar o desenvolvimento...',
+]
+
 export function AIIdeaSection() {
   const [prompt, setPrompt] = useState('')
   const [isFocused, setIsFocused] = useState(false)
   const [feedback, setFeedback] = useState('')
+  const [isDropdownOpen, setIsDropdownOpen] = useState(false)
+  const [selectedModel, setSelectedModel] = useState('GPT 5.6 Terra')
+  const [suggestionIndex, setSuggestionIndex] = useState(0)
+  const [displayText, setDisplayText] = useState('')
+  const [isDeleting, setIsDeleting] = useState(false)
+  const [showCursor, setShowCursor] = useState(true)
+  const dropdownRef = useRef<HTMLDivElement>(null)
   const reduceMotion = useReducedMotion()
+
+  const currentModel = AI_MODELS.find((m) => m.name === selectedModel) || AI_MODELS[0]
+  const CurrentModelIcon = currentModel.icon
+
+  // Alterna o cursor piscante quando não estiver com foco
+  useEffect(() => {
+    if (reduceMotion) return
+    const interval = setInterval(() => {
+      setShowCursor((prev) => !prev)
+    }, 530)
+    return () => clearInterval(interval)
+  }, [reduceMotion])
+
+  // Efeito de escrita e exclusão contínua para sugestões de prompts
+  useEffect(() => {
+    if (reduceMotion) {
+      setDisplayText('Descreva uma ideia ou o projeto que já existe.')
+      return
+    }
+
+    const currentPhrase = PLACEHOLDER_SUGGESTIONS[suggestionIndex]
+    let timer: ReturnType<typeof setTimeout>
+
+    if (!isDeleting) {
+      if (displayText.length < currentPhrase.length) {
+        timer = setTimeout(() => {
+          setDisplayText(currentPhrase.slice(0, displayText.length + 1))
+        }, 45)
+      } else {
+        // Pausa com a frase completa para leitura
+        timer = setTimeout(() => {
+          setIsDeleting(true)
+        }, 2200)
+      }
+    } else {
+      if (displayText.length > 0) {
+        timer = setTimeout(() => {
+          setDisplayText(currentPhrase.slice(0, displayText.length - 1))
+        }, 20)
+      } else {
+        // Pausa breve com o campo vazio antes de iniciar a próxima frase
+        timer = setTimeout(() => {
+          setIsDeleting(false)
+          setSuggestionIndex((prev) => (prev + 1) % PLACEHOLDER_SUGGESTIONS.length)
+        }, 350)
+      }
+    }
+
+    return () => clearTimeout(timer)
+  }, [displayText, isDeleting, suggestionIndex, reduceMotion])
+
+  useEffect(() => {
+    function handleClickOutside(event: MouseEvent) {
+      if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
+        setIsDropdownOpen(false)
+      }
+    }
+    function handleKeyDown(event: KeyboardEvent) {
+      if (event.key === 'Escape') {
+        setIsDropdownOpen(false)
+      }
+    }
+    document.addEventListener("mousedown", handleClickOutside)
+    document.addEventListener("keydown", handleKeyDown)
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside)
+      document.removeEventListener("keydown", handleKeyDown)
+    }
+  }, [])
 
   const handleSuggestionClick = (text: string) => {
     setPrompt(text)
@@ -82,28 +189,111 @@ export function AIIdeaSection() {
                 }}
                 onFocus={() => setIsFocused(true)}
                 onBlur={() => setIsFocused(false)}
-                placeholder="Descreva uma ideia ou o projeto que já existe."
-                className="w-full h-full bg-transparent text-neutral-200 placeholder:text-neutral-600 text-lg sm:text-xl resize-none focus:outline-none"
+                placeholder={
+                  reduceMotion
+                    ? 'Descreva uma ideia ou o projeto que já existe.'
+                    : `${displayText}${!isFocused && showCursor ? '|' : ''}`
+                }
+                className="w-full h-full bg-transparent text-neutral-100 placeholder:text-neutral-500 text-base sm:text-lg resize-none focus:outline-none leading-relaxed selection:bg-blue-500/30"
               />
             </div>
 
+            {/* Divider */}
+            <div className="h-px bg-white/[0.08] mx-2 sm:mx-3 my-2" />
+
             {/* Controls Footer */}
-            <div className="flex items-center justify-between mt-2 px-3 sm:px-4 pb-2">
+            <div className="flex items-center justify-between px-2 sm:px-3 pb-1 sm:pb-1.5">
               {/* Model Selector */}
-              <button
-                type="button"
-                className="flex items-center gap-2 text-sm text-neutral-400 hover:text-white transition-colors font-medium px-2 py-1.5 rounded-lg hover:bg-white/5"
-              >
-                <Sparkles className="w-4 h-4" />
-                Contexto do projeto
-                <ChevronDown className="w-3 h-3 opacity-70" />
-              </button>
+              <div className="relative" ref={dropdownRef}>
+                <button
+                  type="button"
+                  onClick={() => setIsDropdownOpen(!isDropdownOpen)}
+                  aria-haspopup="listbox"
+                  aria-expanded={isDropdownOpen}
+                  className={`
+                    group flex items-center gap-2 text-[13px] sm:text-sm font-medium px-3 py-1.5 rounded-full
+                    transition-all duration-200 select-none cursor-pointer
+                    ${isDropdownOpen 
+                      ? 'bg-white/10 text-white shadow-sm ring-1 ring-white/15' 
+                      : 'bg-white/[0.04] text-neutral-300 hover:text-white hover:bg-white/[0.08] border border-white/[0.08] hover:border-white/15'
+                    }
+                  `}
+                >
+                  <CurrentModelIcon className={`w-3.5 h-3.5 ${currentModel.iconColor} shrink-0`} />
+                  <span>{selectedModel}</span>
+                  <ChevronDown className={`w-3 h-3 text-neutral-400 group-hover:text-neutral-200 transition-transform duration-200 ${isDropdownOpen ? 'rotate-180' : ''}`} />
+                </button>
+                
+                {/* Dropdown Menu */}
+                <AnimatePresence>
+                  {isDropdownOpen && (
+                    <motion.div
+                      initial={{ opacity: 0, y: 6, scale: 0.98 }}
+                      animate={{ opacity: 1, y: 0, scale: 1 }}
+                      exit={{ opacity: 0, y: 4, scale: 0.98 }}
+                      transition={{ duration: 0.15, ease: 'easeOut' }}
+                      role="listbox"
+                      aria-label="Selecionar modelo de IA"
+                      className="absolute left-0 bottom-[calc(100%+10px)] w-72 bg-[#141414]/95 backdrop-blur-xl border border-white/10 rounded-2xl p-1.5 shadow-[0_20px_50px_rgba(0,0,0,0.85),0_0_0_1px_rgba(255,255,255,0.05)] z-50 overflow-hidden"
+                    >
+                      <div className="flex flex-col gap-0.5">
+                        {AI_MODELS.map((model, idx) => {
+                          const isSelected = selectedModel === model.name
+                          const ModelIcon = model.icon
+                          const prevModel = AI_MODELS[idx - 1]
+                          const showDivider = prevModel && prevModel.provider !== model.provider
+
+                          return (
+                            <div key={model.id} className="flex flex-col">
+                              {showDivider && (
+                                <div className="h-px bg-white/[0.06] my-1 mx-2" />
+                              )}
+                              <button
+                                type="button"
+                                role="option"
+                                aria-selected={isSelected}
+                                onClick={() => {
+                                  setSelectedModel(model.name)
+                                  setIsDropdownOpen(false)
+                                }}
+                                className={`group flex items-center justify-between w-full px-2.5 py-2 rounded-xl text-[13.5px] transition-all duration-150 text-left cursor-pointer
+                                  ${isSelected 
+                                    ? 'text-white bg-white/[0.08] font-semibold' 
+                                    : 'text-neutral-300 hover:text-white hover:bg-white/[0.05] font-medium'
+                                  }
+                                `}
+                              >
+                                <div className="flex items-center gap-2.5 min-w-0">
+                                  <div className="w-4 h-4 flex items-center justify-center shrink-0">
+                                    {isSelected ? (
+                                      <Check className="w-4 h-4 text-white stroke-[2.5]" />
+                                    ) : null}
+                                  </div>
+                                  <div className="w-4 h-4 flex items-center justify-center shrink-0">
+                                    <ModelIcon className={`w-3.5 h-3.5 ${model.iconColor}`} />
+                                  </div>
+                                  <span className="truncate">{model.name}</span>
+                                </div>
+                                {model.label && (
+                                  <span className="text-[11px] font-semibold text-neutral-400 group-hover:text-neutral-200 bg-white/[0.05] group-hover:bg-white/[0.09] px-2 py-0.5 rounded-md transition-colors shrink-0 ml-2">
+                                    {model.label}
+                                  </span>
+                                )}
+                              </button>
+                            </div>
+                          )
+                        })}
+                      </div>
+                    </motion.div>
+                  )}
+                </AnimatePresence>
+              </div>
 
               {/* Submit Button */}
               <button
                 type="submit"
                 disabled={!prompt.trim()}
-                className="group p-2 sm:p-2.5 rounded-[12px] bg-white text-black hover:bg-neutral-200 disabled:opacity-50 disabled:bg-neutral-800 disabled:text-neutral-400 transition-all duration-200 shadow-sm active:scale-95 cursor-pointer disabled:cursor-not-allowed"
+                className="group p-2 sm:p-2.5 rounded-[12px] bg-white text-black hover:bg-neutral-200 disabled:opacity-40 disabled:bg-neutral-800 disabled:text-neutral-500 transition-all duration-200 shadow-sm active:scale-95 cursor-pointer disabled:cursor-not-allowed"
                 aria-label="Começar projeto"
               >
                 <ArrowUp className="w-5 h-5 sm:w-6 sm:h-6 transition-transform duration-300 group-hover:-translate-y-0.5" />
