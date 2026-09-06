@@ -128,7 +128,13 @@ function HomePage() {
           <AIIdeaSection />
         </DeferredAsyncSection>
         <DeferredAsyncSection minHeight="min-h-40">
-          <MarqueeStripes />
+          <section className="bg-white">
+            <div className="mx-4 sm:mx-6 md:mx-10 lg:mx-16">
+              <div className="bg-black overflow-hidden">
+                <MarqueeStripes />
+              </div>
+            </div>
+          </section>
         </DeferredAsyncSection>
       </main>
       <DeferredAsyncSection>

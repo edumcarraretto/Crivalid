@@ -241,27 +241,7 @@ export function ProductFAQSection() {
           </h2>
 
           <p className="mt-4 sm:mt-5 max-w-xl text-sm sm:text-base md:text-lg leading-relaxed text-neutral-500">
-            Tudo o que você precisa saber sobre a MAKEPLOY, desde a{' '}
-            <motion.span
-              initial={{ backgroundSize: '0% 35%' }}
-              whileInView={{ backgroundSize: '100% 35%' }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.7, delay: 0.38, ease: [0.22, 1, 0.36, 1] }}
-              className="bg-[linear-gradient(rgb(191_219_254),rgb(191_219_254))] bg-bottom bg-no-repeat font-semibold text-neutral-700"
-            >
-              criação com IA e código
-            </motion.span>{' '}
-            até a{' '}
-            <motion.span
-              initial={{ backgroundSize: '0% 35%' }}
-              whileInView={{ backgroundSize: '100% 35%' }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.7, delay: 0.52, ease: [0.22, 1, 0.36, 1] }}
-              className="bg-[linear-gradient(rgb(207_250_254),rgb(207_250_254))] bg-bottom bg-no-repeat font-semibold text-neutral-700"
-            >
-              publicação e escala
-            </motion.span>{' '}
-            dos seus projetos.
+            Tudo o que você precisa saber sobre a MAKEPLOY, desde a criação com IA e código até a publicação e escala dos seus projetos.
           </p>
         </motion.div>
 

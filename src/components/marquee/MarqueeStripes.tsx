@@ -34,9 +34,9 @@ function ChevronItem({ chevron, arrow, marginLeft, zIndex }: ChevronItemProps) {
 
     const update = () => {
       const { width, height } = container.getBoundingClientRect()
-      const w = Math.round(width)
+      const w = Math.round(width) + 1 // +1 to overlap and prevent anti-aliasing seam gaps
       const h = Math.round(height)
-      if (w === 0 || h === 0) return
+      if (w <= 1 || h === 0) return
 
       svg.setAttribute('width', String(w))
       svg.setAttribute('height', String(h))
@@ -113,7 +113,9 @@ function MarqueeTrack({ stripe }: MarqueeTrackProps) {
     const update = () => {
       const w = copy.scrollWidth
       if (w === 0) return
-      track.style.setProperty('--marquee-distance', `${w}px`)
+      // Subtract ARROW_W to account for the overlapping negative margin
+      // of the first item in the duplicated sequence.
+      track.style.setProperty('--marquee-distance', `${w - ARROW_W}px`)
       track.style.animation = `makeploy-marquee-${stripe.direction} ${stripe.duration}s linear infinite`
       track.style.visibility = 'visible'
     }
@@ -160,10 +162,7 @@ function MarqueeTrack({ stripe }: MarqueeTrackProps) {
   )
 
   return (
-    <div
-      className="relative h-16 overflow-hidden sm:h-20 md:h-28"
-      style={{ contain: 'content' }}
-    >
+    <div className="relative h-16 overflow-hidden sm:h-20 md:h-28">
       <div
         ref={trackRef}
         className="makeploy-marquee-track flex h-full w-max items-stretch will-change-transform"
@@ -188,7 +187,7 @@ export interface MarqueeStripesProps {
 
 export function MarqueeStripes({ 
   data = stripes, 
-  className = "w-full overflow-hidden bg-black" 
+  className = "w-full bg-black" 
 }: MarqueeStripesProps) {
   return (
     <section
