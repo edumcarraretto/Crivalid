@@ -1,6 +1,7 @@
 import { render, waitFor } from '@testing-library/react'
 import axe from 'axe-core'
 import { describe, expect, it } from 'vitest'
+import { MemoryRouter } from 'react-router-dom'
 import { AIIdeaSection } from '@/components/cta/AIIdeaSection'
 import { Navbar } from '@/components/navbar/Navbar'
 import { MobileProblemImageCarousel } from '@/components/problem/MobileProblemImageCarousel'
@@ -8,7 +9,7 @@ import App from '@/App'
 
 describe('acessibilidade automatizada', () => {
   it.each([
-    ['navegação', <Navbar key="navbar" />],
+    ['navegação', <MemoryRouter key="navbar"><Navbar /></MemoryRouter>],
     ['formulário de ideia', <AIIdeaSection key="idea" />],
     ['carrossel mobile', <MobileProblemImageCarousel key="carousel" />],
   ])('não encontra violações graves em %s', async (_name, component) => {

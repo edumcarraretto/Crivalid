@@ -24,7 +24,7 @@ describe('AIIdeaSection', () => {
 
   it('preenche o campo a partir de uma sugestão', () => {
     render(<AIIdeaSection />)
-    fireEvent.click(screen.getByRole('button', { name: 'Criar um SaaS' }))
+    fireEvent.click(screen.getByRole('button', { name: 'Criar uma startup' }))
     expect(screen.getByRole('textbox')).toHaveValue(
       'Quero criar uma plataforma SaaS focada em automação de tarefas. Preciso de autenticação segura, dashboard interativo com métricas em tempo real, integração de pagamentos e arquitetura escalável.'
     )

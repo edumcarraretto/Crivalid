@@ -78,7 +78,7 @@ function ScrollToTop() {
     try { id = decodeURIComponent(hash.slice(1)) } catch { return }
     const scroll = () => {
       const target = document.getElementById(id)
-      if (!target || document.querySelector('[data-section-loading]')) return false
+      if (!target || target.closest('[data-section-loading]')) return false
       target.scrollIntoView({ block: 'start', behavior: 'instant' })
       return true
     }

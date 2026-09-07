@@ -233,7 +233,17 @@ export function Hero({ theme = 'light' }: HeroProps) {
             onClick={(event) => { event.preventDefault(); openEarlyAccess('hero') }}
             className="flex items-center gap-2 bg-blue-500 hover:bg-blue-600 active:bg-blue-700 text-white px-7 py-3.5 rounded-full font-medium text-sm transition-all shadow-[0_0_20px_rgb(0_103_217/0.24)] hover:shadow-[0_0_25px_rgb(0_87_184/0.32)] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-500"
           >
-            <Globe size={18} />
+            <motion.span
+              animate={reduceMotion ? undefined : { rotate: 360 }}
+              transition={{
+                repeat: Infinity,
+                duration: 8,
+                ease: 'linear',
+              }}
+              className="inline-flex items-center justify-center shrink-0"
+            >
+              <Globe size={18} />
+            </motion.span>
             Começar de onde estou
           </a>
           <a
