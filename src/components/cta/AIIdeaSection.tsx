@@ -5,11 +5,32 @@ import { GradientText } from '@/components/text/GradientText'
 import { openEarlyAccess } from '@/lib/earlyAccess'
 import { ChatGPTLogo, ClaudeLogo, GeminiLogo } from '@/components/intelligence/AILogos'
 
-const SUGGESTIONS = [
-  'Criar um SaaS',
-  'Criar um site',
-  'Lançar uma página de vendas',
-  'Continuar um projeto',
+interface SuggestionOption {
+  label: string
+  prompt: string
+}
+
+const SUGGESTIONS: SuggestionOption[] = [
+  {
+    label: 'Criar um SaaS',
+    prompt:
+      'Quero criar uma plataforma SaaS focada em automação de tarefas. Preciso de autenticação segura, dashboard interativo com métricas em tempo real, integração de pagamentos e arquitetura escalável.',
+  },
+  {
+    label: 'Criar um site',
+    prompt:
+      'Desenvolver um site institucional moderno e responsivo, com visual dark mode, animações fluidas, alta pontuação de performance e seções para apresentação, serviços e contato.',
+  },
+  {
+    label: 'Lançar uma página de vendas',
+    prompt:
+      'Construir uma landing page de alta conversão para meu produto, incluindo headline persuasiva, demonstração dos recursos, depoimentos de clientes e chamada para ação com checkout integrado.',
+  },
+  {
+    label: 'Continuar um projeto',
+    prompt:
+      'Tenho uma aplicação existente e quero continuar seu desenvolvimento: adicionar novas funcionalidades, otimizar a experiência mobile e refatorar componentes mantendo a base de código limpa.',
+  },
 ]
 
 interface AIModelOption {
@@ -124,8 +145,8 @@ export function AIIdeaSection() {
     }
   }, [])
 
-  const handleSuggestionClick = (text: string) => {
-    setPrompt(text)
+  const handleSuggestionClick = (detailedPrompt: string) => {
+    setPrompt(detailedPrompt)
     setFeedback('')
   }
 
@@ -319,12 +340,12 @@ export function AIIdeaSection() {
           >
             {SUGGESTIONS.map((suggestion) => (
               <button
-                key={suggestion}
+                key={suggestion.label}
                 type="button"
-                onClick={() => handleSuggestionClick(suggestion)}
+                onClick={() => handleSuggestionClick(suggestion.prompt)}
                 className="px-4 py-2 sm:px-5 sm:py-2.5 rounded-full border border-neutral-800 bg-neutral-900 text-[13px] sm:text-sm text-neutral-300 hover:text-white hover:bg-neutral-800 hover:border-blue-500 transition-all duration-200 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-400 cursor-pointer"
               >
-                {suggestion}
+                {suggestion.label}
               </button>
             ))}
           </motion.div>
