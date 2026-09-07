@@ -150,15 +150,12 @@ function SmallToolCell({
   isMobileOrTablet = false,
 }: SmallToolCellProps) {
   const Icon = tool.icon
-  const isAvailable = tool.status === 'available'
-  const isComingSoon = tool.status === 'coming_soon'
 
   return (
     <motion.button
       type="button"
-      disabled={!isAvailable}
-      aria-pressed={isAvailable ? isSelected : undefined}
-      aria-label={isComingSoon ? `${tool.title} — em breve` : tool.title}
+      aria-pressed={isSelected}
+      aria-label={tool.title}
       initial={{ opacity: 0, scale: 0.9 }}
       whileInView={{ opacity: 1, scale: 1 }}
       viewport={{ once: true, margin: '-20px' }}
@@ -168,22 +165,20 @@ function SmallToolCell({
         gridRow: `${row} / span 1`,
       }}
       className="relative group"
-      title={isComingSoon ? 'Em breve' : tool.title}
+      title={tool.title}
       onClick={() => onSelect(tool.id)}
     >
       <div
         className={[
           'flex flex-col items-center justify-center gap-1 h-full w-full select-none p-1',
           'border-r border-b border-gray-200/60',
-          'transition-all duration-200 ease-out',
-          isAvailable ? 'cursor-pointer' : 'cursor-default',
-          !isAvailable ? 'opacity-45' : '',
+          'transition-all duration-200 ease-out cursor-pointer',
           // ── Selected state ──
           isSelected
             ? 'scale-[1.04] -translate-y-1 shadow-2xl z-20 ring-2 ring-gray-900/10 bg-white rounded-lg'
             : 'scale-100 translate-y-0 z-0',
           // ── Hover (only when NOT selected) ──
-          isAvailable && !isSelected ? 'hover:bg-gray-50 hover:scale-[1.02] hover:z-10 hover:ring-1 hover:ring-black/50' : '',
+          !isSelected ? 'hover:bg-gray-50 hover:scale-[1.02] hover:z-10 hover:ring-1 hover:ring-black/50' : '',
         ].join(' ')}
       >
         <Icon
@@ -191,7 +186,7 @@ function SmallToolCell({
             isMobileOrTablet ? 'w-4 h-4' : 'w-5 h-5',
             'transition-colors duration-200 shrink-0',
             isSelected ? 'text-gray-800' : 'text-gray-500',
-            isAvailable && !isSelected ? 'group-hover:text-gray-700' : '',
+            !isSelected ? 'group-hover:text-gray-700' : '',
           ].join(' ')}
           strokeWidth={2.25}
         />
@@ -200,18 +195,11 @@ function SmallToolCell({
             isMobileOrTablet ? 'text-[9px] leading-tight' : 'text-[11px] leading-tight',
             'text-center px-0.5 max-w-full truncate transition-colors duration-200',
             isSelected ? 'text-gray-800 font-medium' : 'text-gray-400 font-normal',
-            isAvailable && !isSelected ? 'group-hover:text-gray-500' : '',
+            !isSelected ? 'group-hover:text-gray-500' : '',
           ].join(' ')}
         >
           {tool.title}
         </span>
-
-        {/* "Em breve" tooltip */}
-        {isComingSoon && (
-          <span className="absolute -top-8 left-1/2 -translate-x-1/2 whitespace-nowrap px-2 py-1 rounded-md bg-gray-900 text-white text-[9px] opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none z-30 shadow-md">
-            Em breve
-          </span>
-        )}
       </div>
     </motion.button>
   )
