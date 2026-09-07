@@ -14,7 +14,7 @@ type Placement = { tool: Tool; col: number; row: number }
 // ── 1. Desktop placement (10 columns, 8 rows) ──
 const DESKTOP_COLS = 10
 const DESKTOP_TOTAL_ROWS = 8
-const DESKTOP_ROW_HEIGHT = 96
+
 
 function buildDesktopPlacements(allTools: Tool[]): Placement[] {
   const occupied = new Set<string>()
@@ -51,7 +51,7 @@ function buildDesktopPlacements(allTools: Tool[]): Placement[] {
 // ── 2. 8-Column placement for Tablet & Mobile (8 columns, 8 rows) ──
 const EIGHT_COLS = 8
 const EIGHT_TOTAL_ROWS = 8
-const TABLET_ROW_HEIGHT = 88
+
 const MOBILE_ROW_HEIGHT = 80
 
 function buildEightColumnPlacements(allTools: Tool[]): Placement[] {
