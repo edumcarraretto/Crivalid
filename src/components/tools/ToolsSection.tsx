@@ -228,17 +228,9 @@ function FeaturedToolCard({
   const Icon = tool.icon
   const mockup = featuredMockups[tool.id]
   
-  // Rounded corner ONLY on the inner vertex facing the center (creates the 4-point star cutout in the center)
-  const centerCornerRounding =
-    tool.id === 'projetos'
-      ? 'rounded-br-[12px] sm:rounded-br-[16px]'
-      : tool.id === 'documentos'
-      ? 'rounded-bl-[12px] sm:rounded-bl-[16px]'
-      : tool.id === 'assistente-ia'
-      ? 'rounded-tr-[12px] sm:rounded-tr-[16px]'
-      : tool.id === 'conversas'
-      ? 'rounded-tl-[12px] sm:rounded-tl-[16px]'
-      : ''
+  // We removed the center cutout to keep the corners clean and flush,
+  // matching the realistic UI style.
+  const centerCornerRounding = ''
 
   return (
     <motion.button
@@ -278,10 +270,10 @@ function FeaturedToolCard({
         <div
           className={[
             'absolute inset-0 opacity-80 pointer-events-none',
-            tool.id === 'projetos' ? 'bg-[radial-gradient(ellipse_at_center,rgba(253,230,138,0.45)_0%,transparent_70%)]' :
-            tool.id === 'documentos' ? 'bg-[radial-gradient(ellipse_at_center,rgba(191,219,254,0.45)_0%,transparent_70%)]' :
-            tool.id === 'assistente-ia' ? 'bg-[radial-gradient(ellipse_at_center,rgba(244,114,182,0.18)_0%,transparent_70%)]' :
-            tool.id === 'conversas' ? 'bg-[radial-gradient(ellipse_at_center,rgba(192,132,252,0.2)_0%,transparent_70%)]' :
+            tool.id === 'projetos' ? 'bg-[radial-gradient(ellipse_at_top,rgba(253,230,138,0.45)_0%,transparent_70%)]' :
+            tool.id === 'documentos' ? 'bg-[radial-gradient(ellipse_at_top,rgba(191,219,254,0.45)_0%,transparent_70%)]' :
+            tool.id === 'assistente-ia' ? 'bg-[radial-gradient(ellipse_at_top,rgba(244,114,182,0.18)_0%,transparent_70%)]' :
+            tool.id === 'conversas' ? 'bg-[radial-gradient(ellipse_at_top,rgba(192,132,252,0.2)_0%,transparent_70%)]' :
             ''
           ].join(' ')}
         />

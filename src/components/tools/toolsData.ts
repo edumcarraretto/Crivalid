@@ -1,45 +1,52 @@
 import {
-  AlertCircle,
+  Link2,
   Search,
-  CheckSquare,
-  GitBranch,
-  BookOpen,
-  Bot,
-  Calendar,
-  FileCheck,
+  Check,
+  Network,
+  Paperclip,
+  Wand2,
+  CalendarDays,
+  Pencil,
+  FolderOpen,
   Briefcase,
-  LayoutTemplate,
   Bell,
-  BarChart3,
-  Target,
-  Zap,
-  ToggleLeft,
-  Workflow,
-  TextCursorInput,
+  PieChart,
   Flag,
-  Clock,
-  Film,
-  Eye,
-  Plug,
-  LayoutDashboard,
-  Timer,
   CalendarClock,
-  Table2,
-  PenTool,
-  LineChart,
-  Map,
+  Target,
+  Sparkles,
+  Webhook,
+  Layers,
+  ClipboardList,
+  Zap,
+  FileSignature,
+  Clock,
+  MessageSquareQuote,
+  ArrowDownUp,
+  Calculator,
+  MonitorPlay,
+  LayoutGrid,
+  Key,
+  Mail,
+  BarChart2,
+  Timer,
+  KanbanSquare,
+  Blocks,
+  User,
+  Tag,
+  PhoneCall,
+  ListChecks,
+  CalendarCheck,
+  Table,
+  Presentation,
+  GanttChart,
+  Route,
   Inbox,
   Users,
-  Tags,
-  History,
-  Star,
-  Box,
-  Palette,
-  Lightbulb,
-  BookMarked,
-  FolderKanban,
+  LayoutTemplate,
   FileText,
-  MessageCircle,
+  Brain,
+  Hash,
   type LucideIcon,
 } from 'lucide-react'
 
@@ -53,33 +60,18 @@ export interface Tool {
   featured: boolean
   colSpan: number
   rowSpan: number
-  /** Grid column start (1-indexed). Required for featured cards. */
   colStart?: number
-  /** Grid row start (1-indexed). Required for featured cards. */
   rowStart?: number
-  /** Tailwind bg class for featured cards */
   bgColor?: string
-  /** Tailwind text class for the accent icon in featured cards */
   accentColor?: string
 }
 
-/**
- * Grid: 10 columns x 6 rows
- *
- * Featured card positions (col / row, 1-indexed):
- *   Projetos      -> col 4-5, row 2-3
- *   Documentos    -> col 6-7, row 2-3
- *   Assistente IA -> col 4-5, row 4-5
- *   Conversas     -> col 6-7, row 4-5
- *
- * Small tools fill every remaining cell in row-major order.
- */
 export const tools: Tool[] = [
   // Featured cards
   {
     id: 'projetos',
     title: 'Projetos',
-    icon: FolderKanban,
+    icon: LayoutTemplate,
     status: 'available',
     featured: true,
     colSpan: 2,
@@ -87,7 +79,7 @@ export const tools: Tool[] = [
     colStart: 4,
     rowStart: 2,
     bgColor: 'bg-white',
-    accentColor: 'text-violet-600',
+    accentColor: 'text-[#3b5bd6]',
   },
   {
     id: 'documentos',
@@ -100,12 +92,12 @@ export const tools: Tool[] = [
     colStart: 6,
     rowStart: 2,
     bgColor: 'bg-blue-50/50',
-    accentColor: 'text-blue-600',
+    accentColor: 'text-[#0ea5e9]',
   },
   {
     id: 'assistente-ia',
-    title: 'Assistente de IA',
-    icon: Bot,
+    title: 'Cérebro',
+    icon: Brain,
     status: 'available',
     featured: true,
     colSpan: 2,
@@ -113,12 +105,12 @@ export const tools: Tool[] = [
     colStart: 4,
     rowStart: 4,
     bgColor: 'bg-rose-50/50',
-    accentColor: 'text-rose-500',
+    accentColor: 'text-[#ec4899]',
   },
   {
     id: 'conversas',
-    title: 'Conversas',
-    icon: MessageCircle,
+    title: 'Bater papo',
+    icon: Hash,
     status: 'available',
     featured: true,
     colSpan: 2,
@@ -126,69 +118,62 @@ export const tools: Tool[] = [
     colStart: 6,
     rowStart: 4,
     bgColor: 'bg-violet-50/50',
-    accentColor: 'text-violet-500',
+    accentColor: 'text-[#7c3aed]',
   },
 
-  // Small tools - Row 1 (all 10 cols free)
-  { id: 'pendencias',           title: 'Pendências',           icon: AlertCircle,    status: 'available',    featured: false, colSpan: 1, rowSpan: 1 },
-  { id: 'busca',                title: 'Busca conectada',      icon: Search,         status: 'available',    featured: false, colSpan: 1, rowSpan: 1 },
-  { id: 'tarefas',              title: 'Tarefas',              icon: CheckSquare,    status: 'available',    featured: false, colSpan: 1, rowSpan: 1 },
-  { id: 'mapas-mentais',        title: 'Mapas mentais',        icon: GitBranch,      status: 'available',    featured: false, colSpan: 1, rowSpan: 1 },
-  { id: 'wikis',                title: 'Wikis',                icon: BookOpen,       status: 'available',    featured: false, colSpan: 1, rowSpan: 1 },
-  { id: 'anotador-ia',          title: 'Anotador de IA',       icon: Bot,            status: 'available',    featured: false, colSpan: 1, rowSpan: 1 },
-  { id: 'calendario',           title: 'Calendário',           icon: Calendar,       status: 'available',    featured: false, colSpan: 1, rowSpan: 1 },
-  { id: 'provas',               title: 'Provas',               icon: FileCheck,      status: 'available',    featured: false, colSpan: 1, rowSpan: 1 },
-  { id: 'portfolios',           title: 'Portfólios',           icon: Briefcase,      status: 'available',    featured: false, colSpan: 1, rowSpan: 1 },
-  { id: 'modelos',              title: 'Modelos',              icon: LayoutTemplate, status: 'coming_soon',  featured: false, colSpan: 1, rowSpan: 1 },
+  // Row 1
+  { id: 'dependencias',           title: 'Dependências',         icon: Link2,          status: 'available',    featured: false, colSpan: 1, rowSpan: 1 },
+  { id: 'busca',                  title: 'Busca Conectada',      icon: Search,         status: 'available',    featured: false, colSpan: 1, rowSpan: 1 },
+  { id: 'tarefas',                title: 'Tarefas',              icon: Check,          status: 'available',    featured: false, colSpan: 1, rowSpan: 1 },
+  { id: 'mapas-mentais',          title: 'Mapas mentais',        icon: Network,        status: 'available',    featured: false, colSpan: 1, rowSpan: 1 },
+  { id: 'wikis',                  title: 'Wikis',                icon: Paperclip,      status: 'available',    featured: false, colSpan: 1, rowSpan: 1 },
+  { id: 'anotador-ia',            title: 'Anotador de IA',       icon: Wand2,          status: 'available',    featured: false, colSpan: 1, rowSpan: 1 },
+  { id: 'calendario',             title: 'Calendário',           icon: CalendarDays,   status: 'available',    featured: false, colSpan: 1, rowSpan: 1 },
+  { id: 'provas',                 title: 'Prova',                icon: Pencil,         status: 'available',    featured: false, colSpan: 1, rowSpan: 1 },
+  { id: 'portfolios',             title: 'Portfólios',           icon: FolderOpen,     status: 'available',    featured: false, colSpan: 1, rowSpan: 1 },
+  { id: 'modelos',                title: 'Modelos',              icon: Briefcase,      status: 'coming_soon',  featured: false, colSpan: 1, rowSpan: 1 },
 
-  // Row 2 - cols 1-3 and 8-10 free (6 cells)
-  { id: 'lembretes',            title: 'Lembretes',            icon: Bell,           status: 'available',    featured: false, colSpan: 1, rowSpan: 1 },
-  { id: 'relatorios',           title: 'Relatórios',           icon: BarChart3,      status: 'available',    featured: false, colSpan: 1, rowSpan: 1 },
-  { id: 'metas',                title: 'Metas',                icon: Target,         status: 'available',    featured: false, colSpan: 1, rowSpan: 1 },
-  { id: 'sprints',              title: 'Sprints',              icon: Zap,            status: 'available',    featured: false, colSpan: 1, rowSpan: 1 },
-  { id: 'status-personalizado', title: 'Status personalizado', icon: ToggleLeft,     status: 'available',    featured: false, colSpan: 1, rowSpan: 1 },
-  { id: 'escritorio',           title: 'Escritório',           icon: Briefcase,      status: 'coming_soon',  featured: false, colSpan: 1, rowSpan: 1 },
+  // Row 2
+  { id: 'lembretes',              title: 'Lembretes',            icon: Bell,           status: 'available',    featured: false, colSpan: 1, rowSpan: 1 },
+  { id: 'relatorios',             title: 'Relatórios',           icon: PieChart,       status: 'available',    featured: false, colSpan: 1, rowSpan: 1 },
+  { id: 'metas',                  title: 'Metas',                icon: Flag,           status: 'available',    featured: false, colSpan: 1, rowSpan: 1 },
+  { id: 'sprints',                title: 'Sprints',              icon: CalendarClock,  status: 'available',    featured: false, colSpan: 1, rowSpan: 1 },
+  { id: 'status-personalizado',   title: 'Etapas',               icon: Target,         status: 'available',    featured: false, colSpan: 1, rowSpan: 1 },
+  { id: 'escritor-ia',            title: 'Escritor de IA',       icon: Sparkles,       status: 'coming_soon',  featured: false, colSpan: 1, rowSpan: 1 },
 
-  // Row 3 - cols 1-3 and 8-10 free (6 cells)
-  { id: 'api',                  title: 'Acesso a API',         icon: Plug,           status: 'coming_soon',  featured: false, colSpan: 1, rowSpan: 1 },
-  { id: 'formularios',          title: 'Formularios',          icon: TextCursorInput,status: 'available',    featured: false, colSpan: 1, rowSpan: 1 },
-  { id: 'prioridades',          title: 'Prioridades',          icon: Flag,           status: 'available',    featured: false, colSpan: 1, rowSpan: 1 },
-  { id: 'automacoes',           title: 'Automações',           icon: Workflow,       status: 'available',    featured: false, colSpan: 1, rowSpan: 1 },
-  { id: 'campos-personalizados',title: 'Campos personalizados',icon: TextCursorInput,status: 'available',    featured: false, colSpan: 1, rowSpan: 1 },
-  { id: 'folhas',               title: 'Folhas de ponto',      icon: Clock,          status: 'coming_soon',  featured: false, colSpan: 1, rowSpan: 1 },
+  // Row 3
+  { id: 'api',                    title: 'Chamadas de API',      icon: Webhook,        status: 'coming_soon',  featured: false, colSpan: 1, rowSpan: 1 },
+  { id: 'conquistas',             title: 'Conquistas',           icon: Layers,         status: 'available',    featured: false, colSpan: 1, rowSpan: 1 },
+  { id: 'formularios',            title: 'Formulários',          icon: ClipboardList,  status: 'available',    featured: false, colSpan: 1, rowSpan: 1 },
+  { id: 'automacoes',             title: 'Automações',           icon: Zap,            status: 'available',    featured: false, colSpan: 1, rowSpan: 1 },
+  { id: 'campos-personalizados',  title: 'Variáveis',            icon: FileSignature,  status: 'available',    featured: false, colSpan: 1, rowSpan: 1 },
+  { id: 'folhas',                 title: 'Folhas de ponto',      icon: Clock,          status: 'coming_soon',  featured: false, colSpan: 1, rowSpan: 1 },
 
-  // Row 4 - cols 1-3 and 8-10 free (6 cells)
-  { id: 'importar',             title: 'Importar e exportar',  icon: Box,            status: 'available',    featured: false, colSpan: 1, rowSpan: 1 },
-  { id: 'estimativa-tempo',     title: 'Estimativa de tempo',  icon: Timer,          status: 'available',    featured: false, colSpan: 1, rowSpan: 1 },
-  { id: 'emails',               title: 'E-mails',              icon: Inbox,          status: 'available',    featured: false, colSpan: 1, rowSpan: 1 },
-  { id: 'clipes',               title: 'Clipes',               icon: Film,           status: 'available',    featured: false, colSpan: 1, rowSpan: 1 },
-  { id: 'visao-geral',          title: 'Visão geral',          icon: Eye,            status: 'available',    featured: false, colSpan: 1, rowSpan: 1 },
-  { id: 'autenticacao',         title: 'Autenticação',         icon: ToggleLeft,     status: 'coming_soon',  featured: false, colSpan: 1, rowSpan: 1 },
+  // Row 4
+  { id: 'perguntas-ia',           title: 'Pergunte à IA',        icon: MessageSquareQuote, status: 'available', featured: false, colSpan: 1, rowSpan: 1 },
+  { id: 'prioridades',            title: 'Prioridades',          icon: ArrowDownUp,    status: 'available',    featured: false, colSpan: 1, rowSpan: 1 },
+  { id: 'estimativa-tempo',       title: 'Orçamentos',           icon: Calculator,     status: 'available',    featured: false, colSpan: 1, rowSpan: 1 },
+  { id: 'clipes',                 title: 'Clipes',               icon: MonitorPlay,    status: 'available',    featured: false, colSpan: 1, rowSpan: 1 },
+  { id: 'visao-geral',            title: 'Visão geral',          icon: LayoutGrid,     status: 'available',    featured: false, colSpan: 1, rowSpan: 1 },
+  { id: 'autenticacao',           title: 'Autenticação',         icon: Key,            status: 'coming_soon',  featured: false, colSpan: 1, rowSpan: 1 },
 
-  // Row 5 - cols 1-3 and 8-10 free (6 cells)
-  { id: 'paineis',              title: 'Painéis de controle',  icon: LayoutDashboard,status: 'available',    featured: false, colSpan: 1, rowSpan: 1 },
-  { id: 'controle-tempo',       title: 'Controle de tempo',    icon: Clock,          status: 'available',    featured: false, colSpan: 1, rowSpan: 1 },
-  { id: 'agendamento',          title: 'Agendamento',          icon: CalendarClock,  status: 'available',    featured: false, colSpan: 1, rowSpan: 1 },
-  { id: 'quadros-kanban',       title: 'Quadros Kanban',       icon: LayoutTemplate, status: 'available',    featured: false, colSpan: 1, rowSpan: 1 },
-  { id: 'integracoes',          title: 'Integrações',          icon: Plug,           status: 'available',    featured: false, colSpan: 1, rowSpan: 1 },
-  { id: 'contadores',           title: 'Contadores',           icon: BarChart3,      status: 'coming_soon',  featured: false, colSpan: 1, rowSpan: 1 },
+  // Row 5
+  { id: 'emails',                 title: 'E-mails',              icon: Mail,           status: 'available',    featured: false, colSpan: 1, rowSpan: 1 },
+  { id: 'paineis',                title: 'Painéis de controle',  icon: BarChart2,      status: 'available',    featured: false, colSpan: 1, rowSpan: 1 },
+  { id: 'controle-tempo',         title: 'Controle de tempo',    icon: Timer,          status: 'available',    featured: false, colSpan: 1, rowSpan: 1 },
+  { id: 'quadros-kanban',         title: 'Quadros Kanban',       icon: KanbanSquare,   status: 'available',    featured: false, colSpan: 1, rowSpan: 1 },
+  { id: 'integracoes',            title: 'Integrações',          icon: Blocks,         status: 'available',    featured: false, colSpan: 1, rowSpan: 1 },
+  { id: 'convidados',             title: 'Convidados',           icon: User,           status: 'coming_soon',  featured: false, colSpan: 1, rowSpan: 1 },
 
-  // Row 6 - all 10 cols free
-  { id: 'etiquetas',            title: 'Etiquetas',            icon: Tags,           status: 'available',    featured: false, colSpan: 1, rowSpan: 1 },
-  { id: 'suporte',              title: 'Suporte 24h',          icon: Users,          status: 'available',    featured: false, colSpan: 1, rowSpan: 1 },
-  { id: 'checklists',           title: 'Listas de verificacao',icon: CheckSquare,    status: 'available',    featured: false, colSpan: 1, rowSpan: 1 },
-  { id: 'planilhas',            title: 'Planilhas',            icon: Table2,         status: 'available',    featured: false, colSpan: 1, rowSpan: 1 },
-  { id: 'quadros-brancos',      title: 'Quadros brancos',      icon: PenTool,        status: 'available',    featured: false, colSpan: 1, rowSpan: 1 },
-  { id: 'graficos',             title: 'Gráficos',             icon: LineChart,      status: 'available',    featured: false, colSpan: 1, rowSpan: 1 },
-  { id: 'roteiros',             title: 'Roteiros',             icon: Map,            status: 'available',    featured: false, colSpan: 1, rowSpan: 1 },
-  { id: 'caixa-entrada',        title: 'Caixa de entrada',     icon: Inbox,          status: 'available',    featured: false, colSpan: 1, rowSpan: 1 },
-  { id: 'equipes',              title: 'Equipes',              icon: Users,          status: 'available',    featured: false, colSpan: 1, rowSpan: 1 },
-  { id: 'historico',            title: 'Histórico',            icon: History,        status: 'available',    featured: false, colSpan: 1, rowSpan: 1 },
-
-  // Extra row
-  { id: 'favoritos',            title: 'Favoritos',            icon: Star,           status: 'available',    featured: false, colSpan: 1, rowSpan: 1 },
-  { id: 'ativos',               title: 'Ativos',               icon: Box,            status: 'available',    featured: false, colSpan: 1, rowSpan: 1 },
-  { id: 'cores',                title: 'Cores',                icon: Palette,        status: 'available',    featured: false, colSpan: 1, rowSpan: 1 },
-  { id: 'inspiracoes',          title: 'Inspirações',          icon: Lightbulb,      status: 'available',    featured: false, colSpan: 1, rowSpan: 1 },
-  { id: 'instrucoes',           title: 'Instruções',           icon: BookMarked,     status: 'available',    featured: false, colSpan: 1, rowSpan: 1 },
+  // Row 6
+  { id: 'etiquetas',              title: 'Etiquetas',            icon: Tag,            status: 'available',    featured: false, colSpan: 1, rowSpan: 1 },
+  { id: 'suporte',                title: 'Central 24h',          icon: PhoneCall, status: 'available', featured: false, colSpan: 1, rowSpan: 1 },
+  { id: 'checklists',             title: 'Listas de verificação',icon: ListChecks,     status: 'available',    featured: false, colSpan: 1, rowSpan: 1 },
+  { id: 'agendamento',            title: 'Agendamento',          icon: CalendarCheck,  status: 'available',    featured: false, colSpan: 1, rowSpan: 1 },
+  { id: 'planilhas',              title: 'Planilhas',            icon: Table,          status: 'available',    featured: false, colSpan: 1, rowSpan: 1 },
+  { id: 'quadros-brancos',        title: 'Quadros brancos',      icon: Presentation,   status: 'available',    featured: false, colSpan: 1, rowSpan: 1 },
+  { id: 'graficos-gantt',         title: 'Gráficos de Gantt',    icon: GanttChart,     status: 'available',    featured: false, colSpan: 1, rowSpan: 1 },
+  { id: 'roteiros',               title: 'Roteiros',             icon: Route,          status: 'available',    featured: false, colSpan: 1, rowSpan: 1 },
+  { id: 'caixa-entrada',          title: 'Caixa de entrada',     icon: Inbox,          status: 'available',    featured: false, colSpan: 1, rowSpan: 1 },
+  { id: 'equipes',                title: 'Equipes',              icon: Users,          status: 'available',    featured: false, colSpan: 1, rowSpan: 1 },
 ]
