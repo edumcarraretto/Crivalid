@@ -12,17 +12,17 @@ interface SuggestionOption {
 
 const ALL_SUGGESTIONS: SuggestionOption[] = [
   {
-    label: 'Criar um SaaS',
+    label: 'Criar uma startup',
     prompt:
       'Quero criar uma plataforma SaaS focada em automação de tarefas. Preciso de autenticação segura, dashboard interativo com métricas em tempo real, integração de pagamentos e arquitetura escalável.',
   },
   {
-    label: 'Criar um site',
+    label: 'Criar site de startup',
     prompt:
-      'Desenvolver um site institucional moderno e responsivo, com visual dark mode, animações fluidas, alta pontuação de performance e seções para apresentação, serviços e contato.',
+      'Desenvolver um site institucional moderno e responsivo para minha startup, com visual dark mode, animações fluidas, alta pontuação de performance e seções para apresentação, serviços e contato.',
   },
   {
-    label: 'Lançar uma página de vendas',
+    label: 'Landing page',
     prompt:
       'Construir uma landing page de alta conversão para meu produto, incluindo headline persuasiva, demonstração dos recursos, depoimentos de clientes e chamada para ação com checkout integrado.',
   },
@@ -30,26 +30,6 @@ const ALL_SUGGESTIONS: SuggestionOption[] = [
     label: 'Continuar um projeto',
     prompt:
       'Tenho uma aplicação existente e quero continuar seu desenvolvimento: adicionar novas funcionalidades, otimizar a experiência mobile e refatorar componentes mantendo a base de código limpa.',
-  },
-  {
-    label: 'Validar ideia de negócio',
-    prompt:
-      'Criar um MVP rápido para validar a viabilidade de mercado de uma solução inovadora, incluindo captura de leads e teste de proposta de valor.',
-  },
-  {
-    label: 'Construir app mobile',
-    prompt:
-      'Desenvolver um aplicativo mobile cross-platform intuitivo, com design fluido, notificações push e sincronização de dados em tempo real.',
-  },
-  {
-    label: 'Automatizar atendimento',
-    prompt:
-      'Criar um agente de inteligência artificial para automatizar o suporte ao cliente no WhatsApp e site, integrado à base de conhecimento da empresa.',
-  },
-  {
-    label: 'Criar dashboard analítico',
-    prompt:
-      'Construir um painel administrativo com gráficos interativos em tempo real, relatórios exportáveis e controle de permissões por usuário.',
   },
 ]
 
@@ -93,7 +73,7 @@ export function AIIdeaSection() {
   const [displayText, setDisplayText] = useState('')
   const [isDeleting, setIsDeleting] = useState(false)
   const [showCursor, setShowCursor] = useState(true)
-  const [suggestionStartIndex, setSuggestionStartIndex] = useState(0)
+
 
   const dropdownRef = useRef<HTMLDivElement>(null)
   const reduceMotion = useReducedMotion()
@@ -101,18 +81,7 @@ export function AIIdeaSection() {
   const currentModel = AI_MODELS.find((m) => m.name === selectedModel) || AI_MODELS[0]
   const CurrentModelIcon = currentModel.icon
 
-  // Rotaciona as sugestões: mantém sempre 4 visíveis, saindo 1 e entrando 1 ciclicamente
-  useEffect(() => {
-    if (reduceMotion) return
-    const interval = setInterval(() => {
-      setSuggestionStartIndex((prev) => (prev + 1) % ALL_SUGGESTIONS.length)
-    }, 4200)
-    return () => clearInterval(interval)
-  }, [reduceMotion])
 
-  const visibleSuggestions = Array.from({ length: 4 }, (_, i) => {
-    return ALL_SUGGESTIONS[(suggestionStartIndex + i) % ALL_SUGGESTIONS.length]
-  })
 
   // Alterna o cursor piscante quando não estiver com foco
   useEffect(() => {
@@ -374,35 +343,13 @@ export function AIIdeaSection() {
 
             className="relative z-20 flex flex-wrap items-center justify-center gap-2 sm:gap-3 mt-3 w-full max-w-4xl min-h-[46px]"
           >
-            <AnimatePresence mode="popLayout" initial={false}>
-              {visibleSuggestions.map((suggestion, i) => (
+            <div className="flex flex-wrap items-center justify-center gap-2 sm:gap-3 w-full">
+              {ALL_SUGGESTIONS.map((suggestion, i) => (
                 <motion.button
                   key={suggestion.label}
-                  layout
-                  initial={{ opacity: 0, scale: 0.92, y: 16, filter: 'blur(4px)' }}
-                  animate={{
-                    opacity: 1,
-                    scale: 1,
-                    y: 0,
-                    filter: 'blur(0px)',
-                    transition: {
-                      type: 'spring',
-                      stiffness: 320,
-                      damping: 28,
-                      mass: 0.8,
-                      delay: i * 0.04,
-                    },
-                  }}
-                  exit={{
-                    opacity: 0,
-                    scale: 0.92,
-                    y: -14,
-                    filter: 'blur(4px)',
-                    transition: { duration: 0.28, ease: [0.4, 0, 0.2, 1] },
-                  }}
-                  transition={{
-                    layout: { type: 'spring', stiffness: 400, damping: 30 },
-                  }}
+                  initial={{ opacity: 0, y: 10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.3, delay: i * 0.05 + 0.4 }}
                   type="button"
                   onClick={() => handleSuggestionClick(suggestion.prompt)}
                   className="px-4 py-2 sm:px-5 sm:py-2.5 rounded-full border border-neutral-800 bg-neutral-900 text-[13px] sm:text-sm text-neutral-300 hover:text-white hover:bg-neutral-800 hover:border-blue-500 transition-colors duration-200 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-400 cursor-pointer shrink-0"
@@ -410,7 +357,7 @@ export function AIIdeaSection() {
                   {suggestion.label}
                 </motion.button>
               ))}
-            </AnimatePresence>
+            </div>
           </motion.div>
 
           {/* ── Bottom Cutout ── */}
