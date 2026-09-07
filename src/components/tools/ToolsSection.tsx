@@ -190,17 +190,17 @@ function SmallToolCell({
           className={[
             isMobileOrTablet ? 'w-4 h-4' : 'w-5 h-5',
             'transition-colors duration-200 shrink-0',
-            isSelected ? 'text-gray-700' : 'text-gray-400',
-            isAvailable && !isSelected ? 'group-hover:text-gray-600' : '',
+            isSelected ? 'text-gray-800' : 'text-gray-500',
+            isAvailable && !isSelected ? 'group-hover:text-gray-700' : '',
           ].join(' ')}
-          strokeWidth={1.5}
+          strokeWidth={2.25}
         />
         <span
           className={[
-            isMobileOrTablet ? 'text-[8.5px] leading-tight' : 'text-[10px] leading-tight',
+            isMobileOrTablet ? 'text-[9px] leading-tight' : 'text-[11px] leading-tight',
             'text-center px-0.5 max-w-full truncate transition-colors duration-200',
-            isSelected ? 'text-gray-800 font-medium' : 'text-gray-500',
-            isAvailable && !isSelected ? 'group-hover:text-gray-700' : '',
+            isSelected ? 'text-gray-800 font-medium' : 'text-gray-400 font-normal',
+            isAvailable && !isSelected ? 'group-hover:text-gray-500' : '',
           ].join(' ')}
         >
           {tool.title}
@@ -239,17 +239,29 @@ function FeaturedToolCard({
 }: FeaturedToolCardProps) {
   const Icon = tool.icon
   const mockup = featuredMockups[tool.id]
-
+  
   // Rounded corner ONLY on the inner vertex facing the center (creates the 4-point star cutout in the center)
   const centerCornerRounding =
     tool.id === 'projetos'
-      ? 'rounded-br-[20px] sm:rounded-br-[24px]'
+      ? 'rounded-br-[12px] sm:rounded-br-[16px]'
       : tool.id === 'documentos'
-      ? 'rounded-bl-[20px] sm:rounded-bl-[24px]'
+      ? 'rounded-bl-[12px] sm:rounded-bl-[16px]'
       : tool.id === 'assistente-ia'
-      ? 'rounded-tr-[20px] sm:rounded-tr-[24px]'
+      ? 'rounded-tr-[12px] sm:rounded-tr-[16px]'
       : tool.id === 'conversas'
-      ? 'rounded-tl-[20px] sm:rounded-tl-[24px]'
+      ? 'rounded-tl-[12px] sm:rounded-tl-[16px]'
+      : ''
+
+  // Outer corners (3 per card — the ones NOT facing the center)
+  const outerCornerRounding =
+    tool.id === 'projetos'
+      ? 'rounded-tl-xl rounded-tr-xl rounded-bl-xl'
+      : tool.id === 'documentos'
+      ? 'rounded-tl-xl rounded-tr-xl rounded-br-xl'
+      : tool.id === 'assistente-ia'
+      ? 'rounded-tl-xl rounded-bl-xl rounded-br-xl'
+      : tool.id === 'conversas'
+      ? 'rounded-tr-xl rounded-bl-xl rounded-br-xl'
       : ''
 
   return (
@@ -260,41 +272,73 @@ function FeaturedToolCard({
       initial={{ opacity: 0, y: 12 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, margin: '-40px' }}
+      animate={isSelected
+        ? { boxShadow: '0 12px 40px -8px rgba(0,0,0,0.22), 0 4px 16px -4px rgba(0,0,0,0.12)', zIndex: 20 }
+        : { boxShadow: '0 0px 0px 0px rgba(0,0,0,0)', zIndex: 0 }
+      }
+      whileHover={!isSelected ? {
+        boxShadow: '0 8px 28px -6px rgba(0,0,0,0.18), 0 2px 10px -3px rgba(0,0,0,0.10)',
+        zIndex: 10,
+        transition: { duration: 0.2 },
+      } : {}}
+      whileTap={{ boxShadow: '0 2px 10px -2px rgba(0,0,0,0.14)', zIndex: 20 }}
       transition={{ duration: 0.5, delay: 0.1 }}
       style={{
         gridColumn: `${col} / span ${tool.colSpan}`,
         gridRow: `${row} / span ${tool.rowSpan}`,
       }}
-      className="relative group cursor-pointer"
+      className={`relative group cursor-pointer ${outerCornerRounding} ${centerCornerRounding}`}
       onClick={() => onSelect(tool.id)}
     >
       <div
         className={[
-          'h-full w-full flex flex-col overflow-hidden',
+          'h-full w-full flex flex-col overflow-hidden bg-white',
           'border-r border-b border-gray-200/60',
+          outerCornerRounding,
           centerCornerRounding,
-          tool.bgColor ?? 'bg-white',
           'transition-all duration-200 ease-out',
-          // ── Selected state ──
-          isSelected
-            ? 'scale-[1.02] -translate-y-1 shadow-2xl z-20 ring-2 ring-gray-900/10'
-            : 'scale-100 translate-y-0 z-0',
-          // ── Hover (only when NOT selected) ──
-          !isSelected ? 'hover:scale-[1.01] hover:shadow-md hover:z-10 hover:ring-1 hover:ring-black/50' : '',
         ].join(' ')}
       >
+        <div
+          className={[
+            'absolute inset-0 opacity-80 pointer-events-none',
+            tool.id === 'projetos' ? 'bg-[radial-gradient(ellipse_at_center,rgba(253,230,138,0.45)_0%,transparent_70%)]' :
+            tool.id === 'documentos' ? 'bg-[radial-gradient(ellipse_at_center,rgba(191,219,254,0.45)_0%,transparent_70%)]' :
+            tool.id === 'assistente-ia' ? 'bg-[radial-gradient(ellipse_at_center,rgba(244,114,182,0.18)_0%,transparent_70%)]' :
+            tool.id === 'conversas' ? 'bg-[radial-gradient(ellipse_at_center,rgba(192,132,252,0.2)_0%,transparent_70%)]' :
+            ''
+          ].join(' ')}
+        />
         {/* Mockup preview area */}
-        <div className="flex-1 min-h-0 overflow-hidden m-1.5 md:m-2 mb-0 rounded-sm bg-white/70 border border-gray-100/80">
+        <div className="relative flex-1 min-h-0 overflow-hidden flex items-center justify-center p-2 md:p-4 pb-0">
           {mockup}
         </div>
 
         {/* Card label */}
-        <div className="flex items-center gap-1.5 md:gap-2 px-2.5 md:px-3 py-1.5 md:py-2.5 shrink-0">
-          <Icon
-            className={`${isMobileOrTablet ? 'w-3.5 h-3.5' : 'w-4 h-4'} ${tool.accentColor ?? 'text-gray-500'} shrink-0`}
-            strokeWidth={2}
-          />
-          <span className={`${isMobileOrTablet ? 'text-xs' : 'text-xs md:text-sm'} font-bold text-gray-800 tracking-tight truncate`}>
+        <div className="relative flex items-center justify-center gap-2 pb-3 md:pb-5 pt-2 shrink-0">
+          {tool.id === 'projetos' ? (
+            <div className={`flex items-center justify-center bg-[#3b5bd6] text-white ${isMobileOrTablet ? 'w-5 h-5 rounded-[4px]' : 'w-6 h-6 rounded-[6px]'} shadow-sm shrink-0`}>
+              <Icon className={isMobileOrTablet ? 'w-3 h-3' : 'w-3.5 h-3.5'} strokeWidth={3} />
+            </div>
+          ) : tool.id === 'documentos' ? (
+            <div className={`flex items-center justify-center bg-[#0ea5e9] text-white ${isMobileOrTablet ? 'w-5 h-5 rounded-[4px]' : 'w-6 h-6 rounded-[6px]'} shadow-sm shrink-0`}>
+              <Icon className={isMobileOrTablet ? 'w-3 h-3' : 'w-3.5 h-3.5'} strokeWidth={3} />
+            </div>
+          ) : tool.id === 'assistente-ia' ? (
+            <div className={`flex items-center justify-center bg-gradient-to-tr from-[#ec4899] via-[#d946ef] to-[#8b5cf6] text-white ${isMobileOrTablet ? 'w-5 h-5 rounded-[4px]' : 'w-6 h-6 rounded-[6px]'} shadow-sm shrink-0`}>
+              <Icon className={isMobileOrTablet ? 'w-3 h-3' : 'w-3.5 h-3.5'} strokeWidth={2.5} />
+            </div>
+          ) : tool.id === 'conversas' ? (
+            <div className={`flex items-center justify-center bg-[#7c3aed] text-white ${isMobileOrTablet ? 'w-5 h-5 rounded-[4px]' : 'w-6 h-6 rounded-[6px]'} shadow-sm shrink-0`}>
+              <Icon className={isMobileOrTablet ? 'w-3 h-3' : 'w-3.5 h-3.5'} strokeWidth={3} />
+            </div>
+          ) : (
+            <Icon
+              className={`${isMobileOrTablet ? 'w-4 h-4' : 'w-5 h-5'} ${tool.accentColor ?? 'text-gray-500'} shrink-0`}
+              strokeWidth={2.5}
+            />
+          )}
+          <span className={`${isMobileOrTablet ? 'text-sm' : 'text-base'} font-bold text-gray-800 tracking-tight`}>
             {tool.title}
           </span>
         </div>
@@ -337,14 +381,15 @@ export function ToolsSection() {
       </motion.div>
 
       {/* ── 1. Desktop grid (>= 1024px: 10 columns, full width) ──── */}
-      <div className="hidden lg:block w-full max-w-7xl mx-auto px-4">
+      <div className="hidden lg:block w-full max-w-7xl mx-auto px-4 xl:px-8">
         <div className="overflow-visible pb-6" style={GRID_MASK_STYLE}>
           <div
             className="border-t border-l border-gray-200/60"
             style={{
               display: 'grid',
               gridTemplateColumns: `repeat(${DESKTOP_COLS}, minmax(0, 1fr))`,
-              gridTemplateRows: `repeat(${DESKTOP_TOTAL_ROWS}, ${DESKTOP_ROW_HEIGHT}px)`,
+              gridTemplateRows: `repeat(${DESKTOP_TOTAL_ROWS}, minmax(0, 1fr))`,
+              aspectRatio: `${DESKTOP_COLS} / ${DESKTOP_TOTAL_ROWS}`,
             }}
           >
             {/* Linha 1: células vazias para formar a borda fantasma superior */}
@@ -398,7 +443,8 @@ export function ToolsSection() {
             style={{
               display: 'grid',
               gridTemplateColumns: `repeat(${EIGHT_COLS}, minmax(0, 1fr))`,
-              gridTemplateRows: `repeat(${EIGHT_TOTAL_ROWS}, ${TABLET_ROW_HEIGHT}px)`,
+              gridTemplateRows: `repeat(${EIGHT_TOTAL_ROWS}, minmax(0, 1fr))`,
+              aspectRatio: `${EIGHT_COLS} / ${EIGHT_TOTAL_ROWS}`,
             }}
           >
             {/* Top ghost row */}
