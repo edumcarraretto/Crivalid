@@ -19,7 +19,6 @@ const rightNavItems: NavItem[] = [
   { id: 'workflow', label: 'Automações', href: '#workflow' },
   { id: 'platform-metrics', label: 'Métricas', href: '#platform-metrics' },
   { id: 'duvidas', label: 'Dúvidas', href: '#duvidas' },
-  { id: 'blog', label: 'Artigos', href: '/blog' },
 ]
 
 const allNavItems = [...leftNavItems, ...rightNavItems]
