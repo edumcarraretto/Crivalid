@@ -252,49 +252,37 @@ function FeaturedToolCard({
       ? 'rounded-tl-[12px] sm:rounded-tl-[16px]'
       : ''
 
-  // Outer corners (3 per card — the ones NOT facing the center)
-  const outerCornerRounding =
-    tool.id === 'projetos'
-      ? 'rounded-tl-xl rounded-tr-xl rounded-bl-xl'
-      : tool.id === 'documentos'
-      ? 'rounded-tl-xl rounded-tr-xl rounded-br-xl'
-      : tool.id === 'assistente-ia'
-      ? 'rounded-tl-xl rounded-bl-xl rounded-br-xl'
-      : tool.id === 'conversas'
-      ? 'rounded-tr-xl rounded-bl-xl rounded-br-xl'
-      : ''
-
   return (
     <motion.button
       type="button"
       aria-pressed={isSelected}
       aria-label={tool.title}
-      initial={{ opacity: 0, y: 12 }}
+      initial={{ opacity: 0, y: 12, borderRadius: 0 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, margin: '-40px' }}
       animate={isSelected
-        ? { boxShadow: '0 12px 40px -8px rgba(0,0,0,0.22), 0 4px 16px -4px rgba(0,0,0,0.12)', zIndex: 20 }
-        : { boxShadow: '0 0px 0px 0px rgba(0,0,0,0)', zIndex: 0 }
+        ? { boxShadow: '0 12px 40px -8px rgba(0,0,0,0.22), 0 4px 16px -4px rgba(0,0,0,0.12)', zIndex: 20, borderRadius: 16 }
+        : { boxShadow: '0 0px 0px 0px rgba(0,0,0,0)', zIndex: 0, borderRadius: 0 }
       }
       whileHover={!isSelected ? {
         boxShadow: '0 8px 28px -6px rgba(0,0,0,0.18), 0 2px 10px -3px rgba(0,0,0,0.10)',
         zIndex: 10,
+        borderRadius: 16,
         transition: { duration: 0.2 },
       } : {}}
-      whileTap={{ boxShadow: '0 2px 10px -2px rgba(0,0,0,0.14)', zIndex: 20 }}
-      transition={{ duration: 0.5, delay: 0.1 }}
+      whileTap={{ boxShadow: '0 2px 10px -2px rgba(0,0,0,0.14)', zIndex: 20, borderRadius: 16 }}
+      transition={{ duration: 0.3 }}
       style={{
         gridColumn: `${col} / span ${tool.colSpan}`,
         gridRow: `${row} / span ${tool.rowSpan}`,
       }}
-      className={`relative group cursor-pointer ${outerCornerRounding} ${centerCornerRounding}`}
+      className="relative group cursor-pointer overflow-hidden"
       onClick={() => onSelect(tool.id)}
     >
       <div
         className={[
           'h-full w-full flex flex-col overflow-hidden bg-white',
           'border-r border-b border-gray-200/60',
-          outerCornerRounding,
           centerCornerRounding,
           'transition-all duration-200 ease-out',
         ].join(' ')}
