@@ -228,9 +228,17 @@ function FeaturedToolCard({
   const Icon = tool.icon
   const mockup = featuredMockups[tool.id]
   
-  // We removed the center cutout to keep the corners clean and flush,
-  // matching the realistic UI style.
-  const centerCornerRounding = ''
+  // Rounded corner ONLY on the inner vertex facing the center (creates the 4-point star cutout in the center)
+  const centerCornerRounding =
+    tool.id === 'projetos'
+      ? 'rounded-br-[12px] sm:rounded-br-[16px]'
+      : tool.id === 'documentos'
+      ? 'rounded-bl-[12px] sm:rounded-bl-[16px]'
+      : tool.id === 'assistente-ia'
+      ? 'rounded-tr-[12px] sm:rounded-tr-[16px]'
+      : tool.id === 'conversas'
+      ? 'rounded-tl-[12px] sm:rounded-tl-[16px]'
+      : ''
 
   return (
     <motion.button
