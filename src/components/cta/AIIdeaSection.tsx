@@ -94,7 +94,7 @@ export function AIIdeaSection() {
   const [isDeleting, setIsDeleting] = useState(false)
   const [showCursor, setShowCursor] = useState(true)
   const [suggestionStartIndex, setSuggestionStartIndex] = useState(0)
-  const [isHoveringSuggestions, setIsHoveringSuggestions] = useState(false)
+
   const dropdownRef = useRef<HTMLDivElement>(null)
   const reduceMotion = useReducedMotion()
 
@@ -103,12 +103,12 @@ export function AIIdeaSection() {
 
   // Rotaciona as sugestões: mantém sempre 4 visíveis, saindo 1 e entrando 1 ciclicamente
   useEffect(() => {
-    if (reduceMotion || isHoveringSuggestions) return
+    if (reduceMotion) return
     const interval = setInterval(() => {
       setSuggestionStartIndex((prev) => (prev + 1) % ALL_SUGGESTIONS.length)
     }, 4200)
     return () => clearInterval(interval)
-  }, [reduceMotion, isHoveringSuggestions])
+  }, [reduceMotion])
 
   const visibleSuggestions = Array.from({ length: 4 }, (_, i) => {
     return ALL_SUGGESTIONS[(suggestionStartIndex + i) % ALL_SUGGESTIONS.length]
@@ -371,19 +371,38 @@ export function AIIdeaSection() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6, delay: 0.3 }}
-            onMouseEnter={() => setIsHoveringSuggestions(true)}
-            onMouseLeave={() => setIsHoveringSuggestions(false)}
+
             className="relative z-20 flex flex-wrap items-center justify-center gap-2 sm:gap-3 mt-3 w-full max-w-4xl min-h-[46px]"
           >
             <AnimatePresence mode="popLayout" initial={false}>
-              {visibleSuggestions.map((suggestion) => (
+              {visibleSuggestions.map((suggestion, i) => (
                 <motion.button
                   key={suggestion.label}
                   layout
-                  initial={{ opacity: 0, scale: 0.85, y: 12 }}
-                  animate={{ opacity: 1, scale: 1, y: 0 }}
-                  exit={{ opacity: 0, scale: 0.85, y: -12 }}
-                  transition={{ duration: 0.35, ease: 'easeInOut' }}
+                  initial={{ opacity: 0, scale: 0.92, y: 16, filter: 'blur(4px)' }}
+                  animate={{
+                    opacity: 1,
+                    scale: 1,
+                    y: 0,
+                    filter: 'blur(0px)',
+                    transition: {
+                      type: 'spring',
+                      stiffness: 320,
+                      damping: 28,
+                      mass: 0.8,
+                      delay: i * 0.04,
+                    },
+                  }}
+                  exit={{
+                    opacity: 0,
+                    scale: 0.92,
+                    y: -14,
+                    filter: 'blur(4px)',
+                    transition: { duration: 0.28, ease: [0.4, 0, 0.2, 1] },
+                  }}
+                  transition={{
+                    layout: { type: 'spring', stiffness: 400, damping: 30 },
+                  }}
                   type="button"
                   onClick={() => handleSuggestionClick(suggestion.prompt)}
                   className="px-4 py-2 sm:px-5 sm:py-2.5 rounded-full border border-neutral-800 bg-neutral-900 text-[13px] sm:text-sm text-neutral-300 hover:text-white hover:bg-neutral-800 hover:border-blue-500 transition-colors duration-200 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-400 cursor-pointer shrink-0"
