@@ -194,7 +194,8 @@ export function AIIdeaSection() {
                     ? 'Descreva uma ideia ou o projeto que já existe.'
                     : `${displayText}${!isFocused && showCursor ? '|' : ''}`
                 }
-                className="w-full h-full bg-transparent text-neutral-100 placeholder:text-neutral-500 text-base sm:text-lg resize-none focus:outline-none leading-relaxed selection:bg-blue-500/30"
+                style={{ outline: 'none' }}
+                className="w-full h-full bg-transparent text-neutral-100 placeholder:text-neutral-500 text-base sm:text-lg resize-none outline-none focus:outline-none focus-visible:outline-none border-none ring-0 focus:ring-0 focus-visible:ring-0 leading-relaxed selection:bg-blue-500/30"
               />
             </div>
 
