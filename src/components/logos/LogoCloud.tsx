@@ -2,7 +2,7 @@ import { motion } from 'motion/react'
 import { FaGoogle, FaGithub, FaSlack, FaFigma } from 'react-icons/fa'
 import { VscVscode } from 'react-icons/vsc'
 import { SiNotion } from 'react-icons/si'
-import { Copy, Braces, TerminalSquare, Sparkles, GitBranch, Command, Code2, RefreshCw, Wand2, Box, Monitor, Fingerprint, Layers, Cpu, Code, ArrowRightToLine, ArrowLeftToLine } from 'lucide-react'
+import { Copy, Braces, TerminalSquare, Sparkles, GitBranch, Command, Code2, RefreshCw, Wand2, Box, Monitor, Fingerprint, Layers, Cpu } from 'lucide-react'
 
 // Conjunto de logos sem repetição para carrossel, apenas para preencher a tela
 const LOGOS = [
