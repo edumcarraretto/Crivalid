@@ -1,98 +1,72 @@
-import { useEffect } from 'react'
-import { motion, useAnimate, useInView, useReducedMotion, type AnimationPlaybackControls } from 'motion/react'
+import { motion } from 'motion/react'
 import { FaGoogle, FaGithub, FaSlack, FaFigma } from 'react-icons/fa'
 import { VscVscode } from 'react-icons/vsc'
 import { SiNotion } from 'react-icons/si'
+import { Copy, Braces, TerminalSquare, Sparkles, GitBranch, Command, Code2, RefreshCw, Wand2, Box, Monitor, Fingerprint, Layers, Cpu, Code, ArrowRightToLine, ArrowLeftToLine } from 'lucide-react'
 
-// Usando logos oficiais combinando diferentes pacotes do react-icons
+// Conjunto de logos sem repetição para carrossel, apenas para preencher a tela
 const LOGOS = [
   { id: 1, icon: FaGoogle, name: 'Google', hoverColor: 'group-hover:text-[#4285F4]' },
-  { id: 2, icon: FaGithub, name: 'GitHub', hoverColor: 'group-hover:text-[#181717]' },
-  { id: 3, icon: VscVscode, name: 'VS Code', hoverColor: 'group-hover:text-[#007ACC]' },
-  { id: 4, icon: SiNotion, name: 'Notion', hoverColor: 'group-hover:text-[#000000]' },
-  { id: 5, icon: FaSlack, name: 'Slack', hoverColor: 'group-hover:text-[#4A154B]' },
-  { id: 6, icon: FaFigma, name: 'Figma', hoverColor: 'group-hover:text-[#F24E1E]' },
+  { id: 2, icon: Copy, name: 'Copy', hoverColor: 'group-hover:text-neutral-900' },
+  { id: 3, icon: FaGithub, name: 'GitHub', hoverColor: 'group-hover:text-[#181717]' },
+  { id: 4, icon: Braces, name: 'Code', hoverColor: 'group-hover:text-neutral-900' },
+  { id: 5, icon: VscVscode, name: 'VS Code', hoverColor: 'group-hover:text-[#007ACC]' },
+  { id: 6, icon: TerminalSquare, name: 'Terminal', hoverColor: 'group-hover:text-neutral-900' },
+  { id: 7, icon: SiNotion, name: 'Notion', hoverColor: 'group-hover:text-[#000000]' },
+  { id: 8, icon: Sparkles, name: 'Sparkles', hoverColor: 'group-hover:text-amber-500' },
+  { id: 9, icon: FaSlack, name: 'Slack', hoverColor: 'group-hover:text-[#4A154B]' },
+  { id: 10, icon: GitBranch, name: 'Git', hoverColor: 'group-hover:text-neutral-900' },
+  { id: 11, icon: FaFigma, name: 'Figma', hoverColor: 'group-hover:text-[#F24E1E]' },
+  { id: 12, icon: Command, name: 'Command', hoverColor: 'group-hover:text-neutral-900' },
+  { id: 13, icon: Code2, name: 'Code2', hoverColor: 'group-hover:text-neutral-900' },
+  { id: 14, icon: RefreshCw, name: 'Refresh', hoverColor: 'group-hover:text-blue-500' },
+  { id: 15, icon: Wand2, name: 'Wand', hoverColor: 'group-hover:text-purple-500' },
+  { id: 16, icon: Box, name: 'Box', hoverColor: 'group-hover:text-neutral-900' },
+  { id: 17, icon: Monitor, name: 'Monitor', hoverColor: 'group-hover:text-neutral-900' },
+  { id: 18, icon: Fingerprint, name: 'Security', hoverColor: 'group-hover:text-neutral-900' },
+  { id: 19, icon: Layers, name: 'Layers', hoverColor: 'group-hover:text-neutral-900' },
+  { id: 20, icon: Cpu, name: 'Cpu', hoverColor: 'group-hover:text-neutral-900' },
 ]
 
 export function LogoCloud() {
-  const [scope, animate] = useAnimate()
-  const isInView = useInView(scope, { margin: '200px' })
-  const reduceMotion = useReducedMotion()
-
-  useEffect(() => {
-    let controls: AnimationPlaybackControls | undefined
-    
-    if (scope.current && isInView && !reduceMotion) {
-      // Cria a animação contínua (marquee) de 0 a -50% (para loop perfeito)
-      controls = animate(scope.current, { x: ['0%', '-50%'] }, {
-        duration: 30,
-        ease: 'linear',
-        repeat: Infinity,
-      })
-
-      // Event listeners para pausar no hover
-      const handleMouseEnter = () => controls?.pause()
-      const handleMouseLeave = () => controls?.play()
-
-      const element = scope.current
-      element.addEventListener('mouseenter', handleMouseEnter)
-      element.addEventListener('mouseleave', handleMouseLeave)
-
-      return () => {
-        element.removeEventListener('mouseenter', handleMouseEnter)
-        element.removeEventListener('mouseleave', handleMouseLeave)
-        controls?.stop()
-      }
-    }
-  }, [animate, isInView, reduceMotion, scope])
-
   return (
-    <section className="py-12 sm:py-20 bg-white overflow-hidden border-b border-neutral-100">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6">
+    <section className="py-10 sm:py-16 bg-white overflow-hidden">
+      <div className="max-w-[100vw] mx-auto">
         
-        {/* Texto de apoio com divisores laterais */}
-        <div className="flex items-center gap-3 sm:gap-6 mb-8 sm:mb-14">
-          <div className="flex-grow border-t border-neutral-200"></div>
-          <p className="text-center text-xs sm:text-sm font-medium text-neutral-600">
-            Suas tecnologias. O mesmo projeto.
-          </p>
-          <div className="flex-grow border-t border-neutral-200"></div>
-        </div>
-        
-        {/* Carrossel Infinito (Marquee) */}
-        <div className="relative w-full overflow-hidden flex items-center">
+        {/* Fila Única com Animação de Onda Vertical */}
+        <div className="relative w-full overflow-hidden flex items-center justify-center h-40 sm:h-48">
           
-          {/* Gradient Masks para fade nas bordas horizontais */}
-          <div className="absolute left-0 top-0 bottom-0 w-8 sm:w-28 lg:w-64 bg-gradient-to-r from-white to-transparent z-10 pointer-events-none" />
-          <div className="absolute right-0 top-0 bottom-0 w-8 sm:w-28 lg:w-64 bg-gradient-to-l from-white to-transparent z-10 pointer-events-none" />
+          <div className="absolute left-0 top-0 bottom-0 w-16 sm:w-32 lg:w-48 bg-gradient-to-r from-white to-transparent z-10 pointer-events-none" />
+          <div className="absolute right-0 top-0 bottom-0 w-16 sm:w-32 lg:w-48 bg-gradient-to-l from-white to-transparent z-10 pointer-events-none" />
 
-          {/* Container animado que desliza continuamente */}
-          <motion.div
-            ref={scope}
-            className="flex whitespace-nowrap items-center"
-          >
-            {/* Duplicamos a lista para criar o loop perfeito */}
-            {[...LOGOS, ...LOGOS, ...LOGOS].map((logo, index) => {
+          <div className="flex flex-nowrap items-center justify-center gap-2 px-32">
+            {LOGOS.map((logo, index) => {
               const Icon = logo.icon
-              const isDuplicate = index >= LOGOS.length
+              
               return (
-                <div 
-                  key={`${logo.id}-${index}`} 
-                  className="w-[calc((100vw-32px)/3)] sm:w-[calc((100vw-48px)/4)] md:w-[calc((100vw-48px)/5)] max-w-[246px] min-w-[80px] sm:min-w-[140px] shrink-0 flex flex-col items-center justify-center text-neutral-500 transition-colors duration-300 group"
-                  role={isDuplicate ? undefined : 'img'}
-                  aria-label={isDuplicate ? undefined : `Logo oficial de ${logo.name}`}
-                  aria-hidden={isDuplicate ? 'true' : undefined}
+                <motion.div 
+                  key={logo.id} 
+                  className="w-20 h-20 sm:w-24 sm:h-24 shrink-0 flex flex-col items-center justify-center rounded-full border border-neutral-100 bg-white/60 backdrop-blur-sm shadow-[0_2px_14px_-4px_rgba(0,0,0,0.06)] text-neutral-800 transition-colors duration-300 group hover:shadow-lg hover:border-neutral-200 hover:text-neutral-900 cursor-pointer"
+                  // Efeito de onda: sobe e desce, com um delay baseado no índice para criar o movimento em cadeia
+                  animate={{ y: [-24, 24, -24] }}
+                  transition={{
+                    duration: 4,
+                    repeat: Infinity,
+                    ease: "easeInOut",
+                    delay: index * 0.2, // O atraso faz a onda propagar
+                  }}
+                  title={logo.name}
                 >
                   <Icon
-                    size={32}
+                    size={36}
                     aria-hidden="true"
                     focusable="false"
-                    className={`group-hover:scale-110 transition-transform duration-300 ${logo.hoverColor}`}
+                    className={`transition-all duration-300 group-hover:scale-110 ${logo.hoverColor}`}
                   />
-                </div>
+                </motion.div>
               )
             })}
-          </motion.div>
+          </div>
         </div>
 
       </div>
