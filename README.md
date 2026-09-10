@@ -30,20 +30,6 @@ Este repositório contém o **frontend do site de apresentação e pré-lançame
 - **Acessibilidade:** navegação por teclado, gerenciamento de foco em modais, link para pular ao conteúdo e suporte à redução de movimento em componentes.
 - **Carregamento progressivo:** divisão de código por rotas e seções, com estados de carregamento e tratamento de erros.
 
-## Estágio atual
-
-| Área | Situação neste repositório |
-| --- | --- |
-| Site, navegação e páginas institucionais | Implementados no frontend |
-| Blog | Conteúdo estático, sem CMS |
-| Editor, IA e automações | Demonstrações de interface; sem serviços operacionais integrados |
-| Acesso antecipado | Interface demonstrativa; o formulário ainda não envia nem persiste cadastros |
-| Contato e feedback | Preparação de mensagem no aplicativo de e-mail do visitante |
-| Métricas da página | Valores demonstrativos, sem conexão com dados reais de utilização |
-| Backend, autenticação e banco de dados | Não implementados neste repositório |
-
-> As prévias e métricas ilustram a proposta da MAKEPLOY. Não representam funcionalidades de produção nem resultados comprovados de clientes. A confirmação visual do formulário de acesso antecipado ainda não corresponde a um cadastro persistido.
-
 ## Tecnologias
 
 | Camada | Ferramentas |
