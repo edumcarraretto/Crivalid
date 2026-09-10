@@ -1,32 +1,59 @@
-# React + TypeScript + Vite
+# Crivalid
 
-This template provides a minimal setup to get React working in Vite with HMR and some Oxlint rules.
+Crivalid é uma plataforma SaaS para validação estruturada de ideias de negócio.
 
-Currently, two official plugins are available:
+A plataforma ajuda empreendedores a transformar uma ideia inicial em uma análise organizada, reunindo contexto, mercado, validação e informações relevantes para apoiar a tomada de decisão.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+## Principais recursos
 
-## React Compiler
+- Validação estruturada de ideias
+- Organização de informações sobre mercado e público
+- Análise orientada por dados
+- Interface moderna e responsiva
+- Fluxos de validação passo a passo
+- Histórico e evolução das análises
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+## Tecnologias
 
-## Expanding the Oxlint configuration
+- React
+- TypeScript
+- Vite
+- Tailwind CSS
+- Vitest
+- Oxlint
 
-If you are developing a production application, we recommend enabling type-aware lint rules by installing `oxlint-tsgolint` and editing `.oxlintrc.json`:
+## Instalação
 
-```json
-{
-  "$schema": "./node_modules/oxlint/configuration_schema.json",
-  "plugins": ["react", "typescript", "oxc"],
-  "options": {
-    "typeAware": true
-  },
-  "rules": {
-    "react/rules-of-hooks": "error",
-    "react/only-export-components": ["warn", { "allowConstantExport": true }]
-  }
-}
-```
+Clone o repositório:
 
-See the [Oxlint rules documentation](https://oxc.rs/docs/guide/usage/linter/rules) for the full list of rules and categories.
+git clone https://github.com/edumcarraretto/Crivalid.git
+
+Entre no projeto:
+
+cd Crivalid
+
+Instale as dependências:
+
+npm install
+
+Execute o ambiente de desenvolvimento:
+
+npm run dev
+
+## Scripts
+
+npm run dev
+npm run build
+npm run test
+npm run lint
+
+## Contribuições
+
+Contribuições são bem-vindas.
+
+Caso encontre um problema ou tenha uma sugestão, abra uma Issue ou envie um Pull Request.
+
+## Licença
+
+Este projeto é distribuído sob a licença Apache License 2.0.
+Consulte o arquivo LICENSE para mais informações.
