@@ -1,6 +1,6 @@
-import { render, waitFor } from '@testing-library/react'
+import { act, render, waitFor } from '@testing-library/react'
 import axe from 'axe-core'
-import { describe, expect, it } from 'vitest'
+import { describe, expect, it, vi } from 'vitest'
 import { MemoryRouter } from 'react-router-dom'
 import { AIIdeaSection } from '@/components/cta/AIIdeaSection'
 import { Navbar } from '@/components/navbar/Navbar'
@@ -32,9 +32,15 @@ describe('acessibilidade automatizada', () => {
 
   it('não encontra violações graves na página completa', async () => {
     const { container } = render(<App />)
+    // Wait for every lazy section before auditing the complete page.
+    await act(async () => {
+      await vi.dynamicImportSettled()
+    })
     await waitFor(() => {
       expect(container.querySelector('#duvidas')).toBeInTheDocument()
-    })
+      expect(container.querySelector('footer')).toBeInTheDocument()
+      expect(container.querySelector('[data-section-loading]')).not.toBeInTheDocument()
+    }, { timeout: 4000 })
 
     const result = await axe.run(container, {
       runOnly: {
@@ -50,5 +56,5 @@ describe('acessibilidade automatizada', () => {
     )
 
     expect(seriousViolations).toEqual([])
-  })
+  }, 15000)
 })
