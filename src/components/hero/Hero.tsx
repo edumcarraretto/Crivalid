@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 import { AnimatePresence, motion, useReducedMotion } from 'motion/react'
-import { ArrowDown, Globe, Star } from 'lucide-react'
+import { ArrowDown, Globe } from 'lucide-react'
 import { GradientText } from '@/components/text/GradientText'
 import { openEarlyAccess } from '@/lib/earlyAccess'
 
@@ -12,12 +12,7 @@ interface HeroProps {
   theme?: HeroTheme
 }
 
-const AVATARS = [
-  { id: '1', from: 'var(--color-brand-coral)', to: 'var(--color-brand-orange)', initials: 'JP' },
-  { id: '2', from: 'var(--color-brand-blue)', to: 'var(--color-action)', initials: 'MC' },
-  { id: '3', from: 'var(--color-brand-magenta)', to: 'var(--color-brand-coral)', initials: 'AL' },
-  { id: '4', from: 'var(--color-brand-green)', to: 'var(--color-success)', initials: 'RS' },
-]
+
 
 const getSubtitleContent = () => [
   <span key="1">Uma ideia entra. <span className="italic font-medium text-blue-500">O projeto continua.</span></span>,
@@ -200,52 +195,28 @@ export function Hero({ theme = 'light' }: HeroProps) {
         {/* 4 & 5 — Mascot with Sparkle */}
         <Mascot isDark={isDark} reduceMotion={reduceMotion} />
 
-        <div className={`mt-6 flex flex-wrap sm:flex-nowrap items-center justify-center gap-3 sm:gap-5 backdrop-blur-md px-4 sm:px-6 py-2.5 sm:py-3 rounded-2xl sm:rounded-full border transition-colors duration-500 ${isDark ? 'bg-black/50 border-white/5' : 'bg-white/50 border-black/5 shadow-sm'}`}>
-          <div className="flex -space-x-2.5 sm:-space-x-3">
-            {AVATARS.map((av) => (
-              <div
-                key={av.id}
-                className={`flex h-8 w-8 sm:h-10 sm:w-10 select-none items-center justify-center rounded-full border-2 text-[9px] sm:text-[10px] font-bold text-white shadow-sm transition-colors duration-500 ${isDark ? 'border-black' : 'border-white'}`}
-                style={{ background: `linear-gradient(135deg, ${av.from}, ${av.to})` }}
-              >
-                {av.initials}
-              </div>
-            ))}
-          </div>
-          <div className={`hidden sm:block h-8 w-px transition-colors duration-500 ${isDark ? 'bg-white/10' : 'bg-black/10'}`} />
-          <div className="flex flex-col items-center sm:items-start gap-0.5 text-center sm:text-left">
-            <div className="flex items-center gap-1.5">
-              <div className="flex text-yellow-500">
-                {[1, 2, 3, 4, 5].map((star) => (
-                  <Star key={star} size={12} fill="currentColor" />
-                ))}
-              </div>
-              <span className={`font-bold text-xs sm:text-sm leading-none mt-0.5 transition-colors duration-500 ${isDark ? 'text-white' : 'text-neutral-900'}`}>Um projeto</span>
-            </div>
-            <span className={`text-[10px] sm:text-[11px] leading-none ${isDark ? 'text-neutral-400' : 'text-neutral-600'}`}>Do primeiro passo à próxima versão.</span>
-          </div>
-        </div>
+        {/* CTA Pill */}
+        <a
+          href="#comece"
+          onClick={(event) => { event.preventDefault(); openEarlyAccess('hero') }}
+          className="mt-6 relative flex items-center justify-center gap-2.5 px-8 py-3.5 rounded-full bg-blue-500 hover:bg-blue-600 active:bg-blue-700 text-white font-medium text-sm no-underline cursor-pointer transition-all duration-300 shadow-[0_0_24px_rgba(22,140,255,0.35)] hover:shadow-[0_0_32px_rgba(22,140,255,0.5)] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-500"
+        >
+          <motion.span
+            animate={reduceMotion ? undefined : { rotate: 360 }}
+            transition={{
+              repeat: Infinity,
+              duration: 8,
+              ease: 'linear',
+            }}
+            className="inline-flex items-center justify-center shrink-0"
+          >
+            <Globe size={18} />
+          </motion.span>
+          Começar de onde estou
+        </a>
 
         {/* 7 — CTAs */}
         <div className="mt-8 flex flex-col items-center justify-center gap-4">
-          <a
-            href="#comece"
-            onClick={(event) => { event.preventDefault(); openEarlyAccess('hero') }}
-            className="flex items-center gap-2 bg-blue-500 hover:bg-blue-600 active:bg-blue-700 text-white px-7 py-3.5 rounded-full font-medium text-sm transition-all shadow-[0_0_20px_rgb(0_103_217/0.24)] hover:shadow-[0_0_25px_rgb(0_87_184/0.32)] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-500"
-          >
-            <motion.span
-              animate={reduceMotion ? undefined : { rotate: 360 }}
-              transition={{
-                repeat: Infinity,
-                duration: 8,
-                ease: 'linear',
-              }}
-              className="inline-flex items-center justify-center shrink-0"
-            >
-              <Globe size={18} />
-            </motion.span>
-            Começar de onde estou
-          </a>
           <a
             href="#como-funciona"
             className={`flex items-center justify-center w-[3.25rem] h-[3.25rem] rounded-full border transition-colors ${isDark
