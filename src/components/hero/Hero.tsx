@@ -4,21 +4,17 @@ import { ArrowDown, Globe } from 'lucide-react'
 import { GradientText } from '@/components/text/GradientText'
 import { openEarlyAccess } from '@/lib/earlyAccess'
 
-// ─── Types ────────────────────────────────────────────────────────────────────
-
 export type HeroTheme = 'dark' | 'light'
 
 interface HeroProps {
   theme?: HeroTheme
 }
 
-
-
 const getSubtitleContent = () => [
-  <span key="1">Uma ideia entra. <span className="italic font-medium text-blue-500">O projeto continua.</span></span>,
-  <span key="2">Visual por escolha. <span className="italic font-medium text-blue-500">Código por controle.</span></span>,
-  <span key="3">Pessoas, IA e automações. <span className="italic font-medium text-blue-500">Um contexto.</span></span>,
-  <span key="4">Comece algo novo. <span className="italic font-medium text-blue-500">Ou continue o que existe.</span></span>,
+  <span key="1">Uma ideia é <span className="italic font-medium text-blue-500">só o começo.</span></span>,
+  <span key="2">Dê forma <span className="italic font-medium text-blue-500">ao que você imagina.</span></span>,
+  <span key="3">Leve sua ideia <span className="italic font-medium text-blue-500">adiante.</span></span>,
+  <span key="4">Do rascunho <span className="italic font-medium text-blue-500">à construção.</span></span>,
 ]
 
 function RotatingSubtitle({ isDark, reduceMotion }: { isDark: boolean; reduceMotion: boolean }) {
@@ -75,7 +71,7 @@ function Mascot({ isDark, reduceMotion }: { isDark: boolean; reduceMotion: boole
         >
           {[...Array(2)].map((_, i) => (
             <div key={i} className="flex items-center">
-              {['VALIDE', 'MAKEPLOY', 'CRIE', 'REALIZE'].map((word, j) => (
+              {['SONHE', 'CRIE', 'REALIZE', 'MAKEPLOY'].map((word, j) => (
                 <div key={j} className="flex items-center">
                   <span>{word}</span>
                   <span className="mx-4 sm:mx-12 md:mx-16 text-[2rem] sm:text-[8rem] md:text-[10rem] text-black">•</span>
@@ -161,7 +157,7 @@ export function Hero({ theme = 'light' }: HeroProps) {
   return (
     <section
       aria-labelledby="hero-heading"
-      className={`relative flex flex-col items-center justify-center min-h-svh px-4 sm:px-6 py-16 sm:py-20 transition-colors duration-500 ${isDark ? 'bg-black' : 'bg-white'}`}
+      className={`relative flex flex-col items-center justify-center min-h-svh px-4 sm:px-6 pt-28 pb-16 sm:pt-36 sm:pb-20 transition-colors duration-500 ${isDark ? 'bg-black' : 'bg-white'}`}
     >
       {/* Top Background Gradient (subtle) */}
       <div className={`absolute top-0 left-0 right-0 h-64 pointer-events-none transition-colors duration-500 ${isDark ? 'bg-gradient-to-b from-violet-900/20 to-transparent' : 'hidden'}`} />
@@ -174,7 +170,7 @@ export function Hero({ theme = 'light' }: HeroProps) {
           transition={{ duration: 0.65 }}
           className="mb-4 sm:mb-5 text-[10px] sm:text-xs font-bold uppercase tracking-[0.16em] text-blue-600"
         >
-          Plataforma end-to-end para produtos digitais
+          1ª PLATAFORMA END-TO-END
         </motion.p>
 
         {/* 1 & 2 — Headline */}
@@ -184,9 +180,9 @@ export function Hero({ theme = 'light' }: HeroProps) {
           className={`text-3xl sm:text-5xl md:text-6xl lg:text-[4rem] tracking-tight leading-tight transition-colors duration-500`}
           style={{ color: isDark ? '#ffffff' : '#171717' }}
         >
-          Crie, publique e evolua.{' '}
+          Tire sua ideia do papel{' '}
           <GradientText className="italic" priority>
-            Sem trocar de sistema.
+            Mesmo sem saber como
           </GradientText>
         </motion.h1>
 
