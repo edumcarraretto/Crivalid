@@ -296,8 +296,8 @@ export function FeaturesGrid() {
               </div>
             </div>
           </div>
-          <h3>Comece do ponto real</h3>
-          <p>Traga uma ideia, um plano ou um projeto em andamento. Nada precisa voltar ao zero.</p>
+          <h3>Seu projeto, a partir daqui</h3>
+          <p>Do zero, de uma ideia ou de algo em andamento. A MakePloy faz todo o resto.</p>
         </section>
 
         {/* 2 */}
