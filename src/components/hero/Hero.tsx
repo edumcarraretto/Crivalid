@@ -208,7 +208,7 @@ export function Hero({ theme = 'light' }: HeroProps) {
           >
             <Globe size={18} />
           </motion.span>
-          Começar de onde estou
+          Começar agora
         </a>
 
         {/* 7 — CTAs */}
